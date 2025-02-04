@@ -1,6 +1,27 @@
 import { css } from '@emotion/react';
 
+const fontWeights = [
+  { weight: 400, name: 'Regular' },
+  { weight: 500, name: 'Medium' },
+  { weight: 600, name: 'SemiBold' },
+  { weight: 700, name: 'Bold' },
+  { weight: 800, name: 'ExtraBold' },
+  { weight: 900, name: 'Black' },
+];
+
 const globalStyles = () => css`
+  ${fontWeights.map(
+    ({ weight, name }) => css`
+      @font-face {
+        font-family: 'Pretendard';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-${name}.woff')
+          format('woff');
+        font-weight: ${weight};
+        font-style: normal;
+      }
+    `,
+  )}
+
   /* Reset CSS */
   * {
     margin: 0;
