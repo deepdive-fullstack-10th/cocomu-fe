@@ -154,7 +154,9 @@ const globalStyles = () => css`
   }
 
   html {
-    font-size: 100%;
+    width: 100%;
+    height: 100%;
+    font-size: 62.5%;
     font-family:
       'Pretendard',
       'Apple SD Gothic Neo',
@@ -175,6 +177,12 @@ const globalStyles = () => css`
     padding: 0;
     overflow: visible;
     cursor: pointer;
+  }
+
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
   }
 `;
 
