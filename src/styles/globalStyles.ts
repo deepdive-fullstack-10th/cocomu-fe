@@ -154,7 +154,7 @@ const globalStyles = () => css`
   }
 
   html {
-    font-size: 62.5%;
+    font-size: 100%;
     font-family:
       'Pretendard',
       'Apple SD Gothic Neo',
