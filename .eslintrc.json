@@ -53,8 +53,7 @@
     "operator-linebreak": 0,
     "no-confusing-arrow": 0,
     "indent": 0,
-    "consistent-return": "off",
-    "linebreak-style": "off"
+    "consistent-return": "off"
   },
   "overrides": [
     {
