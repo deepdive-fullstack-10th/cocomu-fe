@@ -9,10 +9,10 @@ export interface dropDownStyleProps {
   size: listTextSize;
 }
 
-const commonStyles = (theme : Theme) => css`
+const commonStyles = (theme: Theme) => css`
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: start;
   white-space: nowrap;
   width: 100%;
 
@@ -24,26 +24,32 @@ const commonStyles = (theme : Theme) => css`
 
 const sizeStyles = {
   md: (theme: Theme) => css`
-    ${theme.font.common.default};
+    ${theme.font.common.smallAccent};
     padding: 0.8rem;
   `,
   lg: (theme: Theme) => css`
-    ${theme.font.common.block};
+    ${theme.font.common.default};
     padding: 1rem;
   `,
 };
 
 const colorStyles = {
-  gray: (theme: Theme) => css`
-    ${theme.color.gray[950]};
-  `,
   black: (theme: Theme) => css`
-    ${theme.color.gray[800]};
+    color: ${theme.color.gray[950]};
+  `,
+  gray: (theme: Theme) => css`
+    color: ${theme.color.gray[800]};
   `,
 };
 
-const Dropdown = styled.div<dropDownStyleProps>`
+const DropdownItem = styled.div<dropDownStyleProps>`
   ${({ theme }) => commonStyles(theme)}
   ${({ size, theme }) => sizeStyles[size](theme)}
   ${({ color, theme }) => colorStyles[color](theme)}
 `;
+
+const L = {
+  DropdownItem,
+};
+
+export default L;
