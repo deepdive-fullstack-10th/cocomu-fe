@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import L, { dropDownStyleProps } from './style';
+import S, { dropDownStyleProps } from './style';
 
 export type DropdownItemProps = PropsWithChildren<React.ComponentProps<'div'> & dropDownStyleProps>;
 
@@ -10,12 +10,12 @@ export default function DropdownItem({
   color = 'black',
 }: DropdownItemProps) {
   return (
-    <L.DropdownItem
+    <S.DropdownItem
       onClick={onClick}
       color={color}
       size={size}
     >
       {children}
-    </L.DropdownItem>
+    </S.DropdownItem>
   );
 }

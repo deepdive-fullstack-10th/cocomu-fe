@@ -48,8 +48,8 @@ const DropdownItem = styled.div<dropDownStyleProps>`
   ${({ color, theme }) => colorStyles[color](theme)}
 `;
 
-const L = {
+const S = {
   DropdownItem,
 };
 
-export default L;
+export default S;
