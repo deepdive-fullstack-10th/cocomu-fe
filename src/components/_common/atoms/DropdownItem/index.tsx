@@ -6,8 +6,8 @@ export type DropdownItemProps = PropsWithChildren<React.ComponentProps<'div'> & 
 export default function DropdownItem({
   children,
   onClick,
-  size = 'lg',
-  color = 'black',
+  size,
+  color,
 }: DropdownItemProps) {
   return (
     <S.DropdownItem
