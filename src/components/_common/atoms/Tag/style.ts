@@ -2,7 +2,7 @@ import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export type TagSize = 'sm' | 'md' | 'lg';
-export type TagColor = 'white' | 'yellow' | 'blue' | 'purple' | 'red';
+export type TagColor = 'gray' | 'secondary' | 'analogous' | 'primary' | 'triadic';
 
 export interface TagStyleProps {
   size: TagSize;
@@ -22,18 +22,21 @@ const commonStyles = (theme: Theme) => css`
 const sizeStyles = {
   sm: (theme: Theme) => css`
     ${theme.font.common.default}
+    width: fit-content;
     font-size: 0.8rem;
     padding: 0.1rem 1.8rem;
     font-weight: bold;
   `,
   md: (theme: Theme) => css`
     ${theme.font.common.default}
+    width: fit-content;
     font-size: 1rem;
     padding: 0.1rem 1.8rem;
     font-weight: bold;
   `,
   lg: (theme: Theme) => css`
     ${theme.font.heading[100]};
+    width: fit-content;
     font-size: 1.2rem;
     padding: 0.1rem 1.8rem;
     font-weight: bold;
@@ -41,23 +44,23 @@ const sizeStyles = {
 };
 
 const colorStyles: { [key in TagColor]: (theme: Theme) => SerializedStyles } = {
-  white: (theme: Theme) => css`
+  gray: (theme: Theme) => css`
     color: ${theme.color.gray[800]};
     background-color: ${theme.color.gray[200]};
   `,
-  yellow: (theme: Theme) => css`
+  secondary: (theme: Theme) => css`
     color: ${theme.color.secondary[800]};
     background-color: ${theme.color.secondary[50]};
   `,
-  blue: (theme: Theme) => css`
+  analogous: (theme: Theme) => css`
     color: ${theme.color.analogous[800]};
     background-color: ${theme.color.analogous[50]};
   `,
-  purple: (theme: Theme) => css`
+  primary: (theme: Theme) => css`
     color: ${theme.color.primary[800]};
     background-color: ${theme.color.primary[50]};
   `,
-  red: (theme: Theme) => css`
+  triadic: (theme: Theme) => css`
     color: ${theme.color.triadic[800]};
     background-color: ${theme.color.triadic[50]};
   `,
