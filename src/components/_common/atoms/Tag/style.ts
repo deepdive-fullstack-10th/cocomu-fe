@@ -1,11 +1,9 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export type TagSize = 'sm' | 'md' | 'lg';
 export type TagColor = 'gray' | 'secondary' | 'analogous' | 'primary' | 'triadic';
 
 export interface TagStyleProps {
-  size: TagSize;
   color: TagColor;
 }
 
@@ -14,34 +12,13 @@ const commonStyles = (theme: Theme) => css`
   align-items: center;
   justify-content: center;
 
+  ${theme.font.common.smallAccent}
+  padding: 0.1rem 1.8rem;
+  font-weight: bold;
   border-radius: 1.2rem;
-  ${theme.font.heading[100]};
-  white-space: nowrap;
+  width: fit-content;
+  min-width: 4rem;
 `;
-
-const sizeStyles = {
-  sm: (theme: Theme) => css`
-    ${theme.font.common.default}
-    width: fit-content;
-    font-size: 0.8rem;
-    padding: 0.1rem 1.8rem;
-    font-weight: bold;
-  `,
-  md: (theme: Theme) => css`
-    ${theme.font.common.default}
-    width: fit-content;
-    font-size: 1rem;
-    padding: 0.1rem 1.8rem;
-    font-weight: bold;
-  `,
-  lg: (theme: Theme) => css`
-    ${theme.font.heading[100]};
-    width: fit-content;
-    font-size: 1.2rem;
-    padding: 0.1rem 1.8rem;
-    font-weight: bold;
-  `,
-};
 
 const colorStyles: { [key in TagColor]: (theme: Theme) => SerializedStyles } = {
   gray: (theme: Theme) => css`
@@ -68,7 +45,6 @@ const colorStyles: { [key in TagColor]: (theme: Theme) => SerializedStyles } = {
 
 const Tag = styled.div<TagStyleProps>`
   ${({ theme }) => commonStyles(theme)}
-  ${({ size, theme }) => sizeStyles[size](theme)}
   ${({ color, theme }) => colorStyles[color](theme)}
 `;
 
