@@ -1,60 +1,71 @@
 import { useEffect, useState } from 'react';
 import S from './style';
 
-type ToastItem = {
-  id: string;
-  content: string;
-  isVisible: boolean;
-};
+type ToastType = 'default' | 'success' | 'error';
 
-type ToastContainerProps = {
+type ToastProps = {
   message: string;
+  type: ToastType;
+  isLeaving: boolean;
+  onClose: () => void;
 };
 
-export default function ToastContainer({ message }: ToastContainerProps) {
-  const [toasts, setToasts] = useState<ToastItem[]>([]);
+type ToastModalProps = {
+  message: string;
+  type: ToastType;
+};
+
+export function Toast({ message, type, isLeaving, onClose }: ToastProps) {
+  return (
+    <S.ToastContainer isLeaving={isLeaving}>
+      <div>
+        <S.CloseBtn
+          type='button'
+          onClick={onClose}
+        >
+          ×
+        </S.CloseBtn>
+      </div>
+      <S.ToastContent type={type}>{message}</S.ToastContent>
+      <S.ProgressBar type={type} />
+    </S.ToastContainer>
+  );
+}
+
+export default function ToastModal({ message, type }: ToastModalProps) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
-    if (!message) return;
-
-    const newToast: ToastItem = {
-      id: `${Date.now()}-${Math.random()}`,
-      content: message,
-      isVisible: true,
-    };
-
-    setToasts((prev) => [newToast, ...prev].slice(0, 5));
-
-    setTimeout(() => {
-      setToasts((prev) => prev.map((toast) => (toast.id === newToast.id ? { ...toast, isVisible: false } : toast)));
-    }, 4500);
-
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((toast) => toast.id !== newToast.id));
+    const hideTimer = setTimeout(() => {
+      setIsLeaving(true);
     }, 5000);
-  }, [message]);
+
+    const removeTimer = setTimeout(() => {
+      setIsVisible(false);
+    }, 5200);
+
+    return () => {
+      clearTimeout(hideTimer);
+      clearTimeout(removeTimer);
+    };
+  }, [isVisible]);
+
+  const handleClose = () => {
+    setIsLeaving(true);
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 500);
+  };
+
+  if (!isVisible) return null;
 
   return (
-    <S.Container>
-      <S.ToastWrapper>
-        {toasts.map(({ id, content, isVisible }) => (
-          <S.Toast
-            key={id}
-            className={isVisible ? 'show' : ''}
-          >
-            <div>
-              <S.CloseBtn
-                type='button'
-                onClick={() => setToasts((prev) => prev.filter((toast) => toast.id !== id))}
-              >
-                ×
-              </S.CloseBtn>
-            </div>
-            <S.ToastContent>{content}</S.ToastContent>
-            <S.ProgressBar> </S.ProgressBar>
-          </S.Toast>
-        ))}
-      </S.ToastWrapper>
-    </S.Container>
+    <Toast
+      message={message}
+      type={type}
+      isLeaving={isLeaving}
+      onClose={handleClose}
+    />
   );
 }
