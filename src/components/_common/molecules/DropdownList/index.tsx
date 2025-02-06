@@ -1,31 +1,57 @@
+import { useState } from 'react';
+import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
+import DropdownItem from '@components/_common/atoms/DropdownItem';
+import { HiChevronDown } from 'react-icons/hi2';
 import S from './style';
-import DropdownItem from '../../atoms/DropdownItem';
 
-type programmingLanguage = 'javaScript' | 'python' | 'java' | 'C';
-type step = '대기' | '진행' | '피드백' | '종료';
+type DropdownListProps<T extends readonly string[]> = {
+  label: string;
+  placeholder: string;
+  items: T;
+  onSelect: (value: T[number]) => void;
+  size?: string;
+  color?: string;
+} & DropDownItemStyleProps;
 
-interface DropdownListProps {
-  type: 'programmingLanguage' | 'step';
-  onSelect: (value: programmingLanguage | step) => void;
-}
+export default function DropdownList<T extends readonly string[]>({
+  label,
+  placeholder,
+  items,
+  size = 'md',
+  color = 'black',
+  onSelect,
+}: DropdownListProps<T>) {
+  const [isOpen, setIsOpen] = useState(false);
 
-const options = {
-  programmingLanguage: ['javaScript', 'python', 'java', 'C'] as programmingLanguage[],
-  step: ['대기', '진행', '피드백', '종료'] as step[],
-};
+  const toggleDropDown = () => {
+    setIsOpen(!isOpen);
+  };
 
-export default function DropdownList({ type, onSelect }: DropdownListProps) {
   return (
-    <S.DropdownList>
-      {options[type].map((option) => (
-        <DropdownItem
-          size={type === 'programmingLanguage' ? 'lg' : 'md'}
-          color={type === 'programmingLanguage' ? 'black' : 'gray'}
-          onClick={() => onSelect(option)}
-        >
-          {option}
-        </DropdownItem>
-      ))}
-    </S.DropdownList>
+    <S.Container>
+      <S.Header>
+        <S.Label>{label}</S.Label>
+        <S.InputContainer>
+          <S.Input placeholder={placeholder} />
+          <S.Icon onClick={toggleDropDown}>
+            <HiChevronDown size={13} />
+          </S.Icon>
+        </S.InputContainer>
+      </S.Header>
+
+      {isOpen && (
+        <S.DropdownList>
+          {items.map((item) => (
+            <DropdownItem
+              key={item}
+              item={item}
+              size={size}
+              color={color}
+              onClick={() => onSelect(item)}
+            />
+          ))}
+        </S.DropdownList>
+      )}
+    </S.Container>
   );
 }
