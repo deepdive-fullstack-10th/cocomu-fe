@@ -84,12 +84,12 @@ const ProgressBar = styled.div<ToastContainerProps>`
     })[type] || theme.color.primary[900]};
   border-radius: 0.4rem;
   margin-top: 1.8rem;
-  animation: ${progressShrink} 5s linear forwards;
+  animation: ${progressShrink} 4.3s linear forwards;
 `;
 
 const ToastContent = styled.div<ToastContainerProps>`
   margin: 0 1rem;
-  font-size: 1.5rem;
+  font: ${({ theme }) => theme.font.common.default};
   color: ${({ theme, type }) =>
     ({
       default: theme.color.gray[950],
