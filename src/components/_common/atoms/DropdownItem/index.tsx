@@ -1,21 +1,18 @@
-import { PropsWithChildren } from 'react';
-import S, { dropDownStyleProps } from './style';
+import S, { DropDownItemStyleProps } from './style';
 
-export type DropdownItemProps = PropsWithChildren<React.ComponentProps<'div'> & dropDownStyleProps>;
+type DropdownItemProps = {
+  item: string;
+  onClick: () => void;
+} & DropDownItemStyleProps;
 
-export default function DropdownItem({
-  children,
-  onClick,
-  size,
-  color,
-}: DropdownItemProps) {
+export default function DropdownItem({ item, onClick, size, color }: DropdownItemProps) {
   return (
     <S.DropdownItem
       onClick={onClick}
       color={color}
       size={size}
     >
-      {children}
+      {item}
     </S.DropdownItem>
   );
 }

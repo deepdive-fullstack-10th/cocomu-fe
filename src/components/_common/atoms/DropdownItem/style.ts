@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 export type listTextColor = 'gray' | 'black';
 export type listTextSize = 'md' | 'lg';
 
-export interface dropDownStyleProps {
+export interface DropDownItemStyleProps {
   color: listTextColor;
   size: listTextSize;
 }
@@ -24,12 +24,12 @@ const commonStyles = (theme: Theme) => css`
 
 const sizeStyles = {
   md: (theme: Theme) => css`
-    ${theme.font.common.smallAccent};
-    padding: 0.8rem;
+    ${theme.font.common.default};
+    padding: 0.4rem 2rem;
   `,
   lg: (theme: Theme) => css`
-    ${theme.font.common.default};
-    padding: 1rem;
+    ${theme.font.common.defaultAccent};
+    padding: 0.5rem 2.2rem;
   `,
 };
 
@@ -42,7 +42,7 @@ const colorStyles = {
   `,
 };
 
-const DropdownItem = styled.div<dropDownStyleProps>`
+const DropdownItem = styled.div<DropDownItemStyleProps>`
   ${({ theme }) => commonStyles(theme)}
   ${({ size, theme }) => sizeStyles[size](theme)}
   ${({ color, theme }) => colorStyles[color](theme)}
