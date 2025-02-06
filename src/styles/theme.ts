@@ -1,6 +1,6 @@
 import { Theme } from '@emotion/react';
-import { dark, light } from './color';
-import typography from './font';
+import { dark, light } from './color.ts';
+import typography from './font.ts';
 
 const mode: 'light' | 'dark' = 'light';
 

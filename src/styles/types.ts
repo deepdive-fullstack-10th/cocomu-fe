@@ -1,6 +1,6 @@
 import '@emotion/react';
-import { light } from './color';
-import typography from './font';
+import typography from './font.ts';
+import { light } from './color.ts';
 
 declare module '@emotion/react' {
   export interface Theme {
