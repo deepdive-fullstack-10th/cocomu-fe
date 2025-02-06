@@ -1,13 +1,18 @@
 import { PropsWithChildren } from 'react';
-import S, { StepperStyleProps } from './style';
+import S from './style';
 
-export type StepperProps = PropsWithChildren<React.ComponentProps<'div'> & StepperStyleProps>;
+export type StepperProps = PropsWithChildren<
+  React.ComponentProps<'div'> & {
+    select?: boolean;
+    onClick?: () => void;
+  }
+>;
 
-export default function Stepper({ children, color, size }: StepperProps) {
+export default function Stepper({ children, select, onClick }: StepperProps) {
   return (
     <S.Stepper
-      color={color}
-      size={size}
+      select={select}
+      onClick={onClick}
     >
       {children}
     </S.Stepper>
