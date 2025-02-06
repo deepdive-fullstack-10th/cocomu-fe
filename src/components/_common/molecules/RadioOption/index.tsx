@@ -5,16 +5,16 @@ interface RadioOptionProps {
   name?: string;
   label: string;
   checked: boolean;
-  onToggle: (value: boolean) => void;
+  onChange: () => void;
 }
 
-export default function RadioOption({ name, label, checked, onToggle }: RadioOptionProps) {
+export default function RadioOption({ name, label, checked, onChange }: RadioOptionProps) {
   return (
     <S.Option>
       <Radio
         name={name}
         isChecked={checked}
-        onToggle={onToggle}
+        onToggle={onChange}
       />
       <S.Label>{label}</S.Label>
     </S.Option>
