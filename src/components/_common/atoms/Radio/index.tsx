@@ -3,11 +3,10 @@ import S from './style';
 interface RadioProps {
   isChecked: boolean;
   onToggle: (checked: boolean) => void;
-  required?: boolean;
   name?: string;
 }
 
-export default function Radio({ isChecked, onToggle, required = false, name }: RadioProps) {
+export default function Radio({ isChecked, onToggle, name }: RadioProps) {
   return (
     <S.RadioContainer onClick={() => onToggle(!isChecked)}>
       <S.HiddenRadio
@@ -15,7 +14,6 @@ export default function Radio({ isChecked, onToggle, required = false, name }: R
         checked={isChecked}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle(e.target.checked)}
         name={name}
-        required={required}
       />
       <S.RadioOuter checked={isChecked}>
         <S.RadioInner checked={isChecked} />
