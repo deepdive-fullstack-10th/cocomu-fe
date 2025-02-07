@@ -1,15 +1,15 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-type IconBtnColor = 'none' | 'white';
-type IconBtnTextAlign = 'left' | 'center';
+type IconButtonColor = 'none' | 'white';
+type IconButtonTextAlign = 'left' | 'center';
 
-export type IconBtnProps = {
-  color: IconBtnColor;
-  align: IconBtnTextAlign;
+export type IconButtonProps = {
+  color: IconButtonColor;
+  align: IconButtonTextAlign;
 };
 
-const iconBtnColor: { [key in IconBtnColor]: (theme: Theme) => SerializedStyles } = {
+const iconButtonColor: { [key in IconButtonColor]: (theme: Theme) => SerializedStyles } = {
   none: (theme: Theme) => css`
     background-color: transparent;
     color: ${theme.color.gray[900]};
@@ -26,8 +26,8 @@ const iconBtnColor: { [key in IconBtnColor]: (theme: Theme) => SerializedStyles 
   `,
 };
 
-const IconBtnContainer = styled.div<IconBtnProps>`
-  ${({ color, theme }) => iconBtnColor[color](theme)};
+const IconButtonContainer = styled.div<IconButtonProps>`
+  ${({ color, theme }) => iconButtonColor[color](theme)};
   ${({ theme }) => theme.font.common.default};
   width: fit-content;
   min-width: 20rem;
@@ -47,7 +47,7 @@ const Content = styled.span`
 `;
 
 const S = {
-  IconBtnContainer,
+  IconButtonContainer,
   Icon,
   Content,
 };
