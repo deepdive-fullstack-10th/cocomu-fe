@@ -1,11 +1,20 @@
-import S from './style';
+import S, { LoadingSpinnerStyleProps } from './style';
 
-export default function LoadingSpinner() {
+export default function LoadingSpinner({ color = 'triadic' }: LoadingSpinnerStyleProps) {
   return (
     <S.LoadingSpinner>
-      <S.Dot delay='0s' />
-      <S.Dot delay='0.2s' />
-      <S.Dot delay='0.4s' />
+      <S.Dot
+        delay='0s'
+        color={color}
+      />
+      <S.Dot
+        delay='0.2s'
+        color={color}
+      />
+      <S.Dot
+        delay='0.4s'
+        color={color}
+      />
     </S.LoadingSpinner>
   );
 }
