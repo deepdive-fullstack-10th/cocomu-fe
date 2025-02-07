@@ -1,8 +1,11 @@
-import { keyframes } from '@emotion/react';
+import { keyframes, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+
+export type LoadingSpinnerColor = 'gray' | 'triadic';
 
 export interface LoadingSpinnerStyleProps {
   delay?: string;
+  color?: LoadingSpinnerColor;
 }
 
 const blink = keyframes`
@@ -18,10 +21,15 @@ const LoadingSpinner = styled.div`
   width: fit-content;
 `;
 
+const colorStyles = {
+  gray: (theme: Theme) => theme.color.gray[600],
+  triadic: (theme: Theme) => theme.color.triadic[600],
+};
+
 const Dot = styled.div<LoadingSpinnerStyleProps>`
   width: 10px;
   height: 10px;
-  background-color: ${({ theme }) => theme.color.triadic[600]};
+  background-color: ${({ theme, color = 'triadic' }) => colorStyles[color]?.(theme)};
   border-radius: 50%;
   animation: ${blink} 1.2s infinite ease-in-out;
   animation-delay: ${({ delay = '0s' }) => delay};
