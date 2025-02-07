@@ -29,7 +29,7 @@ const colorStyles = {
 const Dot = styled.div<LoadingSpinnerStyleProps>`
   width: 10px;
   height: 10px;
-  background-color: ${({ theme, color = 'triadic' }) => colorStyles[color]?.(theme)};
+  background-color: ${({ theme, color }) => colorStyles[color]?.(theme)};
   border-radius: 50%;
   animation: ${blink} 1.2s infinite ease-in-out;
   animation-delay: ${({ delay = '0s' }) => delay};
