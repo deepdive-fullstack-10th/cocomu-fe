@@ -1,32 +1,10 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 
-const sizeStyles = {
-  sm: css`
-    width: 12rem;
-    & input {
-      font-size: 0.8rem;
-      padding-left: 2rem;
-    }
-    & div {
-      transform: translate(50%, 40%);
-    }
-  `,
-  md: css`
-    width: 24rem;
-  `,
-  lg: css`
-    width: 32rem;
-  `,
-};
-
-type SizeType = keyof typeof sizeStyles;
-
-const SearchContainer = styled.div<{ size: SizeType }>`
+const SearchContainer = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
-  ${({ size }) => sizeStyles[size]}
 `;
 
 const SearchInput = styled.input`
