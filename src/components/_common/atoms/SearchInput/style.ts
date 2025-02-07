@@ -2,6 +2,16 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 const sizeStyles = {
+  sm: css`
+    width: 12rem;
+    & input {
+      font-size: 0.8rem;
+      padding-left: 2rem;
+    }
+    & div {
+      transform: translate(50%, 40%);
+    }
+  `,
   md: css`
     width: 24rem;
   `,
