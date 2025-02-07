@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-type SizeType = keyof typeof sizeStyles;
-
 const sizeStyles = {
   md: css`
     width: 24rem;
@@ -12,11 +10,12 @@ const sizeStyles = {
   `,
 };
 
+type SizeType = keyof typeof sizeStyles;
+
 const SearchContainer = styled.div<{ size: SizeType }>`
   position: relative;
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
   ${({ size }) => sizeStyles[size]}
 `;
 
@@ -25,14 +24,15 @@ const SearchInput = styled.input`
   box-sizing: border-box;
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   background-color: ${({ theme }) => theme.color.gray[50]};
-  padding: 0.6rem 1.2rem 0.5rem 3.6rem;
+  padding: 0.6rem 1.6rem 0.6rem 3.2rem;
   border-radius: 3.2rem;
+  cursor: pointer;
 `;
 
 const Icon = styled.div`
   border: none;
   position: absolute;
-  transform: translate(0.5rem, 0.5rem);
+  transform: translate(80%, 40%);
 `;
 
 const S = {
