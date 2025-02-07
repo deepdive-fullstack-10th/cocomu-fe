@@ -8,12 +8,11 @@ export type IconBtnComponentProps = PropsWithChildren<
     }
 >;
 
-export default function IconBtn({ children, color, align, border, icon }: IconBtnComponentProps) {
+export default function IconButtton({ children, color, align, icon }: IconBtnComponentProps) {
   return (
     <S.IconBtnContainer
       color={color}
       align={align}
-      border={border}
     >
       {icon && <S.Icon>{icon}</S.Icon>}
       <S.Content>{children}</S.Content>
