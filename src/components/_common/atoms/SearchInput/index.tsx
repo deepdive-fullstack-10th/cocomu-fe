@@ -1,18 +1,18 @@
-import { BiSearchAlt } from 'react-icons/bi';
+import { BsSearch } from 'react-icons/bs';
 import S from './style';
 
 type SizeType = 'md' | 'lg';
 
 interface SearchInputProps {
-  placeholder: string;
+  placeholder?: string;
   size: SizeType;
 }
 
-export default function SearchInput({ placeholder, size }: SearchInputProps) {
+export default function SearchInput({ placeholder = '', size }: SearchInputProps) {
   return (
     <S.SearchContainer size={size}>
       <S.Icon>
-        <BiSearchAlt size={20} />
+        <BsSearch size={15} />
       </S.Icon>
       <S.SearchInput placeholder={placeholder} />
     </S.SearchContainer>
