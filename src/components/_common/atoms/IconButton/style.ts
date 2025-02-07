@@ -9,7 +9,7 @@ export type IconButtonProps = {
   align: IconButtonTextAlign;
 };
 
-const iconButtonColor: { [key in IconButtonColor]: (theme: Theme) => SerializedStyles } = {
+const colorStyles: { [key in IconButtonColor]: (theme: Theme) => SerializedStyles } = {
   none: (theme: Theme) => css`
     background-color: transparent;
     color: ${theme.color.gray[900]};
@@ -18,6 +18,7 @@ const iconButtonColor: { [key in IconButtonColor]: (theme: Theme) => SerializedS
     background-color: ${theme.color.gray[50]};
     border: 1px solid ${theme.color.gray[600]};
     color: ${theme.color.gray[900]};
+
     &:hover {
       background-color: ${theme.color.primary[300]};
       border: 1px solid ${theme.color.primary[300]};
@@ -27,15 +28,18 @@ const iconButtonColor: { [key in IconButtonColor]: (theme: Theme) => SerializedS
 };
 
 const IconButtonContainer = styled.div<IconButtonProps>`
-  ${({ color, theme }) => iconButtonColor[color](theme)};
+  ${({ color, theme }) => colorStyles[color](theme)};
   ${({ theme }) => theme.font.common.default};
-  width: fit-content;
-  min-width: 20rem;
-  padding: 0.6rem 1.9rem;
+
   display: flex;
   justify-content: ${({ align }) => (align === 'center' ? 'center' : 'flex-start')};
-  border-radius: 2rem;
   align-items: center;
+
+  width: fit-content;
+  min-width: 20rem;
+
+  padding: 0.6rem 1.9rem;
+  border-radius: 2rem;
 `;
 
 const Icon = styled.span`
