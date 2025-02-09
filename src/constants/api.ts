@@ -1,6 +1,6 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = import.meta.env.VITE_API_URL;
 
-const API_V1 = '/api/v1';
+const API_V1 = import.meta.env.VITE_API_V1;
 
 const BASE_PATH_V1 = {
   STUDY: `${API_V1}/studies`,
