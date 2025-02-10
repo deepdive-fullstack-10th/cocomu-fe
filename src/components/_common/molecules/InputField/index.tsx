@@ -8,16 +8,7 @@ interface InputFieldProps extends ComponentProps<'input'> {
   error?: string;
 }
 
-export default function InputField({
-  type = 'text',
-  label,
-  description,
-  value,
-  onChange,
-  disabled,
-  error,
-  required,
-}: InputFieldProps) {
+export default function InputField({ type = 'text', label, description, error, ...props }: InputFieldProps) {
   const [isVisible, setIsVisible] = useState(type !== 'password');
 
   const toggleVisibility = () => {
@@ -26,19 +17,16 @@ export default function InputField({
 
   return (
     <S.InputContainer>
-      {label && <S.Label disabled={!!disabled}>{label}</S.Label>}
+      {label && <S.Label disabled={props.disabled}>{label}</S.Label>}
 
       <S.InputWrapper>
         <S.Input
           type={isVisible ? 'text' : type}
-          value={value}
           placeholder={description}
-          onChange={onChange}
-          disabled={disabled}
-          required={required}
           isError={!!error}
+          {...props}
         />
-        {type === 'password' && value && (
+        {type === 'password' && props.value && (
           <S.Icon onClick={toggleVisibility}>{isVisible ? <BsEye size={16} /> : <BsEyeSlash size={16} />}</S.Icon>
         )}
       </S.InputWrapper>
