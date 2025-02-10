@@ -21,10 +21,10 @@ const TabElement = styled.div<{ $isSelected: boolean }>`
     content: '';
 
     position: absolute;
-    bottom: -0.4rem;
+    bottom: -0.3rem;
     left: 0;
     width: 100%;
-    height: 0.4rem;
+    height: 0.3rem;
 
     background-color: ${({ theme, $isSelected }) => ($isSelected ? theme.color.primary[300] : 'transparent')};
     z-index: 1;
