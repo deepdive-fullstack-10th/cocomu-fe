@@ -8,8 +8,9 @@ type wheelProps = {
 };
 
 export default function TimePicker() {
-  const HOURS = [...Array(10)].map((_, i) => `0${i}`);
-  const MINUTES = [...Array(60)].map((_, i) => (i < 10 ? `0${i}` : `${i}`)).filter((m) => Number(m) % 5 === 0);
+  const HOURS = [...Array(10)].map((_, i) => i.toString().padStart(2, '0'));
+  const MINUTES = [...Array(60)].map((_, i) => i.toString().padStart(2, '0')).filter((m) => Number(m) % 5 === 0);
+
   const [hourIndex, setHourIndex] = useState<number>(0);
   const [minuteIndex, setMinuteIndex] = useState<number>(0);
 
