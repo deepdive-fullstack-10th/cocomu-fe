@@ -4,23 +4,28 @@ const TabMenuContainer = styled.div`
   display: flex;
   position: relative;
   margin: 0 1rem 0 1rem;
+
   border-bottom: 3px solid ${({ theme }) => theme.color.gray[400]};
 `;
 
 const TabElement = styled.div<{ $isSelected: boolean }>`
-  cursor: pointer;
-  padding: 1rem 1.5rem 1rem 1.5rem;
   position: relative;
-  font-size: ${({ theme }) => theme.font.heading[300]};
+  padding: 1rem 1.5rem 1rem 1.5rem;
+
+  ${({ theme }) => theme.font.heading[300]};
   color: ${({ theme, $isSelected }) => ($isSelected ? theme.color.gray[950] : theme.color.gray[400])};
+
+  cursor: pointer;
 
   &::after {
     content: '';
+
     position: absolute;
     bottom: -0.4rem;
     left: 0;
     width: 100%;
     height: 0.4rem;
+
     background-color: ${({ theme, $isSelected }) => ($isSelected ? theme.color.primary[300] : 'transparent')};
     z-index: 1;
   }
