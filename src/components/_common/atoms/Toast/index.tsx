@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BsX } from 'react-icons/bs';
 import S from './style';
 
 type ToastType = 'default' | 'success' | 'error';
@@ -23,7 +24,7 @@ export function Toast({ message, type, isLeaving, onClose }: ToastProps) {
           type='button'
           onClick={onClose}
         >
-          ×
+          <BsX />
         </S.CloseBtn>
       </div>
       <S.ToastContent type={type}>{message}</S.ToastContent>
