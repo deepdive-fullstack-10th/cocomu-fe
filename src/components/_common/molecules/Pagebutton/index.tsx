@@ -11,14 +11,16 @@ export default function PageButton({ pages }: PageButtonsProps) {
   const [selectPage, setSelectPage] = useState<number>(pages[0]);
 
   const getPageNumbers = () => {
-    const maxPagesToShow = 5;
+    const buffer = 3;
     const currentIndex = pages.indexOf(selectPage);
-    let start = Math.max(currentIndex - 2, 0);
-    const end = Math.min(start + maxPagesToShow, pages.length);
+    let start = Math.max(currentIndex - buffer, 0);
+    let end = Math.min(currentIndex + buffer + 1, pages.length);
 
-    if (end - start < maxPagesToShow) {
-      start = Math.max(end - maxPagesToShow, 0);
-    }
+    const missingLeft = Math.max(0, buffer - currentIndex);
+    const missingRight = Math.max(0, buffer - (pages.length - currentIndex - 1));
+
+    start = Math.max(start - missingRight, 0);
+    end = Math.min(end + missingLeft, pages.length);
 
     return pages.slice(start, end);
   };
@@ -44,6 +46,10 @@ export default function PageButton({ pages }: PageButtonsProps) {
     }
   };
 
+  const halfIndex = Math.floor(pages.length / 2);
+  const showRightEllipsis = selectPage <= pages[halfIndex - 1];
+  const showLeftEllipsis = selectPage > pages[halfIndex - 1];
+
   return (
     <S.PageButtonsContainer>
       <S.Item>
@@ -54,14 +60,16 @@ export default function PageButton({ pages }: PageButtonsProps) {
         <BsChevronLeft onClick={() => handleClick('prev')} />
       </S.Item>
 
-      {selectPage > pages[pages.length - 4] && (
+      {showLeftEllipsis && (
         <>
-          <Stepper
-            select={selectPage === pages[0]}
-            onClick={() => setSelectPage(pages[0])}
-          >
-            {pages[0]}
-          </Stepper>
+          <S.Item>
+            <Stepper
+              select={selectPage === pages[0]}
+              onClick={() => setSelectPage(pages[0])}
+            >
+              {pages[0]}
+            </Stepper>
+          </S.Item>
           <S.Item>
             <BsThreeDots />
           </S.Item>
@@ -69,26 +77,29 @@ export default function PageButton({ pages }: PageButtonsProps) {
       )}
 
       {pageNumbers.map((pageNumber) => (
-        <Stepper
-          key={pageNumber}
-          select={pageNumber === selectPage}
-          onClick={() => setSelectPage(pageNumber)}
-        >
-          {pageNumber}
-        </Stepper>
+        <S.Item key={pageNumber}>
+          <Stepper
+            select={pageNumber === selectPage}
+            onClick={() => setSelectPage(pageNumber)}
+          >
+            {pageNumber}
+          </Stepper>
+        </S.Item>
       ))}
 
-      {selectPage < pages[pages.length - 3] && (
+      {showRightEllipsis && (
         <>
           <S.Item>
             <BsThreeDots />
           </S.Item>
-          <Stepper
-            select={selectPage === pages[pages.length - 1]}
-            onClick={() => setSelectPage(pages[pages.length - 1])}
-          >
-            {pages[pages.length - 1]}
-          </Stepper>
+          <S.Item>
+            <Stepper
+              select={selectPage === pages[pages.length - 1]}
+              onClick={() => setSelectPage(pages[pages.length - 1])}
+            >
+              {pages[pages.length - 1]}
+            </Stepper>
+          </S.Item>
         </>
       )}
 
