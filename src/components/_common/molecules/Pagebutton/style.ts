@@ -9,6 +9,7 @@ const PageButtonsContainer = styled.div`
 
 const Item = styled.div`
   cursor: pointer;
+  margin-left: 0.5rem;
 `;
 
 const S = {
