@@ -1,11 +1,15 @@
 import styled from '@emotion/styled';
 
-const InputWrapper = styled.div`
+const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 
   width: 100%;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
 `;
 
 const Label = styled.label<{ disabled: boolean }>`
@@ -14,6 +18,8 @@ const Label = styled.label<{ disabled: boolean }>`
 `;
 
 const Input = styled.input<{ isError: boolean }>`
+  width: 100%;
+
   color: ${({ theme }) => theme.color.gray[950]};
   background-color: ${({ theme }) => theme.color.gray[50]};
 
@@ -34,15 +40,24 @@ const Input = styled.input<{ isError: boolean }>`
   }
 `;
 
+const Icon = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
+`;
+
 const ErrorText = styled.p`
   ${({ theme }) => theme.font.common.small};
   color: ${({ theme }) => theme.color.triadic[400]};
 `;
 
 const S = {
+  InputContainer,
   InputWrapper,
   Label,
   Input,
+  Icon,
   ErrorText,
 };
 
