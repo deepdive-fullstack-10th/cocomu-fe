@@ -2,28 +2,28 @@ import { useState } from 'react';
 import S from './style';
 
 type TabMenuProps<T extends readonly string[]> = {
-  tab: T;
+  tabs: T;
   onTabChange?: (index: number) => void;
-  defaultTab?: number;
+  defaultMenu?: number;
 };
 
-export default function TabMenu<T extends readonly string[]>({ tab, onTabChange, defaultTab = 0 }: TabMenuProps<T>) {
-  const [tabIndex, setTabIndex] = useState(defaultTab);
+export default function TabMenu<T extends readonly string[]>({ tabs, onTabChange, defaultMenu = 0 }: TabMenuProps<T>) {
+  const [menuIndex, setMenuIndex] = useState(defaultMenu);
 
   const handleClick = (index: number) => {
-    setTabIndex(index);
+    setMenuIndex(index);
     onTabChange?.(index);
   };
 
   return (
     <S.TabMenuContainer>
-      {tab.map((element, index) => (
+      {tabs.map((menu, index) => (
         <S.TabElement
-          key={element}
+          key={menu}
           onClick={() => handleClick(index)}
-          $isSelected={tabIndex === index}
+          $isSelected={menuIndex === index}
         >
-          {element}
+          {menu}
         </S.TabElement>
       ))}
     </S.TabMenuContainer>
