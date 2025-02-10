@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 const TabMenuContainer = styled.div`
   display: flex;
   position: relative;
-  margin: 0 1rem 0 1rem;
+  margin: 0 1rem;
 
   border-bottom: 3px solid ${({ theme }) => theme.color.gray[400]};
 `;
 
 const TabElement = styled.div<{ $isSelected: boolean }>`
   position: relative;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 1.5rem;
 
   ${({ theme }) => theme.font.heading[300]};
   color: ${({ theme, $isSelected }) => ($isSelected ? theme.color.gray[950] : theme.color.gray[400])};
