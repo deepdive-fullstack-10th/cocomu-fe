@@ -1,19 +1,20 @@
 import { BsCamera } from 'react-icons/bs';
 import S from './style';
 
-type ProfileImageSize = 'lg' | 'md' | 'sm';
+type ProfileImageSize = 'sm' | 'md' | 'lg';
 
 type ProfileImageProps = {
   src: string;
   size: ProfileImageSize;
-  upload: boolean;
+  upload?: boolean;
+  border?: boolean;
 };
 
-export default function ProfileImage({ src, size, upload }: ProfileImageProps) {
+export default function ProfileImage({ src, size, upload, border }: ProfileImageProps) {
   return (
     <S.ProfileImageContainer
       size={size}
-      upload={upload}
+      border={border}
     >
       <S.ProfileImage
         src={src}

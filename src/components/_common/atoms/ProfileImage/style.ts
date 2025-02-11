@@ -1,44 +1,47 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 
-type profileSizeprops = 'lg' | 'md' | 'sm';
+type profileSizeProps = 'sm' | 'md' | 'lg';
 
 type profileImageContainerProps = {
-  size: profileSizeprops;
-  upload: boolean;
+  size: profileSizeProps;
+  border?: boolean;
 };
 
-type uploadButtonprops = {
-  size: profileSizeprops;
+type uploadButtonProps = {
+  size: profileSizeProps;
 };
 
 const containerSizeStyles = {
   lg: css`
-    width: 8rem;
-    height: 8rem;
+    width: 12.5rem;
+    height: 12.5rem;
   `,
   md: css`
-    width: 6rem;
-    height: 6rem;
+    width: 4.8rem;
+    height: 4.8rem;
   `,
   sm: css`
-    width: 4rem;
-    height: 4rem;
+    width: 3.6rem;
+    height: 3.6rem;
   `,
 };
 
 const uploadButtonSizeStyles = {
-  lg: (theme: Theme) => css`
-    padding: 0.5rem;
-    ${theme.font.heading[100]}
+  lg: css`
+    padding: 0.4rem;
+    bottom: 1rem;
+    font-size: 1.6rem;
   `,
-  md: (theme: Theme) => css`
-    padding: 0.3rem;
-    ${theme.font.common.default}
-  `,
-  sm: (theme: Theme) => css`
+  md: css`
     padding: 0.2rem;
-    ${theme.font.common.smallAccent}
+    bottom: 0rem;
+    font-size: 0.8rem;
+  `,
+  sm: css`
+    padding: 0.1rem;
+    bottom: 0rem;
+    font-size: 0.6rem;
   `,
 };
 
@@ -47,7 +50,6 @@ const uploadProfileImgeContainer = (theme: Theme) => css`
 
   background: ${theme.color.gray[50]};
   border: 1px solid ${theme.color.gray[500]};
-  cursor: pointer;
 `;
 
 const ProfileImageContainer = styled.div<profileImageContainerProps>`
@@ -61,7 +63,7 @@ const ProfileImageContainer = styled.div<profileImageContainerProps>`
 
   ${({ size }) => containerSizeStyles[size]}
 
-  ${({ upload, theme }) => upload && uploadProfileImgeContainer(theme)};
+  ${({ border, theme }) => border && uploadProfileImgeContainer(theme)};
 `;
 
 const ProfileImage = styled.img`
@@ -73,7 +75,7 @@ const ProfileImage = styled.img`
   object-fit: cover;
 `;
 
-const UploadButton = styled.button<uploadButtonprops>`
+const UploadButton = styled.button<uploadButtonProps>`
   position: absolute;
 
   display: flex;
@@ -81,14 +83,13 @@ const UploadButton = styled.button<uploadButtonprops>`
   align-items: center;
 
   right: 0;
-  bottom: 0;
 
   color: ${({ theme }) => theme.color.gray[50]};
   background: ${({ theme }) => theme.color.primary[300]};
 
   border-radius: 50%;
 
-  ${({ size, theme }) => uploadButtonSizeStyles[size](theme)}
+  ${({ size }) => uploadButtonSizeStyles[size]}
 `;
 
 const S = {
