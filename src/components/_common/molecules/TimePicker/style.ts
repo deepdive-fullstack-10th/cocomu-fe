@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const PickerContainer = styled.div`
+const PickerContainer = styled.div`
   display: flex;
   align-items: center;
 
@@ -16,11 +16,12 @@ export const PickerContainer = styled.div`
   user-select: none;
 `;
 
-export const Colon = styled.div`
+const Colon = styled.div`
   ${({ theme }) => theme.font.heading[200]};
 
   margin-top: 2.4rem;
 `;
 
 const S = { PickerContainer, Colon };
+
 export default S;
