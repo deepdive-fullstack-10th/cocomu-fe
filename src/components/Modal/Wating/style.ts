@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const LoadingModalContainer = styled.div`
+const WaitingModalContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -33,7 +33,7 @@ const Instruction = styled.div`
 `;
 
 const S = {
-  LoadingModalContainer,
+  WaitingModalContainer,
   Description,
   Instruction,
 };

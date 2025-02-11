@@ -3,12 +3,12 @@ import S from './style';
 
 type movePage = 'problem' | 'feedback' | 'exit';
 
-interface loadingDetailContent {
-  description?: string;
-  label?: string;
+interface WaitingDetailContent {
+  description: string;
+  label: string;
 }
 
-const loadingType: Record<movePage, loadingDetailContent> = {
+const loadingType: Record<movePage, WaitingDetailContent> = {
   problem: {
     description: '스페이스 모집이 완료되었습니다.',
     label: '문제 풀이',
@@ -23,16 +23,16 @@ const loadingType: Record<movePage, loadingDetailContent> = {
   },
 } as const;
 
-interface LoadingModalProps {
-  navigate: movePage;
+interface WaitingModalProps {
+  navigate?: movePage;
 }
 
-export default function LoadingModal({ navigate = 'problem' }: LoadingModalProps) {
+export default function WaitingModal({ navigate = 'problem' }: WaitingModalProps) {
   return (
-    <S.LoadingModalContainer>
+    <S.WaitingModalContainer>
       <S.Description>{loadingType[navigate].description}</S.Description>
-      <S.Instruction>{loadingType[navigate].label} 페이지로 이동합니다.</S.Instruction>
+      <S.Instruction>{`${loadingType[navigate].label}페이지로 이동합니다.`}</S.Instruction>
       <LoadingSpinner />
-    </S.LoadingModalContainer>
+    </S.WaitingModalContainer>
   );
 }
