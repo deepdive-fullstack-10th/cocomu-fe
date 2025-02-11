@@ -1,43 +1,43 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 
-export type ProfileImageSize = 'sm' | 'md' | 'lg';
+type ProfileImageSize = 'sm' | 'md' | 'lg';
 
-interface ProfileImageStyleProps {
+export interface ProfileImageStyleProps {
   size: ProfileImageSize;
   border?: boolean;
 }
 
 const containerSizeStyles = {
-  lg: css`
-    width: 12.5rem;
-    height: 12.5rem;
+  sm: css`
+    width: 3.6rem;
+    height: 3.6rem;
   `,
   md: css`
     width: 4.8rem;
     height: 4.8rem;
   `,
-  sm: css`
-    width: 3.6rem;
-    height: 3.6rem;
+  lg: css`
+    width: 12.5rem;
+    height: 12.5rem;
   `,
 };
 
 const uploadButtonSizeStyles = {
-  lg: css`
-    padding: 0.4rem;
-    bottom: 1rem;
-    font-size: 1.6rem;
+  sm: css`
+    padding: 0.1rem;
+    bottom: 0rem;
+    font-size: 0.6rem;
   `,
   md: css`
     padding: 0.2rem;
     bottom: 0rem;
     font-size: 0.8rem;
   `,
-  sm: css`
-    padding: 0.1rem;
-    bottom: 0rem;
-    font-size: 0.6rem;
+  lg: css`
+    padding: 0.4rem;
+    bottom: 1rem;
+    font-size: 1.6rem;
   `,
 };
 
@@ -66,7 +66,7 @@ const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
 
-  margin-left: 0.3rem;
+  border-radius: 50%;
 
   object-fit: cover;
 `;

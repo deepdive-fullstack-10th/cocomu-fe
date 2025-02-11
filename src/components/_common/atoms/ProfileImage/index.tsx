@@ -1,14 +1,17 @@
 import { BsCamera } from 'react-icons/bs';
-import S, { ProfileImageSize } from './style';
+import S, { ProfileImageStyleProps } from './style';
 
-interface ProfileImageProps {
-  src: string;
-  size: ProfileImageSize;
+interface ProfileImageProps extends ProfileImageStyleProps {
+  src?: string;
   upload?: boolean;
-  border?: boolean;
 }
 
-export default function ProfileImage({ src, size, upload, border }: ProfileImageProps) {
+export default function ProfileImage({
+  src = 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg',
+  size,
+  upload,
+  border,
+}: ProfileImageProps) {
   return (
     <S.ProfileImageContainer
       size={size}
