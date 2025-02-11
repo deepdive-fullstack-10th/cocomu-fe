@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { generateHours, generateMinutes } from '@utils/tileUtils';
+import { generateHours, generateMinutes } from '@utils/timeUtils';
 import WheelPiker from '@components/_common/atoms/WheelPicker';
 import S from './style';
 
