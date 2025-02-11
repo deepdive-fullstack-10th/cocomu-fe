@@ -8,9 +8,9 @@ interface ProfileImageProps extends ProfileImageStyleProps {
 
 export default function ProfileImage({
   src = 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg',
-  size,
-  upload,
-  border,
+  size = 'md',
+  upload = false,
+  border = false,
 }: ProfileImageProps) {
   return (
     <S.ProfileImageContainer
