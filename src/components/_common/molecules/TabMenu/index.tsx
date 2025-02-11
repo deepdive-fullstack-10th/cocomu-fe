@@ -13,7 +13,7 @@ export default function TabMenu<T extends readonly string[]>({ tabs, selectedTab
         <S.TabElement
           key={menu}
           onClick={() => onTabChange?.(menu)}
-          $isSelected={selectedTab === menu}
+          isSelected={selectedTab === menu}
         >
           {menu}
         </S.TabElement>
