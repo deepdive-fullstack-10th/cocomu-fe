@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 
-type profileSizeProps = 'sm' | 'md' | 'lg';
+export type ProfileImageSize = 'sm' | 'md' | 'lg';
 
-type profileImageContainerProps = {
-  size: profileSizeProps;
+interface ProfileImageStyleProps {
+  size: ProfileImageSize;
   border?: boolean;
-};
-
-type uploadButtonProps = {
-  size: profileSizeProps;
-};
+}
 
 const containerSizeStyles = {
   lg: css`
@@ -52,7 +48,7 @@ const uploadProfileImgeContainer = (theme: Theme) => css`
   border: 1px solid ${theme.color.gray[500]};
 `;
 
-const ProfileImageContainer = styled.div<profileImageContainerProps>`
+const ProfileImageContainer = styled.div<ProfileImageStyleProps>`
   position: relative;
 
   display: flex;
@@ -75,7 +71,7 @@ const ProfileImage = styled.img`
   object-fit: cover;
 `;
 
-const UploadButton = styled.button<uploadButtonProps>`
+const UploadButton = styled.button<ProfileImageStyleProps>`
   position: absolute;
 
   display: flex;
