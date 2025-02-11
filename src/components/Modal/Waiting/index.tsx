@@ -38,7 +38,7 @@ export default function WaitingModal({ navigate = 'problem', navigateUrl }: Wait
     const waitingTime = setTimeout(() => {
       setIsEnd(true);
       if (navigateUrl) navigateTo(navigateUrl);
-      console.log(`no navigate url: ${navigateUrl}`);
+      console.log(`navigate url: ${navigateUrl}`);
     }, 5000);
 
     return () => clearTimeout(waitingTime);
