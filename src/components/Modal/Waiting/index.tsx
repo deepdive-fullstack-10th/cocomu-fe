@@ -1,4 +1,6 @@
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import S from './style';
 
 type movePage = 'problem' | 'feedback' | 'exit';
@@ -25,9 +27,25 @@ const loadingType: Record<movePage, WaitingDetailContent> = {
 
 interface WaitingModalProps {
   navigate?: movePage;
+  navigateUrl?: string;
 }
 
-export default function WaitingModal({ navigate = 'problem' }: WaitingModalProps) {
+export default function WaitingModal({ navigate = 'problem', navigateUrl }: WaitingModalProps) {
+  const navigateTo = useNavigate();
+  const [isEnd, setIsEnd] = useState(false);
+
+  useEffect(() => {
+    const waitingTime = setTimeout(() => {
+      setIsEnd(true);
+      if (navigateUrl) navigateTo(navigateUrl);
+      console.log(`no navigate url: ${navigateUrl}`);
+    }, 5000);
+
+    return () => clearTimeout(waitingTime);
+  }, [navigateUrl, navigateTo]);
+
+  if (isEnd) return null;
+
   return (
     <S.WaitingModalContainer>
       <S.Description>{loadingType[navigate].description}</S.Description>
