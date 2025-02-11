@@ -1,5 +1,5 @@
-import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { css, Theme } from '@emotion/react';
 
 const selectedItemStyles = (theme: Theme) => css`
   ${theme.font.common.defaultAccent};
@@ -9,23 +9,7 @@ const selectedItemStyles = (theme: Theme) => css`
   border-bottom: 1px solid ${theme.color.gray[950]};
 `;
 
-export const PickerContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  width: fit-content;
-  min-width: 15rem;
-
-  background-color: ${({ theme }) => theme.color.gray[50]};
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-radius: 0.8rem;
-
-  padding: 1.5rem 1rem;
-
-  user-select: none;
-`;
-
-export const Column = styled.div`
+const Column = styled.div`
   position: relative;
 
   display: flex;
@@ -34,7 +18,7 @@ export const Column = styled.div`
   align-items: center;
 `;
 
-export const SwipeWrapper = styled.div`
+const SwipeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +27,7 @@ export const SwipeWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const Item = styled.div<{ selected: boolean }>`
+const Item = styled.div<{ selected: boolean }>`
   ${({ theme }) => theme.font.common.smallAccent};
   color: ${({ theme }) => theme.color.gray[500]};
 
@@ -54,16 +38,11 @@ export const Item = styled.div<{ selected: boolean }>`
   cursor: pointer;
 `;
 
-export const Label = styled.div`
+const Label = styled.div`
   ${({ theme }) => theme.font.common.default};
   color: ${({ theme }) => theme.color.gray[900]};
 `;
 
-export const Colon = styled.div`
-  ${({ theme }) => theme.font.heading[200]};
+const S = { Column, SwipeWrapper, Item, Label };
 
-  margin-top: 2.4rem;
-`;
-
-const S = { PickerContainer, Column, SwipeWrapper, Item, Label, Colon };
 export default S;
