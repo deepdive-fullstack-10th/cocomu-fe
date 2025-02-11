@@ -1,27 +1,19 @@
-import { useState } from 'react';
 import S from './style';
 
 type TabMenuProps<T extends readonly string[]> = {
   tabs: T;
-  onTabChange?: (index: number) => void;
-  defaultMenu?: number;
+  selectedTab: string;
+  onTabChange?: (menu: T[number]) => void;
 };
 
-export default function TabMenu<T extends readonly string[]>({ tabs, onTabChange, defaultMenu = 0 }: TabMenuProps<T>) {
-  const [menuIndex, setMenuIndex] = useState(defaultMenu);
-
-  const handleClick = (index: number) => {
-    setMenuIndex(index);
-    onTabChange?.(index);
-  };
-
+export default function TabMenu<T extends readonly string[]>({ tabs, selectedTab, onTabChange }: TabMenuProps<T>) {
   return (
     <S.TabMenuContainer>
-      {tabs.map((menu, index) => (
+      {tabs.map((menu) => (
         <S.TabElement
           key={menu}
-          onClick={() => handleClick(index)}
-          $isSelected={menuIndex === index}
+          onClick={() => onTabChange?.(menu)}
+          $isSelected={selectedTab === menu}
         >
           {menu}
         </S.TabElement>
