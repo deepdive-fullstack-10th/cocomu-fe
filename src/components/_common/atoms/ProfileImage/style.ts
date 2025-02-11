@@ -43,10 +43,11 @@ const uploadButtonSizeStyles = {
 };
 
 const uploadProfileImgeContainer = (theme: Theme) => css`
-  border: 1px solid ${theme.color.gray[500]};
   padding: 0.3rem;
-  cursor: pointer;
+
   background: ${theme.color.gray[50]};
+  border: 1px solid ${theme.color.gray[500]};
+  cursor: pointer;
 `;
 
 const ProfileImageContainer = styled.div<profileImageContainerProps>`
@@ -80,14 +81,14 @@ const UploadButton = styled.button<uploadButtonprops>`
   align-items: center;
 
   right: 0;
-
-  ${({ size, theme }) => uploadButtonSizeStyles[size](theme)}
+  bottom: 0;
 
   color: ${({ theme }) => theme.color.gray[50]};
   background: ${({ theme }) => theme.color.primary[300]};
 
-  bottom: 0rem;
   border-radius: 50%;
+
+  ${({ size, theme }) => uploadButtonSizeStyles[size](theme)}
 `;
 
 const S = {
