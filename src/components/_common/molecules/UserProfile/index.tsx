@@ -1,17 +1,17 @@
 import ProfileImage from '@components/_common/atoms/ProfileImage';
-import S, { ProfileLabelSize } from './style';
+import S, { UserProfileSize } from './style';
 
-interface ProfileLabelProps {
+interface UserProfileProps {
   name: string;
   src?: string;
-  size: ProfileLabelSize;
+  size?: UserProfileSize;
   upload?: boolean;
   border?: boolean;
 }
 
-export default function ProfileLabel({ name, src, size, upload, border }: ProfileLabelProps) {
+export default function UserProfile({ name, src, size = 'md', upload, border }: UserProfileProps) {
   return (
-    <S.ProfileLabelContainer>
+    <S.UserProfileContainer>
       <ProfileImage
         size={size}
         src={src}
@@ -19,6 +19,6 @@ export default function ProfileLabel({ name, src, size, upload, border }: Profil
         border={border}
       />
       <S.ProfileLabelName size={size}>{name}</S.ProfileLabelName>
-    </S.ProfileLabelContainer>
+    </S.UserProfileContainer>
   );
 }

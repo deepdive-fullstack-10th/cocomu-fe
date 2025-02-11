@@ -4,7 +4,7 @@ import { css, Theme } from '@emotion/react';
 type ProfileImageSize = 'sm' | 'md' | 'lg';
 
 export interface ProfileImageStyleProps {
-  size: ProfileImageSize;
+  size?: ProfileImageSize;
   border?: boolean;
 }
 
