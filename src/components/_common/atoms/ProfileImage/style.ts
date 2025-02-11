@@ -29,37 +29,45 @@ const containerSizeStyles = {
 
 const uploadButtonSizeStyles = {
   lg: (theme: Theme) => css`
-    bottom: 0.3rem;
     padding: 0.5rem;
-
-    ${theme.font.heading[400]}
-  `,
-  md: (theme: Theme) => css`
-    bottom: 1rem;
-    padding: 0.3rem;
-
     ${theme.font.heading[100]}
   `,
+  md: (theme: Theme) => css`
+    padding: 0.3rem;
+    ${theme.font.common.default}
+  `,
   sm: (theme: Theme) => css`
-    bottom: 0.5rem;
-    padding: 0.23rem;
-
+    padding: 0.2rem;
     ${theme.font.common.smallAccent}
   `,
 };
 
+const uploadProfileImgeContainer = (theme: Theme) => css`
+  border: 1px solid ${theme.color.gray[500]};
+  padding: 0.3rem;
+  cursor: pointer;
+  background: ${theme.color.gray[50]};
+`;
+
 const ProfileImageContainer = styled.div<profileImageContainerProps>`
   position: relative;
 
-  ${({ size }) => containerSizeStyles[size]}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 50%;
 
-  cursor: ${({ upload }) => (upload ? 'pointer' : undefined)};
+  ${({ size }) => containerSizeStyles[size]}
+
+  ${({ upload, theme }) => upload && uploadProfileImgeContainer(theme)};
 `;
 
 const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
+
+  margin-left: 0.3rem;
 
   object-fit: cover;
 `;
@@ -78,6 +86,7 @@ const UploadButton = styled.button<uploadButtonprops>`
   color: ${({ theme }) => theme.color.gray[50]};
   background: ${({ theme }) => theme.color.primary[300]};
 
+  bottom: 0rem;
   border-radius: 50%;
 `;
 
