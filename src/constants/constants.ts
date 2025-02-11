@@ -12,4 +12,7 @@ export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 �
 export type ProgrammingLanguage = (typeof PROGRAMMING_LANGUAGES)[number];
 export type Steps = (typeof STEPS)[number];
 
-export const ACCESS_STATUS = ['공개', '비공개'] as const;
+export const ACCESS_STATUS = {
+  PUBLIC: '공개',
+  PRIVATE: '비공개',
+} as const;
