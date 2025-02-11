@@ -8,7 +8,7 @@ const Stepper = styled.div<{ select?: boolean }>`
   width: 1rem;
   height: 1rem;
 
-  font: ${({ theme }) => theme.font.common.small};
+  ${({ theme }) => theme.font.common.small};
   color: ${({ theme }) => theme.color.gray[950]};
   background: ${({ theme, select }) => (select ? theme.color.primary[100] : theme.color.gray[50])};
 
