@@ -2,7 +2,7 @@ import ProfileImage from '@components/_common/atoms/ProfileImage';
 import S, { AvatarGroupSize } from './style';
 
 type User = {
-  id: string;
+  id: number;
   nickName: string;
   profileImageUrl: string;
 };
