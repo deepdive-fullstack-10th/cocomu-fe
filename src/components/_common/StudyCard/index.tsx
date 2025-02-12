@@ -1,9 +1,10 @@
 import { BsPerson } from 'react-icons/bs';
 import { ACCESS_STATUS } from '@constants/constants';
 import Tag from '../atoms/Tag';
-import ImageTag from '../atoms/ImageTag';
 import S from './style';
 import UserProfile from '../molecules/UserProfile';
+import ImageTagList from '../molecules/ImageTagList';
+import TagList from '../molecules/TagList';
 
 interface StudyCardProps {
   id: number;
@@ -52,24 +53,11 @@ export default function StudyCard({
       <S.Body>
         <S.Title>{name}</S.Title>
         <S.Description>{description}</S.Description>
-        <S.TagWrapper>
-          {judges.map((judge) => (
-            <Tag
-              key={judge}
-              color='gray'
-            >
-              {judge}
-            </Tag>
-          ))}
-        </S.TagWrapper>
-        <S.TagWrapper>
-          {languages.map((language) => (
-            <ImageTag
-              key={language}
-              name={language}
-            />
-          ))}
-        </S.TagWrapper>
+        <TagList
+          items={judges}
+          color='gray'
+        />
+        <ImageTagList items={languages} />
       </S.Body>
 
       <S.Footer>
@@ -80,7 +68,7 @@ export default function StudyCard({
           onClick={handleLeaderClick}
         />
         <S.ParticipantInfo>
-          <BsPerson size={14} />
+          <BsPerson size={20} />
           {`${currentUserCount} / ${totalUserCount}`}
         </S.ParticipantInfo>
       </S.Footer>

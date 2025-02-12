@@ -58,21 +58,6 @@ const Description = styled.p`
   color: ${({ theme }) => theme.color.gray[900]};
 `;
 
-const TagWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 0.5rem;
-
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 const Footer = styled.div`
   display: flex;
   align-items: center;
@@ -82,7 +67,7 @@ const Footer = styled.div`
 const ParticipantInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.6rem;
 
   ${({ theme }) => theme.font.common.smallAccent};
   color: ${({ theme }) => theme.color.gray[700]};
@@ -95,7 +80,6 @@ const S = {
   Body,
   Title,
   Description,
-  TagWrapper,
   Footer,
   ParticipantInfo,
 };
