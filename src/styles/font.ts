@@ -103,6 +103,13 @@ const typography = {
       line-height: 2.4rem;
       letter-spacing: 0;
     `,
+    extraSmall: css`
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 2.4rem;
+      letter-spacing: 0;
+    `,
   },
 };
 
