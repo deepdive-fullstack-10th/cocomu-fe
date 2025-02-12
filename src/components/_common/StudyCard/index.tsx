@@ -3,6 +3,7 @@ import { ACCESS_STATUS } from '@constants/constants';
 import Tag from '../atoms/Tag';
 import ImageTag from '../atoms/ImageTag';
 import S from './style';
+import UserProfile from '../molecules/UserProfile';
 
 interface StudyCardProps {
   id: number;
@@ -33,12 +34,16 @@ export default function StudyCard({
   leaderName,
   leaderProfileImage,
 }: StudyCardProps) {
-  const handleClick = () => {
+  const handleCardClick = () => {
+    // id 사용해서 상세페이지로 이동
+  };
+
+  const handleLeaderClick = () => {
     // id 사용해서 상세페이지로 이동
   };
 
   return (
-    <S.CardContainer onClick={handleClick}>
+    <S.CardContainer onClick={handleCardClick}>
       <S.Header>
         <Tag color={status === 'PUBLIC' ? 'analogous' : 'triadic'}>{ACCESS_STATUS[status]}</Tag>
         <S.Date>{createdAt}</S.Date>
@@ -68,7 +73,12 @@ export default function StudyCard({
       </S.Body>
 
       <S.Footer>
-        {/* 프로필 */}
+        <UserProfile
+          name={leaderName}
+          src={leaderProfileImage}
+          size='sm'
+          onClick={handleLeaderClick}
+        />
         <S.ParticipantInfo>
           <BsPerson size={14} />
           {`${currentUserCount} / ${totalUserCount}`}
