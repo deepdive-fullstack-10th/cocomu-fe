@@ -15,13 +15,14 @@ export function Toast({ id, message, type, visible }: ToastProps) {
 
   return (
     <S.ToastContainer visible={visible}>
-      <div>
-        <S.CloseBtn onClick={() => removeToast(id)}>
-          <BsX />
-        </S.CloseBtn>
-      </div>
+      <S.Header>
+        <S.Icon onClick={() => removeToast(id)}>
+          <BsX size={15} />
+        </S.Icon>
+      </S.Header>
       <S.ToastContent type={type}>{message}</S.ToastContent>
       <S.ProgressBar type={type} />
+      <S.ShrinkBar type={type} />
     </S.ToastContainer>
   );
 }
