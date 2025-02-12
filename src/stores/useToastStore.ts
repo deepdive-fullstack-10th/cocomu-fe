@@ -19,15 +19,19 @@ type ToastStore = {
 export const useToastStore = create<ToastStore>((set) => {
   let idRef = 0;
 
+  const removeToast = (id: number) => {
+    set((state) => ({
+      toasts: state.toasts.filter((toast) => toast.id !== id),
+    }));
+  };
+
   const addToast = (type: ToastType) => (message: string) => {
     const id = idRef;
     idRef += 1;
 
     set((state) => ({ toasts: [...state.toasts, { id, type, message }] }));
 
-    setTimeout(() => {
-      set((state) => ({ toasts: state.toasts.filter((toast) => toast.id !== id) }));
-    }, 4000);
+    setTimeout(() => removeToast(id), 4000);
   };
 
   return {
@@ -35,9 +39,6 @@ export const useToastStore = create<ToastStore>((set) => {
     alert: addToast('default'),
     error: addToast('error'),
     success: addToast('success'),
-    removeToast: (id) =>
-      set((state) => ({
-        toasts: state.toasts.filter((toast) => toast.id !== id),
-      })),
+    removeToast,
   };
 });
