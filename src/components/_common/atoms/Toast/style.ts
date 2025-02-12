@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
+import { keyframes, css, Theme, SerializedStyles } from '@emotion/react';
+import { ToastType } from '@stores/useToastStore';
 
-interface ToastContainerProps {
-  type: 'default' | 'success' | 'error';
+export interface ToastStyleProps {
+  type: ToastType;
 }
 
 const slideIn = keyframes`
@@ -36,41 +37,44 @@ const progressShrink = keyframes`
   }
 `;
 
-const ToastContainer = styled.div<{ visible: boolean }>`
-  position: fixed;
-  top: 5%;
-  right: 1%;
+const typeStyles: { [key in ToastType]: (theme: Theme, shade: number) => SerializedStyles } = {
+  default: (theme, shade) => css`
+    background-color: ${theme.color.primary[shade]};
+  `,
+  success: (theme, shade) => css`
+    background-color: ${theme.color.analogous[shade]};
+  `,
+  error: (theme, shade) => css`
+    background-color: ${theme.color.triadic[shade]};
+  `,
+};
 
+const ToastContainer = styled.div<{ visible: boolean }>`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   width: fit-content;
-  min-width: 20rem;
-  max-width: 35rem;
+  min-width: 32rem;
+  min-height: 6.4rem;
 
   background-color: ${({ theme }) => theme.color.gray[50]};
   border-radius: 0.8rem;
   box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.2);
 
   overflow: hidden;
-  animation: ${({ visible }) => (visible ? slideIn : slideOut)} 0.5s ease-out;
-  animation-fill-mode: forwards;
+  animation: ${({ visible }) => (visible ? slideIn : slideOut)} 0.5s ease-out forwards;
   z-index: 1000;
 `;
 
-const CloseBtn = styled.button`
-  float: right;
+const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.4rem 0.8rem 0 0.8rem;
+`;
 
-  ${({ theme }) => theme.font.heading[500]};
+const Icon = styled.div`
   color: ${({ theme }) => theme.color.gray[600]};
-  background: none;
-
-  border: none;
-
-  padding-top: 0.2rem;
-  padding-right: 0.8rem;
-
   cursor: pointer;
 
   &:hover {
@@ -78,39 +82,44 @@ const CloseBtn = styled.button`
   }
 `;
 
-const ProgressBar = styled.div<ToastContainerProps>`
+const ToastContent = styled.div<ToastStyleProps>`
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[800]};
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 1;
+
+  padding: 0 1.5rem;
+`;
+
+const ProgressBar = styled.div<ToastStyleProps>`
+  ${({ type, theme }) => typeStyles[type](theme, 100)}
+
+  width: 100%;
+  height: 0.5rem;
+`;
+
+const ShrinkBar = styled.div<ToastStyleProps>`
+  ${({ type, theme }) => typeStyles[type](theme, 400)}
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: 0.5rem;
 
-  background-color: ${({ theme, type }) =>
-    ({
-      default: theme.color.secondary[900],
-      success: theme.color.analogous[500],
-      error: theme.color.triadic[800],
-    })[type] || theme.color.primary[900]};
-
-  margin-top: 1.8rem;
-
-  animation: ${progressShrink} 4.3s linear forwards;
-`;
-
-const ToastContent = styled.div<ToastContainerProps>`
-  margin: 0 1rem;
-
-  ${({ theme }) => theme.font.common.default};
-  color: ${({ theme, type }) =>
-    ({
-      default: theme.color.gray[950],
-      success: theme.color.gray[950],
-      error: theme.color.triadic[800],
-    })[type] || theme.color.gray[950]};
+  animation: ${progressShrink} 3s linear forwards;
 `;
 
 const S = {
   ToastContainer,
-  CloseBtn,
-  ProgressBar,
+  Header,
+  Icon,
   ToastContent,
+  ProgressBar,
+  ShrinkBar,
 };
 
 export default S;
