@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 
 const WaitingModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -75%);
   width: 36rem;
 
   display: flex;
