@@ -1,6 +1,6 @@
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LOADING_TYPE } from '@constants/waiting';
 import S from './style';
 
