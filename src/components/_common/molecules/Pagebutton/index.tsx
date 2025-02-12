@@ -12,7 +12,7 @@ export default function PageButton({ pages }: PageButtonsProps) {
       size='small'
       sx={{
         '& .MuiPaginationItem-root': {
-          typography: 'common.default',
+          typography: 'common.small',
         },
       }}
     />
