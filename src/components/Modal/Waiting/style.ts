@@ -18,14 +18,14 @@ const Description = styled.div`
   ${({ theme }) => theme.font.heading[300]};
   color: ${({ theme }) => theme.color.gray[700]};
 
-  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 `;
 
 const Instruction = styled.div`
   ${({ theme }) => theme.font.heading[500]};
   color: ${({ theme }) => theme.color.gray[950]};
 
-  padding-bottom: 3rem;
+  margin-bottom: 3rem;
 `;
 
 const S = {
