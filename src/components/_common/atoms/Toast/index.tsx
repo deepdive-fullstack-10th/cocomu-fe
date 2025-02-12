@@ -1,29 +1,22 @@
 import { useEffect, useState } from 'react';
 import { BsX } from 'react-icons/bs';
+import { ToastType, useToastStore } from '@stores/useToastStore';
 import S from './style';
 
-type ToastType = 'default' | 'success' | 'error';
-
-type ToastProps = {
+interface ToastProps {
+  id: number;
   message: string;
   type: ToastType;
-  isLeaving: boolean;
-  onClose: () => void;
-};
+  visible: boolean;
+}
 
-type ToastModalProps = {
-  message: string;
-  type: ToastType;
-};
+export function Toast({ id, message, type, visible }: ToastProps) {
+  const removeToast = useToastStore((state) => state.removeToast);
 
-export function Toast({ message, type, isLeaving, onClose }: ToastProps) {
   return (
-    <S.ToastContainer isLeaving={isLeaving}>
+    <S.ToastContainer visible={visible}>
       <div>
-        <S.CloseBtn
-          type='button'
-          onClick={onClose}
-        >
+        <S.CloseBtn onClick={() => removeToast(id)}>
           <BsX />
         </S.CloseBtn>
       </div>
@@ -33,40 +26,23 @@ export function Toast({ message, type, isLeaving, onClose }: ToastProps) {
   );
 }
 
-export default function ToastModal({ message, type }: ToastModalProps) {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isLeaving, setIsLeaving] = useState(false);
+export default function ToastModal({ id, message, type }: Omit<ToastProps, 'visible'>) {
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const hideTimer = setTimeout(() => {
-      setIsLeaving(true);
-    }, 5000);
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 3000);
 
-    const removeTimer = setTimeout(() => {
-      setIsVisible(false);
-    }, 5200);
-
-    return () => {
-      clearTimeout(hideTimer);
-      clearTimeout(removeTimer);
-    };
-  }, [isVisible]);
-
-  const handleClose = () => {
-    setIsLeaving(true);
-    setTimeout(() => {
-      setIsVisible(false);
-    }, 500);
-  };
-
-  if (!isVisible) return null;
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Toast
+      id={id}
       message={message}
       type={type}
-      isLeaving={isLeaving}
-      onClose={handleClose}
+      visible={visible}
     />
   );
 }
