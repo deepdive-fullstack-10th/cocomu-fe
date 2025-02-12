@@ -36,7 +36,7 @@ const progressShrink = keyframes`
   }
 `;
 
-const ToastContainer = styled.div<{ isLeaving: boolean }>`
+const ToastContainer = styled.div<{ visible: boolean }>`
   position: fixed;
   top: 5%;
   right: 1%;
@@ -50,16 +50,13 @@ const ToastContainer = styled.div<{ isLeaving: boolean }>`
   max-width: 35rem;
 
   background-color: ${({ theme }) => theme.color.gray[50]};
-  box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.2);
-  opacity: ${({ isLeaving }) => (isLeaving ? 0 : 1)};
-
   border-radius: 0.8rem;
+  box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.2);
 
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.5s ease-in-out;
-  animation: ${({ isLeaving }) => (isLeaving ? slideOut : slideIn)} 0.5s ease-out;
-  pointer-events: ${({ isLeaving }) => (isLeaving ? 'none' : 'auto')};
+  overflow: hidden;
+  animation: ${({ visible }) => (visible ? slideIn : slideOut)} 0.5s ease-out;
+  animation-fill-mode: forwards;
+  z-index: 1000;
 `;
 
 const CloseBtn = styled.button`
@@ -91,8 +88,6 @@ const ProgressBar = styled.div<ToastContainerProps>`
       success: theme.color.analogous[500],
       error: theme.color.triadic[800],
     })[type] || theme.color.primary[900]};
-
-  border-radius: 0.4rem;
 
   margin-top: 1.8rem;
 
