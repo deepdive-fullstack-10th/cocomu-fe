@@ -7,11 +7,12 @@ interface UserProfileProps {
   size?: UserProfileSize;
   upload?: boolean;
   border?: boolean;
+  onClick?: () => void;
 }
 
-export default function UserProfile({ name, src, size = 'md', upload, border }: UserProfileProps) {
+export default function UserProfile({ name, src, size = 'md', upload, border, onClick }: UserProfileProps) {
   return (
-    <S.UserProfileContainer>
+    <S.UserProfileContainer onClick={onClick}>
       <ProfileImage
         size={size}
         src={src}
