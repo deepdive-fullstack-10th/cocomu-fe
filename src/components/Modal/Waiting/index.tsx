@@ -11,19 +11,15 @@ interface WaitingModalProps {
 
 export default function WaitingModal({ navigate = 'problem', navigateUrl }: WaitingModalProps) {
   const navigateTo = useNavigate();
-  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     const waitingTime = setTimeout(() => {
-      setIsEnd(true);
       if (navigateUrl) navigateTo(navigateUrl);
       console.log(`navigate url: ${navigateUrl}`);
     }, 5000);
 
     return () => clearTimeout(waitingTime);
   }, [navigateUrl, navigateTo]);
-
-  if (isEnd) return null;
 
   return (
     <S.WaitingModalContainer>
