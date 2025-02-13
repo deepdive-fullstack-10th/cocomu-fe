@@ -28,7 +28,11 @@ export const STEP_INFO = {
   },
 } as const;
 
+export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
+
 export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
+
+export type ProgrammingLanguage = (typeof PROGRAMMING_LANGUAGES)[number];
 
 export const ACCESS_STATUS = {
   PUBLIC: '공개',
