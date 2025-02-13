@@ -10,8 +10,8 @@ export default function BaseModal() {
   useEffect(() => {
     if (!dialogRef.current) return;
 
-    if (isOpen) {
-      if (!dialogRef.current.open) dialogRef.current.showModal();
+    if (isOpen && !dialogRef.current.open) {
+      dialogRef.current.showModal();
     } else {
       dialogRef.current.close();
     }
@@ -21,31 +21,33 @@ export default function BaseModal() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') close();
     };
+
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [close]);
 
   if (!isOpen || !modalType) return null;
 
+  const SpecificModalConfig = MODAL_COMPONENTS[modalType as keyof typeof MODAL_COMPONENTS];
+  if (!SpecificModalConfig) return null;
+
+  const { Component: SpecificModal, disableOutsideClick } = SpecificModalConfig;
+
   const handleOutsideClick = (event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
-    if (dialogRef.current && event.target === dialogRef.current) {
+    if (!disableOutsideClick && dialogRef.current && event.target === dialogRef.current) {
       close();
     }
   };
-
-  const SpecificModal = MODAL_COMPONENTS[modalType];
 
   return (
     <S.ModalOverlay
       ref={dialogRef}
       onClick={handleOutsideClick}
     >
-      {SpecificModal && (
-        <SpecificModal
-          {...modalProps}
-          onClose={close}
-        />
-      )}
+      <SpecificModal
+        {...modalProps}
+        onClose={close}
+      />
     </S.ModalOverlay>
   );
 }

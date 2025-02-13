@@ -11,11 +11,10 @@ export default function Waiting({ label, description, navigateUrl, onClose }: Wa
     const waitingTime = setTimeout(() => {
       onClose();
       if (navigateUrl) navigateTo(navigateUrl);
-      console.log(`navigate url: ${navigateUrl}`);
     }, 5000);
 
     return () => clearTimeout(waitingTime);
-  }, []);
+  }, [onClose, navigateTo, navigateUrl]);
 
   return (
     <S.Container>
