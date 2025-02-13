@@ -5,8 +5,8 @@ export type listTextColor = 'gray' | 'black';
 export type listTextSize = 'md' | 'lg';
 
 export interface DropDownItemStyleProps {
-  color: listTextColor;
-  size: listTextSize;
+  color?: listTextColor;
+  size?: listTextSize;
 }
 
 const commonStyles = (theme: Theme) => css`
