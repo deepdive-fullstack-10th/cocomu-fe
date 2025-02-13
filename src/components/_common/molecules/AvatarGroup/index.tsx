@@ -1,11 +1,6 @@
 import ProfileImage from '@components/_common/atoms/ProfileImage';
+import { User } from '@customTypes/user';
 import S, { AvatarGroupSize } from './style';
-
-type User = {
-  id: number;
-  nickName: string;
-  profileImageUrl: string;
-};
 
 interface AvatarGroupProps {
   users: User[];
