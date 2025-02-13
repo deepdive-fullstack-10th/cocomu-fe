@@ -3,6 +3,8 @@ import ImageTag from '@components/_common/atoms/ImageTag';
 import Tag from '@components/_common/atoms/Tag';
 import React from 'react';
 import { STEP_INFO } from '@constants/constants';
+import { AvatarGroup } from '@mui/material';
+import { formatDate } from '@utils/formatDate';
 import S from './style';
 
 type CodingSpaceCardProps = {
@@ -23,7 +25,6 @@ export default function CodingSpaceCard({
   maxParticipant,
   createdDate,
   status,
-  participants,
   onClick,
 }: CodingSpaceCardProps) {
   const { label, color } = STEP_INFO[status];
@@ -44,8 +45,8 @@ export default function CodingSpaceCard({
           <S.Title>{title}</S.Title>
           <ImageTag name={language} />
           <S.SpacePerson>{`최대 인원 : ${maxParticipant}`}</S.SpacePerson>
-          <S.CreatedDate>{`생성 일자 : ${createdDate}`}</S.CreatedDate>
-          <S.AvatarGroup>{participants}</S.AvatarGroup>
+          <S.CreatedDate>{`생성 일자 : ${formatDate(createdDate)}`}</S.CreatedDate>
+          <AvatarGroup />
         </S.SpaceBottomContainer>
       </S.SpaceCardContainer>
     </S.CodingSpaceCard>
