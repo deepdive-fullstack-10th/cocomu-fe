@@ -4,10 +4,10 @@ import styled from '@emotion/styled';
 type IconButtonColor = 'none' | 'white';
 type IconButtonTextAlign = 'left' | 'center';
 
-export type IconButtonProps = {
-  color: IconButtonColor;
-  align: IconButtonTextAlign;
-};
+export interface IconButtonProps {
+  color?: IconButtonColor;
+  align?: IconButtonTextAlign;
+}
 
 const colorStyles: { [key in IconButtonColor]: (theme: Theme) => SerializedStyles } = {
   none: (theme: Theme) => css`
