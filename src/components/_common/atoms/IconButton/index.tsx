@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import S, { IconButtonProps } from './style';
 
-export type IconButtonComponentProps = PropsWithChildren<
+type IconButtonComponentProps = PropsWithChildren<
   React.ComponentProps<'div'> &
     IconButtonProps & {
       icon?: ReactNode;

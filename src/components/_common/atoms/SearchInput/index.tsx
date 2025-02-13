@@ -1,4 +1,5 @@
 import { BsSearch } from 'react-icons/bs';
+import Icon from '../Icon';
 import S from './style';
 
 interface SearchInputProps {
@@ -9,7 +10,11 @@ export default function SearchInput({ placeholder = '' }: SearchInputProps) {
   return (
     <S.SearchContainer>
       <S.Icon>
-        <BsSearch size={15} />
+        <Icon
+          size='sm'
+          icon={<BsSearch />}
+          color='700'
+        />
       </S.Icon>
       <S.SearchInput placeholder={placeholder} />
     </S.SearchContainer>

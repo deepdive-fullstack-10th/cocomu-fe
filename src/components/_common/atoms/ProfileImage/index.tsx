@@ -1,5 +1,6 @@
 import { BsCamera } from 'react-icons/bs';
 import S, { ProfileImageStyleProps } from './style';
+import Icon from '../Icon';
 
 interface ProfileImageProps extends ProfileImageStyleProps {
   src?: string;
@@ -23,7 +24,11 @@ export default function ProfileImage({
       />
       {upload && (
         <S.UploadButton size={size}>
-          <BsCamera />
+          <Icon
+            size='sm'
+            color='50'
+            icon={<BsCamera />}
+          />
         </S.UploadButton>
       )}
     </S.ProfileImageContainer>

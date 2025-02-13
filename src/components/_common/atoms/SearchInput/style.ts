@@ -21,6 +21,7 @@ const Icon = styled.div`
   border: none;
   position: absolute;
   transform: translate(80%, 40%);
+  margin-top: 0.23rem;
 `;
 
 const S = {
