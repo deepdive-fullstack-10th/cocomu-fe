@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
-import { css, Theme } from '@emotion/react';
 
-const memberCardContainerStyle = (theme: Theme) => css`
+const CardContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   border-radius: 15px;
-  border: 1px solid ${theme.color.gray[600]};
-  background: ${theme.color.gray[100]};
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  background: ${({ theme }) => theme.color.gray[100]};
   padding: 1.5rem 3rem;
 `;
 
@@ -21,10 +20,6 @@ const ProfileContainer = styled.div`
 const ProfileText = styled.span`
   font: ${({ theme }) => theme.font.common.smallAccent};
   color: ${({ theme }) => theme.color.gray[900]};
-`;
-
-const CardContainer = styled.div`
-  ${({ theme }) => memberCardContainerStyle(theme)}
 `;
 
 const S = {
