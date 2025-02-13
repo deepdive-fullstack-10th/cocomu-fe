@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
-import { HiChevronDown } from 'react-icons/hi2';
+import Icon from '@components/_common/atoms/Icon';
+import { BsChevronDown } from 'react-icons/bs';
 import S from './style';
 
 type DropdownListProps<T extends readonly string[]> = {
@@ -34,7 +35,10 @@ export default function DropdownList<T extends readonly string[]>({
         <S.InputContainer>
           <S.Input placeholder={placeholder} />
           <S.Icon onClick={toggleDropDown}>
-            <HiChevronDown size={13} />
+            <Icon
+              icon={<BsChevronDown />}
+              color='950'
+            />
           </S.Icon>
         </S.InputContainer>
       </S.Header>

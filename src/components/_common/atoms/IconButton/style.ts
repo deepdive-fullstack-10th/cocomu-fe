@@ -47,7 +47,7 @@ const Icon = styled.span`
 `;
 
 const Content = styled.span`
-  margin-left: 1rem;
+  margin-left: 0.3rem;
 `;
 
 const S = {
