@@ -5,7 +5,7 @@ import { axiosInstance } from '@api/axiosInstance';
 
 import { PATH } from '@constants/path';
 import { HTTP_STATUS_CODE } from '@constants/api';
-import tokenService from '@utils/service/TokenService';
+import tokenService from '@utils/service/tokenService';
 import authApi from './domain/auth';
 
 export interface ErrorResponseData {

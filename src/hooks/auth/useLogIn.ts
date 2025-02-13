@@ -1,7 +1,7 @@
 import { axiosInstance } from '@api/axiosInstance';
 import authApi from '@api/domain/auth';
 import { useMutation } from '@tanstack/react-query';
-import tokenService from '@utils/service/TokenService';
+import tokenService from '@utils/service/tokenService';
 
 export default function useLogIn() {
   const logInMutate = useMutation({
