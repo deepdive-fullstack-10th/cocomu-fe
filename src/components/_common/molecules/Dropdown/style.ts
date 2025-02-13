@@ -6,7 +6,21 @@ const Container = styled.div`
   gap: 0.6rem;
 `;
 
-const Header = styled.div``;
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.color.gray[50]};
+
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.1rem;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.gray[700]};
+    ${({ theme }) => theme.font.common.block};
+  }
+`;
 
 const Label = styled.p`
   color: ${({ theme }) => theme.color.gray[950]};
@@ -23,27 +37,20 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input`
-  display: flex;
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.color.gray[50]};
-  padding: 1.2rem;
-  margin-bottom: 0.1rem;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.color.gray[700]};
-    ${({ theme }) => theme.font.common.block};
-  }
+  border: none;
+  width: 90%;
+  padding: 0.2rem;
 `;
 
 const Icon = styled.div`
   position: absolute;
   top: 50%;
-  right: 5%;
+  right: 2%;
   transform: translateY(-50%);
   width: 1.3rem;
   height: 1.3rem;
+
+  cursor: pointer;
 `;
 
 const DropdownList = styled.div`
