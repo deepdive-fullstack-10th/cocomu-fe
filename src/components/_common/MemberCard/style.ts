@@ -5,7 +5,7 @@ const CardContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border-radius: 15px;
+  border-radius: 1.5rem;
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   background: ${({ theme }) => theme.color.gray[100]};
   padding: 1.5rem 3rem;

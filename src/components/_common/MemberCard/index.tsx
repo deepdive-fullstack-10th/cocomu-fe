@@ -7,7 +7,7 @@ interface MemberCardProps {
   profileImageUrl?: string;
   successCount: number;
   failedCount: number;
-  joinedDate: Date;
+  joinedDate: string;
 }
 
 export default function MemberCard({ name, profileImageUrl, successCount, failedCount, joinedDate }: MemberCardProps) {
