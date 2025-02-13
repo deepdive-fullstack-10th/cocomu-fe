@@ -4,7 +4,8 @@ import { HTTPError } from '@api/HTTPError';
 import { axiosInstance } from '@api/axiosInstance';
 
 import { PATH } from '@constants/path';
-import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@constants/api';
+import { HTTP_STATUS_CODE } from '@constants/api';
+import tokenService from '@utils/service/TokenService';
 import authApi from './domain/auth';
 
 export interface ErrorResponseData {
@@ -16,7 +17,7 @@ export interface ErrorResponseData {
 export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
   if (!config.useAuth || !config.headers || config.headers.Authorization) return config;
 
-  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  const accessToken = tokenService.getToken();
 
   if (!accessToken) {
     window.location.href = PATH.ROOT;
@@ -40,14 +41,14 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
   if (true) {
     const { accessToken } = await authApi.refreshToken();
     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+    tokenService.setToken(accessToken);
 
     return axiosInstance(originalRequest);
   }
 
   // TODO: 조건 - 특정 에러코드일때 액세스 토큰 제거
   if (true) {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    tokenService.removeToken();
 
     throw new HTTPError(status, data.message, data.code);
   }
