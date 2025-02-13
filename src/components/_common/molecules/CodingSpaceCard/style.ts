@@ -41,7 +41,7 @@ const StatusTag = styled.div`
 const SpaceBottomContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 2rem;
+  padding: 1rem;
   gap: 1rem;
 
   align-items: center;
