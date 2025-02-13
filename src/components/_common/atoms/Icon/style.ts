@@ -25,6 +25,7 @@ const Icon = styled.div<{ size: IconSize; color: IconColor }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
   font-size: ${({ size }) => sizeStyle[size]};
   ${({ color, theme }) => colorStyle[color](theme)};
 `;
