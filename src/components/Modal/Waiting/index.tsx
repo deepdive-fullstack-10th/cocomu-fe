@@ -9,6 +9,7 @@ export default function Waiting({ label, description, navigateUrl, onClose }: Wa
 
   useEffect(() => {
     const waitingTime = setTimeout(() => {
+      onClose();
       if (navigateUrl) navigateTo(navigateUrl);
       console.log(`navigate url: ${navigateUrl}`);
     }, 5000);
