@@ -1,5 +1,6 @@
 import { ComponentProps, useState } from 'react';
 import { BsEyeSlash, BsEye } from 'react-icons/bs';
+import Icon from '@components/_common/atoms/Icon';
 import S from './style';
 
 interface InputFieldProps extends ComponentProps<'input'> {
@@ -27,7 +28,9 @@ export default function InputField({ type = 'text', label, description, error, .
           {...props}
         />
         {type === 'password' && props.value && (
-          <S.Icon onClick={toggleVisibility}>{isVisible ? <BsEye size={16} /> : <BsEyeSlash size={16} />}</S.Icon>
+          <S.Icon onClick={toggleVisibility}>
+            {isVisible ? <Icon icon={<BsEye />} /> : <Icon icon={<BsEyeSlash />} />}
+          </S.Icon>
         )}
       </S.InputWrapper>
 
