@@ -64,6 +64,7 @@ const CreatedDate = styled.div`
 
 const AvatarGroup = styled.div`
   padding: 1rem;
+  width: 20%;
 `;
 
 const CodingSpaceCard = styled.div`

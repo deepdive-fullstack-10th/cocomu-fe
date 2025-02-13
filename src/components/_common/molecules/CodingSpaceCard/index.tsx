@@ -2,6 +2,7 @@ import UserProfile from '@components/_common/molecules/UserProfile';
 import ImageTag from '@components/_common/atoms/ImageTag';
 import Tag from '@components/_common/atoms/Tag';
 import React from 'react';
+import { STEP_INFO } from '@constants/constants';
 import S from './style';
 
 type CodingSpaceCardProps = {
@@ -10,7 +11,7 @@ type CodingSpaceCardProps = {
   language: string;
   maxParticipant: number;
   createdDate: string;
-  status: string;
+  status: keyof typeof STEP_INFO;
   participants: number;
   onClick: React.MouseEventHandler<HTMLDivElement>;
 };
@@ -25,6 +26,8 @@ export default function CodingSpaceCard({
   participants,
   onClick,
 }: CodingSpaceCardProps) {
+  const { label, color } = STEP_INFO[status];
+
   return (
     <S.CodingSpaceCard onClick={onClick}>
       <S.SpaceCardContainer>
@@ -34,7 +37,7 @@ export default function CodingSpaceCard({
             size='sm'
           />
           <S.StatusTag>
-            <Tag color='triadic'>{status}</Tag>
+            <Tag color={color}>{label}</Tag>
           </S.StatusTag>
         </S.SpaceTopContainer>
         <S.SpaceBottomContainer>
