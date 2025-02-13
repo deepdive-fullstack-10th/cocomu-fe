@@ -15,21 +15,10 @@ const memberCardContainerStyle = (theme: Theme) => css`
 const ProfileContainer = styled.div`
   display: flex;
   gap: 3rem;
-`;
-
-const ProfileItem = styled.div`
-  display: flex;
-  flex-direction: row;
   align-items: center;
 `;
 
-const ProfileLabel = styled.span`
-  font: ${({ theme }) => theme.font.common.smallAccent};
-  color: ${({ theme }) => theme.color.gray[900]};
-  padding-right: 0.2rem;
-`;
-
-const ProfileValue = styled.span`
+const ProfileText = styled.span`
   font: ${({ theme }) => theme.font.common.smallAccent};
   color: ${({ theme }) => theme.color.gray[900]};
 `;
@@ -41,9 +30,7 @@ const CardContainer = styled.div`
 const S = {
   CardContainer,
   ProfileContainer,
-  ProfileItem,
-  ProfileLabel,
-  ProfileValue,
+  ProfileText,
 };
 
 export default S;

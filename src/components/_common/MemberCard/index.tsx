@@ -10,13 +10,7 @@ interface MemberCardProps {
   joinedDate: Date;
 }
 
-export default function MemberCard({
-  name,
-  profileImageUrl = 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg',
-  successCount,
-  failedCount,
-  joinedDate,
-}: MemberCardProps) {
+export default function MemberCard({ name, profileImageUrl, successCount, failedCount, joinedDate }: MemberCardProps) {
   return (
     <S.CardContainer>
       <UserProfile
@@ -25,18 +19,9 @@ export default function MemberCard({
         size='sm'
       />
       <S.ProfileContainer>
-        <S.ProfileItem>
-          <S.ProfileLabel>해결한 문제 수 :</S.ProfileLabel>
-          <S.ProfileValue>{`${successCount}개`}</S.ProfileValue>
-        </S.ProfileItem>
-        <S.ProfileItem>
-          <S.ProfileLabel>실패한 문제 수 :</S.ProfileLabel>
-          <S.ProfileValue>{`${failedCount}개`}</S.ProfileValue>
-        </S.ProfileItem>
-        <S.ProfileItem>
-          <S.ProfileLabel>가입일 :</S.ProfileLabel>
-          <S.ProfileValue>{formatDate(joinedDate)}</S.ProfileValue>
-        </S.ProfileItem>
+        <S.ProfileText>{`해결한 문제 수: ${successCount}개`}</S.ProfileText>
+        <S.ProfileText>{`실패한 문제 수: ${failedCount}개`}</S.ProfileText>
+        <S.ProfileText>{`가입일: ${formatDate(joinedDate)}`}</S.ProfileText>
       </S.ProfileContainer>
     </S.CardContainer>
   );
