@@ -6,6 +6,7 @@ export const LANGUAGE_IMAGES: Record<string, string> = {
 } as const;
 
 export const PROGRAMMING_LANGUAGES = ['Python', 'JavaScript', 'Java', 'C'] as const;
+export type PROGRAMMING_VALUE = (typeof PROGRAMMING_LANGUAGES)[number];
 
 export const JUDGES = ['백준', '프로그래머스'] as const;
 
@@ -27,7 +28,6 @@ export const STEP_INFO = {
     color: 'triadic',
   },
 } as const;
-
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
 export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;

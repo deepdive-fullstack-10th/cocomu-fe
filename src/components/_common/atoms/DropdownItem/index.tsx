@@ -5,7 +5,7 @@ type DropdownItemProps = {
   onClick: () => void;
 } & DropDownItemStyleProps;
 
-export default function DropdownItem({ item, onClick, size, color }: DropdownItemProps) {
+export default function DropdownItem({ item, onClick, size = 'md', color = 'black' }: DropdownItemProps) {
   return (
     <S.DropdownItem
       onClick={onClick}
