@@ -7,7 +7,7 @@ interface IconProps {
   color?: IconColor;
 }
 
-export default function Icon({ size = 'md', icon, color = '950' }: IconProps) {
+export default function Icon({ size = 'sm', icon, color = '950' }: IconProps) {
   return (
     <S.Icon
       size={size}

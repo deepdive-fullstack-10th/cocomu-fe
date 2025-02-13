@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BsX } from 'react-icons/bs';
 import { ToastType, useToastStore } from '@stores/useToastStore';
+import Icon from '../Icon';
 import S from './style';
 
 interface ToastProps {
@@ -17,7 +18,11 @@ export function Toast({ id, message, type, visible }: ToastProps) {
     <S.ToastContainer visible={visible}>
       <S.Header>
         <S.Icon onClick={() => removeToast(id)}>
-          <BsX size={15} />
+          <Icon
+            size='sm'
+            icon={<BsX />}
+            color='700'
+          />
         </S.Icon>
       </S.Header>
       <S.ToastContent type={type}>{message}</S.ToastContent>
