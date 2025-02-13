@@ -30,7 +30,7 @@ const sizeStyle = {
   `,
 };
 
-const AvartarGroupContainer = styled.div`
+const AvatarGroupContainer = styled.div`
   position: relative;
 
   display: flex;
@@ -53,7 +53,7 @@ const ProfileWrapper = styled.div<{ index: number; size: AvatarGroupSize }>`
   }
 `;
 
-const NickName = styled.span`
+const Nickname = styled.span`
   position: absolute;
   left: 50%;
   bottom: -2.5rem;
@@ -76,9 +76,9 @@ const NickName = styled.span`
 `;
 
 const S = {
-  AvartarGroupContainer,
+  AvatarGroupContainer,
   ProfileWrapper,
-  NickName,
+  Nickname,
 };
 
 export default S;

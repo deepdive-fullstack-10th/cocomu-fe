@@ -14,7 +14,7 @@ interface AvatarGroupProps {
 
 export default function AvatarGroup({ users, size = 'sm' }: AvatarGroupProps) {
   return (
-    <S.AvartarGroupContainer>
+    <S.AvatarGroupContainer>
       {users.map((user, index) => (
         <S.ProfileWrapper
           key={user.id}
@@ -26,9 +26,9 @@ export default function AvatarGroup({ users, size = 'sm' }: AvatarGroupProps) {
             border
             size={size}
           />
-          <S.NickName>{user.nickName}</S.NickName>
+          <S.Nickname>{user.nickName}</S.Nickname>
         </S.ProfileWrapper>
       ))}
-    </S.AvartarGroupContainer>
+    </S.AvatarGroupContainer>
   );
 }
