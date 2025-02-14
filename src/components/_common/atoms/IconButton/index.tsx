@@ -9,7 +9,13 @@ type IconButtonComponentProps = PropsWithChildren<
     }
 >;
 
-export default function IconButton({ children, color = 'white', align = 'left', icon }: IconButtonComponentProps) {
+export default function IconButton({
+  children,
+  color = 'white',
+  align = 'left',
+  icon,
+  shape = 'default',
+}: IconButtonComponentProps) {
   const [iconColor, setIconColor] = useState<'50' | '950'>('950');
   const [isHovered, setIsHovered] = useState(false);
   useEffect(() => {
@@ -38,6 +44,7 @@ export default function IconButton({ children, color = 'white', align = 'left', 
       align={align}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      shape={shape}
     >
       {icon && (
         <Icon
