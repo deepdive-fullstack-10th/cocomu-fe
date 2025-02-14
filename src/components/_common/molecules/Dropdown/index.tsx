@@ -7,33 +7,43 @@ import S from './style';
 
 type DropdownListProps<T extends readonly string[]> = {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   items: T;
+  value?: T[number];
   onSelect: (value: T[number]) => void;
-  size?: string;
-  color?: string;
+  onChange?: (value: string) => void;
 } & DropDownItemStyleProps;
 
-export default function DropdownList<T extends readonly string[]>({
+export default function Dropdown<T extends readonly string[]>({
   label,
-  placeholder,
+  placeholder = '',
   items,
-  size = 'md',
-  color = 'black',
+  size,
+  color,
+  value,
   onSelect,
-}: DropdownListProps<T>) {
+  onChange,
+}: DropdownListProps<T> & DropDownItemStyleProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropDown = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e.target.value);
+  };
+
   return (
     <S.Container>
+      <S.Label>{label}</S.Label>
       <S.Header>
-        <S.Label>{label}</S.Label>
         <S.InputContainer>
-          <S.Input placeholder={placeholder} />
+          <S.Input
+            placeholder={placeholder}
+            value={value || ''}
+            onChange={handleInputChange}
+          />
           <S.Icon onClick={toggleDropDown}>
             <Icon
               icon={<BsChevronDown />}
@@ -51,7 +61,10 @@ export default function DropdownList<T extends readonly string[]>({
               item={item}
               size={size}
               color={color}
-              onClick={() => onSelect(item)}
+              onClick={() => {
+                setIsOpen(false);
+                onSelect(item);
+              }}
             />
           ))}
         </S.DropdownList>
