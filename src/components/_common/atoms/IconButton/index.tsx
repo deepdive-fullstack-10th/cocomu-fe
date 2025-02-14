@@ -9,18 +9,18 @@ type IconButtonComponentProps = PropsWithChildren<
     }
 >;
 
-export default function IconButtton({ children, color = 'white', align = 'left', icon }: IconButtonComponentProps) {
-  const [iconColor, setIconcolor] = useState<'50' | '950'>('950');
+export default function IconButton({ children, color = 'white', align = 'left', icon }: IconButtonComponentProps) {
+  const [iconColor, setIconColor] = useState<'50' | '950'>('950');
   const [isHovered, setIsHovered] = useState(false);
   useEffect(() => {
     if (color === 'white') {
       if (isHovered) {
-        setIconcolor('50');
+        setIconColor('50');
       } else {
-        setIconcolor('950');
+        setIconColor('950');
       }
     } else {
-      setIconcolor('950');
+      setIconColor('950');
     }
   }, [color, isHovered]);
 
