@@ -9,7 +9,6 @@ import { User } from '@customTypes/user';
 import S from './style';
 
 type CodingSpaceCardProps = {
-  name: string;
   title: string;
   language: string;
   maxParticipant: number;
@@ -20,7 +19,6 @@ type CodingSpaceCardProps = {
 };
 
 export default function CodingSpaceCard({
-  name,
   title,
   language,
   maxParticipant,
@@ -36,7 +34,7 @@ export default function CodingSpaceCard({
       <S.SpaceCardContainer>
         <S.SpaceTopContainer>
           <UserProfile
-            name={name}
+            user={users[0]}
             size='sm'
           />
           <S.StatusTag>
