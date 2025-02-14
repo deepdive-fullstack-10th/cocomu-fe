@@ -2,6 +2,7 @@ import ConfirmModal from '@components/Modal/Confirm';
 import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
+import Login from '@components/Modal/Login';
 
 export interface PasswordInputProps {
   description: string;
@@ -44,9 +45,11 @@ export const MODAL_COMPONENTS: {
   confirm: ModalConfig<ConfirmProps>;
   passwordInput: ModalConfig<PasswordInputProps>;
   testcase: ModalConfig<TestcaseProps>;
+  login: ModalConfig<void>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
   confirm: { Component: ConfirmModal, disableOutsideClick: false },
   passwordInput: { Component: PasswordInput, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
+  login: { Component: Login, disableOutsideClick: true },
 };
