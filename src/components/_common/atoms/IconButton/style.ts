@@ -3,11 +3,13 @@ import styled from '@emotion/styled';
 
 type IconButtonColor = 'none' | 'white';
 type IconButtonTextAlign = 'left' | 'center';
+type ButtonShape = 'default' | 'round';
 
-export interface IconButtonProps {
+export type IconButtonProps = {
   color?: IconButtonColor;
   align?: IconButtonTextAlign;
-}
+  shape?: ButtonShape;
+};
 
 const colorStyles: { [key in IconButtonColor]: (theme: Theme) => SerializedStyles } = {
   none: (theme: Theme) => css`
@@ -27,6 +29,10 @@ const colorStyles: { [key in IconButtonColor]: (theme: Theme) => SerializedStyle
   `,
 };
 
+const shapeStyles = (shape: ButtonShape = 'default') => css`
+  border-radius: ${shape === 'round' ? '3.2rem' : '1.1rem'};
+`;
+
 const IconButtonContainer = styled.div<IconButtonProps>`
   ${({ color, theme }) => colorStyles[color](theme)};
   ${({ theme }) => theme.font.common.default};
@@ -35,11 +41,13 @@ const IconButtonContainer = styled.div<IconButtonProps>`
   justify-content: ${({ align }) => (align === 'center' ? 'center' : 'flex-start')};
   align-items: center;
 
-  width: fit-content;
+  width: 100%;
   min-width: 20rem;
 
   padding: 0.6rem 1.9rem;
   border-radius: 2rem;
+
+  ${({ shape }) => shapeStyles(shape)}
 `;
 
 const Icon = styled.span`
