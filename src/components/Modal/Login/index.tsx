@@ -1,17 +1,17 @@
 import { BsXLg } from 'react-icons/bs';
 import { LoginProps } from '@customTypes/modal';
+import COCOMU_LOGO from '@assets/Image/cocomu-logo.png';
+import GOOGLE_LOGO from '@assets/Image/google-logo.png';
+import GITHUB_LOGO from '@assets/Image/github-logo.png';
+import KAKAO_LOGO from '@assets/Image/kakao-logo.png';
 import S from './style';
-import COCOMU_LOGO from '@/assets/Image/cocomu-logo.png';
-import GOOGLE_LOGO from '@/assets/Image/google-logo.png';
-import GITHUB_LOGO from '@/assets/Image/github-logo.png';
-import KAKAO_LOGO from '@/assets/Image/kakao-logo.png';
 
 export default function LoginModal({ onClose, onGoogle, onGitHub, onKakao }: LoginProps) {
   return (
     <S.LoginModalContainer>
       <S.CloseIcon>
         <BsXLg
-          size={10}
+          size={20}
           onClick={onClose}
         />
       </S.CloseIcon>
