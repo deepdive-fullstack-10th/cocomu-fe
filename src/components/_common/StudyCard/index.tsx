@@ -1,5 +1,6 @@
 import { BsPerson } from 'react-icons/bs';
 import { ACCESS_STATUS } from '@constants/constants';
+import { User } from '@customTypes/user';
 import Tag from '../atoms/Tag';
 import S from './style';
 import UserProfile from '../molecules/UserProfile';
@@ -7,8 +8,7 @@ import ImageTagList from '../molecules/ImageTagList';
 import TagList from '../molecules/TagList';
 
 interface StudyCardProps {
-  id: number;
-  name: string;
+  user: User;
   status: string;
   languages: string[];
   judges: string[];
@@ -16,14 +16,11 @@ interface StudyCardProps {
   currentUserCount: number;
   totalUserCount: number;
   createdAt: string;
-  leaderId: number;
-  leaderName: string;
-  leaderProfileImage: string;
+  leaderUser: User;
 }
 
 export default function StudyCard({
-  id,
-  name,
+  user,
   status,
   languages,
   judges,
@@ -31,9 +28,7 @@ export default function StudyCard({
   currentUserCount,
   totalUserCount,
   createdAt,
-  leaderId,
-  leaderName,
-  leaderProfileImage,
+  leaderUser,
 }: StudyCardProps) {
   const handleCardClick = () => {
     // id 사용해서 상세페이지로 이동
@@ -51,7 +46,7 @@ export default function StudyCard({
       </S.Header>
 
       <S.Body>
-        <S.Title>{name}</S.Title>
+        <S.Title>{user.nickName}</S.Title>
         <S.Description>{description}</S.Description>
         <TagList
           items={judges}
@@ -62,8 +57,7 @@ export default function StudyCard({
 
       <S.Footer>
         <UserProfile
-          name={leaderName}
-          src={leaderProfileImage}
+          user={leaderUser}
           size='sm'
           onClick={handleLeaderClick}
         />

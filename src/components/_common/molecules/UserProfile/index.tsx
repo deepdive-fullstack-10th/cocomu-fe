@@ -1,25 +1,25 @@
 import ProfileImage from '@components/_common/atoms/ProfileImage';
+import { User } from '@customTypes/user';
 import S, { UserProfileSize } from './style';
 
 interface UserProfileProps {
-  name: string;
-  src?: string;
+  user: User;
   size?: UserProfileSize;
   upload?: boolean;
   border?: boolean;
   onClick?: () => void;
 }
 
-export default function UserProfile({ name, src, size = 'md', upload, border, onClick }: UserProfileProps) {
+export default function UserProfile({ user, size = 'md', upload, border, onClick }: UserProfileProps) {
   return (
     <S.UserProfileContainer onClick={onClick}>
       <ProfileImage
         size={size}
-        src={src}
+        src={user.profileImageUrl}
         upload={upload}
         border={border}
       />
-      <S.ProfileLabelName size={size}>{name}</S.ProfileLabelName>
+      <S.ProfileLabelName size={size}>{user.nickName}</S.ProfileLabelName>
     </S.UserProfileContainer>
   );
 }
