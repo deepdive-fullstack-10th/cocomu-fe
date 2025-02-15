@@ -31,11 +31,6 @@ export default function StudyCard({
   leaderUser,
 }: StudyCardProps) {
   const handleCardClick = () => {
-    // id 사용해서 상세페이지로 이동
-  };
-
-  const handleLeaderClick = () => {
-    // id 사용해서 상세페이지로 이동
   };
 
   return (
@@ -59,7 +54,6 @@ export default function StudyCard({
         <UserProfile
           user={leaderUser}
           size='sm'
-          onClick={handleLeaderClick}
         />
         <S.ParticipantInfo>
           <BsPerson size={20} />

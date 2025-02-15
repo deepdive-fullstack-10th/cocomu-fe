@@ -4,12 +4,15 @@ import S from './style';
 
 interface UserProfileProps extends ProfileImageProps {
   user: User;
-  onClick?: () => void;
 }
 
-export default function UserProfile({ user, size = 'md', upload, border, onClick }: UserProfileProps) {
+export default function UserProfile({ user, size = 'md', upload, border }: UserProfileProps) {
+  const handleUserClick = () => {
+    // user.id 사용해서 마이페이지로 이동
+  };
+
   return (
-    <S.UserProfileContainer onClick={onClick}>
+    <S.UserProfileContainer onClick={handleUserClick}>
       <ProfileImage
         size={size}
         src={user.profileImageUrl}
