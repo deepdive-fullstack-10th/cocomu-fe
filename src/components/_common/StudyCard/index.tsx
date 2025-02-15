@@ -1,25 +1,11 @@
 import { BsPerson } from 'react-icons/bs';
 import { ACCESS_STATUS } from '@constants/constants';
-import { User } from '@customTypes/user';
+import { StudyData } from '@customTypes/study';
 import Tag from '../atoms/Tag';
-import S from './style';
 import UserProfile from '../molecules/UserProfile';
 import ImageTagList from '../molecules/ImageTagList';
 import TagList from '../molecules/TagList';
-
-interface StudyCardProps {
-  id: number;
-  joinable: boolean;
-  name: string;
-  status: string;
-  languages: string[];
-  judges: string[];
-  description: string;
-  currentUserCount: number;
-  totalUserCount: number;
-  createdAt: string;
-  leader: User;
-}
+import S from './style';
 
 export default function StudyCard({
   id,
@@ -33,7 +19,7 @@ export default function StudyCard({
   totalUserCount,
   createdAt,
   leader,
-}: StudyCardProps) {
+}: StudyData) {
   const handleCardClick = () => {
     // id 사용해서 상세페이지로 이동 (joinable 조건)
   };
