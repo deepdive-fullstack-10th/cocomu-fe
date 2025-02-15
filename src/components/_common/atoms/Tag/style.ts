@@ -16,6 +16,7 @@ const commonStyles = (theme: Theme) => css`
   padding: 0.1rem 1.3rem;
   border-radius: 1.2rem;
   width: fit-content;
+  height: 2.5rem;
   min-width: 6.5rem;
 `;
 
