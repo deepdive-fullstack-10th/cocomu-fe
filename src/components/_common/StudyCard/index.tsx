@@ -8,7 +8,9 @@ import ImageTagList from '../molecules/ImageTagList';
 import TagList from '../molecules/TagList';
 
 interface StudyCardProps {
-  user: User;
+  id: number;
+  joinable: boolean;
+  name: string;
   status: string;
   languages: string[];
   judges: string[];
@@ -16,11 +18,13 @@ interface StudyCardProps {
   currentUserCount: number;
   totalUserCount: number;
   createdAt: string;
-  leaderUser: User;
+  leader: User;
 }
 
 export default function StudyCard({
-  user,
+  id,
+  joinable,
+  name,
   status,
   languages,
   judges,
@@ -28,9 +32,10 @@ export default function StudyCard({
   currentUserCount,
   totalUserCount,
   createdAt,
-  leaderUser,
+  leader,
 }: StudyCardProps) {
   const handleCardClick = () => {
+    // id 사용해서 상세페이지로 이동 (joinable 조건)
   };
 
   return (
@@ -41,7 +46,7 @@ export default function StudyCard({
       </S.Header>
 
       <S.Body>
-        <S.Title>{user.nickName}</S.Title>
+        <S.Title>{name}</S.Title>
         <S.Description>{description}</S.Description>
         <TagList
           items={judges}
@@ -52,7 +57,7 @@ export default function StudyCard({
 
       <S.Footer>
         <UserProfile
-          user={leaderUser}
+          user={leader}
           size='sm'
         />
         <S.ParticipantInfo>
