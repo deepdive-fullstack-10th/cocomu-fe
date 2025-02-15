@@ -4,17 +4,22 @@ import COCOMU_LOGO from '@assets/Image/cocomu-logo.png';
 import GOOGLE_LOGO from '@assets/Image/google-logo.png';
 import GITHUB_LOGO from '@assets/Image/github-logo.png';
 import KAKAO_LOGO from '@assets/Image/kakao-logo.png';
+import Icon from '@components/_common/atoms/Icon';
 import S from './style';
 
 export default function LoginModal({ onClose, onGoogle, onGitHub, onKakao }: LoginProps) {
   return (
     <S.LoginModalContainer>
-      <S.CloseIcon>
-        <BsXLg
-          size={20}
-          onClick={onClose}
+      <S.CloseIconWrapper onClick={onClose}>
+        <Icon
+          icon={
+            <BsXLg
+              size={20}
+              color='50'
+            />
+          }
         />
-      </S.CloseIcon>
+      </S.CloseIconWrapper>
       <S.LogoContainer>
         <S.Logo src={COCOMU_LOGO} />
       </S.LogoContainer>
