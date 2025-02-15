@@ -16,7 +16,7 @@ export default function UserProfile({ user, size = 'md', upload, border, onClick
         upload={upload}
         border={border}
       />
-      <S.ProfileLabelName size={size}>{user.nickName}</S.ProfileLabelName>
+      <S.ProfileLabelName size={size}>{user.name}</S.ProfileLabelName>
     </S.UserProfileContainer>
   );
 }
