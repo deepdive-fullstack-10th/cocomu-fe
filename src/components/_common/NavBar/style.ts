@@ -64,8 +64,10 @@ const DropdownMenu = styled.div`
   border-radius: 0.5rem;
 `;
 
-const Icon = styled.span`
-  margin-top: 0.4rem;
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
 const S = {
@@ -77,7 +79,7 @@ const S = {
   LoginButton,
   ProfileSection,
   DropdownMenu,
-  Icon,
+  IconWrapper,
 };
 
 export default S;
