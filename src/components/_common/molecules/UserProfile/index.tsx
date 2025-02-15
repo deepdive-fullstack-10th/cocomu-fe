@@ -1,9 +1,9 @@
 import ProfileImage, { ProfileImageProps } from '@components/_common/atoms/ProfileImage';
-import { User } from '@customTypes/user';
+import { UserData } from '@customTypes/user';
 import S from './style';
 
 interface UserProfileProps extends ProfileImageProps {
-  user: User;
+  user: UserData;
 }
 
 export default function UserProfile({ user, size = 'md', upload, border }: UserProfileProps) {
