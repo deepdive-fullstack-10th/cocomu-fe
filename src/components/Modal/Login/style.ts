@@ -15,9 +15,9 @@ const LoginModalContainer = styled.div`
   border-radius: 1.6rem;
 `;
 
-const CloseIcon = styled.div`
+const CloseIconWrapper = styled.div`
   position: absolute;
-  transform: translate(940%, -1000%);
+  transform: translate(940%, -1100%);
   cursor: pointer;
 `;
 
@@ -103,7 +103,7 @@ const KakaoLoginButton = styled.div`
 
 const S = {
   LoginModalContainer,
-  CloseIcon,
+  CloseIconWrapper,
   LogoContainer,
   Logo,
   IntroduceLabel,
