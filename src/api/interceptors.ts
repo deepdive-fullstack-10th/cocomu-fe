@@ -1,4 +1,4 @@
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { HTTPError } from '@api/HTTPError';
 import { axiosInstance } from '@api/axiosInstance';
@@ -65,3 +65,5 @@ export const handleAPIError = (error: AxiosError<ErrorResponseData>) => {
 
   throw new HTTPError(status, data.message, data.code);
 };
+
+export const handleSuccess = (response: AxiosResponse) => response.data;
