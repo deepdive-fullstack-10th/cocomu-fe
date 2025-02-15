@@ -1,12 +1,9 @@
-import ProfileImage from '@components/_common/atoms/ProfileImage';
+import ProfileImage, { ProfileImageProps } from '@components/_common/atoms/ProfileImage';
 import { User } from '@customTypes/user';
-import S, { UserProfileSize } from './style';
+import S from './style';
 
-interface UserProfileProps {
+interface UserProfileProps extends ProfileImageProps {
   user: User;
-  size?: UserProfileSize;
-  upload?: boolean;
-  border?: boolean;
   onClick?: () => void;
 }
 

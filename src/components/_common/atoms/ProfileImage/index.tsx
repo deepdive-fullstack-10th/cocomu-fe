@@ -2,7 +2,7 @@ import { BsCamera } from 'react-icons/bs';
 import S, { ProfileImageStyleProps } from './style';
 import Icon from '../Icon';
 
-interface ProfileImageProps extends ProfileImageStyleProps {
+export interface ProfileImageProps extends ProfileImageStyleProps {
   src?: string;
   upload?: boolean;
 }

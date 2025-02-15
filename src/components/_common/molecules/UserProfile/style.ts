@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 
-export type UserProfileSize = 'sm' | 'md' | 'lg';
+type UserProfileSize = 'sm' | 'md' | 'lg';
+
+interface UserProfileStyleProps {
+  size: UserProfileSize;
+}
 
 const sizeStyle = {
   sm: (theme: Theme) => css`
@@ -23,7 +27,7 @@ const UserProfileContainer = styled.div`
   align-items: center;
 `;
 
-const ProfileLabelName = styled.div<{ size: UserProfileSize }>`
+const ProfileLabelName = styled.div<UserProfileStyleProps>`
   ${({ size, theme }) => sizeStyle[size](theme)};
 
   color: ${({ theme }) => theme.color.gray[900]};
