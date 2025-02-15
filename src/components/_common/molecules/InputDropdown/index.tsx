@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import Icon from '@components/_common/atoms/Icon';
@@ -9,9 +9,9 @@ type DropdownListProps<T extends readonly string[]> = {
   label: string;
   placeholder?: string;
   items: T;
-  value?: T[number];
-  onSelect: (value: T[number]) => void;
-  onChange?: (value: string) => void;
+  value?: string;
+  onSelect: (value: string) => void;
+  allowCustomValue?: boolean;
 } & DropDownItemStyleProps;
 
 export default function Dropdown<T extends readonly string[]>({
@@ -22,16 +22,33 @@ export default function Dropdown<T extends readonly string[]>({
   color,
   value,
   onSelect,
-  onChange,
+  allowCustomValue = false,
 }: DropdownListProps<T> & DropDownItemStyleProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const toggleDropDown = () => {
     setIsOpen(!isOpen);
   };
 
+  const filteredItems = useMemo(() => {
+    if (!inputValue) return items;
+    return items.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()));
+  }, [items, inputValue]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e.target.value);
+    const newValue = e.target.value;
+    setInputValue(newValue);
+
+    if (allowCustomValue) {
+      onSelect(newValue);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && allowCustomValue) {
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -41,8 +58,9 @@ export default function Dropdown<T extends readonly string[]>({
         <S.InputContainer>
           <S.Input
             placeholder={placeholder}
-            value={value || ''}
+            value={value || inputValue || ''}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
           <S.Icon onClick={toggleDropDown}>
             <Icon
@@ -63,6 +81,7 @@ export default function Dropdown<T extends readonly string[]>({
               color={color}
               onClick={() => {
                 setIsOpen(false);
+                setInputValue(item);
                 onSelect(item);
               }}
             />
