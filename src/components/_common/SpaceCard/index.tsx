@@ -4,20 +4,8 @@ import Tag from '@components/_common/atoms/Tag';
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import { STEP_INFO } from '@constants/constants';
 import { formatDate } from '@utils/formatDate';
-import { User } from '@customTypes/user';
+import { SpaceData } from '@customTypes/space';
 import S from './style';
-
-interface SpaceCardProps {
-  id: number;
-  joinedSpace: boolean;
-  name: string;
-  language: string;
-  totalUserCount: number;
-  createdAt: string;
-  status: keyof typeof STEP_INFO;
-  leader: User;
-  currentUsers: User[];
-}
 
 export default function SpaceCard({
   id,
@@ -29,7 +17,7 @@ export default function SpaceCard({
   status,
   leader,
   currentUsers,
-}: SpaceCardProps) {
+}: SpaceData) {
   const { label, color } = STEP_INFO[status];
 
   const handleCardClick = () => {

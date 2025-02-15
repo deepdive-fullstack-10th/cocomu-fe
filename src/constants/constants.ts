@@ -4,7 +4,10 @@ export const LANGUAGE_IMAGES: Record<string, string> = {
   Java: 'https://holaworld.io/images/languages/java.png',
   C: 'https://holaworld.io/images/languages/c.png',
 } as const;
+
 export const PROGRAMMING_LANGUAGES = ['Python', 'JavaScript', 'Java', 'C'] as const;
+
+export const JUDGES = ['백준', '프로그래머스'] as const;
 
 export const STEP_INFO = {
   WAITING: {
@@ -26,8 +29,6 @@ export const STEP_INFO = {
 } as const;
 
 export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
-
-export type ProgrammingLanguage = (typeof PROGRAMMING_LANGUAGES)[number];
 
 export const ACCESS_STATUS = {
   PUBLIC: '공개',
