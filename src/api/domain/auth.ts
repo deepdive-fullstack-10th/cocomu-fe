@@ -17,6 +17,12 @@ const authApi = {
 
     return data;
   },
+
+  reIssue: async () => {
+    const { data } = await axiosInstance.post<TokenData>(END_POINTS_V1.AUTH.REFRESH_TOKEN);
+
+    return data;
+  },
 };
 
 export default authApi;
