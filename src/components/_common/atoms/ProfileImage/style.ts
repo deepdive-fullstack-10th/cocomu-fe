@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 
-type ProfileImageSize = 'sm' | 'md' | 'lg';
+type ProfileImageSize = 'x_sm' | 'sm' | 'md' | 'lg';
 
 export interface ProfileImageStyleProps {
   size?: ProfileImageSize;
@@ -9,6 +9,10 @@ export interface ProfileImageStyleProps {
 }
 
 const containerSizeStyles = {
+  x_sm: css`
+    width: 3.2rem;
+    height: 3.2rem;
+  `,
   sm: css`
     width: 3.6rem;
     height: 3.6rem;
