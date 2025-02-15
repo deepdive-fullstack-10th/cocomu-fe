@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProfileImage from '@components/_common/atoms/ProfileImage';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { BsChevronDown } from 'react-icons/bs';
+import Icon from '@components/_common/atoms/Icon';
 import S from './style';
 
 interface NavbarProps {
@@ -13,7 +14,6 @@ export default function NavBar({ isLogined }: NavbarProps) {
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen);
-    console.log('Dropdown toggled:', !isDropdownOpen);
   };
 
   const handleLogoClick = () => {
@@ -56,9 +56,13 @@ export default function NavBar({ isLogined }: NavbarProps) {
           {isLogined ? (
             <S.ProfileSection>
               <ProfileImage size='sm' />
-              <S.Icon onClick={handleDropdownToggle}>
-                <BsChevronDown size={15} />
-              </S.Icon>
+              <S.IconWrapper onClick={handleDropdownToggle}>
+                <Icon
+                  icon={<BsChevronDown size={15} />}
+                  size='sm'
+                  color='950'
+                />
+              </S.IconWrapper>
               {isDropdownOpen && (
                 <S.DropdownMenu>
                   <DropdownItem
