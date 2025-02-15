@@ -1,16 +1,11 @@
 import UserProfile from '@components/_common/molecules/UserProfile';
 import { formatDate } from '@utils/formatDate';
-import { User } from '@customTypes/user';
+import { UserDetailData } from '@customTypes/user';
 import S from './style';
 
-interface MemberCardProps {
-  user: User;
-  successCount: number;
-  failedCount: number;
-  joinedDate: string;
-}
+export default function UserCard({ id, name, profileImageUrl, successCount, failedCount, joinedDate }: UserDetailData) {
+  const user = { id, name, profileImageUrl };
 
-export default function MemberCard({ user, successCount, failedCount, joinedDate }: MemberCardProps) {
   return (
     <S.CardContainer>
       <UserProfile
