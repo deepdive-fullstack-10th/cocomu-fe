@@ -5,6 +5,7 @@ import { axiosInstance } from '@api/axiosInstance';
 
 import { PATH } from '@constants/path';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS_CODE } from '@constants/api';
+import authApi from './domain/auth';
 
 export interface ErrorResponseData {
   statusCode?: number;
@@ -37,9 +38,9 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
 
   // TODO: 조건 - 특정 에러코드일때 액세스 토큰 재발급 후 다시 요청
   if (true) {
-    // const { accessToken } = await -> TODO: 토큰 재발급 api
-    // originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-    // localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+    const { accessToken } = await authApi.reIssue();
+    originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 
     return axiosInstance(originalRequest);
   }
