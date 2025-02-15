@@ -17,7 +17,6 @@ interface SpaceCardProps {
   status: keyof typeof STEP_INFO;
   leader: User;
   currentUsers: User[];
-  onClick?: () => void;
 }
 
 export default function SpaceCard({
@@ -30,12 +29,15 @@ export default function SpaceCard({
   status,
   leader,
   currentUsers,
-  onClick,
 }: SpaceCardProps) {
   const { label, color } = STEP_INFO[status];
 
+  const handleCardClick = () => {
+    // id 사용해서 상세페이지로 이동 (joinedSpace 조건)
+  };
+
   return (
-    <S.CardContainer onClick={onClick}>
+    <S.CardContainer onClick={handleCardClick}>
       <S.Header>
         <UserProfile
           user={leader}
