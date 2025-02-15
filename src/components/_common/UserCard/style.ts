@@ -2,30 +2,32 @@ import styled from '@emotion/styled';
 
 const CardContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  border-radius: 1.5rem;
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  background: ${({ theme }) => theme.color.gray[100]};
-  padding: 1.5rem 3rem;
-`;
-
-const ProfileContainer = styled.div`
-  display: flex;
-  gap: 3rem;
   align-items: center;
+
+  border: 2px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 2.5rem;
+  background: ${({ theme }) => theme.color.gray[50]};
+  padding: 2.5rem 6rem;
+
+  width: 100%;
 `;
 
-const ProfileText = styled.span`
-  font: ${({ theme }) => theme.font.common.smallAccent};
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 9rem;
+`;
+
+const Text = styled.span`
+  ${({ theme }) => theme.font.heading[100]};
   color: ${({ theme }) => theme.color.gray[900]};
 `;
 
 const S = {
   CardContainer,
-  ProfileContainer,
-  ProfileText,
+  Info,
+  Text,
 };
 
 export default S;

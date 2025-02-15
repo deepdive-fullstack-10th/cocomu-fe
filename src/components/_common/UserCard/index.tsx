@@ -10,13 +10,13 @@ export default function UserCard({ id, name, profileImageUrl, successCount, fail
     <S.CardContainer>
       <UserProfile
         user={user}
-        size='sm'
+        size='md'
       />
-      <S.ProfileContainer>
-        <S.ProfileText>{`해결한 문제 수: ${successCount}개`}</S.ProfileText>
-        <S.ProfileText>{`실패한 문제 수: ${failedCount}개`}</S.ProfileText>
-        <S.ProfileText>{`가입일: ${formatDate(joinedDate)}`}</S.ProfileText>
-      </S.ProfileContainer>
+      <S.Info>
+        <S.Text>{`해결한 문제 수 : ${successCount}개`}</S.Text>
+        <S.Text>{`실패한 문제 수 : ${failedCount}개`}</S.Text>
+        <S.Text>{`가입일 : ${formatDate(joinedDate)}`}</S.Text>
+      </S.Info>
     </S.CardContainer>
   );
 }
