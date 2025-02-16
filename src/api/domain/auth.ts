@@ -1,11 +1,6 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { TokenData } from '@customTypes/auth';
-
-interface LogInParams {
-  provider: string;
-  oauthCode: number;
-}
+import { LogInParams, TokenData } from '@customTypes/auth';
 
 const authApi = {
   login: async ({ provider, oauthCode }: LogInParams) => {
