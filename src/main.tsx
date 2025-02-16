@@ -6,12 +6,22 @@ import { Global, ThemeProvider } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import ToastList from '@components/_common/molecules/ToastList';
 import BaseModal from '@components/Modal/BaseModal';
+import { worker } from '@mocks/browser';
 import App from './App';
 import globalStyles from './styles/globalStyles';
 import { theme } from './styles/theme';
 
 const main = async () => {
   const { error: alertError } = useToastStore.getState();
+
+  if (import.meta.env.MODE === 'development') {
+    await worker.start({
+      serviceWorker: {
+        url: '/mockServiceWorker.js',
+      },
+      onUnhandledRequest: 'bypass',
+    });
+  }
 
   const queryClient = new QueryClient({
     defaultOptions: {
