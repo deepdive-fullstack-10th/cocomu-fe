@@ -1,5 +1,12 @@
+import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
+
+export interface PasswordInputProps {
+  onClose: () => void;
+  onConfirm: (password: string) => void;
+  error?: string;
+}
 
 export interface WaitingProps extends Record<string, unknown> {
   label?: string;
@@ -28,8 +35,10 @@ export interface TestcaseProps {
 
 export const MODAL_COMPONENTS: {
   waiting: ModalConfig<WaitingProps>;
+  passwordInput: ModalConfig<PasswordInputProps>;
   testcase: ModalConfig<TestcaseProps>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
+  passwordInput: { Component: PasswordInput, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
 };

@@ -38,10 +38,16 @@ const Input = styled.input<{ isError: boolean }>`
     background-color: ${({ theme }) => theme.color.gray[200]};
     border-color: ${({ theme }) => theme.color.gray[500]};
   }
+
+  &::-ms-reveal,
+  &::-ms-clear {
+    display: none;
+  }
 `;
 
 const Icon = styled.div`
   position: absolute;
+  padding-right: 0.5rem;
   top: 50%;
   right: 2%;
   transform: translateY(-50%);
