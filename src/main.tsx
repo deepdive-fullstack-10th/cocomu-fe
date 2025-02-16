@@ -10,31 +10,38 @@ import App from './App';
 import globalStyles from './styles/globalStyles';
 import { theme } from './styles/theme';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      throwOnError: true,
-      retry: 0,
-    },
-    mutations: {
-      onError: (error) => {
-        const { error: alertError } = useToastStore.getState();
-        alertError(error.message);
+const main = async () => {
+  const { error: alertError } = useToastStore.getState();
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        throwOnError: true,
+        retry: 0,
+      },
+      mutations: {
+        onError: (error) => {
+          alertError(error.message);
+        },
       },
     },
-  },
-});
+  });
 
-createRoot(document.getElementById('root')!).render(
-  <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Global styles={globalStyles()} />
-        <ToastList />
-        <BaseModal />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </QueryClientProvider>,
-);
+  const root = createRoot(document.getElementById('root') as Element);
+
+  root.render(
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Global styles={globalStyles()} />
+          <ToastList />
+          <BaseModal />
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </QueryClientProvider>,
+  );
+};
+
+main();
