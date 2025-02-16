@@ -1,3 +1,4 @@
+import ConfirmModal from '@components/Modal/Confirm';
 import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
@@ -12,6 +13,12 @@ export interface WaitingProps extends Record<string, unknown> {
   description?: string;
   navigateUrl?: string;
   onClose?: () => void;
+}
+
+export interface ConfirmProps {
+  description: string;
+  onClose: () => void;
+  onConfirm: () => void;
 }
 
 interface ModalConfig<T> {
@@ -34,10 +41,12 @@ export interface TestcaseProps {
 
 export const MODAL_COMPONENTS: {
   waiting: ModalConfig<WaitingProps>;
+  confirm: ModalConfig<ConfirmProps>;
   passwordInput: ModalConfig<PasswordInputProps>;
   testcase: ModalConfig<TestcaseProps>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
+  confirm: { Component: ConfirmModal, disableOutsideClick: false },
   passwordInput: { Component: PasswordInput, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
 };
