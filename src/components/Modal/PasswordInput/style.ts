@@ -9,7 +9,7 @@ const Container = styled.div`
   background: white;
   border-radius: 1.2rem;
   width: 52rem;
-  height: 42.5rem;
+  height: 31.7rem;
 `;
 
 const Description = styled.h2`
