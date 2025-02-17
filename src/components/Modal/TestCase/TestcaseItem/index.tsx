@@ -22,12 +22,13 @@ export default function TestcaseItem({
     return null;
   }
   return (
-    <S.TestcaseItem key={testcase.id}>
+    <S.TestcaseItem>
       {edit && (
-        <S.RemoveButton onClick={() => handleRemoveTestcase(testcase.id)}>
+        <S.RemoveButton>
           <Icon
             size='md'
             icon={<BsDash />}
+            onClick={() => handleRemoveTestcase(testcase.id)}
           />
         </S.RemoveButton>
       )}
