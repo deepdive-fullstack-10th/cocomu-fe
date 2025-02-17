@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { checkAndSetToken, handleAPIError, handleTokenError } from '@api/interceptors';
+import { checkAndSetToken, handleAPIError, handleResponse } from '@api/interceptors';
 import { BASE_URL } from '@constants/api';
 
 export const axiosInstance = axios.create({
@@ -8,10 +8,9 @@ export const axiosInstance = axios.create({
   timeout: 5000,
   withCredentials: true,
   useAuth: true,
+  validateStatus: () => true,
 });
 
 axiosInstance.interceptors.request.use(checkAndSetToken, handleAPIError);
 
-axiosInstance.interceptors.response.use((response) => response, handleTokenError);
-
-axiosInstance.interceptors.response.use((response) => response, handleAPIError);
+axiosInstance.interceptors.response.use(handleResponse);
