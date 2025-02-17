@@ -23,7 +23,7 @@ const NavItems = styled.div`
 const LoginButton = styled.button`
   width: 8rem;
   color: ${({ theme }) => theme.color.gray[900]};
-  font: ${({ theme }) => theme.font.common.default};
+  ${({ theme }) => theme.font.common.default};
 `;
 
 const ProfileSection = styled.div`
