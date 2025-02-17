@@ -4,6 +4,11 @@ import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
 import Login from '@components/Modal/Login';
 
+interface ModalConfig<T> {
+  Component: React.FC<T>;
+  disableOutsideClick?: boolean;
+}
+
 export interface PasswordInputProps {
   description: string;
   onClose: () => void;
@@ -20,11 +25,6 @@ export interface ConfirmProps {
   description: string;
   onClose: () => void;
   onConfirm: () => boolean;
-}
-
-interface ModalConfig<T> {
-  Component: React.FC<T>;
-  disableOutsideClick?: boolean;
 }
 
 export type TestcaseItem = {
