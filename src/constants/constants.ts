@@ -34,3 +34,5 @@ export const ACCESS_STATUS = {
   PUBLIC: '공개',
   PRIVATE: '비공개',
 } as const;
+
+export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
