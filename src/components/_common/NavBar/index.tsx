@@ -3,6 +3,8 @@ import ProfileImage from '@components/_common/atoms/ProfileImage';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { BsChevronDown } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
+import Button from '@components/_common/atoms/Button';
+import { NAVBAR_DROPDOWN_LABELS } from '@constants/constants';
 import S from './style';
 
 interface NavbarProps {
@@ -12,29 +14,32 @@ interface NavbarProps {
 export default function NavBar({ isLogined }: NavbarProps) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
+  const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
   const handleLogoClick = () => {
-    // 로고를 클릭하면 메인 페이지로 이동하도록 구현
+    // 로고 클릭 시 메인 페이지로 이동
   };
 
   const handleStudyClick = () => {
-    // 스터디 모집 버튼을 클릭하면 스터디 작성 페이지로 이동하도록 구현
+    // 스터디 모집 페이지로 이동
   };
 
   const handleMyPageClick = () => {
-    // 마이페이지 아이템을 클릭하면 로그인 한 사용자의 마이페이지로 이동하도록 구현
+    // 마이페이지 이동
   };
 
   const handleLogoutClick = () => {
-    // 로그아웃 아이템을 클릭하면 로그아웃 진행하도록 구현
+    // 로그아웃 실행
   };
 
   const handleLoginClick = () => {
-    // 로그인 버튼을 클릭하면 로그인 진행하도록 구현
+    // 로그인 실행
   };
+
+  const dropdownItems = [
+    { label: NAVBAR_DROPDOWN_LABELS[0], onClick: handleMyPageClick },
+    { label: NAVBAR_DROPDOWN_LABELS[1], onClick: handleLogoutClick },
+  ];
 
   return (
     <S.NavbarContainer>
@@ -45,45 +50,42 @@ export default function NavBar({ isLogined }: NavbarProps) {
       />
 
       <S.NavItems>
-        <S.StudyButton
-          to='/study'
+        <Button
           onClick={handleStudyClick}
+          color='primary'
+          size='md'
+          shape='round'
         >
           스터디 모집하기
-        </S.StudyButton>
+        </Button>
 
-        <S.RightSection>
-          {isLogined ? (
-            <S.ProfileSection>
-              <ProfileImage size='sm' />
-              <S.IconWrapper onClick={handleDropdownToggle}>
-                <Icon
-                  icon={<BsChevronDown size={15} />}
-                  size='sm'
-                  color='950'
-                />
-              </S.IconWrapper>
-              {isDropdownOpen && (
-                <S.DropdownMenu>
+        {isLogined ? (
+          <S.ProfileSection>
+            <ProfileImage size='sm' />
+            <S.IconWrapper onClick={handleDropdownToggle}>
+              <Icon
+                icon={<BsChevronDown size={15} />}
+                size='sm'
+                color='950'
+              />
+            </S.IconWrapper>
+            {isDropdownOpen && (
+              <S.DropdownMenu>
+                {dropdownItems.map((item) => (
                   <DropdownItem
-                    item='마이페이지'
-                    onClick={handleMyPageClick}
+                    key={item.label}
+                    item={item.label}
+                    onClick={item.onClick}
                     size='md'
                     color='black'
                   />
-                  <DropdownItem
-                    item='로그아웃'
-                    onClick={handleLogoutClick}
-                    size='md'
-                    color='black'
-                  />
-                </S.DropdownMenu>
-              )}
-            </S.ProfileSection>
-          ) : (
-            <S.LoginButton onClick={handleLoginClick}>로그인</S.LoginButton>
-          )}
-        </S.RightSection>
+                ))}
+              </S.DropdownMenu>
+            )}
+          </S.ProfileSection>
+        ) : (
+          <S.LoginButton onClick={handleLoginClick}>로그인</S.LoginButton>
+        )}
       </S.NavItems>
     </S.NavbarContainer>
   );
