@@ -9,7 +9,7 @@ import S from './style';
 
 export default function SpaceCard({
   id,
-  joinedSpace,
+  joinable,
   name,
   language,
   totalUserCount,
