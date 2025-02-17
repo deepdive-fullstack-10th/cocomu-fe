@@ -19,13 +19,8 @@ export default function Testcase({ status, onClose, testcases }: TestcaseProps) 
     setTestcaseList((prevList) => prevList.filter((testcase) => testcase.id !== id));
   };
 
-  const handleInputChange = (id: string | number, field: 'input' | 'output', newValue: string) => {
-    setTestcaseList((prevTestCases) =>
-      prevTestCases.map((testcase) => {
-        if (testcase.id !== id) return testcase;
-        return { ...testcase, [field]: newValue };
-      }),
-    );
+  const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
+    setTestcaseList((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
   };
 
   const onSubmit = () => {
@@ -49,6 +44,7 @@ export default function Testcase({ status, onClose, testcases }: TestcaseProps) 
             edit={testcase.type === 'CUSTOM' && status === 'CUSTOM'}
             disabled={status === 'DEFAULT' || testcase.type === 'BASE'}
             testcase={testcase}
+            key={testcase.id}
           />
         ))}
       </S.TestcaseItemContainer>
