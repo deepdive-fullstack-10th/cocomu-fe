@@ -4,7 +4,7 @@ import Testcase from '@components/Modal/TestCase';
 
 export interface PasswordInputProps {
   onClose: () => void;
-  onConfirm: (password: string) => void;
+  onConfirm: (password: string) => boolean;
   error?: string;
 }
 
