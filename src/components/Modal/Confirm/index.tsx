@@ -1,13 +1,13 @@
 import Button from '@components/_common/atoms/Button';
+import { ConfirmProps } from '@customTypes/modal';
 import S from './style';
 
-interface ConfirmProps {
-  description: string;
-  onClose: () => void;
-  onConfirm: () => void;
-}
+export default function ConfirmModal({ description, onClose, onConfirm }: ConfirmProps) {
+  const handleConfirm = () => {
+    if (!onConfirm()) return; // Ensure `onConfirm` returns a boolean before closing
+    onClose();
+  };
 
-export default function Confirm({ description, onClose, onConfirm }: ConfirmProps) {
   return (
     <S.Container>
       <S.Description>{description}</S.Description>
@@ -16,7 +16,7 @@ export default function Confirm({ description, onClose, onConfirm }: ConfirmProp
         <Button
           color='primary'
           size='md'
-          onClick={onConfirm}
+          onClick={handleConfirm}
         >
           확인
         </Button>
