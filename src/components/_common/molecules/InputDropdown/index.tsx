@@ -2,15 +2,16 @@ import { useMemo, useState } from 'react';
 import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import Icon from '@components/_common/atoms/Icon';
-import { BsChevronDown } from 'react-icons/bs';
+import { BsChevronDown, BsX } from 'react-icons/bs';
+import Tag from '@components/_common/atoms/Tag';
 import S from './style';
 
 type DropdownListProps<T extends readonly string[]> = {
   label: string;
   placeholder?: string;
   items: T;
-  value?: string;
-  onSelect: (value: string) => void;
+  values?: string[];
+  onSelect: (value: string[]) => void;
   allowCustomValue?: boolean;
 } & DropDownItemStyleProps;
 
@@ -20,7 +21,7 @@ export default function Dropdown<T extends readonly string[]>({
   items,
   size,
   color,
-  value,
+  values = [],
   onSelect,
   allowCustomValue = false,
 }: DropdownListProps<T> & DropDownItemStyleProps) {
@@ -33,22 +34,32 @@ export default function Dropdown<T extends readonly string[]>({
 
   const filteredItems = useMemo(() => {
     if (!inputValue) return items;
-    return items.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()));
-  }, [items, inputValue]);
+    return items.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(item));
+  }, [items, inputValue, values]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setInputValue(newValue);
+    setInputValue(e.target.value);
+  };
 
-    if (allowCustomValue) {
-      onSelect(newValue);
+  const handleAddItem = (newItem: string) => {
+    if (values?.includes(newItem)) {
+      setIsOpen(false);
+      return;
     }
+    setIsOpen(false);
+    setInputValue('');
+    onSelect([...(values || []), newItem]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && allowCustomValue) {
-      setIsOpen(false);
+    if (e.key === ' ' && allowCustomValue) {
+      handleAddItem(inputValue);
     }
+  };
+
+  const handleRemoveTag = (item: string) => {
+    const newValues = values?.filter((tag) => tag !== item) || [];
+    onSelect(newValues);
   };
 
   return (
@@ -56,34 +67,42 @@ export default function Dropdown<T extends readonly string[]>({
       <S.Label>{label}</S.Label>
       <S.Header>
         <S.InputContainer>
+          {values?.map((tag) => (
+            <Tag
+              color='primary'
+              key={tag}
+            >
+              {tag}
+              <Icon
+                icon={<BsX />}
+                color='950'
+                onClick={() => handleRemoveTag(tag)}
+              />
+            </Tag>
+          ))}
           <S.Input
             placeholder={placeholder}
-            value={value || inputValue || ''}
+            value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
           />
-          <S.Icon onClick={toggleDropDown}>
-            <Icon
-              icon={<BsChevronDown />}
-              color='950'
-            />
-          </S.Icon>
+          <Icon
+            icon={<BsChevronDown />}
+            color='950'
+            onClick={toggleDropDown}
+          />
         </S.InputContainer>
       </S.Header>
 
       {isOpen && (
         <S.DropdownList>
-          {items.map((item) => (
+          {items.map((item: string) => (
             <DropdownItem
               key={item}
               item={item}
               size={size}
               color={color}
-              onClick={() => {
-                setIsOpen(false);
-                setInputValue(item);
-                onSelect(item);
-              }}
+              onClick={() => handleAddItem(item)}
             />
           ))}
         </S.DropdownList>
