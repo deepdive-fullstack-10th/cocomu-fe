@@ -13,7 +13,7 @@ interface ModalConfig<T> {
   disableOutsideClick?: boolean;
 }
 
-type TestcaseItem = {
+export type TestcaseItem = {
   id?: number | string;
   input?: string;
   output?: string;

@@ -6,6 +6,7 @@ type IconButtonComponentProps = PropsWithChildren<
   React.ComponentProps<'div'> &
     IconButtonProps & {
       icon?: ReactNode;
+      onClick?: () => void;
     }
 >;
 
@@ -15,9 +16,11 @@ export default function IconButton({
   align = 'left',
   icon,
   shape = 'default',
+  onClick,
 }: IconButtonComponentProps) {
   const [iconColor, setIconColor] = useState<'50' | '950'>('950');
   const [isHovered, setIsHovered] = useState(false);
+
   useEffect(() => {
     if (color === 'white') {
       if (isHovered) {
@@ -45,6 +48,7 @@ export default function IconButton({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       shape={shape}
+      onClick={onClick}
     >
       {icon && (
         <Icon

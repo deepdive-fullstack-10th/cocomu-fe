@@ -47,6 +47,7 @@ const IconButtonContainer = styled.div<IconButtonProps>`
   padding: 0.6rem 1.9rem;
   border-radius: 2rem;
 
+  cursor: pointer;
   ${({ shape }) => shapeStyles(shape)}
 `;
 
