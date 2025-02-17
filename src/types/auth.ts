@@ -1,8 +1,10 @@
 export interface LogInParams {
   provider: string;
-  oauthCode: number;
+  oauthCode: string;
 }
 
 export interface TokenData {
-  accessToken: string;
+  result: {
+    accessToken: string;
+  };
 }

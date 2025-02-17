@@ -11,47 +11,41 @@ import App from './App';
 import globalStyles from './styles/globalStyles';
 import { theme } from './styles/theme';
 
-const main = async () => {
-  const { error: alertError } = useToastStore.getState();
+if (import.meta.env.MODE === 'development') {
+  worker.start({
+    serviceWorker: {
+      url: '/mockServiceWorker.js',
+    },
+    onUnhandledRequest: 'bypass',
+  });
+}
 
-  if (import.meta.env.MODE === 'development') {
-    await worker.start({
-      serviceWorker: {
-        url: '/mockServiceWorker.js',
-      },
-      onUnhandledRequest: 'bypass',
-    });
-  }
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        throwOnError: true,
-        retry: 0,
-      },
-      mutations: {
-        onError: (error) => {
-          alertError(error.message);
-        },
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+      retry: 0,
+    },
+    mutations: {
+      onError: (error) => {
+        useToastStore.getState().error(error.message);
       },
     },
-  });
+  },
+});
 
-  const root = createRoot(document.getElementById('root') as Element);
+const root = createRoot(document.getElementById('root') as Element);
 
-  root.render(
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <Global styles={globalStyles()} />
-          <ToastList />
-          <BaseModal />
-          <App />
-        </ThemeProvider>
-      </BrowserRouter>
-    </QueryClientProvider>,
-  );
-};
-
-main();
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Global styles={globalStyles()} />
+        <ToastList />
+        <BaseModal />
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </QueryClientProvider>,
+);
