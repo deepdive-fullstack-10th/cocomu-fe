@@ -18,7 +18,7 @@ export interface WaitingProps extends Record<string, unknown> {
 export interface ConfirmProps {
   description: string;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: () => boolean;
 }
 
 interface ModalConfig<T> {
