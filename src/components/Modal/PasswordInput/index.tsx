@@ -4,21 +4,23 @@ import Button from '@components/_common/atoms/Button';
 import { PasswordInputProps } from '@customTypes/modal';
 import S from './style';
 
-export default function PasswordInput({ onClose, onConfirm }: PasswordInputProps) {
+export default function PasswordInput({ description, onClose }: PasswordInputProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | undefined>();
 
   const handleConfirm = () => {
-    if (!password || !onConfirm(password)) {
+    const isCorrect = password === 'correct-password';
+    if (!isCorrect) {
       setError('올바르지 않은 암호입니다.');
       return;
     }
+    alert('비밀번호가 올바릅니다.');
     onClose();
   };
 
   return (
     <S.Container>
-      <S.Description>암호를 입력해주세요</S.Description>
+      <S.Description>{description}</S.Description>
       <InputField
         type='password'
         placeholder='비밀번호를 입력하세요'

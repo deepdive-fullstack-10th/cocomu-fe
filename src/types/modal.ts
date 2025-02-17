@@ -3,9 +3,8 @@ import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
 
 export interface PasswordInputProps {
+  description: string;
   onClose: () => void;
-  onConfirm: (password: string) => boolean;
-  error?: string;
 }
 
 export interface WaitingProps extends Record<string, unknown> {
