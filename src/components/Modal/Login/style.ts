@@ -15,16 +15,11 @@ const LoginModalContainer = styled.div`
   border-radius: 1.6rem;
 `;
 
-const CloseIconWrapper = styled.div`
-  position: absolute;
-  transform: translate(940%, -1100%);
-  cursor: pointer;
+const Header = styled.div`
+  padding: 1rem;
 `;
 
-const LogoContainer = styled.div`
-  width: 15rem;
-  margin: 3rem;
-`;
+const Body = styled.div``;
 
 const Logo = styled.img`
   width: 100%;
@@ -36,6 +31,8 @@ const IntroduceLabel = styled.div`
   color: ${({ theme }) => theme.color.gray[950]};
   margin-bottom: 1rem;
 `;
+
+const LoginButtonContainer = styled.div``;
 
 const ButtonStyle = css`
   display: flex;
@@ -69,8 +66,6 @@ const GoogleLoginButton = styled.div`
   background-color: ${({ theme }) => theme.color.gray[50]};
   color: ${({ theme }) => theme.color.gray[950]};
 
-  margin-top: 2rem;
-
   &:hover {
     background-color: ${({ theme }) => theme.color.gray[200]};
     color: ${({ theme }) => theme.color.gray[800]};
@@ -93,8 +88,6 @@ const KakaoLoginButton = styled.div`
   background-color: ${({ theme }) => theme.color.secondary[500]};
   color: ${({ theme }) => theme.color.gray[950]};
 
-  margin-bottom: 4rem;
-
   &:hover {
     background-color: ${({ theme }) => theme.color.secondary[400]};
     color: ${({ theme }) => theme.color.gray[900]};
@@ -103,12 +96,13 @@ const KakaoLoginButton = styled.div`
 
 const S = {
   LoginModalContainer,
-  CloseIconWrapper,
-  LogoContainer,
+  Header,
+  Body,
   Logo,
   IntroduceLabel,
   ButtonIcon,
   ButtonLabel,
+  LoginButtonContainer,
   GoogleLoginButton,
   GitHubLoginButton,
   KakaoLoginButton,
