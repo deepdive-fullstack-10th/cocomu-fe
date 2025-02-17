@@ -7,7 +7,7 @@ import Icon from '@components/_common/atoms/Icon';
 import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
-export default function LoginModal() {
+export default function Login() {
   const handleClick = (platform: string) => {
     /* 각 플랫폼으로 로그인 클릭 시 발생하는 이벤트 */
     console.log(`please access your ${platform}`);
@@ -16,7 +16,7 @@ export default function LoginModal() {
 
   return (
     <S.LoginModalContainer>
-      <S.CloseIconWrapper onClick={close}>
+      <S.Header onClick={close}>
         <Icon
           icon={
             <BsXLg
@@ -25,22 +25,26 @@ export default function LoginModal() {
             />
           }
         />
-      </S.CloseIconWrapper>
-      <S.Logo src={COCOMU_LOGO} />
-      <S.IntroduceLabel>코코무에 오신 것을</S.IntroduceLabel>
-      <S.IntroduceLabel>환영합니다!</S.IntroduceLabel>
-      <S.GoogleLoginButton onClick={() => handleClick('google')}>
-        <S.ButtonIcon src={GOOGLE_LOGO} />
-        <S.ButtonLabel>Google 로그인</S.ButtonLabel>
-      </S.GoogleLoginButton>
-      <S.GitHubLoginButton onClick={() => handleClick('github')}>
-        <S.ButtonIcon src={GITHUB_LOGO} />
-        <S.ButtonLabel>GitHub 로그인</S.ButtonLabel>
-      </S.GitHubLoginButton>
-      <S.KakaoLoginButton onClick={() => handleClick('kakao')}>
-        <S.ButtonIcon src={KAKAO_LOGO} />
-        <S.ButtonLabel>Kakao 로그인</S.ButtonLabel>
-      </S.KakaoLoginButton>
+      </S.Header>
+      <S.Body>
+        <S.Logo src={COCOMU_LOGO} />
+        <S.IntroduceLabel>코코무에 오신 것을</S.IntroduceLabel>
+        <S.IntroduceLabel>환영합니다!</S.IntroduceLabel>
+        <S.LoginButtonContainer>
+          <S.GoogleLoginButton onClick={() => handleClick('google')}>
+            <S.ButtonIcon src={GOOGLE_LOGO} />
+            <S.ButtonLabel>Google 로그인</S.ButtonLabel>
+          </S.GoogleLoginButton>
+          <S.GitHubLoginButton onClick={() => handleClick('github')}>
+            <S.ButtonIcon src={GITHUB_LOGO} />
+            <S.ButtonLabel>GitHub 로그인</S.ButtonLabel>
+          </S.GitHubLoginButton>
+          <S.KakaoLoginButton onClick={() => handleClick('kakao')}>
+            <S.ButtonIcon src={KAKAO_LOGO} />
+            <S.ButtonLabel>Kakao 로그인</S.ButtonLabel>
+          </S.KakaoLoginButton>
+        </S.LoginButtonContainer>
+      </S.Body>
     </S.LoginModalContainer>
   );
 }
