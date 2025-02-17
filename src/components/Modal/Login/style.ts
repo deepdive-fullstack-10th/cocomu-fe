@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import { css, SerializedStyles, Theme } from '@emotion/react';
+
+export type ButtonType = 'google' | 'github' | 'kakao';
 
 const LoginModalContainer = styled.div`
   width: 46rem;
@@ -16,14 +18,33 @@ const LoginModalContainer = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 1rem;
+  display: flex;
+  width: 100%;
+  padding: 3rem 3rem 0 3rem;
+  justify-content: right;
+  align-items: flex-end;
 `;
 
-const Body = styled.div``;
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 8rem 2rem 8rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+`;
 
 const Logo = styled.img`
-  width: 100%;
+  width: 50%;
   height: auto;
+`;
+
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const IntroduceLabel = styled.div`
@@ -32,21 +53,66 @@ const IntroduceLabel = styled.div`
   margin-bottom: 1rem;
 `;
 
-const LoginButtonContainer = styled.div``;
+const LoginButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 4rem;
+`;
 
-const ButtonStyle = css`
+const buttonStyles = css`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 32rem;
 
   border-radius: 3rem;
-  gap: 1rem;
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1.8rem;
 
   cursor: pointer;
   transition: 0.2s ease;
+`;
+
+const typeStyles: { [key in ButtonType]: (theme: Theme) => SerializedStyles } = {
+  google: (theme: Theme) => css`
+    border: 1px solid ${theme.color.gray[600]};
+    background-color: ${theme.color.gray[50]};
+    color: ${theme.color.gray[950]};
+
+    &:hover {
+      background-color: ${theme.color.gray[200]};
+      color: ${theme.color.gray[800]};
+    }
+  `,
+  github: (theme: Theme) => css`
+    background-color: ${theme.color.gray[950]};
+    color: ${theme.color.gray[50]};
+
+    &:hover {
+      background-color: ${theme.color.gray[900]};
+      color: ${theme.color.gray[400]};
+    }
+  `,
+  kakao: (theme: Theme) => css`
+    background-color: ${theme.color.secondary[500]};
+    color: ${theme.color.gray[950]};
+
+    &:hover {
+      background-color: ${theme.color.secondary[400]};
+      color: ${theme.color.gray[900]};
+    }
+  `,
+};
+
+const LoginButton = styled.button<{ buttonType: ButtonType }>`
+  ${buttonStyles};
+  ${({ theme, buttonType }) => typeStyles[buttonType](theme)};
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
+  }
 `;
 
 const ButtonIcon = styled.img`
@@ -60,52 +126,17 @@ const ButtonLabel = styled.div`
   align-items: center;
 `;
 
-const GoogleLoginButton = styled.div`
-  ${ButtonStyle};
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  background-color: ${({ theme }) => theme.color.gray[50]};
-  color: ${({ theme }) => theme.color.gray[950]};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.gray[200]};
-    color: ${({ theme }) => theme.color.gray[800]};
-  }
-`;
-
-const GitHubLoginButton = styled.div`
-  ${ButtonStyle};
-  background-color: ${({ theme }) => theme.color.gray[950]};
-  color: ${({ theme }) => theme.color.gray[50]};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.gray[900]};
-    color: ${({ theme }) => theme.color.gray[400]};
-  }
-`;
-
-const KakaoLoginButton = styled.div`
-  ${ButtonStyle};
-  background-color: ${({ theme }) => theme.color.secondary[500]};
-  color: ${({ theme }) => theme.color.gray[950]};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.secondary[400]};
-    color: ${({ theme }) => theme.color.gray[900]};
-  }
-`;
-
 const S = {
   LoginModalContainer,
   Header,
   Body,
   Logo,
+  Text,
   IntroduceLabel,
+  LoginButton,
   ButtonIcon,
   ButtonLabel,
   LoginButtonContainer,
-  GoogleLoginButton,
-  GitHubLoginButton,
-  KakaoLoginButton,
 };
 
 export default S;
