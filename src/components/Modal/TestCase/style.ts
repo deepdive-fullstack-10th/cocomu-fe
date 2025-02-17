@@ -5,6 +5,22 @@ const TestcaseContainer = styled.div`
   max-height: 35rem;
 
   padding: 2rem 3rem;
+`;
+
+const TestcaseHeaderLeft = styled.header`
+  ${({ theme }) => theme.font.heading[300]}
+`;
+
+const TestcaseHeaderRight = styled.div`
+  ${({ theme }) => theme.font.heading[300]}
+  display:flex;
+  justify-content: end;
+  cursor: pointer;
+`;
+
+const TestcaseItemContainer = styled.div`
+  height: fit-content;
+  max-height: 18rem;
 
   overflow: auto;
   scrollbar-width: none;
@@ -12,46 +28,6 @@ const TestcaseContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
-
-const TestcaseHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
-
-  ${({ theme }) => theme.font.heading[300]}
-`;
-
-const TestcaseItem = styled.div`
-  position: relative;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin: 1rem 0rem;
-`;
-
-const Input = styled.input<{ remove?: boolean }>`
-  width: 65%;
-
-  padding: 1rem;
-  padding-left: ${({ remove }) => (remove ? '3rem' : '1rem')};
-
-  border: 1px solid ${({ theme }) => theme.color.gray[900]};
-  border-radius: 1rem;
-
-  ${({ theme }) => theme.font.common.default}
-`;
-
-const Output = styled.input`
-  width: 30%;
-
-  padding: 1rem;
-
-  border: 1px solid ${({ theme }) => theme.color.gray[900]};
-  border-radius: 1rem;
-
-  ${({ theme }) => theme.font.common.default}
 `;
 
 const TestcaseAddButton = styled.button`
@@ -64,30 +40,20 @@ const TestcaseFooter = styled.footer<{ status: 'DEFAULT' | 'CUSTOM' }>`
   justify-content: flex-end;
   align-items: center;
 
+  margin-top: 1rem;
+
   & > button:first-of-type {
     margin-right: ${({ status }) => (status === 'DEFAULT' ? '0rem' : '2rem')};
   }
 `;
 
-const RemoveButton = styled.button`
-  position: absolute;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-`;
-
 const S = {
   TestcaseContainer,
-  TestcaseHeader,
+  TestcaseHeaderLeft,
+  TestcaseItemContainer,
   TestcaseFooter,
-  TestcaseItem,
-  Input,
-  Output,
   TestcaseAddButton,
-  RemoveButton,
+  TestcaseHeaderRight,
 };
 
 export default S;
