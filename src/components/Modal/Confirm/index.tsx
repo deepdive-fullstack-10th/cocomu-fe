@@ -4,7 +4,8 @@ import S from './style';
 
 export default function ConfirmModal({ description, onClose, onConfirm }: ConfirmProps) {
   const handleConfirm = () => {
-    if (!onConfirm()) return; // Ensure `onConfirm` returns a boolean before closing
+    if (onConfirm && !onConfirm()) return; // Ensure `onConfirm` exists and returns a boolean before closing
+    alert('참여 완료!');
     onClose();
   };
 
