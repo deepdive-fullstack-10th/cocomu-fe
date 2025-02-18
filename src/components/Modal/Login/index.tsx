@@ -27,7 +27,7 @@ export default function Login() {
         />
       </S.Header>
       <S.Body>
-        <S.Logo src={COCOMU_LOGO} />
+        <S.Logo src='https://cdn.cocomu.co.kr/images/default/Logo.png' />
         <S.Text>
           <S.IntroduceLabel>코코무에 오신 것을</S.IntroduceLabel>
           <S.IntroduceLabel>환영합니다!</S.IntroduceLabel>
@@ -37,21 +37,21 @@ export default function Login() {
             buttonType='google'
             onClick={() => handleClick('google')}
           >
-            <S.ButtonIcon src={GOOGLE_LOGO} />
+            <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/google.png' />
             <S.ButtonLabel>Google 로그인</S.ButtonLabel>
           </S.LoginButton>
           <S.LoginButton
             buttonType='github'
             onClick={() => handleClick('github')}
           >
-            <S.ButtonIcon src={GITHUB_LOGO} />
+            <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/github.png' />
             <S.ButtonLabel>GitHub 로그인</S.ButtonLabel>
           </S.LoginButton>
           <S.LoginButton
             buttonType='kakao'
             onClick={() => handleClick('kakao')}
           >
-            <S.ButtonIcon src={KAKAO_LOGO} />
+            <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/kakaotalk.png' />
             <S.ButtonLabel>Kakao 로그인</S.ButtonLabel>
           </S.LoginButton>
         </S.LoginButtonContainer>
