@@ -8,7 +8,7 @@ export interface ProfileImageProps extends ProfileImageStyleProps {
 }
 
 export default function ProfileImage({
-  src = 'https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg',
+  src = 'https://cdn.cocomu.co.kr/images/default/profile.png',
   size = 'md',
   upload = false,
   border = false,
