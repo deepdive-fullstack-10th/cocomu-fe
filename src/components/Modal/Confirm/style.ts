@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Description = styled.h2`
   ${({ theme }) => theme.font.heading[300]};
-  color: ${({ theme }) => theme.color.gray[600]};
+  color: ${({ theme }) => theme.color.gray[700]};
   margin-bottom: 1.6rem;
 `;
 
