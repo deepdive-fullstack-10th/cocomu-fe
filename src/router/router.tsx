@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 import ErrorPage from '@pages/ErrorPage';
 import Loading from '@pages/Loading';
-
 import App from '../App';
 
 const StudyList = lazy(() => import('@pages/StudyList'));

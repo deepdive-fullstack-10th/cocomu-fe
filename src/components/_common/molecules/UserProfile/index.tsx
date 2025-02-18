@@ -19,7 +19,7 @@ export default function UserProfile({ user, size = 'md', upload, border }: UserP
         upload={upload}
         border={border}
       />
-      <S.ProfileLabelName size={size}>{user.name}</S.ProfileLabelName>
+      <S.ProfileLabelName size={size}>{user.nickName}</S.ProfileLabelName>
     </S.UserProfileContainer>
   );
 }
