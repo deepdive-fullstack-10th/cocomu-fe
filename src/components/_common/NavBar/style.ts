@@ -5,7 +5,6 @@ const NavbarContainer = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 1rem 10rem;
-  background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const LogoImage = styled.img`
@@ -22,7 +21,7 @@ const NavItems = styled.div`
 
 const LoginButton = styled.button`
   width: 8rem;
-  color: ${({ theme }) => theme.color.gray[900]};
+  color: ${({ theme }) => theme.color.gray[950]};
   ${({ theme }) => theme.font.common.default};
 `;
 

@@ -62,11 +62,12 @@ export default function NavBar({ isLogined }: NavbarProps) {
         {isLogined ? (
           <S.ProfileSection>
             <ProfileImage size='sm' />
-            <S.IconWrapper onClick={handleDropdownToggle}>
+            <S.IconWrapper>
               <Icon
                 icon={<BsChevronDown size={15} />}
                 size='sm'
                 color='950'
+                onClick={handleDropdownToggle} // Moved onClick to Icon
               />
             </S.IconWrapper>
             {isDropdownOpen && (
