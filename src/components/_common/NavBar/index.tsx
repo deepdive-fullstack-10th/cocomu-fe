@@ -44,7 +44,7 @@ export default function NavBar({ isLogined }: NavbarProps) {
   return (
     <S.NavbarContainer>
       <S.LogoImage
-        src='/src/assets/logo.png'
+        src='https://cdn.cocomu.co.kr/images/default/Logo.png'
         alt='Logo'
         onClick={handleLogoClick}
       />
