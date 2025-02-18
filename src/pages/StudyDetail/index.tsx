@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 
-export default function App() {
+export default function StudyDetail() {
   return (
     <div>
-      <h1>App</h1>
+      <h1>StudyDetail</h1>
       <Outlet />
     </div>
   );
