@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import Icon from '@components/_common/atoms/Icon';
@@ -7,7 +7,7 @@ import Tag from '@components/_common/atoms/Tag';
 import S from './style';
 
 type DropdownListProps<T extends readonly string[]> = {
-  label: string;
+  label?: string;
   placeholder?: string;
   items: T;
   values?: string[];
@@ -16,7 +16,7 @@ type DropdownListProps<T extends readonly string[]> = {
 } & DropDownItemStyleProps;
 
 export default function Dropdown<T extends readonly string[]>({
-  label,
+  label = '',
   placeholder = '',
   items,
   size,
@@ -31,11 +31,6 @@ export default function Dropdown<T extends readonly string[]>({
   const toggleDropDown = () => {
     setIsOpen(!isOpen);
   };
-
-  const filteredItems = useMemo(() => {
-    if (!inputValue) return items;
-    return items.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(item));
-  }, [items, inputValue, values]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
