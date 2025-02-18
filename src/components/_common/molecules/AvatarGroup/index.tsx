@@ -1,9 +1,9 @@
 import ProfileImage from '@components/_common/atoms/ProfileImage';
-import { User } from '@customTypes/user';
+import { UserData } from '@customTypes/user';
 import S, { AvatarGroupSize } from './style';
 
 interface AvatarGroupProps {
-  users: User[];
+  users: UserData[];
   size?: AvatarGroupSize;
 }
 
