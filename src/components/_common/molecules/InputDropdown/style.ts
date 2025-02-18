@@ -25,7 +25,7 @@ const Header = styled.div`
 const Label = styled.p`
   color: ${({ theme }) => theme.color.gray[950]};
   ${({ theme }) => theme.font.common.block};
-  padding-bottom: 1.2rem;
+  margin-bottom: 0.1rem;
 `;
 
 const InputContainer = styled.div`
