@@ -32,8 +32,10 @@ const InputContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 
   width: 100%;
+  gap: 0.5rem;
 `;
 
 const Input = styled.input`
