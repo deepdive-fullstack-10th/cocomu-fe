@@ -16,8 +16,9 @@ export default function Login() {
 
   return (
     <S.LoginModalContainer>
-      <S.Header onClick={close}>
+      <S.Header>
         <Icon
+          onClick={close}
           icon={
             <BsXLg
               size={20}
