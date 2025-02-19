@@ -21,13 +21,14 @@ const colorStyle = {
   `,
 };
 
-const Icon = styled.div<{ size: IconSize; color: IconColor }>`
+const Icon = styled.div<{ size: IconSize; color: IconColor; pointer: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
   font-size: ${({ size }) => sizeStyle[size]};
   ${({ color, theme }) => colorStyle[color](theme)};
+  cursor: ${({ pointer }) => (pointer ? 'pointer' : 'default')};
 `;
 
 const S = {

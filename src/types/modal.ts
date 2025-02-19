@@ -51,5 +51,5 @@ export const MODAL_COMPONENTS: {
   confirm: { Component: ConfirmModal, disableOutsideClick: false },
   passwordInput: { Component: PasswordInput, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
-  login: { Component: Login, disableOutsideClick: true },
+  login: { Component: Login, disableOutsideClick: false },
 };
