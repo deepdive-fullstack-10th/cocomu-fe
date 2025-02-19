@@ -1,8 +1,4 @@
 import { BsXLg } from 'react-icons/bs';
-import COCOMU_LOGO from '@assets/Image/cocomu-logo.png';
-import GOOGLE_LOGO from '@assets/Image/google-logo.png';
-import GITHUB_LOGO from '@assets/Image/github-logo.png';
-import KAKAO_LOGO from '@assets/Image/kakao-logo.png';
 import Icon from '@components/_common/atoms/Icon';
 import { useModalStore } from '@stores/useModalStore';
 import S from './style';
@@ -19,6 +15,7 @@ export default function Login() {
       <S.Header>
         <Icon
           onClick={close}
+          pointer
           icon={
             <BsXLg
               size={20}
