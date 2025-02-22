@@ -6,12 +6,12 @@ const Container = styled.div`
   align-items: center;
   gap: 4rem;
 
-  padding: 6rem 15rem;
+  padding: 6.6rem 15rem 6.2rem 15rem;
 `;
 
 const Description = styled.p`
   ${({ theme }) => theme.font.heading[300]};
-  color: ${({ theme }) => theme.color.gray[700]};
+  color: ${({ theme }) => theme.color.gray[900]};
 `;
 
 const Instruction = styled.p`
