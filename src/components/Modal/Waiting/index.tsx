@@ -1,20 +1,17 @@
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { WaitingProps } from '@customTypes/modal';
 import S from './style';
 
-export default function Waiting({ label, description, navigateUrl, onClose }: WaitingProps) {
-  const navigateTo = useNavigate();
-
+export default function Waiting({ label, description, navigate, onClose }: WaitingProps) {
   useEffect(() => {
     const waitingTime = setTimeout(() => {
       onClose();
-      if (navigateUrl) navigateTo(navigateUrl);
+      if (navigate) navigate();
     }, 5000);
 
     return () => clearTimeout(waitingTime);
-  }, [onClose, navigateTo, navigateUrl]);
+  }, [onClose, navigate]);
 
   return (
     <S.Container>

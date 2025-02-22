@@ -17,7 +17,7 @@ export interface PasswordInputProps {
 export interface WaitingProps extends Record<string, unknown> {
   label?: string;
   description?: string;
-  navigateUrl?: string;
+  navigate?: () => void;
   onClose?: () => void;
 }
 
