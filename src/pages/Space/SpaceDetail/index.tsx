@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 
-export default function CodingSpace() {
+export default function SpaceDetail() {
   return (
     <div>
-      <h1>CodingSpace</h1>
+      <div>SpaceDetail</div>
       <Outlet />
     </div>
   );
