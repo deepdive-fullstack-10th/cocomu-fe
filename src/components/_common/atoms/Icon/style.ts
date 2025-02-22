@@ -4,9 +4,14 @@ import { css, Theme } from '@emotion/react';
 export type IconSize = 'sm' | 'md';
 export type IconColor = '50' | '700' | '950';
 
+export interface IconStyleProps {
+  size: IconSize;
+  color: IconColor;
+}
+
 const sizeStyle = {
   sm: '1.3rem',
-  md: '2.4rem',
+  md: '1.8rem',
 };
 
 const colorStyle = {
@@ -21,14 +26,14 @@ const colorStyle = {
   `,
 };
 
-const Icon = styled.div<{ size: IconSize; color: IconColor; pointer: boolean }>`
+const Icon = styled.div<IconStyleProps>`
   display: flex;
   justify-content: center;
   align-items: center;
 
   font-size: ${({ size }) => sizeStyle[size]};
   ${({ color, theme }) => colorStyle[color](theme)};
-  cursor: ${({ pointer }) => (pointer ? 'pointer' : 'default')};
+  cursor: pointer;
 `;
 
 const S = {

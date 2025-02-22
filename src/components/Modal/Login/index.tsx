@@ -1,36 +1,33 @@
 import { BsXLg } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import { useModalStore } from '@stores/useModalStore';
+import { LoginProps } from '@customTypes/modal';
 import S from './style';
 
-export default function Login() {
+export default function Login({ onClose }: LoginProps) {
   const handleClick = (platform: string) => {
     /* 각 플랫폼으로 로그인 클릭 시 발생하는 이벤트 */
     console.log(`please access your ${platform}`);
   };
-  const { close } = useModalStore();
 
   return (
-    <S.LoginModalContainer>
+    <S.Container>
       <S.Header>
         <Icon
-          onClick={close}
-          pointer
-          icon={
-            <BsXLg
-              size={20}
-              color='50'
-            />
-          }
-        />
+          onClick={onClose}
+          size='md'
+          color='950'
+        >
+          <BsXLg />
+        </Icon>
       </S.Header>
       <S.Body>
         <S.Logo src='https://cdn.cocomu.co.kr/images/default/Logo.png' />
-        <S.Text>
-          <S.IntroduceLabel>코코무에 오신 것을</S.IntroduceLabel>
-          <S.IntroduceLabel>환영합니다!</S.IntroduceLabel>
-        </S.Text>
-        <S.LoginButtonContainer>
+        <S.WelcomeText>
+          코코무에 오신 것을
+          <br />
+          환영합니다!
+        </S.WelcomeText>
+        <S.ButtonWrapper>
           <S.LoginButton
             buttonType='google'
             onClick={() => handleClick('google')}
@@ -52,8 +49,8 @@ export default function Login() {
             <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/kakaotalk.png' />
             <S.ButtonLabel>Kakao 로그인</S.ButtonLabel>
           </S.LoginButton>
-        </S.LoginButtonContainer>
+        </S.ButtonWrapper>
       </S.Body>
-    </S.LoginModalContainer>
+    </S.Container>
   );
 }

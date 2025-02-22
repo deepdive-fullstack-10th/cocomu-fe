@@ -1,8 +1,8 @@
 import ConfirmModal from '@components/Modal/Confirm';
+import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
-import Login from '@components/Modal/Login';
 
 
 
@@ -34,6 +34,10 @@ export interface PasswordInputProps {
   onClose?: () => void;
   testcases?: TestcaseItem[];
 }
+export interface LoginProps {
+  onClose?: () => void;
+}
+
 interface ModalConfig<T> {
   Component: React.FC<T>;
   disableOutsideClick?: boolean;
@@ -44,11 +48,11 @@ export const MODAL_COMPONENTS: {
   confirm: ModalConfig<ConfirmProps>;
   passwordInput: ModalConfig<PasswordInputProps>;
   testcase: ModalConfig<TestcaseProps>;
-  login: ModalConfig<void>;
+  login: ModalConfig<LoginProps>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
-  login: { Component: Login, disableOutsideClick: false },
   confirm: { Component: ConfirmModal },
   passwordInput: { Component: PasswordInput },
+  login: { Component: Login },
 };
