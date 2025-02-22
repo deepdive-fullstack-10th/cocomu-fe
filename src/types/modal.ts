@@ -4,17 +4,13 @@ import Waiting from '@components/Modal/Waiting';
 import Testcase from '@components/Modal/TestCase';
 import Login from '@components/Modal/Login';
 
-interface ModalConfig<T> {
-  Component: React.FC<T>;
-  disableOutsideClick?: boolean;
-}
 
 export interface PasswordInputProps {
   description: string;
   onClose: () => void;
 }
 
-export interface WaitingProps extends Record<string, unknown> {
+export interface WaitingProps {
   label?: string;
   description?: string;
   navigate?: () => void;
@@ -22,9 +18,10 @@ export interface WaitingProps extends Record<string, unknown> {
 }
 
 export interface ConfirmProps {
-  description: string;
-  onClose: () => void;
-  onConfirm: () => boolean;
+  studyId?: number;
+  spaceId?: number;
+  name?: string;
+  onClose?: () => void;
 }
 
 export type TestcaseItem = {
@@ -38,6 +35,9 @@ export interface TestcaseProps {
   status?: 'DEFAULT' | 'CUSTOM';
   onClose?: () => void;
   testcases?: TestcaseItem[];
+interface ModalConfig<T> {
+  Component: React.FC<T>;
+  disableOutsideClick?: boolean;
 }
 
 export const MODAL_COMPONENTS: {
@@ -48,8 +48,8 @@ export const MODAL_COMPONENTS: {
   login: ModalConfig<void>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
-  confirm: { Component: ConfirmModal, disableOutsideClick: false },
   passwordInput: { Component: PasswordInput, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
   login: { Component: Login, disableOutsideClick: false },
+  confirm: { Component: ConfirmModal },
 };

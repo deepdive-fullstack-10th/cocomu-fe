@@ -2,18 +2,17 @@ import Button from '@components/_common/atoms/Button';
 import { ConfirmProps } from '@customTypes/modal';
 import S from './style';
 
-export default function ConfirmModal({ description, onClose, onConfirm }: ConfirmProps) {
+export default function ConfirmModal({ studyId, spaceId, name, onClose }: ConfirmProps) {
   const handleConfirm = () => {
-    if (onConfirm && !onConfirm()) return; // Ensure `onConfirm` exists and returns a boolean before closing
-    alert('참여 완료!');
+    // TODO: CodingSpace 참여하기 api 호출 (studyId, spaceId 사용 예정)
     onClose();
   };
 
   return (
     <S.Container>
-      <S.Description>{description}</S.Description>
+      <S.Description>{name}</S.Description>
       <S.Instruction>참여하시겠습니까?</S.Instruction>
-      <S.ButtonContainer>
+      <S.ButtonWrapper>
         <Button
           color='primary'
           size='md'
@@ -28,7 +27,7 @@ export default function ConfirmModal({ description, onClose, onConfirm }: Confir
         >
           취소
         </Button>
-      </S.ButtonContainer>
+      </S.ButtonWrapper>
     </S.Container>
   );
 }
