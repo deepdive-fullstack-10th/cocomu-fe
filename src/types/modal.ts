@@ -5,10 +5,6 @@ import Testcase from '@components/Modal/TestCase';
 import Login from '@components/Modal/Login';
 
 
-export interface PasswordInputProps {
-  description: string;
-  onClose: () => void;
-}
 
 export interface WaitingProps {
   label?: string;
@@ -33,8 +29,11 @@ export type TestcaseItem = {
 
 export interface TestcaseProps {
   status?: 'DEFAULT' | 'CUSTOM';
+export interface PasswordInputProps {
+  studyId: number;
   onClose?: () => void;
   testcases?: TestcaseItem[];
+}
 interface ModalConfig<T> {
   Component: React.FC<T>;
   disableOutsideClick?: boolean;
@@ -48,8 +47,8 @@ export const MODAL_COMPONENTS: {
   login: ModalConfig<void>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
-  passwordInput: { Component: PasswordInput, disableOutsideClick: true },
   testcase: { Component: Testcase, disableOutsideClick: false },
   login: { Component: Login, disableOutsideClick: false },
   confirm: { Component: ConfirmModal },
+  passwordInput: { Component: PasswordInput },
 };

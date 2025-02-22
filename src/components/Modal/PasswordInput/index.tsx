@@ -4,34 +4,26 @@ import Button from '@components/_common/atoms/Button';
 import { PasswordInputProps } from '@customTypes/modal';
 import S from './style';
 
-export default function PasswordInput({ description, onClose }: PasswordInputProps) {
+export default function PasswordInput({ studyId, onClose }: PasswordInputProps) {
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | undefined>();
+  // useForm 사용 예정
 
   const handleConfirm = () => {
-    const isCorrect = password === 'correct-password';
-    if (!isCorrect) {
-      setError('올바르지 않은 암호입니다.');
-      return;
-    }
-    alert('비밀번호가 올바릅니다.');
+    // TODO: 비공개 스터디 참가 api 호출 (studyId 사용 예정)
     onClose();
   };
 
   return (
     <S.Container>
-      <S.Description>{description}</S.Description>
+      <S.Description>암호를 입력해주세요</S.Description>
       <InputField
         type='password'
-        placeholder='비밀번호를 입력하세요'
         value={password}
-        error={error}
         onChange={(e) => {
           setPassword(e.target.value);
-          setError(undefined);
         }}
       />
-      <S.ButtonContainer>
+      <S.ButtonWrapper>
         <Button
           color='primary'
           size='md'
@@ -46,7 +38,7 @@ export default function PasswordInput({ description, onClose }: PasswordInputPro
         >
           취소
         </Button>
-      </S.ButtonContainer>
+      </S.ButtonWrapper>
     </S.Container>
   );
 }
