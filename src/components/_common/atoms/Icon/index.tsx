@@ -1,23 +1,19 @@
 import { ReactNode } from 'react';
-import S, { IconSize, IconColor } from './style';
+import S, { IconStyleProps } from './style';
 
-interface IconProps {
-  size?: IconSize;
-  icon: ReactNode;
-  color?: IconColor;
-  pointer?: boolean;
+interface IconProps extends IconStyleProps {
+  children?: ReactNode;
   onClick?: () => void;
 }
 
-export default function Icon({ size = 'sm', icon, color = '950', pointer = false, onClick }: IconProps) {
+export default function Icon({ children, size = 'sm', color = '950', onClick }: IconProps) {
   return (
     <S.Icon
       size={size}
       color={color}
-      pointer={pointer}
       onClick={onClick}
     >
-      {icon}
+      {children}
     </S.Icon>
   );
 }
