@@ -15,6 +15,8 @@ export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as con
 
 export const DROPDOWN_ACCESS_STATUS = ['전체', '공개', '비공개'] as const;
 
+export const RADIO_ACCESS_STATUS = ['공개', '비공개'] as const;
+
 export const STEP_INFO = {
   WAITING: {
     label: '대기',
@@ -36,7 +38,7 @@ export const STEP_INFO = {
 
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
-export const ACCESS_STATUS = {
+export const ACCESS_STATUS_MAP = {
   PUBLIC: '공개',
   PRIVATE: '비공개',
 } as const;
