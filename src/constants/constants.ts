@@ -6,13 +6,14 @@ export const LANGUAGE_IMAGES: Record<string, string> = {
 } as const;
 
 export const PROGRAMMING_LANGUAGES = ['Python', 'JavaScript', 'Java', 'C'] as const;
-export type ProgrammingLanguage = (typeof PROGRAMMING_LANGUAGES)[number];
 
 export const JUDGES = ['백준', '프로그래머스'] as const;
 
 export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
 export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
+
+export const DROPDOWN_ACCESS_STATUS = ['전체', '공개', '비공개'] as const;
 
 export const STEP_INFO = {
   WAITING: {

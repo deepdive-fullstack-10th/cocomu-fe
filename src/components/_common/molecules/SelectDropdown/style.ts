@@ -1,64 +1,39 @@
 import styled from '@emotion/styled';
-import { css, Theme } from '@emotion/react';
 
-const commonStyle = (theme: Theme) => css`
-  padding: 0.5rem 2rem;
-
-  color: ${theme.color.gray[600]};
-  ${theme.font.common.default};
-  transition: color 0.2s ease;
-`;
-
-const Dropdown2Container = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
+
+  position: relative;
   width: 14rem;
 `;
 
-const Dropdown2Header = styled.div`
+const Header = styled.div<{ isOpen: boolean }>`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 0.6rem;
 
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  height: 3.6rem;
+  border: 1px solid ${({ theme, isOpen }) => (isOpen ? theme.color.gray[800] : theme.color.gray[600])};
   border-radius: 3.2rem;
-  transition: border-color 0.2s ease;
-
+  padding: 0.6rem 1.1rem 0.6rem 2rem;
   cursor: pointer;
-
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.color.gray[900]};
-    color: ${({ theme }) => theme.color.gray[900]};
-
-    div {
-      color: ${({ theme }) => theme.color.gray[900]};
-    }
-  }
 `;
 
-const DropdownText = styled.div`
-  ${({ theme }) => commonStyle(theme)};
-`;
+const SelectedText = styled.div`
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[900]};
 
-const IconContainer = styled.div`
-  ${({ theme }) => commonStyle(theme)};
-`;
-
-const DropdownItemContainer = styled.div<{ isOpen: boolean }>`
-  margin-top: 0.5rem;
-  width: 100%;
-  border: ${({ isOpen, theme }) => (isOpen ? `1px solid ${theme.color.gray[600]}` : 'none')};
-  border-radius: 0.8rem;
-  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const S = {
-  Dropdown2Container,
-  Dropdown2Header,
-  DropdownText,
-  IconContainer,
-  DropdownItemContainer,
+  Container,
+  Header,
+  SelectedText,
 };
 
 export default S;
