@@ -1,59 +1,59 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { TestcaseProps } from '@customTypes/modal';
+import { TestCaseProps } from '@customTypes/modal';
 import Button from '@components/_common/atoms/Button';
 import IconButtton from '@components/_common/atoms/IconButton';
 import { BsPlus, BsX } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import TestcaseItem from './TestcaseItem';
+import TestCaseItem from './TestCaseItem';
 import S from './style';
 
-export default function Testcase({ status, onClose, testcases }: TestcaseProps) {
-  const [testCaseList, setTestcaseList] = useState(testcases);
+export default function TestCase({ status, testCases, onClose }: TestCaseProps) {
+  const [testCaseList, setTestCaseList] = useState(testCases);
 
-  const handleAddTestcase = () => {
-    setTestcaseList((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
+  const handleAddTestCase = () => {
+    setTestCaseList((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
   };
 
-  const handleRemoveTestcase = (id: string | number) => {
-    setTestcaseList((prevList) => prevList.filter((testcase) => testcase.id !== id));
+  const handleRemoveTestCase = (id: string | number) => {
+    setTestCaseList((prevList) => prevList.filter((testCase) => testCase.id !== id));
   };
 
   const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
-    setTestcaseList((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
+    setTestCaseList((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
   };
 
   const onSubmit = () => {
     console.log(testCaseList);
+    onClose();
   };
+
   return (
-    <S.TestcaseContainer>
-      <S.TestcaseHeaderRight>
+    <S.Container>
+      <S.Header>
         <Icon
           size='md'
           color='950'
           onClick={onClose}
-        />
-      </S.TestcaseHeaderRight>
-      <S.TestcaseHeaderLeft>테스트 케이스</S.TestcaseHeaderLeft>
-      <S.TestcaseItemContainer>
-        {testCaseList.map((testcase) => (
-          <TestcaseItem
-            handleInputChange={handleInputChange}
-            handleRemoveTestcase={handleRemoveTestcase}
-            edit={testcase.type === 'CUSTOM' && status === 'CUSTOM'}
-            disabled={status === 'DEFAULT' || testcase.type === 'BASE'}
-            testcase={testcase}
-            key={testcase.id}
-          />
-        ))}
-      </S.TestcaseItemContainer>
-      {status === 'CUSTOM' && (
         >
-      )}
-      <S.TestcaseFooter status={status}>
           <BsX />
         </Icon>
+      </S.Header>
+
+      <S.Body>
+        <S.Description>테스트 케이스</S.Description>
+        <S.ItemWrapper>
+          {testCaseList.map((testCase) => (
+            <TestCaseItem
+              handleInputChange={handleInputChange}
+              handleRemoveTestCase={handleRemoveTestCase}
+              edit={testCase.type === 'CUSTOM' && status === 'CUSTOM'}
+              disabled={status === 'DEFAULT' || testCase.type === 'BASE'}
+              testCase={testCase}
+              key={testCase.id}
+            />
+          ))}
+          {status === 'CUSTOM' && (
             <IconButtton
               align='center'
               content='추가하기'
@@ -61,8 +61,13 @@ export default function Testcase({ status, onClose, testcases }: TestcaseProps) 
             >
               <BsPlus />
             </IconButtton>
+          )}
+        </S.ItemWrapper>
+      </S.Body>
+
+      <S.Footer>
         <Button
-          size='lg'
+          size='sm'
           color='white'
           onClick={onClose}
         >
@@ -70,14 +75,14 @@ export default function Testcase({ status, onClose, testcases }: TestcaseProps) 
         </Button>
         {status === 'CUSTOM' && (
           <Button
-            size='lg'
+            size='sm'
             color='primary'
             onClick={onSubmit}
           >
             수정하기
           </Button>
         )}
-      </S.TestcaseFooter>
-    </S.TestcaseContainer>
+      </S.Footer>
+    </S.Container>
   );
 }
