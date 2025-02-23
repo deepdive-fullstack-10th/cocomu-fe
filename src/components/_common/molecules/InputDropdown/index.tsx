@@ -7,15 +7,19 @@ import S from './style';
 
 interface InputDropdownProps<T extends readonly string[]> {
   label?: string;
+  description?: string;
   items: T;
   values?: string[];
+  isMultiSelect?: boolean;
   onSelect: (value: string[]) => void;
 }
 
 export default function InputDropdown<T extends readonly string[]>({
   label = '',
+  description = '',
   items,
   values = [],
+  isMultiSelect = false,
   onSelect,
 }: InputDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +27,14 @@ export default function InputDropdown<T extends readonly string[]>({
   const toggleDropDown = () => setIsOpen((prev) => !prev);
 
   const handleAddItem = (newItem: string) => {
-    onSelect([...values, newItem]);
     setIsOpen(false);
+
+    if (!isMultiSelect) {
+      onSelect([newItem]);
+      return;
+    }
+
+    onSelect([...values, newItem]);
   };
 
   const handleRemoveTag = (item: string) => {
@@ -36,12 +46,17 @@ export default function InputDropdown<T extends readonly string[]>({
   return (
     <S.Container>
       {label && <S.Label>{label}</S.Label>}
+
       <S.InputContainer onClick={toggleDropDown}>
-        <TagList
-          items={values}
-          color='primary'
-          onRemove={handleRemoveTag}
-        />
+        {isMultiSelect && values.length > 0 ? (
+          <TagList
+            items={values}
+            color='primary'
+            onRemove={handleRemoveTag}
+          />
+        ) : (
+          <S.SelectedText>{values[0] || description}</S.SelectedText>
+        )}
         <Icon
           size='sm'
           color='950'
