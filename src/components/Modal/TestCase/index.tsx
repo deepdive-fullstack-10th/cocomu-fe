@@ -31,7 +31,7 @@ export default function Testcase({ status, onClose, testcases }: TestcaseProps) 
       <S.TestcaseHeaderRight>
         <Icon
           size='md'
-          icon={<BsX />}
+          color='950'
           onClick={onClose}
         />
       </S.TestcaseHeaderRight>
@@ -49,15 +49,18 @@ export default function Testcase({ status, onClose, testcases }: TestcaseProps) 
         ))}
       </S.TestcaseItemContainer>
       {status === 'CUSTOM' && (
-        <IconButtton
-          align='center'
-          icon={<BsPlus />}
-          onClick={handleAddTestcase}
         >
-          추가하기
-        </IconButtton>
       )}
       <S.TestcaseFooter status={status}>
+          <BsX />
+        </Icon>
+            <IconButtton
+              align='center'
+              content='추가하기'
+              onClick={handleAddTestCase}
+            >
+              <BsPlus />
+            </IconButtton>
         <Button
           size='lg'
           color='white'

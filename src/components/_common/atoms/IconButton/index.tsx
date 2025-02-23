@@ -1,11 +1,11 @@
-import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import S, { IconButtonStyleProps } from './style';
 import Icon from '../Icon';
-import S, { IconButtonProps } from './style';
 
 type IconButtonComponentProps = PropsWithChildren<
   React.ComponentProps<'div'> &
-    IconButtonProps & {
-      icon?: ReactNode;
+    IconButtonStyleProps & {
+      content?: string;
       onClick?: () => void;
     }
 >;
@@ -14,7 +14,7 @@ export default function IconButton({
   children,
   color = 'white',
   align = 'left',
-  icon,
+  content,
   shape = 'default',
   onClick,
 }: IconButtonComponentProps) {
@@ -50,14 +50,13 @@ export default function IconButton({
       shape={shape}
       onClick={onClick}
     >
-      {icon && (
-        <Icon
-          icon={icon}
-          color={iconColor}
-          size='md'
-        />
-      )}
-      <S.Content>{children}</S.Content>
+      <Icon
+        color={iconColor}
+        size='md'
+      >
+        {children}
+      </Icon>
+      <S.Content>{content}</S.Content>
     </S.IconButtonContainer>
   );
 }
