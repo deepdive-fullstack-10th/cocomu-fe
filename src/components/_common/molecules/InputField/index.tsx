@@ -28,8 +28,14 @@ export default function InputField({ type = 'text', label, description, error, .
           {...props}
         />
         {type === 'password' && props.value && (
-          <S.Icon onClick={toggleVisibility}>
-            {isVisible ? <Icon icon={<BsEye />} /> : <Icon icon={<BsEyeSlash />} />}
+          <S.Icon>
+            <Icon
+              size='md'
+              color='950'
+              onClick={toggleVisibility}
+            >
+              {isVisible ? <BsEye /> : <BsEyeSlash />}
+            </Icon>
           </S.Icon>
         )}
       </S.InputWrapper>
