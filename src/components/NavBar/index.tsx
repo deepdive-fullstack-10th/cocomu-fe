@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProfileImage from '@components/_common/atoms/ProfileImage';
-import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { BsChevronDown } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
 import Button from '@components/_common/atoms/Button';
-import { NAVBAR_DROPDOWN_LABELS } from '@constants/constants';
+import DropdownList from '@components/_common/molecules/DropdownList';
 import S from './style';
 
-interface NavbarProps {
+interface NavbarProps<T extends readonly string[]> {
+  items: T;
   isLogined: boolean;
 }
 
-export default function NavBar({ isLogined }: NavbarProps) {
+export default function NavBar<T extends readonly string[]>({ items, isLogined }: NavbarProps<T>) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
@@ -36,10 +36,14 @@ export default function NavBar({ isLogined }: NavbarProps) {
     // 로그인 실행
   };
 
-  const dropdownItems = [
-    { label: NAVBAR_DROPDOWN_LABELS[0], onClick: handleMyPageClick },
-    { label: NAVBAR_DROPDOWN_LABELS[1], onClick: handleLogoutClick },
-  ];
+  const handleItemSelect = (selectedItem: string) => {
+    if (selectedItem === '마이페이지') {
+      handleMyPageClick();
+    } else if (selectedItem === '로그아웃') {
+      handleLogoutClick();
+    }
+    setDropdownOpen(false);
+  };
 
   return (
     <S.Container>
@@ -70,17 +74,12 @@ export default function NavBar({ isLogined }: NavbarProps) {
               <BsChevronDown />
             </Icon>
             {isDropdownOpen && (
-              <S.DropdownMenu>
-                {dropdownItems.map((item) => (
-                  <DropdownItem
-                    key={item.label}
-                    item={item.label}
-                    onClick={item.onClick}
-                    size='md'
-                    color='black'
-                  />
-                ))}
-              </S.DropdownMenu>
+              <DropdownList
+                items={[...items]}
+                size='md'
+                color='black'
+                onItemSelect={handleItemSelect}
+              />
             )}
           </S.ProfileSection>
         ) : (

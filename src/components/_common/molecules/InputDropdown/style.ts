@@ -3,23 +3,9 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-`;
+  gap: 0.7rem;
 
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.color.gray[50]};
-
-  padding: 1rem 1.2rem;
-  margin-bottom: 0.1rem;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.color.gray[700]};
-    ${({ theme }) => theme.font.common.block};
-  }
+  position: relative;
 `;
 
 const Label = styled.p`
@@ -29,13 +15,15 @@ const Label = styled.p`
 `;
 
 const InputContainer = styled.div`
-  position: relative;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 
   width: 100%;
-  gap: 0.5rem;
+  height: 4.7rem;
+  background-color: ${({ theme }) => theme.color.gray[50]};
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 0.8rem;
+  padding: 1rem 2rem;
 `;
 
 const Input = styled.input`
@@ -71,7 +59,6 @@ const DropdownList = styled.div`
 const S = {
   DropdownList,
   Container,
-  Header,
   Label,
   InputContainer,
   Input,
