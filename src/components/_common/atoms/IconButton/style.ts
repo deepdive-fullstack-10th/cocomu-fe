@@ -5,7 +5,7 @@ type IconButtonColor = 'none' | 'white';
 type IconButtonTextAlign = 'left' | 'center';
 type ButtonShape = 'default' | 'round';
 
-export type IconButtonProps = {
+export type IconButtonStyleProps = {
   color?: IconButtonColor;
   align?: IconButtonTextAlign;
   shape?: ButtonShape;
@@ -33,7 +33,7 @@ const shapeStyles = (shape: ButtonShape = 'default') => css`
   border-radius: ${shape === 'round' ? '3.2rem' : '1.1rem'};
 `;
 
-const IconButtonContainer = styled.div<IconButtonProps>`
+const IconButtonContainer = styled.div<IconButtonStyleProps>`
   ${({ color, theme }) => colorStyles[color](theme)};
   ${({ theme }) => theme.font.common.default};
 

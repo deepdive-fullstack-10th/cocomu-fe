@@ -19,9 +19,9 @@ export default function ErrorPage() {
       <div>
         <IconButton
           onClick={handleNavigate}
-          icon={<BsArrowLeft />}
+          content='이전 페이지로 돌아가기'
         >
-          이전 페이지로 돌아가기
+          <BsArrowLeft />
         </IconButton>
       </div>
     </S.ErrorContainer>
