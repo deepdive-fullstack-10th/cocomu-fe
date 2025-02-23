@@ -48,7 +48,7 @@ const Input = styled.input<{ isError: boolean }>`
 const Icon = styled.div`
   position: absolute;
   top: 50%;
-  right: 2%;
+  right: 5%;
   transform: translateY(-50%);
 `;
 
