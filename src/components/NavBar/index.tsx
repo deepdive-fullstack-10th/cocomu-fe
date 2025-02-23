@@ -42,7 +42,7 @@ export default function NavBar({ isLogined }: NavbarProps) {
   ];
 
   return (
-    <S.NavbarContainer>
+    <S.Container>
       <S.LogoImage
         src='https://cdn.cocomu.co.kr/images/default/Logo.png'
         alt='Logo'
@@ -53,7 +53,7 @@ export default function NavBar({ isLogined }: NavbarProps) {
         <Button
           onClick={handleStudyClick}
           color='primary'
-          size='md'
+          size='lg'
           shape='round'
         >
           스터디 모집하기
@@ -61,15 +61,14 @@ export default function NavBar({ isLogined }: NavbarProps) {
 
         {isLogined ? (
           <S.ProfileSection>
-            <ProfileImage size='sm' />
-            <S.IconWrapper>
-              <Icon
-                icon={<BsChevronDown size={15} />}
-                size='sm'
-                color='950'
-                onClick={handleDropdownToggle} // Moved onClick to Icon
-              />
-            </S.IconWrapper>
+            <ProfileImage size='x_sm' />
+            <Icon
+              size='sm'
+              color='950'
+              onClick={handleDropdownToggle}
+            >
+              <BsChevronDown />
+            </Icon>
             {isDropdownOpen && (
               <S.DropdownMenu>
                 {dropdownItems.map((item) => (
@@ -88,6 +87,6 @@ export default function NavBar({ isLogined }: NavbarProps) {
           <S.LoginButton onClick={handleLoginClick}>로그인</S.LoginButton>
         )}
       </S.NavItems>
-    </S.NavbarContainer>
+    </S.Container>
   );
 }

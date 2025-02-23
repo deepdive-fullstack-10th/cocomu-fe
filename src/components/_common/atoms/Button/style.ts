@@ -28,19 +28,19 @@ const commonStyles = (theme: Theme) => css`
 const sizeStyles = {
   sm: (theme: Theme) => css`
     ${theme.font.common.default}
-    padding: 0.45rem 2.2rem;
+    padding: 0.35rem 2.2rem;
     width: fit-content;
     min-width: 10.3rem;
   `,
   md: (theme: Theme) => css`
     ${theme.font.common.default}
-    padding: 0.8rem 3.3rem;
+    padding: 0.7rem 3.3rem;
     width: fit-content;
     min-width: 10.3rem;
   `,
   lg: (theme: Theme) => css`
     ${theme.font.heading[100]};
-    padding: 1.2rem 2.4rem;
+    padding: 1.1rem 2.4rem;
     width: fit-content;
     min-width: 13.2rem;
   `,
