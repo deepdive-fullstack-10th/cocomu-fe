@@ -1,15 +1,27 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const DropdownList = styled.div`
+export type DropdownListShape = 'default' | 'round';
+
+export interface DropdownListStyleProps {
+  shape?: DropdownListShape;
+}
+
+const shapeStyles = (shape: DropdownListShape = 'default') => css`
+  border-radius: ${shape === 'round' ? '2rem' : '0.8rem'};
+`;
+
+const DropdownList = styled.div<DropdownListStyleProps>`
   position: absolute;
   top: 107%;
   left: 0%;
 
   width: 100%;
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.color.gray[50]};
   padding: 1rem 0;
+
+  ${({ shape }) => shapeStyles(shape)}
 `;
 
 const S = {

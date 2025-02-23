@@ -1,53 +1,66 @@
 import { BsChevronDown } from 'react-icons/bs';
 import { useState } from 'react';
-import DropdownItem from '@components/_common/atoms/DropdownItem';
-import { STEP_INFO } from '@constants/constants';
-import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
 import Icon from '@components/_common/atoms/Icon';
 import S from './style';
+import DropdownList from '../DropdownList';
 
-type StepLabel = (typeof STEP_INFO)[keyof typeof STEP_INFO]['label'];
+interface SelectDropdownProps<T extends readonly string[]> {
+  description?: string;
+  items: T;
+  values?: string[];
+  isMultiSelect?: boolean;
+  onSelect: (value: string[]) => void;
+}
 
-type Dropdown2Props = {
-  items: StepLabel[];
-} & DropDownItemStyleProps;
-
-export default function SelectDropdown({ items, color, size }: Dropdown2Props & DropDownItemStyleProps) {
+export default function SelectDropdown<T extends readonly string[]>({
+  description = '',
+  items,
+  values = [],
+  isMultiSelect = false,
+  onSelect,
+}: SelectDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<StepLabel>(items[0]);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleSelect = (item: StepLabel) => {
-    setSelectedItem(item);
+  const handleAddItem = (newItem: string) => {
     setIsOpen(false);
+    if (!isMultiSelect) {
+      onSelect([newItem]);
+      return;
+    }
+
+    if (values.includes(newItem)) {
+      return;
+    }
+
+    onSelect([...values, newItem]);
   };
 
   return (
-    <S.Dropdown2Container>
-      <S.Dropdown2Header onClick={() => toggleDropdown()}>
-        <S.DropdownText>{selectedItem}</S.DropdownText>
-        <S.IconContainer>
-          <Icon
-            icon={<BsChevronDown size={10} />}
-            color='950'
-          />
-        </S.IconContainer>
-      </S.Dropdown2Header>
-      <S.DropdownItemContainer isOpen={isOpen}>
-        {isOpen &&
-          items.map((item) => (
-            <DropdownItem
-              key={item}
-              item={item}
-              onClick={() => handleSelect(item)}
-              color={color}
-              size={size}
-            />
-          ))}
-      </S.DropdownItemContainer>
-    </S.Dropdown2Container>
+    <S.Container>
+      <S.Header
+        isOpen={isOpen}
+        onClick={toggleDropdown}
+      >
+        <S.SelectedText>{values.length > 0 ? values.join(', ') : description}</S.SelectedText>
+        <Icon
+          size='sm'
+          color='950'
+        >
+          <BsChevronDown />
+        </Icon>
+      </S.Header>
+
+      {isOpen && (
+        <DropdownList
+          items={[...items]}
+          size='lg'
+          color='black'
+          shape='round'
+          onItemSelect={handleAddItem}
+        />
+      )}
+    </S.Container>
   );
 }
