@@ -28,21 +28,21 @@ const commonStyles = (theme: Theme) => css`
 const sizeStyles = {
   sm: (theme: Theme) => css`
     ${theme.font.common.default}
-    padding: 0.15rem 2.2rem;
+    padding: 0.45rem 2.2rem;
     width: fit-content;
-    min-width: 9rem;
+    min-width: 10.3rem;
   `,
   md: (theme: Theme) => css`
     ${theme.font.common.default}
-    padding: 0.55rem 2.2rem;
+    padding: 0.8rem 3.3rem;
     width: fit-content;
-    min-width: 10rem;
+    min-width: 10.3rem;
   `,
   lg: (theme: Theme) => css`
     ${theme.font.heading[100]};
-    padding: 0.82rem 2.4rem;
+    padding: 1.2rem 2.4rem;
     width: fit-content;
-    min-width: 12rem;
+    min-width: 13.2rem;
   `,
 };
 
@@ -75,7 +75,7 @@ const colorStyles: { [key in ButtonColor]: (theme: Theme) => SerializedStyles } 
 };
 
 const shapeStyles = (shape: ButtonShape = 'default') => css`
-  border-radius: ${shape === 'round' ? '3.2rem' : '1.1rem'};
+  border-radius: ${shape === 'round' ? '3.2rem' : '1rem'};
 `;
 
 const Button = styled.button<ButtonStyleProps>`
