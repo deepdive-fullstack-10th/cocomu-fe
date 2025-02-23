@@ -26,6 +26,11 @@ const InputContainer = styled.div`
   padding: 1rem 2rem;
 `;
 
+const SelectedText = styled.p`
+  ${({ theme }) => theme.font.common.block};
+  color: ${({ theme }) => theme.color.gray[700]};
+`;
+
 const Input = styled.input`
   border: none;
   width: 90%;
@@ -61,6 +66,7 @@ const S = {
   Container,
   Label,
   InputContainer,
+  SelectedText,
   Input,
   Icon,
 };
