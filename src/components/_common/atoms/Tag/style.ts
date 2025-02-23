@@ -11,13 +11,13 @@ const commonStyles = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.7rem;
 
   ${theme.font.common.smallAccent}
-  padding: 0.1rem 1.3rem;
+  padding: 0.1rem 0.9rem 0.1rem 1.3rem;
   border-radius: 1.2rem;
   width: fit-content;
   height: 2.5rem;
-  min-width: 6.5rem;
 `;
 
 const colorStyles: { [key in TagColor]: (theme: Theme) => SerializedStyles } = {

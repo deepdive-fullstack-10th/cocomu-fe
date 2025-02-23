@@ -33,23 +33,12 @@ const ProfileSection = styled.div`
   gap: 0.5rem;
 `;
 
-const DropdownMenu = styled.div`
-  position: absolute;
-  right: 0;
-  top: 100%;
-
-  background-color: ${({ theme }) => theme.color.gray[50]};
-  border: 1px solid ${({ theme }) => theme.color.gray[200]};
-  border-radius: 0.5rem;
-`;
-
 const S = {
   Container,
   LogoImage,
   NavItems,
   LoginButton,
   ProfileSection,
-  DropdownMenu,
 };
 
 export default S;
