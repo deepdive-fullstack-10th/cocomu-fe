@@ -21,7 +21,7 @@ const Body = styled.div`
   align-items: center;
   gap: 3.2rem;
 
-  padding: 2.5rem 5.4rem 3rem 5.4rem;
+  padding: 0 5.4rem 3rem 5.4rem;
 `;
 
 const Logo = styled.img`
