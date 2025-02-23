@@ -1,50 +1,42 @@
 import styled from '@emotion/styled';
 
-const TestcaseItem = styled.div`
+const TestCaseItem = styled.div`
   position: relative;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
-  margin: 1rem 0rem;
+  gap: 1rem;
 `;
 
 const Input = styled.input<{ remove?: boolean }>`
-  width: 65%;
+  width: 43.3rem;
+  padding: 0.6rem ${({ remove }) => (remove ? '4rem' : '2.4rem')};
 
-  padding: 1rem;
-  padding-left: ${({ remove }) => (remove ? '3rem' : '1rem')};
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 0.8rem;
 
-  border: 1px solid ${({ theme }) => theme.color.gray[900]};
-  border-radius: 1rem;
-
-  ${({ theme }) => theme.font.common.default}
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[900]};
 `;
 
 const Output = styled.input`
-  width: 30%;
+  width: 25.6rem;
+  padding: 0.6rem 2.4rem;
 
-  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 0.8rem;
 
-  border: 1px solid ${({ theme }) => theme.color.gray[900]};
-  border-radius: 1rem;
-
-  ${({ theme }) => theme.font.common.default}
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[900]};
 `;
 
 const RemoveButton = styled.button`
   position: absolute;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
+  left: 2%;
 `;
 
 const S = {
-  TestcaseItem,
+  TestCaseItem,
   Input,
   Output,
   RemoveButton,

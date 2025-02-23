@@ -1,10 +1,9 @@
 import ConfirmModal from '@components/Modal/Confirm';
 import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
+import TestCase from '@components/Modal/TestCase';
 import Waiting from '@components/Modal/Waiting';
-import Testcase from '@components/Modal/TestCase';
-
-
+import { TestCaseItem, TestCaseStatusData } from './space';
 
 export interface WaitingProps {
   label?: string;
@@ -20,22 +19,19 @@ export interface ConfirmProps {
   onClose?: () => void;
 }
 
-export type TestcaseItem = {
-  id?: number | string;
-  input?: string;
-  output?: string;
-  type?: 'BASE' | 'CUSTOM';
-};
-
-export interface TestcaseProps {
-  status?: 'DEFAULT' | 'CUSTOM';
 export interface PasswordInputProps {
-  studyId: number;
+  studyId?: number;
   onClose?: () => void;
-  testcases?: TestcaseItem[];
 }
+
 export interface LoginProps {
   onClose?: () => void;
+}
+
+export interface TestCaseProps {
+  status?: TestCaseStatusData;
+  onClose?: () => void;
+  testCases?: TestCaseItem[];
 }
 
 interface ModalConfig<T> {
@@ -47,12 +43,12 @@ export const MODAL_COMPONENTS: {
   waiting: ModalConfig<WaitingProps>;
   confirm: ModalConfig<ConfirmProps>;
   passwordInput: ModalConfig<PasswordInputProps>;
-  testcase: ModalConfig<TestcaseProps>;
+  testCase: ModalConfig<TestCaseProps>;
   login: ModalConfig<LoginProps>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
-  testcase: { Component: Testcase, disableOutsideClick: false },
   confirm: { Component: ConfirmModal },
   passwordInput: { Component: PasswordInput },
+  testCase: { Component: TestCase },
   login: { Component: Login },
 };

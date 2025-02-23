@@ -1,48 +1,47 @@
 import { BsDash } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import { TestcaseItem } from '@customTypes/modal';
+import { TestCaseItem } from '@customTypes/space';
 import S from './style';
 
-interface TestcaseItemProps {
-  testcase?: TestcaseItem;
+interface TestCaseItemProps {
+  testCase?: TestCaseItem;
   edit?: boolean;
   disabled?: boolean;
-  handleRemoveTestcase?: (id: string | number) => void;
+  handleRemoveTestCase?: (id: string | number) => void;
   handleInputChange?: (id: string | number, field: 'input' | 'output', newValue: string) => void;
 }
 
-export default function TestcaseItem({
-  testcase,
+export default function TestCaseItem({
+  testCase,
   edit,
-  handleRemoveTestcase,
+  handleRemoveTestCase,
   handleInputChange,
   disabled,
-}: TestcaseItemProps) {
-  if (!testcase) {
-    return null;
-  }
+}: TestCaseItemProps) {
   return (
-    <S.TestcaseItem>
+    <S.TestCaseItem>
       {edit && (
         <S.RemoveButton>
           <Icon
             size='md'
-            icon={<BsDash />}
-            onClick={() => handleRemoveTestcase(testcase.id)}
-          />
+            color='950'
+            onClick={() => handleRemoveTestCase(testCase.id)}
+          >
+            <BsDash />
+          </Icon>
         </S.RemoveButton>
       )}
       <S.Input
-        value={testcase.input}
-        onChange={(e) => handleInputChange(testcase.id, 'input', e.target.value)}
+        value={testCase.input}
+        onChange={(e) => handleInputChange(testCase.id, 'input', e.target.value)}
         disabled={disabled}
         remove={edit}
       />
       <S.Output
-        value={testcase.output}
-        onChange={(e) => handleInputChange(testcase.id, 'output', e.target.value)}
+        value={testCase.output}
+        onChange={(e) => handleInputChange(testCase.id, 'output', e.target.value)}
         disabled={disabled}
       />
-    </S.TestcaseItem>
+    </S.TestCaseItem>
   );
 }
