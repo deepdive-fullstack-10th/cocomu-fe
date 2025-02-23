@@ -47,7 +47,10 @@ export default function InputDropdown<T extends readonly string[]>({
     <S.Container>
       {label && <S.Label>{label}</S.Label>}
 
-      <S.InputContainer onClick={toggleDropDown}>
+      <S.InputContainer
+        isOpen={isOpen}
+        onClick={toggleDropDown}
+      >
         {isMultiSelect && values.length > 0 ? (
           <TagList
             items={values}

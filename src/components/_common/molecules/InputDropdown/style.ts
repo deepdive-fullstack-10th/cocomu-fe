@@ -14,14 +14,14 @@ const Label = styled.p`
   margin-bottom: 0.1rem;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
 
   width: 100%;
   height: 4.7rem;
   background-color: ${({ theme }) => theme.color.gray[50]};
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border: 1px solid ${({ theme, isOpen }) => (isOpen ? theme.color.primary[400] : theme.color.gray[600])};
   border-radius: 0.8rem;
   padding: 1rem 2rem;
 `;
