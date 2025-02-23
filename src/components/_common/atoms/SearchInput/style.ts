@@ -1,33 +1,41 @@
 import styled from '@emotion/styled';
 
-const SearchContainer = styled.div`
-  width: 100%;
+const Container = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: row;
+
+  width: 25.6rem;
+  height: 3.6rem;
 `;
 
-const SearchInput = styled.input`
+const Input = styled.input`
   width: 100%;
-  box-sizing: border-box;
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  height: 100%;
+  padding: 0.6rem 1.6rem 0.6rem 4.5rem;
+
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[900]};
   background-color: ${({ theme }) => theme.color.gray[50]};
-  padding: 0.6rem 1.6rem 0.6rem 3.2rem;
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
   border-radius: 3.2rem;
+
   cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.color.primary[500]};
+  }
 `;
 
-const Icon = styled.div`
-  border: none;
+const SearchIcon = styled.div`
   position: absolute;
-  transform: translate(80%, 40%);
-  margin-top: 0.23rem;
+  top: 25%;
+  left: 7%;
 `;
 
 const S = {
-  SearchContainer,
-  SearchInput,
-  Icon,
+  Container,
+  Input,
+  SearchIcon,
 };
 
 export default S;

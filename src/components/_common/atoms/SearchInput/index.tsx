@@ -8,15 +8,16 @@ interface SearchInputProps {
 
 export default function SearchInput({ placeholder = '' }: SearchInputProps) {
   return (
-    <S.SearchContainer>
-      <S.Icon>
+    <S.Container>
+      <S.SearchIcon>
         <Icon
-          size='sm'
-          icon={<BsSearch />}
+          size='md'
           color='700'
-        />
-      </S.Icon>
-      <S.SearchInput placeholder={placeholder} />
-    </S.SearchContainer>
+        >
+          <BsSearch />
+        </Icon>
+      </S.SearchIcon>
+      <S.Input placeholder={placeholder} />
+    </S.Container>
   );
 }
