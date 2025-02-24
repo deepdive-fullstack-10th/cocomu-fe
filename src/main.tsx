@@ -8,7 +8,7 @@ import globalStyles from './styles/globalStyles';
 import { theme } from './styles/theme';
 
 if (import.meta.env.MODE === 'development') {
-  worker.start({
+  await worker.start({
     serviceWorker: {
       url: '/mockServiceWorker.js',
     },
