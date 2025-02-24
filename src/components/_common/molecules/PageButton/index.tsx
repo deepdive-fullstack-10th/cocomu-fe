@@ -1,4 +1,4 @@
-import Pagination from '@mui/material/Pagination';
+import { StyledPagination } from './style';
 
 interface PageButtonsProps {
   pages: number;
@@ -7,16 +7,11 @@ interface PageButtonsProps {
 
 export default function PageButton({ pages, onPageChange }: PageButtonsProps) {
   return (
-    <Pagination
+    <StyledPagination
       count={pages}
       color='primary'
       size='small'
       onChange={onPageChange}
-      sx={{
-        '& .MuiPaginationItem-root': {
-          typography: 'common.small',
-        },
-      }}
     />
   );
 }

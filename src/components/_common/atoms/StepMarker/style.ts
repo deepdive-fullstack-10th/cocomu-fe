@@ -11,6 +11,7 @@ const S = {
     border-radius: 50%;
     background-color: ${theme.color.primary[400]};
     color: ${theme.color.gray[50]};
+    user-select: none;
   `,
 };
 

@@ -16,20 +16,16 @@ const commonStyles = (theme: Theme, isActive?: boolean) => css`
   justify-content: center;
   ${theme.font.heading[100]};
   white-space: nowrap;
-  transition: all 0.3s ease;
-  border: 1px solid;
+  user-select: none;
 
   &:hover {
     cursor: pointer;
     border-color: ${isActive ? theme.color.gray[900] : theme.color.primary[700]};
     color: ${isActive ? theme.color.gray[900] : theme.color.primary[700]};
-    div {
-      color: ${isActive ? theme.color.gray[900] : theme.color.primary[700]};
-    }
   }
 
   color: ${isActive ? theme?.color.gray[900] : theme?.color.primary[500]};
-  border-color: ${isActive ? theme?.color.gray[600] : theme?.color.primary[500]};
+  border: 1px solid ${isActive ? theme?.color.gray[600] : theme?.color.primary[500]};
 `;
 
 const sizeStyles = {
