@@ -1,31 +1,32 @@
-import { useState, ComponentPropsWithRef, FormEventHandler } from 'react';
+import { useState, ComponentProps, FormEventHandler, ChangeEvent, FocusEvent } from 'react';
 import { useError } from '@hooks/utils/useError';
 import ValidationError from '@utils/errors/ValidationError';
 
-interface UseFormProps<T extends Record<string, string>> {
+interface UseFormProps<T extends Record<string, string | string[]>> {
   initialValues: T;
 }
 
-interface RegisterOptions extends ComponentPropsWithRef<'input'> {
+interface RegisterOptions<T> extends ComponentProps<'input'> {
   validate?: {
-    onChange?: (value: string) => void;
-    onBlur?: (value: string) => void;
+    onChange?: (value: T) => void;
+    onBlur?: (value: T) => void;
   };
-  formatter?: (value: string) => string;
 }
 
-export function useForm<TFieldData extends Record<string, string>>({ initialValues }: UseFormProps<TFieldData>) {
+export function useForm<TFieldData extends Record<string, string | string[]>>({
+  initialValues,
+}: UseFormProps<TFieldData>) {
   const [formData, setFormData] = useState<TFieldData>(initialValues);
   const { errors, setError, clearError, clearAllErrors } = useError<Record<keyof TFieldData, string>>();
 
-  const validateAndSetErrors = ({
+  const validateAndSetErrors = <T extends keyof TFieldData>({
     value,
     validate,
     inputName,
   }: {
-    value: string;
-    validate: (data: string) => void;
-    inputName: keyof TFieldData;
+    value: TFieldData[T];
+    validate: (data: TFieldData[T]) => void;
+    inputName: T;
   }) => {
     try {
       validate(value);
@@ -41,51 +42,63 @@ export function useForm<TFieldData extends Record<string, string>>({ initialValu
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => async (callback: () => Promise<void>) => {
     e.preventDefault();
-
     if (Object.values(errors).length > 0) return;
 
     clearAllErrors();
     await callback();
   };
 
-  const register = (inputName: keyof TFieldData, options: RegisterOptions = {} as RegisterOptions) => {
-    const { validate, formatter } = options;
-    const eventHandlers = {} as Pick<RegisterOptions, 'onChange' | 'onBlur'>;
+  const updateFormData = <T extends keyof TFieldData>(inputName: T, value: TFieldData[T]) => {
+    setFormData((prev) => ({
+      ...prev,
+      [inputName]: value,
+    }));
+  };
 
-    eventHandlers.onChange = (e) => {
-      options.onChange?.(e);
-
-      const { name, value } = e.target;
-      if (validate?.onChange) {
-        validateAndSetErrors({ value, validate: validate.onChange, inputName: name });
-      }
-
-      setFormData((prev) => ({ ...prev, [name]: formatter ? formatter(value) : value }));
-    };
-
-    eventHandlers.onBlur = (e) => {
-      options.onBlur?.(e);
-
-      const { name, value } = e.target;
-      if (validate?.onBlur) {
-        validateAndSetErrors({ value, validate: validate.onBlur, inputName: name });
-      }
-    };
+  const register = <T extends keyof TFieldData>(
+    inputName: T,
+    options: RegisterOptions<Extract<TFieldData[T], string>> = {},
+  ) => {
+    const { validate, onChange, onBlur } = options;
 
     return {
       ...options,
       name: inputName,
-      value: formData[inputName],
+      value: formData[inputName] as string,
       error: errors[inputName],
-      onChange: eventHandlers.onChange,
-      onBlur: eventHandlers.onBlur,
+      onChange: (e: ChangeEvent<HTMLInputElement>) => {
+        onChange?.(e);
+        const newValue = e.target.value as Extract<TFieldData[T], string>;
+
+        if (validate?.onChange) {
+          validateAndSetErrors({ value: newValue, validate: validate.onChange, inputName });
+        }
+
+        updateFormData(inputName, newValue);
+      },
+      onBlur: (e: FocusEvent<HTMLInputElement>) => {
+        onBlur?.(e);
+        const newValue = e.target.value as Extract<TFieldData[T], string>;
+
+        if (validate?.onBlur) {
+          validateAndSetErrors({ value: newValue, validate: validate.onBlur, inputName });
+        }
+      },
     };
   };
+
+  const registerSelect = <T extends keyof TFieldData>(inputName: T) => ({
+    name: inputName,
+    values: formData[inputName] as string[],
+    error: errors[inputName],
+    onSelect: (newValues: string[]) => updateFormData(inputName, newValues as TFieldData[T]),
+  });
 
   return {
     formData,
     errors,
     register,
+    registerSelect,
     handleSubmit,
   };
 }
