@@ -30,7 +30,6 @@ export default function Header({
     setSelectedAccessStatus(values);
     const status = Object.entries(ACCESS_STATUS_MAP).find(([, label]) => label === values[0])?.[0];
     onStatusChange(status || undefined);
-    console.log('선택된 Status:', status || undefined);
   };
 
   return (

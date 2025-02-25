@@ -5,9 +5,4 @@ export const BodyContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 3.4rem;
-  padding: 0rem;
-  width: 100%;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 1;
 `;

@@ -4,7 +4,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8.5rem 0rem 4rem 0rem;
+  padding: 8.5rem 0 4rem 0;
   position: relative;
   z-index: 10;
 `;
@@ -30,8 +30,7 @@ export const DropdownWrapper = styled.div`
 export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  flex-shrink: 0;
-  padding-left: 2rem;
-  width: 256px;
-  height: 36px;
+  margin-left: 2rem;
+  width: 25.6rem;
+  height: 3.6rem;
 `;
