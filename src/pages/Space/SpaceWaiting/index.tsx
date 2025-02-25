@@ -50,8 +50,9 @@ export default function SpaceReady() {
       <S.ResizablePanel>
         <S.ResizeButton onMouseDown={handleMouseDown} />
       </S.ResizablePanel>
-
-      <SpaceRunner />
+      <S.RunnerContainer>
+        <SpaceRunner />
+      </S.RunnerContainer>
     </S.Container>
   );
 }
