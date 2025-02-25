@@ -6,6 +6,11 @@ import { BASE_URL, END_POINTS_V1 } from '@constants/api';
 interface FetchStudiesParams {
   page: number;
   size: number;
+  status?: string;
+  languages?: string[];
+  judges?: string[];
+  joinable?: boolean;
+  keyword?: string;
 }
 
 interface FetchStudiesResponse {
@@ -16,10 +21,29 @@ interface FetchStudiesResponse {
   };
 }
 
-export const fetchStudies = async ({ page, size }: FetchStudiesParams) => {
+export const fetchStudies = async ({
+  page,
+  size,
+  status,
+  languages = [],
+  judges = [],
+  joinable,
+  keyword,
+}: FetchStudiesParams) => {
   try {
+    const params = new URLSearchParams();
+    params.append('page', page.toString());
+    params.append('size', size.toString());
+
+    if (status) params.append('status', status);
+    if (joinable !== undefined) params.append('joinable', String(joinable));
+    if (keyword) params.append('keyword', keyword);
+
+    languages.forEach((language) => params.append('languages', language));
+    judges.forEach((judge) => params.append('judges', judge));
+
     const response = await axios.get<FetchStudiesResponse>(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, {
-      params: { page, size },
+      params,
     });
 
     if (response.data.code === 1000) {

@@ -5,16 +5,38 @@ import { fetchStudies } from '@api/domain/study';
 interface UseStudyListProps {
   currentPage: number;
   itemsPerPage: number;
+  status?: string;
+  languages?: string[];
+  judges?: string[];
+  joinable?: boolean;
+  keyword?: string;
   onTotalItemsChange: (totalItems: number) => void;
 }
 
-export default function useStudyList({ currentPage, itemsPerPage, onTotalItemsChange }: UseStudyListProps) {
+export default function useStudyList({
+  currentPage,
+  itemsPerPage,
+  status,
+  languages,
+  judges,
+  joinable,
+  keyword,
+  onTotalItemsChange,
+}: UseStudyListProps) {
   const [studies, setStudies] = useState<StudyData[]>([]);
 
   useEffect(() => {
     const loadStudies = async () => {
       try {
-        const { studies: fetchedStudies, totalItems } = await fetchStudies({ page: currentPage, size: itemsPerPage });
+        const { studies: fetchedStudies, totalItems } = await fetchStudies({
+          page: currentPage,
+          size: itemsPerPage,
+          status,
+          languages,
+          judges,
+          joinable,
+          keyword,
+        });
         setStudies(fetchedStudies);
         onTotalItemsChange(totalItems);
       } catch (error) {
@@ -23,7 +45,7 @@ export default function useStudyList({ currentPage, itemsPerPage, onTotalItemsCh
     };
 
     loadStudies();
-  }, [currentPage, itemsPerPage, onTotalItemsChange]);
+  }, [currentPage, itemsPerPage, status, languages, judges, joinable, keyword, onTotalItemsChange]);
 
   return {
     studies,
