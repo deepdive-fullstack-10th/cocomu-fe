@@ -2,10 +2,12 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import 'react-quill-new/dist/quill.bubble.css';
 import './style.css';
+import S from './style';
 
 interface TextEditorProps {
   width?: string;
   height?: string;
+  label?: string;
   value: string;
   onChange?: (content: string) => void;
   readOnly?: boolean;
@@ -23,6 +25,7 @@ const defaultToolbarOptions = [
 export default function TextEditor({
   width = '100%',
   height = '100%',
+  label,
   value,
   onChange,
   readOnly = false,
@@ -37,13 +40,16 @@ export default function TextEditor({
   const toolbarOptions = isImageUploadEnabled ? [...defaultToolbarOptions, ['image']] : defaultToolbarOptions;
 
   return (
-    <ReactQuill
-      style={{ width, height }}
-      modules={{ toolbar: toolbarOptions }}
-      theme={readOnly ? 'bubble' : 'snow'}
-      readOnly={readOnly}
-      value={value}
-      onChange={handleChange}
-    />
+    <S.Container>
+      {label && <S.Label>{label}</S.Label>}
+      <ReactQuill
+        style={{ width, height }}
+        modules={{ toolbar: toolbarOptions }}
+        theme={readOnly ? 'bubble' : 'snow'}
+        readOnly={readOnly}
+        value={value}
+        onChange={handleChange}
+      />
+    </S.Container>
   );
 }
