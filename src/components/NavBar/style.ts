@@ -5,7 +5,7 @@ const Container = styled.nav`
   justify-content: space-between;
   align-items: center;
 
-  padding: 1rem 10rem;
+  padding: 2rem;
 `;
 
 const LogoImage = styled.img`
