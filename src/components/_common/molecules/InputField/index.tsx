@@ -40,7 +40,7 @@ export default function InputField({ type = 'text', label, description, error, .
         )}
       </S.InputWrapper>
 
-      {error && <S.ErrorText role='alert'>{error}</S.ErrorText>}
+      {error && !props.disabled && <S.ErrorText role='alert'>{error}</S.ErrorText>}
     </S.InputContainer>
   );
 }
