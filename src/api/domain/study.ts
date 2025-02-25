@@ -9,4 +9,11 @@ const studyApi = {
     return data.result;
   },
 
+  createPrivateStudy: async (createStudyData: CreateStudyData) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PRIVATE_CREATE, createStudyData);
+
+    return data.result;
+  },
+};
+
 export default studyApi;
