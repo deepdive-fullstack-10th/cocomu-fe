@@ -13,5 +13,12 @@ export default function useCreateStudy() {
     },
   });
 
+  const createPrivateMutate = useMutation({
+    mutationFn: studyApi.createPrivateStudy,
+    onSuccess: ({ studyId }) => {
+      navigate(ROUTES.STUDY.PARTICIPATION({ studyId }));
+    },
+  });
+
   return { createPublicMutate, createPrivateMutate };
 }
