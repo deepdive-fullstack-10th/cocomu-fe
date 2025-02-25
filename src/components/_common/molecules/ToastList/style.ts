@@ -4,6 +4,7 @@ const ListContainer = styled.div`
   position: fixed;
   top: 5%;
   right: 1%;
+  z-index: 1000;
 
   display: flex;
   flex-direction: column;
