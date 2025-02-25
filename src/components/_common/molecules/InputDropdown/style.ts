@@ -1,9 +1,28 @@
+import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+
+const borderStyles = {
+  default: (theme: Theme) => `1px solid ${theme.color.gray[600]}`,
+  isOpen: (theme: Theme) => `1px solid ${theme.color.primary[400]}`,
+  error: (theme: Theme) => `1px solid ${theme.color.triadic[400]}`,
+};
+
+const getBorderStyle = (theme: Theme, { isOpen, isError }: { isOpen: boolean; isError: boolean }) => {
+  if (isOpen) return borderStyles.isOpen(theme);
+  if (isError) return borderStyles.error(theme);
+  return borderStyles.default(theme);
+};
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.5rem;
+`;
+
+const DropdownContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
   position: relative;
 `;
@@ -14,7 +33,7 @@ const Label = styled.p`
   margin-bottom: 0.1rem;
 `;
 
-const InputContainer = styled.div<{ isOpen: boolean }>`
+const InputContainer = styled.div<{ isOpen: boolean; isError: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +42,7 @@ const InputContainer = styled.div<{ isOpen: boolean }>`
   width: 100%;
   height: 5.3rem;
   background-color: ${({ theme }) => theme.color.gray[50]};
-  border: 1px solid ${({ theme, isOpen }) => (isOpen ? theme.color.primary[400] : theme.color.gray[600])};
+  border: ${({ theme, ...props }) => getBorderStyle(theme, props)};
   border-radius: 0.8rem;
   padding: 1rem 2rem;
 `;
@@ -56,27 +75,20 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 
-const DropdownList = styled.div`
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.color.gray[50]};
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  &:focus {
-    background-color: ${({ theme }) => theme.color.primary[50]};
-  }
+const ErrorText = styled.p`
+  ${({ theme }) => theme.font.common.small};
+  color: ${({ theme }) => theme.color.triadic[400]};
 `;
 
 const S = {
-  DropdownList,
   Container,
+  DropdownContainer,
   Label,
   InputContainer,
   SelectedText,
   Input,
   Icon,
+  ErrorText,
 };
 
 export default S;
