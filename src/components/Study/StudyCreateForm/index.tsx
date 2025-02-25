@@ -9,6 +9,13 @@ import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';
 import { StudyFormData } from '@customTypes/study';
 import { useToastStore } from '@stores/useToastStore';
+import {
+  validateJudges,
+  validateLanguages,
+  validateName,
+  validatePassword,
+  validateTotalUserCount,
+} from '@utils/validators/studyValidators';
 import S from './style';
 
 interface StudyCreateFormProps {
@@ -63,26 +70,26 @@ export default function StudyCreateForm({
           <InputField
             type='password'
             label='암호'
-            {...register('password')}
+            {...register('password', { validate: { onBlur: validatePassword.onBlur } })}
           />
           <InputField
             label='모집 인원'
             description='2명 ~ 50명 이하'
-            {...register('totalUserCount')}
+            {...register('totalUserCount', { validate: { onBlur: validateTotalUserCount.onBlur } })}
           />
           <InputDropdown
             label='스터디 사용 언어'
             description='사용 언어'
             items={PROGRAMMING_LANGUAGES}
             isMultiSelect
-            {...registerSelect('languages')}
+            {...registerSelect('languages', { validate: validateLanguages })}
           />
           <InputDropdown
             label='스터디 사용 플랫폼'
             description='백준, 프로그래머스 ...'
             items={JUDGES}
             isMultiSelect
-            {...registerSelect('judges')}
+            {...registerSelect('judges', { validate: validateJudges })}
           />
         </S.InputWrapper>
       </S.Section>
@@ -95,7 +102,7 @@ export default function StudyCreateForm({
         <InputField
           label='스터디 이름'
           description='스터디 이름을 입력해주세요'
-          {...register('name')}
+          {...register('name', { validate: { onBlur: validateName.onBlur } })}
         />
         <TextEditor
           label='스터디 소개'

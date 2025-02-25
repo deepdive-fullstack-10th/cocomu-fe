@@ -28,6 +28,6 @@ export function useError<T>(): UseError<T> {
     setError,
     clearError,
     clearAllErrors,
-    hasErrors: Object.keys(errors).length > 0,
+    hasErrors: Object.values(errors).some((error) => error),
   };
 }

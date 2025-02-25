@@ -87,11 +87,32 @@ export function useForm<TFieldData extends Record<string, string | string[]>>({
     };
   };
 
-  const registerSelect = <T extends keyof TFieldData>(inputName: T) => ({
+  const registerSelect = <T extends keyof TFieldData>(
+    inputName: T,
+    options: { validate?: (data: TFieldData[T]) => void } = {},
+  ) => ({
     name: inputName,
     values: formData[inputName] as string[],
     error: errors[inputName],
-    onSelect: (newValues: string[]) => updateFormData(inputName, newValues as TFieldData[T]),
+    onSelect: (newValues: string[]) => {
+      updateFormData(inputName, newValues as TFieldData[T]);
+      if (options.validate) {
+        validateAndSetErrors({
+          value: newValues as TFieldData[T],
+          validate: options.validate,
+          inputName,
+        });
+      }
+    },
+    onBlur: () => {
+      if (options.validate) {
+        validateAndSetErrors({
+          value: formData[inputName],
+          validate: options.validate,
+          inputName,
+        });
+      }
+    },
   });
 
   return {
