@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Icon from '@components/_common/atoms/Icon';
 import { BsChevronDown } from 'react-icons/bs';
 import TagList from '../TagList';
@@ -10,8 +10,10 @@ interface InputDropdownProps<T extends readonly string[]> {
   description?: string;
   items: T;
   values?: string[];
+  error?: string;
   isMultiSelect?: boolean;
   onSelect: (value: string[]) => void;
+  onBlur: () => void;
 }
 
 export default function InputDropdown<T extends readonly string[]>({
@@ -19,13 +21,23 @@ export default function InputDropdown<T extends readonly string[]>({
   description = '',
   items,
   values = [],
+  error,
   isMultiSelect = false,
   onSelect,
+  onBlur,
 }: InputDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleDropDown = () => setIsOpen((prev) => !prev);
+
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      setIsOpen(false);
+      onBlur();
+    }
+  };
 
   const handleAddItem = (newItem: string) => {
     setIsOpen(false);
@@ -49,42 +61,51 @@ export default function InputDropdown<T extends readonly string[]>({
 
   return (
     <S.Container>
-      {label && <S.Label>{label}</S.Label>}
-
-      <S.InputContainer
-        isOpen={isOpen}
-        onClick={toggleDropDown}
+      <S.DropdownContainer
+        ref={containerRef}
+        onBlur={handleBlur}
+        tabIndex={-1}
       >
-        {isMultiSelect && values.length > 0 && (
-          <TagList
-            items={values}
-            color='primary'
-            onRemove={handleRemoveTag}
+        {label && <S.Label>{label}</S.Label>}
+
+        <S.InputContainer
+          isOpen={isOpen}
+          isError={!!error}
+          onClick={toggleDropDown}
+        >
+          {isMultiSelect && values.length > 0 && (
+            <TagList
+              items={values}
+              color='primary'
+              onRemove={handleRemoveTag}
+            />
+          )}
+          <S.Input
+            type='text'
+            placeholder={values.length > 0 ? '' : description}
+            value={isMultiSelect ? search : values[0]}
+            onChange={(e) => isMultiSelect && setSearch(e.target.value)}
+            disabled={!isMultiSelect}
+          />
+          <Icon
+            size='sm'
+            color='950'
+          >
+            <BsChevronDown />
+          </Icon>
+        </S.InputContainer>
+
+        {isOpen && (
+          <DropdownList
+            items={availableItems}
+            size='md'
+            color='black'
+            onItemSelect={handleAddItem}
           />
         )}
-        <S.Input
-          type='text'
-          placeholder={values.length > 0 ? '' : description}
-          value={isMultiSelect ? search : values[0]}
-          onChange={(e) => isMultiSelect && setSearch(e.target.value)}
-          disabled={!isMultiSelect}
-        />
-        <Icon
-          size='sm'
-          color='950'
-        >
-          <BsChevronDown />
-        </Icon>
-      </S.InputContainer>
+      </S.DropdownContainer>
 
-      {isOpen && (
-        <DropdownList
-          items={availableItems}
-          size='md'
-          color='black'
-          onItemSelect={handleAddItem}
-        />
-      )}
+      {error && <S.ErrorText role='alert'>{error}</S.ErrorText>}
     </S.Container>
   );
 }
