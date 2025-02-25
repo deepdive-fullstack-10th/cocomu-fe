@@ -20,12 +20,12 @@ const commonStyles = (theme: Theme, isActive?: boolean) => css`
 
   &:hover {
     cursor: pointer;
-    border-color: ${isActive ? theme.color.gray[900] : theme.color.primary[700]};
-    color: ${isActive ? theme.color.gray[900] : theme.color.primary[700]};
+    border-color: ${isActive ? theme.color.primary[700] : theme.color.gray[900]};
+    color: ${isActive ? theme.color.primary[700] : theme.color.gray[900]};
   }
 
-  color: ${isActive ? theme?.color.gray[900] : theme?.color.primary[500]};
-  border: 1px solid ${isActive ? theme?.color.gray[600] : theme?.color.primary[500]};
+  color: ${isActive ? theme?.color.primary[500] : theme?.color.gray[900]};
+  border: 1px solid ${isActive ? theme?.color.primary[500] : theme?.color.gray[900]};
 `;
 
 const sizeStyles = {

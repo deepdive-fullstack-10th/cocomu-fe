@@ -1,4 +1,4 @@
-import StudyCard from '@components/StudyCard';
+import StudyCard from 'src/components/Study/StudyCard';
 import { StudyData } from '@customTypes/study';
 import useStudyList from '@hooks/useStudyList';
 import * as S from './style';
@@ -6,11 +6,34 @@ import * as S from './style';
 interface StudyListBodyProps {
   currentPage: number;
   itemsPerPage: number;
+  status?: string;
+  languages?: string[];
+  judges?: string[];
+  joinable?: boolean;
+  keyword?: string;
   onTotalItemsChange: (totalItems: number) => void;
 }
 
-export default function StudyListBody({ currentPage, itemsPerPage, onTotalItemsChange }: StudyListBodyProps) {
-  const { studies } = useStudyList({ currentPage, itemsPerPage, onTotalItemsChange });
+export default function StudyListBody({
+  currentPage,
+  itemsPerPage,
+  status,
+  languages,
+  judges,
+  joinable,
+  keyword,
+  onTotalItemsChange,
+}: StudyListBodyProps) {
+  const { studies } = useStudyList({
+    currentPage,
+    itemsPerPage,
+    status,
+    languages,
+    judges,
+    joinable,
+    keyword,
+    onTotalItemsChange,
+  });
 
   return (
     <S.BodyContainer>

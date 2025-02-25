@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import S, { ToggleButtonStyleProps } from './style';
 
 interface ToggleButtonProps extends ToggleButtonStyleProps {
-  initialActive?: boolean;
+  isActive?: boolean;
   onToggle?: (isActive: boolean) => void;
   children: React.ReactNode;
 }
 
 export default function ToggleButton({
-  initialActive = false,
+  isActive = false,
   size = 'md',
   shape = 'default',
   onToggle,
   children,
 }: ToggleButtonProps) {
-  const [isActive, setIsActive] = useState(initialActive);
+  const [active, setActive] = useState(isActive);
+
+  useEffect(() => {
+    setActive(isActive);
+  }, [isActive]);
 
   const handleClick = () => {
-    const newActiveState = !isActive;
-    setIsActive(newActiveState);
+    const newActiveState = !active;
+    setActive(newActiveState);
     onToggle?.(newActiveState);
   };
 
@@ -27,7 +31,7 @@ export default function ToggleButton({
       onClick={handleClick}
       size={size}
       shape={shape}
-      isActive={isActive}
+      isActive={active}
     >
       {children}
     </S.ToggleButton>

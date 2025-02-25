@@ -4,9 +4,11 @@ import S from './style';
 
 interface SearchInputProps {
   placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function SearchInput({ placeholder = '' }: SearchInputProps) {
+export default function SearchInput({ placeholder = '', value, onChange }: SearchInputProps) {
   return (
     <S.Container>
       <S.SearchIcon>
@@ -17,7 +19,11 @@ export default function SearchInput({ placeholder = '' }: SearchInputProps) {
           <BsSearch />
         </Icon>
       </S.SearchIcon>
-      <S.Input placeholder={placeholder} />
+      <S.Input
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </S.Container>
   );
 }
