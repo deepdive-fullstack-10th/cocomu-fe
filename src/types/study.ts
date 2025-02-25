@@ -20,3 +20,15 @@ export interface StudyData {
   createdAt: string;
   leader: UserData;
 }
+
+export interface StudyFormData extends Record<string, string | string[]> {
+  name: string;
+  password: string;
+  totalUserCount: string;
+  languages: string[];
+  judges: string[];
+}
+
+export interface CreateStudyData extends StudyFormData {
+  description: string;
+}
