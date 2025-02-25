@@ -1,12 +1,12 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-export type ButtonShape = 'default' | 'round';
+export type ToggleButtonSize = 'sm' | 'md' | 'lg';
+export type ToggleButtonShape = 'default' | 'round';
 
-interface ButtonStyleProps {
-  size: ButtonSize;
-  shape?: ButtonShape;
+export interface ToggleButtonStyleProps {
+  size?: ToggleButtonSize;
+  shape?: ToggleButtonShape;
   isActive?: boolean;
 }
 
@@ -49,18 +49,18 @@ const sizeStyles = {
   `,
 };
 
-const shapeStyles = (shape: ButtonShape = 'default') => css`
+const shapeStyles = (shape: ToggleButtonShape = 'default') => css`
   border-radius: ${shape === 'round' ? '3.2rem' : '1.1rem'};
 `;
 
-const Button = styled.button<ButtonStyleProps>`
+const ToggleButton = styled.button<ToggleButtonStyleProps>`
   ${({ theme, isActive }) => commonStyles(theme, isActive)}
-  ${({ size, theme }) => sizeStyles[size](theme)}
+  ${({ size = 'md', theme }) => sizeStyles[size](theme)}
     ${({ shape }) => shapeStyles(shape)}
 `;
 
 const S = {
-  Button,
+  ToggleButton,
 };
 
 export default S;
