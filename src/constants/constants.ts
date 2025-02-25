@@ -13,9 +13,7 @@ export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 �
 
 export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
 
-export const DROPDOWN_ACCESS_STATUS = ['전체', '공개', '비공개'] as const;
-
-export const RADIO_ACCESS_STATUS = ['공개', '비공개'] as const;
+export const ACCESS_STATUS = ['공개', '비공개'] as const;
 
 export const STEP_INFO = {
   WAITING: {
@@ -39,6 +37,6 @@ export const STEP_INFO = {
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
 export const ACCESS_STATUS_MAP = {
-  PUBLIC: '공개',
-  PRIVATE: '비공개',
+  PUBLIC: ACCESS_STATUS[0],
+  PRIVATE: ACCESS_STATUS[1],
 } as const;
