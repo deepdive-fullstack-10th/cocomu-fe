@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import S from './style';
+import S, { ToggleButtonStyleProps } from './style';
 
-interface ToggleButtonProps {
+interface ToggleButtonProps extends ToggleButtonStyleProps {
   initialActive?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  shape?: 'default' | 'round';
   onToggle?: (isActive: boolean) => void;
   children: React.ReactNode;
 }
@@ -25,13 +23,13 @@ export default function ToggleButton({
   };
 
   return (
-    <S.Button
+    <S.ToggleButton
       onClick={handleClick}
       size={size}
       shape={shape}
       isActive={isActive}
     >
       {children}
-    </S.Button>
+    </S.ToggleButton>
   );
 }
