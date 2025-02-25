@@ -63,7 +63,6 @@ const ToastContainer = styled.div<{ visible: boolean }>`
 
   overflow: hidden;
   animation: ${({ visible }) => (visible ? slideIn : slideOut)} 0.5s ease-out forwards;
-  z-index: 1000;
 `;
 
 const Header = styled.div`

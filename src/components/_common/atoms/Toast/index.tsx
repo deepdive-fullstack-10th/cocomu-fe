@@ -20,9 +20,10 @@ export function Toast({ id, message, type, visible }: ToastProps) {
         <S.Icon onClick={() => removeToast(id)}>
           <Icon
             size='sm'
-            icon={<BsX />}
             color='700'
-          />
+          >
+            <BsX />
+          </Icon>
         </S.Icon>
       </S.Header>
       <S.ToastContent type={type}>{message}</S.ToastContent>
