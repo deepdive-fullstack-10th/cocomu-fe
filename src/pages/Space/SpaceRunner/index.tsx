@@ -3,6 +3,7 @@ import S from './style';
 
 export default function SpaceRunner() {
   const [tabSelect, setTabselect] = useState<number>(1);
+  const [output] = useState<string>('실행 결과가 여기에 표시됩니다.');
 
   return (
     <S.SpaceRunnerContainer>
@@ -20,7 +21,7 @@ export default function SpaceRunner() {
           실행 결과
         </S.Tab>
       </S.TabList>
-      <S.Runner placeholder='여기에 입력하세요.' />
+      {tabSelect === 1 ? <S.Runner placeholder='여기에 입력하세요.' /> : <S.RunnerResult>{output}</S.RunnerResult>}
     </S.SpaceRunnerContainer>
   );
 }

@@ -29,11 +29,16 @@ const Tab = styled.div<{ select: boolean }>`
 `;
 
 const Runner = styled.textarea`
+  padding: 1rem;
+  flex: 1;
+  resize: none;
+  border: none;
+`;
+
+const RunnerResult = styled.div`
   width: 100%;
   flex: 1;
   padding: 1rem;
-  resize: none;
-  border: none;
 `;
 
 const S = {
@@ -41,6 +46,7 @@ const S = {
   TabList,
   Tab,
   Runner,
+  RunnerResult,
 };
 
 export default S;

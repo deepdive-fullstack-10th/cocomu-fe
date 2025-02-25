@@ -56,6 +56,13 @@ const ResizeButton = styled.div`
   cursor: pointer;
 `;
 
-const S = { Container, ActiveUsersContainer, UserCount, ResizablePanel, ResizeButton };
+const RunnerContainer = styled.div`
+  display: flex;
+  flex: 1;
+  opacity: 0.5;
+  pointer-events: none;
+`;
+
+const S = { Container, ActiveUsersContainer, UserCount, ResizablePanel, ResizeButton, RunnerContainer };
 
 export default S;
