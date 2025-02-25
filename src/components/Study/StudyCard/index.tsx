@@ -1,10 +1,10 @@
 import { BsPerson } from 'react-icons/bs';
-import { ACCESS_STATUS } from '@constants/constants';
+import { ACCESS_STATUS_MAP } from '@constants/constants';
 import { StudyData } from '@customTypes/study';
-import Tag from '../atoms/Tag';
-import UserProfile from '../molecules/UserProfile';
-import ImageTagList from '../molecules/ImageTagList';
-import TagList from '../molecules/TagList';
+import Tag from '@components/_common/atoms/Tag';
+import UserProfile from '@components/_common/molecules/UserProfile';
+import ImageTagList from '@components/_common/molecules/ImageTagList';
+import TagList from '@components/_common/molecules/TagList';
 import S from './style';
 
 export default function StudyCard({
@@ -27,7 +27,7 @@ export default function StudyCard({
   return (
     <S.CardContainer onClick={handleCardClick}>
       <S.Header>
-        <Tag color={status === 'PUBLIC' ? 'analogous' : 'triadic'}>{ACCESS_STATUS[status]}</Tag>
+        <Tag color={status === 'PUBLIC' ? 'analogous' : 'triadic'}>{ACCESS_STATUS_MAP[status]}</Tag>
         <S.Date>{createdAt}</S.Date>
       </S.Header>
 
