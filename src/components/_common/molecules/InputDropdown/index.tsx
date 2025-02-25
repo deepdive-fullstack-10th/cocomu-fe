@@ -23,11 +23,13 @@ export default function InputDropdown<T extends readonly string[]>({
   onSelect,
 }: InputDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
 
   const toggleDropDown = () => setIsOpen((prev) => !prev);
 
   const handleAddItem = (newItem: string) => {
     setIsOpen(false);
+    setSearch('');
 
     if (!isMultiSelect) {
       onSelect([newItem]);
@@ -41,7 +43,9 @@ export default function InputDropdown<T extends readonly string[]>({
     onSelect(values.filter((tag) => tag !== item));
   };
 
-  const availableItems = items.filter((item) => !values.includes(item));
+  const availableItems = items.filter(
+    (item) => !values.includes(item) && item.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <S.Container>
@@ -51,15 +55,20 @@ export default function InputDropdown<T extends readonly string[]>({
         isOpen={isOpen}
         onClick={toggleDropDown}
       >
-        {isMultiSelect && values.length > 0 ? (
+        {isMultiSelect && values.length > 0 && (
           <TagList
             items={values}
             color='primary'
             onRemove={handleRemoveTag}
           />
-        ) : (
-          <S.SelectedText>{values[0] || description}</S.SelectedText>
         )}
+        <S.Input
+          type='text'
+          placeholder={values.length > 0 ? '' : description}
+          value={isMultiSelect ? search : values[0]}
+          onChange={(e) => isMultiSelect && setSearch(e.target.value)}
+          disabled={!isMultiSelect}
+        />
         <Icon
           size='sm'
           color='950'

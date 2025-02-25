@@ -17,9 +17,11 @@ const Label = styled.p`
 const InputContainer = styled.div<{ isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
 
   width: 100%;
-  height: 4.7rem;
+  height: 5.3rem;
   background-color: ${({ theme }) => theme.color.gray[50]};
   border: 1px solid ${({ theme, isOpen }) => (isOpen ? theme.color.primary[400] : theme.color.gray[600])};
   border-radius: 0.8rem;
@@ -31,10 +33,16 @@ const SelectedText = styled.p`
   color: ${({ theme }) => theme.color.gray[700]};
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ disabled?: boolean }>`
+  flex: 1;
   border: none;
-  width: 90%;
-  padding: 0.2rem;
+  outline: none;
+
+  ${({ theme }) => theme.font.common.block};
+  color: ${({ theme }) => theme.color.gray[900]};
+
+  background-color: ${({ disabled, theme }) => (disabled ? theme.color.gray[50] : 'transparent')};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 `;
 
 const Icon = styled.div`
