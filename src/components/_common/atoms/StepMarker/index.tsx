@@ -2,9 +2,9 @@ import React from 'react';
 import S from './style';
 
 interface StepMarkerProps {
-  step: 'Step1' | 'Step2';
+  step: number;
 }
 
 export default function StepMarker({ step }: StepMarkerProps) {
-  return <S.StepContainer>{step === 'Step1' ? '1' : '2'}</S.StepContainer>;
+  return <S.StepContainer>{step}</S.StepContainer>;
 }
