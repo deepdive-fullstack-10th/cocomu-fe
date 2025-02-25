@@ -13,3 +13,8 @@ export const createPrivateResponse = {
     studyId: 1,
   },
 };
+
+export const createStudyErrorResponse = {
+  code: 4200,
+  message: '유효성 검사 실패',
+};
