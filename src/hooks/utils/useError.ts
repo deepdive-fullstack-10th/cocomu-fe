@@ -5,6 +5,7 @@ interface UseError<T> {
   setError: (inputName: keyof T, message: string) => void;
   clearError: (inputName: keyof T) => void;
   clearAllErrors: () => void;
+  hasErrors: boolean;
 }
 
 export function useError<T>(): UseError<T> {
@@ -27,5 +28,6 @@ export function useError<T>(): UseError<T> {
     setError,
     clearError,
     clearAllErrors,
+    hasErrors: Object.keys(errors).length > 0,
   };
 }
