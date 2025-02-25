@@ -70,6 +70,7 @@ export default function StudyCreateForm({
           <InputField
             type='password'
             label='암호'
+            disabled={selectedStatus === ACCESS_STATUS[0]}
             {...register('password', { validate: { onBlur: validatePassword.onBlur } })}
           />
           <InputField
