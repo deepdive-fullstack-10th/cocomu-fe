@@ -17,7 +17,7 @@ export function useForm<TFieldData extends Record<string, string | string[]>>({
   initialValues,
 }: UseFormProps<TFieldData>) {
   const [formData, setFormData] = useState<TFieldData>(initialValues);
-  const { errors, setError, clearError, clearAllErrors } = useError<Record<keyof TFieldData, string>>();
+  const { errors, setError, clearError, clearAllErrors, hasErrors } = useError<Record<keyof TFieldData, string>>();
 
   const validateAndSetErrors = <T extends keyof TFieldData>({
     value,
@@ -100,5 +100,6 @@ export function useForm<TFieldData extends Record<string, string | string[]>>({
     register,
     registerSelect,
     handleSubmit,
+    hasErrors,
   };
 }
