@@ -21,7 +21,7 @@ const mockStudies: StudyData[] = Array.from({ length: 100 }, (_, index) => ({
 }));
 
 export default function StudyListBody() {
-  const studies: StudyData[] = mockStudies; // Mock 데이터를 사용
+  const studies: StudyData[] = mockStudies;
 
   return (
     <S.BodyContainer>
