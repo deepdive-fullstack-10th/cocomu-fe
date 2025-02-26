@@ -4,10 +4,13 @@ import { BsPlusLg } from 'react-icons/bs';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { NAVBAR_DROPDOWN_LABELS, PROGRAMMING_LANGUAGES, STEP_LABELS, STUDY_LIST } from '@constants/constants';
 import SpaceCard from '@components/SpaceCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import SearchInput from '@components/_common/atoms/SearchInput';
 import { SpaceData } from '@customTypes/space';
+import useSpaceList from '@hooks/useSpaceList';
+import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
+import { useParams } from 'react-router-dom';
 import S from './style';
 
 function Header({ studyTitle }: { studyTitle: string }) {
@@ -18,10 +21,6 @@ function Header({ studyTitle }: { studyTitle: string }) {
 
   return (
     <div>
-      <NavBar
-        items={NAVBAR_DROPDOWN_LABELS}
-        isLogined={!isLogin}
-      />
       <S.HeaderContainer>
         <S.StudyTitle>{studyTitle}</S.StudyTitle>
         <S.CreateButtonContainer>
@@ -47,10 +46,19 @@ function Header({ studyTitle }: { studyTitle: string }) {
   );
 }
 
-function Body() {
+export default function SpaceList() {
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const spaces: SpaceData[] = generateSpaceData(100);
+
+  const { studyId } = useParams<{ studyId: string }>();
+  const { data } = useSpaceList(studyId);
+  const [spaceList, setSpaceList] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setSpaceList(data);
+    }
+  }, [data]);
 
   const handleLanguage = (language: string[]) => {
     setSelectedLanguage(language);
@@ -69,58 +77,54 @@ function Body() {
 
   return (
     <div>
-      <S.BodyContainer>
-        <S.FilteredContainer>
-          <S.ClickFilteredContainer>
-            <SelectDropdown
-              description='전체'
-              items={STEP_LABELS}
-              values={selectedStatus}
-              onSelect={handleStatus}
-            />
-            <SelectDropdown
-              description='사용 언어'
-              items={PROGRAMMING_LANGUAGES}
-              values={selectedLanguage}
-              onSelect={handleLanguage}
-            />
-            <IconButton
-              color='white'
-              align='center'
-              content='내가 참여한 스페이스 보기'
-              shape='round'
-              onClick={handleMySpace}
-            />
-          </S.ClickFilteredContainer>
-          <S.SearchFilteredContainer>
-            <SearchInput placeholder='제목을 검색해 주세요' />
-          </S.SearchFilteredContainer>
-        </S.FilteredContainer>
-        <S.SpaceListContainer>
-          {spaces.map((space) => (
-            <SpaceCard
-              id={space.id}
-              joinedSpace={space.joinedSpace}
-              name={space.name}
-              language={space.language}
-              totalUserCount={space.totalUserCount}
-              createdAt={space.createdAt}
-              status={space.status}
-              leader={space.leader}
-              currentUsers={space.currentUsers}
-            />
-          ))}
-        </S.SpaceListContainer>
-      </S.BodyContainer>
-    </div>
-  );
-}
-
-export default function SpaceList() {
-  return (
-    <div>
       <Header studyTitle='딥다이버즈 스터디임' />
-      <Body />
+      <div>
+        <S.BodyContainer>
+          <S.FilteredContainer>
+            <S.ClickFilteredContainer>
+              <SelectDropdown
+                description='전체'
+                items={STEP_LABELS}
+                values={selectedStatus}
+                onSelect={handleStatus}
+              />
+              <SelectDropdown
+                description='사용 언어'
+                items={PROGRAMMING_LANGUAGES}
+                values={selectedLanguage}
+                onSelect={handleLanguage}
+              />
+              <IconButton
+                color='white'
+                align='center'
+                content='내가 참여한 스페이스 보기'
+                shape='round'
+                onClick={handleMySpace}
+              />
+            </S.ClickFilteredContainer>
+            <S.SearchFilteredContainer>
+              <SearchInput placeholder='제목을 검색해 주세요' />
+            </S.SearchFilteredContainer>
+          </S.FilteredContainer>
+          <S.SpaceListContainer>
+            {spaceList &&
+              spaceList.map((space) => (
+                <SpaceCard
+                  key={space.id}
+                  id={space.id}
+                  joinedSpace={space.joinedSpace}
+                  name={space.name}
+                  language={space.language}
+                  totalUserCount={space.totalUserCount}
+                  createdAt={space.createdAt}
+                  status={space.status}
+                  leader={space.leader}
+                  currentUsers={space.currentUsers}
+                />
+              ))}
+          </S.SpaceListContainer>
+        </S.BodyContainer>
+      </div>
     </div>
   );
 }
