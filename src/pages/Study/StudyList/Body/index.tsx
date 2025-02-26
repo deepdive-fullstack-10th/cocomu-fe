@@ -1,5 +1,4 @@
 import StudyCard from 'src/components/Study/StudyCard';
-import { StudyData } from '@customTypes/study';
 import useStudyList from '@hooks/useStudyList';
 import * as S from './style';
 
@@ -14,7 +13,7 @@ interface StudyListBodyProps {
   onTotalItemsChange: (totalItems: number) => void;
 }
 
-export default function StudyListBody({
+export default function Body({
   currentPage,
   itemsPerPage,
   status,
