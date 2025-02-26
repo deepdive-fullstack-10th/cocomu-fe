@@ -1,9 +1,29 @@
 import { http, HttpResponse } from 'msw';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
-import { createPrivateResponse, createPublicResponse, createStudyErrorResponse } from '@mocks/data/study';
+import {
+  createPrivateResponse,
+  createPublicResponse,
+  createStudyErrorResponse,
+  getStudyInfoErrorResponse,
+  getStudyInfoResponse,
+} from '@mocks/data/study';
 import { CreateStudyData } from '@customTypes/study';
 
 export const studyHandlers = [
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(getStudyInfoErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getStudyInfoResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
   http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PUBLIC_CREATE}`, async ({ request }) => {
     const body = (await request.json()) as Omit<CreateStudyData, 'password'>;
 
