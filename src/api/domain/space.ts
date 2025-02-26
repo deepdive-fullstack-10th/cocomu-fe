@@ -38,6 +38,11 @@ const spaceApi = {
 
     return data.result;
   },
+  getSpaceList: async (studyId: number) => {
+    const { data } = await axiosInstance.get(`${END_POINTS_V1.STUDY.SPACE_LIST(`${studyId}`)}`);
+
+    return data.result;
+  },
 };
 
 export default spaceApi;
