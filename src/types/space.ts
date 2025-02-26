@@ -24,3 +24,16 @@ export interface TestCaseItem {
   output?: string;
   type?: TestCaseItemType;
 }
+
+export interface SpaceDetail {
+  codingTime: number;
+  description: string;
+  hasLeaderRole: boolean;
+  id: number;
+  language: string;
+  name: string;
+  referenceUrl: string;
+  status: string;
+  testCase: TestCaseItem[];
+  totalUserCount: number;
+}
