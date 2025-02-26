@@ -5,6 +5,7 @@ export const PATH = {
   STUDY: {
     LIST: '/study',
     CREATE: '/study/create',
+    EDIT: '/study/:studyId/edit',
     PARTICIPATION: '/study/:studyId/participation',
     DETAIL: '/study/:studyId',
     MEMBERS: 'members',
@@ -26,6 +27,7 @@ export const ROUTES = {
   STUDY: {
     LIST: () => generatePath(PATH.STUDY.LIST),
     CREATE: () => generatePath(PATH.STUDY.CREATE),
+    EDIT: ({ studyId }: { studyId: string }) => generatePath(PATH.STUDY.EDIT, { studyId }),
     PARTICIPATION: ({ studyId }: { studyId: string }) => generatePath(PATH.STUDY.PARTICIPATION, { studyId }),
     DETAIL: ({ studyId }: { studyId: string }) => generatePath(PATH.STUDY.DETAIL, { studyId }),
     MEMBERS: ({ studyId }: { studyId: string }) =>

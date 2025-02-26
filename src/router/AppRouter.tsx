@@ -12,6 +12,7 @@ import StudyList from '@pages/Study/StudyList';
 import App from '../App';
 
 const StudyCreate = lazy(() => import('@pages/Study/StudyCreate'));
+const StudyEdit = lazy(() => import('@pages/Study/StudyEdit'));
 const StudyParticipation = lazy(() => import('@pages/Study/StudyParticipation'));
 const StudyDetail = lazy(() => import('@pages/Study/StudyDetail'));
 
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
           children: [
             { index: true, element: <StudyList /> },
             { path: PATH.STUDY.CREATE, element: <StudyCreate /> },
+            { path: PATH.STUDY.EDIT, element: <StudyEdit /> },
             {
               path: PATH.STUDY.PARTICIPATION,
               element: <StudyParticipation />,
