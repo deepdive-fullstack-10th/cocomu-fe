@@ -93,3 +93,16 @@ export const spaceData = {
     },
   },
 };
+
+export const spaceStartSuccessResponse = {
+  code: 1200,
+  message: '스페이스 시작에 성공했습니다.',
+  result: {
+    spaceId: '1',
+  },
+};
+
+export const spaceStartErrorResponse = {
+  code: 4200,
+  message: '스페이스 시작에 실패했습니다. studyId가 필요합니다.',
+};

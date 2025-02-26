@@ -34,6 +34,8 @@ export const STEP_INFO = {
   },
 } as const;
 
+export const SPACE_NAV_BUTTON = ['문제 풀이 시작', '피드백 시작', '피드백 종료', '나가기'] as const;
+
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
 export const ACCESS_STATUS_MAP = {

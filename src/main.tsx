@@ -1,9 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { Global, ThemeProvider } from '@emotion/react';
 import ToastList from '@components/_common/molecules/ToastList';
-import BaseModal from '@components/Modal/BaseModal';
 import { worker } from '@mocks/browser';
+import BaseModal from '@components/Modal/BaseModal';
 import AppRouter from '@router/AppRouter';
+
 import globalStyles from './styles/globalStyles';
 import { theme } from './styles/theme';
 

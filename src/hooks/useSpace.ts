@@ -2,6 +2,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import spaceApi from '@api/domain/codingSpace';
 import { WAITING_INFO } from '@constants/modal';
 import { useModalStore } from '@stores/useModalStore';
+import { useNavigate } from 'react-router-dom';
 
 export function useSpaceDetail({ spaceId }: { spaceId: string }) {
   const query = useQuery({
@@ -14,6 +15,7 @@ export function useSpaceDetail({ spaceId }: { spaceId: string }) {
 }
 
 export function useSpaceStart() {
+  const navigate = useNavigate();
   const { open } = useModalStore();
   const spaceStartMutate = useMutation({
     mutationFn: spaceApi.start,
@@ -21,7 +23,7 @@ export function useSpaceStart() {
       open('waiting', {
         label: WAITING_INFO.problem.label,
         description: WAITING_INFO.problem.description,
-        navigate: WAITING_INFO.problem.navigate(spaceId),
+        navigate: navigate(WAITING_INFO.problem.navigate(spaceId)),
       });
     },
   });
