@@ -23,6 +23,12 @@ const studyApi = {
 
     return data.result;
   },
+
+  editStudy: async (studyId: string, editStudyData: CreateStudyData) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.EDIT(studyId), editStudyData);
+
+    return data.result;
+  },
 };
 
 export default studyApi;
