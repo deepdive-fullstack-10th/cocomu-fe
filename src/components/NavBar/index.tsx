@@ -4,6 +4,8 @@ import { BsChevronDown } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
 import Button from '@components/_common/atoms/Button';
 import DropdownList from '@components/_common/molecules/DropdownList';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 interface NavbarProps<T extends readonly string[]> {
@@ -13,15 +15,16 @@ interface NavbarProps<T extends readonly string[]> {
 
 export default function NavBar<T extends readonly string[]>({ items, isLogined }: NavbarProps<T>) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
   const handleLogoClick = () => {
-    // 로고 클릭 시 메인 페이지로 이동
+    navigate(ROUTES.ROOT());
   };
 
   const handleStudyClick = () => {
-    // 스터디 모집 페이지로 이동
+    navigate(ROUTES.STUDY.CREATE());
   };
 
   const handleMyPageClick = () => {
