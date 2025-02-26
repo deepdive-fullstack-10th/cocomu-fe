@@ -7,7 +7,7 @@ export default function Waiting({ label, description, navigate, onClose }: Waiti
   useEffect(() => {
     const waitingTime = setTimeout(() => {
       onClose();
-      if (navigate) navigate();
+      if (typeof navigate === 'function') navigate();
     }, 5000);
 
     return () => clearTimeout(waitingTime);

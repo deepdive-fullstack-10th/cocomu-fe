@@ -3,22 +3,27 @@ import { useDraggable } from '@hooks/useDraggable';
 import { Outlet, useParams, useNavigate } from 'react-router-dom';
 import IconButton from '@components/_common/atoms/IconButton';
 import Button from '@components/_common/atoms/Button';
-import { BsArrowLeft } from 'react-icons/bs';
+import { BsArrowLeft, BsPlus } from 'react-icons/bs';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import { generateTimer } from '@utils/timeUtils';
 import { useSpaceDetail, useSpaceStart } from '@hooks/useSpace';
 import { SpaceDetail } from '@customTypes/space';
 import { useModalStore } from '@stores/useModalStore';
+import { ROUTES } from '@constants/path';
+import { SPACE_NAV_BUTTON } from '@constants/constants';
 import S from './style';
 
 export default function SpaceDetail() {
   const [spaceData, setSpacedata] = useState<SpaceDetail>();
   const [timer, settimer] = useState<number>(0);
+  const [navButton, setNavbutton] = useState<string>(SPACE_NAV_BUTTON[0]);
+  const [testCaseStatus, setTestcaseStatus] = useState<string>('DEFAULT');
   const { spaceId } = useParams();
-  const { data } = useSpaceDetail({ spaceId });
+  const { data, refetch } = useSpaceDetail({ spaceId });
   const { open } = useModalStore();
 
   const navigate = useNavigate();
+  const { spaceStartMutate } = useSpaceStart();
 
   const {
     value: width,
@@ -33,21 +38,44 @@ export default function SpaceDetail() {
   });
 
   useEffect(() => {
+    refetch();
     setSpacedata(data?.codingSpace);
     settimer(data?.codingSpace?.codingTime);
-  }, [data]);
+    switch (spaceData?.status) {
+      case '대기':
+        setNavbutton(SPACE_NAV_BUTTON[0]);
+        setTestcaseStatus('DEFAULT');
+        break;
+      case '진행':
+        setNavbutton(SPACE_NAV_BUTTON[1]);
+        setTestcaseStatus('CUSTOM');
+        break;
+      case '피드백':
+        setNavbutton(SPACE_NAV_BUTTON[2]);
+        setTestcaseStatus('CUSTOM');
+        break;
+      case '종료':
+        setNavbutton(SPACE_NAV_BUTTON[3]);
+        setTestcaseStatus('DEFAULT');
+        break;
+      default:
+        setNavbutton(SPACE_NAV_BUTTON[0]);
+        setTestcaseStatus('DEFAULT');
+        break;
+    }
+  }, [data, spaceData, refetch]);
 
   const testcaseHandler = () => {
     open('testCase', {
-      status: 'DEFAULT',
+      status: testCaseStatus,
       testCases: spaceData?.testCase || [],
     });
   };
 
-  const { spaceStartMutate } = useSpaceStart();
-
   const spaceStartHandler = () => {
-    spaceStartMutate.mutate({ spaceId, studyId: spaceData?.studyId });
+    if (spaceData?.status === '대기') {
+      spaceStartMutate.mutate({ spaceId, studyId: spaceData?.studyId });
+    }
   };
 
   return (
@@ -58,7 +86,7 @@ export default function SpaceDetail() {
             content='돌아가기'
             align='center'
             color='none'
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(ROUTES.STUDY.DETAIL({ studyId: spaceData?.studyId }))}
           >
             <BsArrowLeft />
           </IconButton>
@@ -67,13 +95,13 @@ export default function SpaceDetail() {
 
         <S.NavbarRightcontent>
           <div>{generateTimer(timer * 60)}</div>
-          {spaceData?.hasLeaderRole && (
+          {(spaceData?.hasLeaderRole || spaceData?.status === '종료') && (
             <Button
               size='md'
               color='triadic'
               onClick={spaceStartHandler}
             >
-              문제 풀이 시작
+              {navButton}
             </Button>
           )}
         </S.NavbarRightcontent>
@@ -100,12 +128,23 @@ export default function SpaceDetail() {
       </S.MainContent>
       <S.Footer>
         <S.FooterItem>
-          <IconButton
-            content='테스트 케이스 확인하기'
-            align='center'
-            shape='round'
-            onClick={testcaseHandler}
-          />
+          {['진행', '피드백'].includes(spaceData?.status) ? (
+            <IconButton
+              content='테스트 케이스 추가하기'
+              align='center'
+              shape='round'
+              onClick={testcaseHandler}
+            >
+              <BsPlus />
+            </IconButton>
+          ) : (
+            <IconButton
+              content='테스트 케이스 확인하기'
+              align='center'
+              shape='round'
+              onClick={testcaseHandler}
+            />
+          )}
         </S.FooterItem>
         {['진행', '피드백'].includes(spaceData?.status) && (
           <S.FooterItem>

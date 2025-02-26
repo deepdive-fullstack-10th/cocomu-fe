@@ -4,7 +4,7 @@ export const WAITING_INFO = {
   problem: {
     label: '문제 풀이',
     description: '스페이스 모집이 완료되었습니다.',
-    navigate: (spaceId: string) => ROUTES.SPACE.WAITING({ spaceId }),
+    navigate: (spaceId: string) => ROUTES.SPACE.RUNNING({ spaceId }),
   },
   feedback: {
     label: '피드백',

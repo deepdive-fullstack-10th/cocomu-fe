@@ -29,7 +29,7 @@ export interface SpaceDetail {
   codingTime: number;
   description: string;
   hasLeaderRole: boolean;
-  id: number;
+  id: string;
   studyId: string;
   language: string;
   name: string;
