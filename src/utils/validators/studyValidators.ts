@@ -18,6 +18,10 @@ export const validatePassword = {
       throw new ValidationError({ inputName: 'password', message: '암호를 입력해주세요.' });
     }
 
+    if (!Number.isFinite(Number(password))) {
+      throw new ValidationError({ inputName: 'password', message: '암호는 숫자만 입력할 수 있습니다.' });
+    }
+
     if (password.length < 4 || password.length > 6) {
       throw new ValidationError({ inputName: 'password', message: '암호는 4~6자리여야 합니다.' });
     }
