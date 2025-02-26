@@ -11,7 +11,7 @@ interface TestCaseItemProps {
   handleInputChange?: (id: string | number, field: 'input' | 'output', newValue: string) => void;
 }
 
-export default function TestcaseItem({
+export default function TestCaseItem({
   testCase,
   edit,
   handleRemoveTestCase,
