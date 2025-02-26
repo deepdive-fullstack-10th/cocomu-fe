@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useDraggable } from '@hooks/useDraggable';
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import SpaceRunner from '../SpaceRunner';
@@ -26,7 +27,7 @@ const User = [
   },
 ];
 
-export default function SpaceReady() {
+const SpaceReady = memo(() => {
   const {
     value: height,
     containerRef,
@@ -38,6 +39,7 @@ export default function SpaceReady() {
     max: 90,
     threshold: 5,
   });
+
   return (
     <S.Container ref={containerRef}>
       <S.ActiveUsersContainer height={height}>
@@ -55,4 +57,6 @@ export default function SpaceReady() {
       </S.RunnerContainer>
     </S.Container>
   );
-}
+});
+
+export default SpaceReady;

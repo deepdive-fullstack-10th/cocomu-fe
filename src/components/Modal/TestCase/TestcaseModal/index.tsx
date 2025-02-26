@@ -5,7 +5,7 @@ import Button from '@components/_common/atoms/Button';
 import IconButtton from '@components/_common/atoms/IconButton';
 import { BsPlus, BsX } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import TestCaseItem from './TestCaseItem';
+import TestcaseItem from '../TestcaseItem';
 import S from './style';
 
 export default function TestCase({ status, testCases, onClose }: TestCaseProps) {
@@ -24,7 +24,6 @@ export default function TestCase({ status, testCases, onClose }: TestCaseProps) 
   };
 
   const onSubmit = () => {
-    console.log(testCaseList);
     onClose();
   };
 
@@ -44,7 +43,7 @@ export default function TestCase({ status, testCases, onClose }: TestCaseProps) 
         <S.Description>테스트 케이스</S.Description>
         <S.ItemWrapper>
           {testCaseList.map((testCase) => (
-            <TestCaseItem
+            <TestcaseItem
               handleInputChange={handleInputChange}
               handleRemoveTestCase={handleRemoveTestCase}
               edit={testCase.type === 'CUSTOM' && status === 'CUSTOM'}

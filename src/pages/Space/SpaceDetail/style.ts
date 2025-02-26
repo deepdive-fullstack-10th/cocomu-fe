@@ -41,22 +41,37 @@ const NavbarRightcontent = styled.div`
 const MainContent = styled.div`
   flex: 1;
   display: flex;
-
-  width: 100%;
 `;
 
 const ProblemDescription = styled.div<sizeStyleProps>`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
   width: ${({ width }) => `${width}%` || '40%'};
-  padding: 1rem;
+
   overflow-y: auto;
+  overflow-x: hidden;
 
   background: ${({ theme }) => theme.color.gray[50]};
-
+  & > :first-of-type {
+    max-height: 70vh;
+  }
   &::-webkit-scrollbar {
     display: none;
   }
   scrollbar-width: none;
   -ms-overflow-style: none;
+`;
+const ReferenceContainer = styled.div`
+  & > :first-of-type {
+    ${({ theme }) => theme.font.heading[400]};
+    color: ${({ theme }) => theme.color.gray[950]};
+  }
+  & > :last-of-type {
+    ${({ theme }) => theme.font.common.default};
+    color: ${({ theme }) => theme.color.gray[950]};
+  }
+  margin-top: 6rem;
 `;
 
 const ResizablePanel = styled.div`
@@ -99,6 +114,7 @@ const S = {
   NavbarRightcontent,
   MainContent,
   ProblemDescription,
+  ReferenceContainer,
   ResizablePanel,
   ResizeButton,
   RightContent,

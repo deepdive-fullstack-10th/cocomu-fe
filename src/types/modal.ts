@@ -1,7 +1,7 @@
 import ConfirmModal from '@components/Modal/Confirm';
 import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
-import TestCase from '@components/Modal/TestCase';
+import TestCase from '@components/Modal/TestCase/TestcaseModal';
 import Waiting from '@components/Modal/Waiting';
 import { TestCaseItem, TestCaseStatusData } from './space';
 
