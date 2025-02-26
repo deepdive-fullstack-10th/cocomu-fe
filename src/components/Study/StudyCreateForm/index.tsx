@@ -3,7 +3,7 @@ import InputDropdown from '@components/_common/molecules/InputDropdown';
 import { JUDGES, PROGRAMMING_LANGUAGES, ACCESS_STATUS } from '@constants/constants';
 import RadioField from '@components/_common/molecules/RadioField';
 import { useForm } from '@hooks/utils/useForm';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import StepMarker from '@components/_common/atoms/StepMarker';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';
@@ -36,7 +36,7 @@ export default function StudyCreateForm({
 }: StudyCreateFormProps) {
   const { error } = useToastStore();
   const navigate = useNavigate();
-  const [content, setContent] = useState(description || '');
+  const [content, setContent] = useState(description);
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues || {
       name: '',
@@ -46,6 +46,10 @@ export default function StudyCreateForm({
       judges: [],
     },
   });
+
+  useEffect(() => {
+    setContent(description);
+  }, [description]);
 
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault();

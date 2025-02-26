@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useToastStore } from '@stores/useToastStore';
 import { PATH } from '@constants/path';
 
-import LoadingPage from '@pages/Loading';
+import Loading from '@pages/Loading';
 import ErrorPage from '@pages/ErrorPage';
 import MainLayout from '@pages/MainLayout';
 import StudyList from '@pages/Study/StudyList';
@@ -101,7 +101,7 @@ export default function AppRouter() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <Suspense fallback={<LoadingPage />}>
+      <Suspense fallback={<Loading />}>
         <RouterProvider router={router} />
       </Suspense>
     </QueryClientProvider>
