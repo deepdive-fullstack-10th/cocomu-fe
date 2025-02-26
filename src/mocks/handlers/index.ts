@@ -15,3 +15,4 @@ export const handlers = [
   ...ideSubmitHandler,
   ...spaceHandlers,
 ];
+export const handlers = [...authHandlers, ...spaceDetailHandlers, ...studyHandlers, ...spaceStartHandlers, ...spaceHandlers];
