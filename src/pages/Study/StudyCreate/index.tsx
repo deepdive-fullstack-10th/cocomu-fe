@@ -8,11 +8,11 @@ export default function StudyCreate() {
   const [selectedStatus, setSelectedStatus] = useState<(typeof ACCESS_STATUS)[number]>(ACCESS_STATUS[0]);
   const { createPublicMutate, createPrivateMutate } = useCreateStudy();
 
-  const handleSubmit = (data: CreateStudyData) => {
+  const handleSubmit = (studyData: CreateStudyData) => {
     if (selectedStatus === ACCESS_STATUS[0]) {
-      createPublicMutate.mutate({ ...data, password: undefined });
+      createPublicMutate.mutate({ ...studyData, password: undefined });
     } else if (selectedStatus === ACCESS_STATUS[1]) {
-      createPrivateMutate.mutate(data);
+      createPrivateMutate.mutate(studyData);
     }
   };
 
