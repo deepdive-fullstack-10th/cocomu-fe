@@ -30,6 +30,7 @@ export interface SpaceDetail {
   description: string;
   hasLeaderRole: boolean;
   id: number;
+  studyId: string;
   language: string;
   name: string;
   referenceUrl: string;
