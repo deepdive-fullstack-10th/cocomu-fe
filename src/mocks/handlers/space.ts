@@ -43,7 +43,7 @@ export const spaceStartHandlers = [
 ];
 
 export const spaceHandlers = [
-  http.get(`${END_POINTS_V1.STUDY.SPACE_LIST(':studyId')}`, ({ params }) => {
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.SPACE_LIST(':studyId')}`, ({ params }) => {
     const { studyId } = params;
 
     if (!studyId || Number.isNaN(Number(studyId))) {
