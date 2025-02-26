@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import { useDraggable } from '@hooks/useDraggable';
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import SpaceRunner from '../SpaceRunner';
@@ -27,7 +27,9 @@ const User = [
   },
 ];
 
-const SpaceReady = memo(() => {
+export default function SpaceReady() {
+  const totalUserCount = useOutletContext<number>();
+
   const {
     value: height,
     containerRef,
@@ -47,7 +49,7 @@ const SpaceReady = memo(() => {
           users={User}
           size='lg'
         />
-        <S.UserCount>1/3</S.UserCount>
+        <S.UserCount>{`${User.length}${' '}/${' '}${totalUserCount}`}</S.UserCount>
       </S.ActiveUsersContainer>
       <S.ResizablePanel>
         <S.ResizeButton onMouseDown={handleMouseDown} />
@@ -57,6 +59,4 @@ const SpaceReady = memo(() => {
       </S.RunnerContainer>
     </S.Container>
   );
-});
-
-export default SpaceReady;
+}

@@ -101,10 +101,15 @@ const Footer = styled.footer`
   background: ${({ theme }) => theme.color.gray[200]};
   border-top: 1px solid ${({ theme }) => theme.color.gray[600]};
   padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const FooterItem = styled.div`
-  width: 10rem;
+  display: flex;
+  button {
+    margin-right: 3rem;
+  }
 `;
 
 const S = {

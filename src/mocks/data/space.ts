@@ -4,6 +4,7 @@ export const spaceData = {
   result: {
     codingSpace: {
       id: 1,
+      studyId: 1,
       name: '스페이스 제목입니다.',
       status: '대기',
       language: 'python',
