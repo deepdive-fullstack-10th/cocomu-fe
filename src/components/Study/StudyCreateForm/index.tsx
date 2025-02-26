@@ -9,6 +9,7 @@ import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';
 import { StudyFormData } from '@customTypes/study';
 import { useToastStore } from '@stores/useToastStore';
+import { useNavigate } from 'react-router-dom';
 import {
   validateJudges,
   validateLanguages,
@@ -34,6 +35,7 @@ export default function StudyCreateForm({
   onSubmit,
 }: StudyCreateFormProps) {
   const { error } = useToastStore();
+  const navigate = useNavigate();
   const [content, setContent] = useState(description || '');
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues || {
@@ -117,6 +119,7 @@ export default function StudyCreateForm({
         <Button
           size='lg'
           color='white'
+          onClick={() => navigate(-1)}
         >
           취소
         </Button>
