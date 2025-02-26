@@ -13,6 +13,7 @@ import {
 } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
+import { getSpaceListErrorResponse, getSpaceListResponse } from '@mocks/data/space';
 
 export const spaceHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.CREATE}`, async ({ request }) => {
@@ -89,4 +90,36 @@ export const spaceHandlers = [
       });
     },
   ),
+];
+
+export const spaceListHandlers = [
+  http.get(`${END_POINTS_V1.STUDY.SPACE_LIST(':studyId')}`, ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId || Number.isNaN(Number(studyId))) {
+      return new HttpResponse(JSON.stringify(getSpaceListErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getSpaceListResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+];
+
+export const spaceCreateHandlers = [
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.CREATE}`, async ({ request }) => {
+    const body = (await request.json()) as CreateSpaceData;
+
+    if (!body.studyId || !body.codingSpace || !body.testCases) {
+      return new HttpResponse(JSON.stringify(createErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(createResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
 ];
