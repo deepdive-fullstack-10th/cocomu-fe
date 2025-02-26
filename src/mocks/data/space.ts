@@ -105,7 +105,7 @@ export const getSpaceListResponse = {
       language: 'Python',
       totalUserCount: 4,
       createdAt: '2025-01-14T10:20:50.197Z',
-      status: 'RESERVATION',
+      status: 'WAITING',
       leader: {
         id: 2,
         name: '새싹이',
@@ -192,7 +192,7 @@ export const getSpaceListResponse = {
       ],
     },
     {
-      id: 1,
+      id: 4,
       joinable: true,
       name: '백준 1023',
       language: 'Python',
@@ -206,7 +206,7 @@ export const getSpaceListResponse = {
       },
       currentUsers: [
         {
-          id: 15,
+          id: 31,
           name: '강혜원',
           profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
         },
