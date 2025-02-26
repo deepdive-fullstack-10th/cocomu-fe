@@ -1,5 +1,10 @@
 import { http, HttpResponse } from 'msw';
-import { mockStudies, createPrivateResponse, createPublicResponse, createStudyErrorResponse } from '@mocks/data/study';
+import {
+  mockStudyListResponse,
+  createPrivateResponse,
+  createPublicResponse,
+  createStudyErrorResponse,
+} from '@mocks/data/study';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateStudyData } from '@customTypes/study';
 import {
@@ -24,7 +29,7 @@ export const studyHandlers = [
     const joinable = url.searchParams.get('joinable') === 'true';
     const keyword = url.searchParams.get('keyword')?.toLowerCase() || '';
 
-    const filteredStudies = mockStudies.filter((study) => {
+    const filteredStudies = mockStudyListResponse.result.studies.filter((study) => {
       const matchesStatus = !status || study.status === status;
       const matchesLanguages = !languages.length || study.languages.some((lang) => languages.includes(lang));
       const matchesJudges = !judges.length || study.judges.some((judge) => judges.includes(judge));
