@@ -32,3 +32,7 @@ export interface StudyFormData extends Record<string, string | string[]> {
 export interface CreateStudyData extends StudyFormData {
   description: string;
 }
+
+export interface EditStudyData extends CreateStudyData {
+  status: string;
+}
