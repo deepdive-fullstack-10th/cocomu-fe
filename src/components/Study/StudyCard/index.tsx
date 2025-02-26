@@ -5,6 +5,7 @@ import Tag from '@components/_common/atoms/Tag';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import ImageTagList from '@components/_common/molecules/ImageTagList';
 import TagList from '@components/_common/molecules/TagList';
+import { formatDate } from '@utils/formatDate';
 import S from './style';
 
 export default function StudyCard({
@@ -28,7 +29,7 @@ export default function StudyCard({
     <S.CardContainer onClick={handleCardClick}>
       <S.Header>
         <Tag color={status === 'PUBLIC' ? 'analogous' : 'triadic'}>{ACCESS_STATUS_MAP[status]}</Tag>
-        <S.Date>{createdAt}</S.Date>
+        <S.Date>{formatDate(createdAt)}</S.Date>
       </S.Header>
 
       <S.Body>
