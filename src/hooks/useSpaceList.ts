@@ -6,6 +6,6 @@ export default function useSpaceList(studyId: string) {
   return useQuery<SpaceData[], Error>({
     queryKey: ['spaceList', studyId],
     queryFn: async () => spaceApi.getSpaceList(studyId),
-    enabled: !!studyId, // studyId가 있을 때만 쿼리 실행
+    enabled: !!studyId,
   });
 }
