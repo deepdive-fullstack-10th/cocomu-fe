@@ -1,11 +1,20 @@
-import { useDraggable } from '@hooks/useDraggable';
+import { useEffect, useState } from 'react';
+import { useOutletContext, useParams } from 'react-router-dom';
+import { useDraggable } from '@hooks/utils/useDraggable';
+import { SpaceDetail } from '@customTypes/space';
+import { useTabData } from '@hooks/useSpace';
 import Tab from '@components/_common/atoms/Tab';
-// import * as monaco from 'monaco-editor';
 import MonacoEditor from '@monaco-editor/react';
 import SpaceRunner from '../SpaceRunner';
+
 import S from './style';
 
 export default function SpaceStart() {
+  const spaceData = useOutletContext<SpaceDetail>();
+  const { spaceId } = useParams();
+  const { data } = useTabData({ spaceId });
+  const [language, setLanguage] = useState<string>('');
+
   const {
     value: height,
     containerRef,
@@ -17,24 +26,31 @@ export default function SpaceStart() {
     max: 90,
     threshold: 5,
   });
+
+  useEffect(() => {
+    setLanguage(spaceData?.language.toLocaleLowerCase());
+  }, [spaceData]);
+
   return (
     <S.Container ref={containerRef}>
       <S.CodingContainer height={height}>
         <S.TabContainer>
           <Tab
             color='primary'
-            name='참여자'
+            name={data?.tab.user.nickName}
           />
         </S.TabContainer>
-        <MonacoEditor
-          defaultLanguage='javascript'
-          theme='vs-dark'
-          options={{
-            minimap: { enabled: false },
-            scrollBeyondLastLine: false,
-            automaticLayout: true,
-          }}
-        />
+        <S.MonacoContainer>
+          <MonacoEditor
+            defaultLanguage={language}
+            theme='vs'
+            options={{
+              minimap: { enabled: false },
+              scrollBeyondLastLine: false,
+              automaticLayout: true,
+            }}
+          />
+        </S.MonacoContainer>
       </S.CodingContainer>
       <S.ResizablePanel>
         <S.ResizeButton onMouseDown={handleMouseDown} />

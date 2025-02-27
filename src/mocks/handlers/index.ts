@@ -1,5 +1,13 @@
 import { authHandlers } from './auth';
 import { studyHandlers } from './study';
-import { spaceDetailHandlers, spaceStartHandlers } from './space';
+import { testCaseHandlers } from './testCase';
+import { spaceDetailHandlers, spaceStartHandlers, tabDataHandlers } from './space';
 
-export const handlers = [...authHandlers, ...spaceDetailHandlers, ...studyHandlers, ...spaceStartHandlers];
+export const handlers = [
+  ...authHandlers,
+  ...spaceDetailHandlers,
+  ...studyHandlers,
+  ...spaceStartHandlers,
+  ...tabDataHandlers,
+  ...testCaseHandlers,
+];

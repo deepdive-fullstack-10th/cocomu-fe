@@ -12,6 +12,11 @@ const spaceApi = {
 
     return spaceId;
   },
+  tab: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.TAB(codingSpaceId));
+
+    return data.result;
+  },
 };
 
 export default spaceApi;
