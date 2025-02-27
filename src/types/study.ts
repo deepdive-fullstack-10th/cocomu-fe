@@ -11,9 +11,9 @@ export interface StudyData {
   id: number;
   joinable: boolean;
   name: string;
-  status: StudyStatusData;
-  languages: ProgrammingLanguage[];
-  judges: Judges[];
+  status: string;
+  languages: string[];
+  judges: string[];
   description: string;
   currentUserCount: number;
   totalUserCount: number;
@@ -36,9 +36,9 @@ export interface CreateStudyData extends StudyFormData {
 export interface FetchStudiesParams {
   page: number;
   size: number;
-  status?: StudyStatusData;
-  languages?: ProgrammingLanguage[];
-  judges?: Judges[];
+  status?: string;
+  languages?: string[];
+  judges?: string[];
   joinable?: boolean;
   keyword?: string;
 }

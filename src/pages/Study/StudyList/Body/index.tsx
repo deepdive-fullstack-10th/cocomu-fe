@@ -24,8 +24,8 @@ export default function Body({
   onTotalItemsChange,
 }: StudyListBodyProps) {
   const { studies } = useStudyList({
-    currentPage,
-    itemsPerPage,
+    page: currentPage,
+    size: itemsPerPage,
     status,
     languages,
     judges,
