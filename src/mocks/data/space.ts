@@ -240,16 +240,20 @@ const sampleData = [
 ];
 
 const extendData = (data: SpaceData[]) => {
-  const convertedData = data.map((item) => ({
-    ...item,
-    status: item.status as SpaceStatusData, // status 타입 변환
-  }));
-
   const extendedData: SpaceData[] = [];
+  const dataLength = data.length;
+
   for (let i = 0; i < 30; i++) {
-    extendedData.push(...convertedData);
+    const batchData = data.map((item, index) => ({
+      ...item,
+      id: item.id + i * (dataLength + 1) + index,
+      status: item.status as SpaceStatusData,
+    }));
+
+    extendedData.push(...batchData);
   }
 
+  console.log(extendedData);
   return extendedData;
 };
 
