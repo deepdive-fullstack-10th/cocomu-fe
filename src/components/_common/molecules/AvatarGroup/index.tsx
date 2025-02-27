@@ -9,7 +9,7 @@ interface AvatarGroupProps {
 
 export default function AvatarGroup({ users, size = 'sm' }: AvatarGroupProps) {
   return (
-    <S.AvatarGroupContainer>
+    <S.AvatarGroupContainer size={size}>
       {users.map((user, index) => (
         <S.ProfileWrapper
           key={user.id}

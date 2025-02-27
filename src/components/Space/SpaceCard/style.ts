@@ -32,6 +32,7 @@ const Body = styled.div`
 const Text = styled.div`
   ${({ theme }) => theme.font.heading[100]};
   color: ${({ theme }) => theme.color.gray[900]};
+  overflow: hidden;
 `;
 
 const Info = styled.div`

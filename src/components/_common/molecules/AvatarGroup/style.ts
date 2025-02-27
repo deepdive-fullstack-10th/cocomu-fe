@@ -30,11 +30,12 @@ const sizeStyle = {
   `,
 };
 
-const AvatarGroupContainer = styled.div`
+const AvatarGroupContainer = styled.div<{ size?: AvatarGroupSize }>`
   position: relative;
 
   display: flex;
   align-items: center;
+  width: ${({ size }) => (size === 'sm' ? '12rem' : 'auto')};
 `;
 
 const ProfileWrapper = styled.div<{ index: number; size: AvatarGroupSize }>`
