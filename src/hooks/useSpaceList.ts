@@ -1,22 +1,40 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { spaceApi } from '@api/domain/space';
 import { SpaceListParams } from '@customTypes/space';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export default function useSpaceList(studyId: string) {
   const [filters, setFilters] = useState<Omit<SpaceListParams, 'lastIndex' | 'limit'>>({
     status: null,
     languages: null,
-    joinable: null,
+    joinedSpace: null,
     keyword: null,
   });
 
-  const updateFilters = useCallback((newFilters: Partial<SpaceListParams>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
-  }, []);
+  useEffect(() => {
+    /* console.log('필터 상태가 변경됨:', filters); */
+    // 여기서 필터 변경에 따른 추가 작업 수행 가능
+  }, [filters]);
+
+  const queryKey = ['spaceList', studyId, JSON.stringify(filters)];
+  const queryClient = useQueryClient();
+
+  const updateFilters = useCallback(
+    (newFilters: Partial<SpaceListParams>) => {
+      setFilters((prev) => {
+        const updated = { ...prev, ...newFilters };
+        console.log('쿼리 키 변경:', updated);
+        queryClient.invalidateQueries({
+          queryKey: ['spaceList', studyId],
+        });
+        return updated;
+      });
+    },
+    [studyId, queryClient],
+  );
 
   const queryResult = useInfiniteQuery({
-    queryKey: ['spaceList', studyId, filters],
+    queryKey: ['spaceList', studyId, JSON.stringify(filters)],
     queryFn: async ({ pageParam = null }) => {
       const params: SpaceListParams = {
         ...filters,
@@ -35,14 +53,14 @@ export default function useSpaceList(studyId: string) {
     if (queryResult.hasNextPage && !queryResult.isFetchingNextPage) {
       try {
         await queryResult.fetchNextPage();
-      } catch (error) {
-        console.error('데이터 로드 실패: ', error);
+      } catch (e) {
+        console.error('데이터 로드 실패: ', e);
       }
     }
   }, [queryResult.hasNextPage, queryResult.isFetchingNextPage, queryResult.fetchNextPage]);
 
   const resetFilters = useCallback(() => {
-    setFilters({ status: null, languages: null, joinable: null, keyword: null });
+    setFilters({ status: null, languages: null, joinedSpace: null, keyword: null });
   }, []);
 
   return {
