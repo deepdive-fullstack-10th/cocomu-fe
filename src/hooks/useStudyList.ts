@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StudyData, FetchStudiesParams } from '@customTypes/study';
-import { fetchStudies } from '@api/domain/study';
+import studyApi from '@api/domain/study';
 
 interface UseStudyListProps extends FetchStudiesParams {
   onTotalItemsChange: (totalItems: number) => void;
@@ -21,7 +21,7 @@ export default function useStudyList({
   useEffect(() => {
     const loadStudies = async () => {
       try {
-        const { studies: fetchedStudies, totalItems } = await fetchStudies({
+        const { studies: fetchedStudies, totalItems } = await studyApi.fetchStudies({
           page,
           size,
           status,
