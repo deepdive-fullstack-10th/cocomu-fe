@@ -4,18 +4,16 @@ import * as S from './style';
 
 interface StudyListBodyProps {
   currentPage: number;
-  itemsPerPage: number;
   status?: string;
   languages?: string[];
   judges?: string[];
   joinable?: boolean;
   keyword?: string;
-  onTotalItemsChange: (totalItems: number) => void;
+  onTotalItemsChange: (totalPage: number) => void;
 }
 
 export default function Body({
   currentPage,
-  itemsPerPage,
   status,
   languages,
   judges,
@@ -30,14 +28,15 @@ export default function Body({
   } = useStudyList({
     queryParams: {
       page: currentPage,
-      size: itemsPerPage,
       status,
       languages,
       judges,
       joinable,
       keyword,
     },
-    onTotalItemsChange,
+    onTotalItemsChange: (totalPage: number) => {
+      onTotalItemsChange(totalPage);
+    },
   });
 
   if (isLoading) return <div>Loading...</div>;

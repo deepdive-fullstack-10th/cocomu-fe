@@ -5,19 +5,19 @@ import QUERY_KEYS from '@constants/queryKeys';
 
 interface UseStudyListProps {
   queryParams: StudyQueryParams;
-  onTotalItemsChange: (totalItems: number) => void;
+  onTotalItemsChange: (totalPage: number) => void;
 }
 
 export default function useStudyList({ queryParams, onTotalItemsChange }: UseStudyListProps) {
-  const { page, size } = queryParams;
+  const { page } = queryParams;
 
   return useQuery({
     queryKey: [QUERY_KEYS.STUDY_LIST, queryParams],
     queryFn: async () => {
-      const { studies, totalItems } = await studyApi.fetchStudies(queryParams);
-      onTotalItemsChange(totalItems);
+      const { studies, totalPage } = await studyApi.fetchStudies(queryParams);
+      onTotalItemsChange(totalPage);
       return studies;
     },
-    enabled: page !== undefined && size !== undefined,
+    enabled: page !== undefined,
   });
 }
