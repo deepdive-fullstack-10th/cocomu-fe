@@ -1,25 +1,15 @@
-import axios from 'axios';
 import { axiosInstance } from '@api/axiosInstance';
-import { CreateStudyData, FetchStudiesParams, FetchStudiesResponse } from '@customTypes/study';
-import { BASE_URL, END_POINTS_V1 } from '@constants/api';
+import { CreateStudyData, FetchStudiesParams } from '@customTypes/study';
+import { END_POINTS_V1 } from '@constants/api';
 
 const studyApi = {
-  fetchStudies: async (params: FetchStudiesParams) => {
-    const searchParams = new URLSearchParams();
-    searchParams.append('page', String(params.page));
-    searchParams.append('size', String(params.size));
-
-    if (params.status) searchParams.append('status', params.status);
-    if (params.joinable !== undefined) searchParams.append('joinable', String(params.joinable));
-    if (params.keyword) searchParams.append('keyword', params.keyword);
-
-    params.languages?.forEach((language) => searchParams.append('languages', language));
-    params.judges?.forEach((judge) => searchParams.append('judges', judge));
-
-    const response = await axios.get<FetchStudiesResponse>(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, {
-      params: searchParams,
+  fetchStudies: async (fetchStudiesParams: FetchStudiesParams) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.LIST, {
+      params: fetchStudiesParams,
+      useAuth: false,
+      withCredentials: false,
     });
-    return response.data.result;
+    return data.result;
   },
 
   createPublicStudy: async (createStudyData: CreateStudyData) => {
