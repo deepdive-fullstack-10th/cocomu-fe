@@ -1,44 +1,23 @@
-import { useEffect, useState } from 'react';
-import { StudyData, FetchStudiesParams } from '@customTypes/study';
+import { useQuery } from '@tanstack/react-query';
+import { StudyQueryParams } from '@customTypes/study';
 import studyApi from '@api/domain/study';
+import QUERY_KEYS from '@constants/queryKeys';
 
-interface UseStudyListProps extends FetchStudiesParams {
+interface UseStudyListProps {
+  queryParams: StudyQueryParams;
   onTotalItemsChange: (totalItems: number) => void;
 }
 
-export default function useStudyList({
-  page,
-  size,
-  status,
-  languages,
-  judges,
-  joinable,
-  keyword,
-  onTotalItemsChange,
-}: UseStudyListProps) {
-  const [studies, setStudies] = useState<StudyData[]>([]);
+export default function useStudyList({ queryParams, onTotalItemsChange }: UseStudyListProps) {
+  const { page, size } = queryParams;
 
-  useEffect(() => {
-    const loadStudies = async () => {
-      try {
-        const { studies: fetchedStudies, totalItems } = await studyApi.fetchStudies({
-          page,
-          size,
-          status,
-          languages,
-          judges,
-          joinable,
-          keyword,
-        });
-        setStudies(fetchedStudies);
-        onTotalItemsChange(totalItems);
-      } catch (error) {
-        console.error('스터디 데이터를 불러오는데 실패했습니다.', error);
-      }
-    };
-
-    loadStudies();
-  }, [page, size, status, languages, judges, joinable, keyword, onTotalItemsChange]);
-
-  return { studies };
+  return useQuery({
+    queryKey: [QUERY_KEYS.STUDY_LIST, queryParams],
+    queryFn: async () => {
+      const { studies, totalItems } = await studyApi.fetchStudies(queryParams);
+      onTotalItemsChange(totalItems);
+      return studies;
+    },
+    enabled: page !== undefined && size !== undefined,
+  });
 }
