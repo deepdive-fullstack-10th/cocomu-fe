@@ -17,7 +17,7 @@ export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, async ({ request }) => {
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page') || '1', 10);
-    const size = 8; // Fixed size
+    const size = 8;
     const status = url.searchParams.get('status');
     const joinable = url.searchParams.get('joinable') === 'true';
     const keyword = url.searchParams.get('keyword')?.toLowerCase() || '';

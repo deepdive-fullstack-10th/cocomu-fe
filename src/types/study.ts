@@ -33,6 +33,10 @@ export interface CreateStudyData extends StudyFormData {
   description: string;
 }
 
+export interface EditStudyData extends CreateStudyData {
+  status: string;
+}
+
 export interface FetchStudiesParams {
   page?: number;
   size?: number;
@@ -41,10 +45,6 @@ export interface FetchStudiesParams {
   judges?: string[];
   joinable?: boolean;
   keyword?: string;
-}
-
-export interface EditStudyData extends CreateStudyData {
-  status: string;
 }
 
 export interface StudyQueryParams {
