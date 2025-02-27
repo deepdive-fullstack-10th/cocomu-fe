@@ -7,7 +7,7 @@ export type TestCaseItemType = 'BASE' | 'CUSTOM';
 export type TestCaseStatusData = 'DEFAULT' | 'CUSTOM';
 
 export interface SpaceListParams {
-  joinable?: boolean | null;
+  joinedSpace?: boolean | null;
   languages?: string[] | null;
   status?: SpaceStatusData | null;
   keyword?: string | null;
@@ -16,7 +16,7 @@ export interface SpaceListParams {
 
 export interface SpaceData {
   id: number;
-  joinable: boolean;
+  joinedSpace: boolean;
   name: string;
   language: string;
   totalUserCount: number;
