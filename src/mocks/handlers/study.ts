@@ -19,15 +19,15 @@ export const studyHandlers = [
     const page = parseInt(url.searchParams.get('page') || '1', 10);
     const size = parseInt(url.searchParams.get('size') || '8', 10);
     const status = url.searchParams.get('status');
-    const languages = url.searchParams.getAll('languages');
-    const judges = url.searchParams.getAll('judges');
     const joinable = url.searchParams.get('joinable') === 'true';
     const keyword = url.searchParams.get('keyword')?.toLowerCase() || '';
+    const languages = url.searchParams.getAll('languages[]');
+    const judges = url.searchParams.getAll('judges[]');
 
     const filteredStudies = mockStudyListResponse.result.studies.filter((study) => {
       const matchesStatus = !status || study.status === status;
-      const matchesLanguages = !languages.length || study.languages.some((lang) => languages.includes(lang));
-      const matchesJudges = !judges.length || study.judges.some((judge) => judges.includes(judge));
+      const matchesLanguages = languages.length === 0 || study.languages.some((lang) => languages.includes(lang));
+      const matchesJudges = judges.length === 0 || study.judges.some((judge) => judges.includes(judge));
       const matchesJoinable = !joinable || study.joinable === true;
       const matchesKeyword = !keyword || study.name.toLowerCase().includes(keyword);
       return matchesStatus && matchesLanguages && matchesJudges && matchesJoinable && matchesKeyword;
