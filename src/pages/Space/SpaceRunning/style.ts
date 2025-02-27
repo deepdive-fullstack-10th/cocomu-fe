@@ -7,7 +7,7 @@ interface sizeStyleProps {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-
+  width: 100%;
   height: 100%;
 `;
 
@@ -15,7 +15,7 @@ const CodingContainer = styled.div<sizeStyleProps>`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-
+  width: 100%;
   height: ${({ height }) => `${height}%` || '70%'};
 
   &::-webkit-scrollbar {
@@ -27,17 +27,16 @@ const CodingContainer = styled.div<sizeStyleProps>`
   user-select: none;
 `;
 
+const MonacoContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  overflow: auto;
+`;
+
 const TabContainer = styled.div`
   display: flex;
   background: ${({ theme }) => theme.color.gray[100]};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
-`;
-
-const UserCount = styled.div`
-  ${({ theme }) => theme.font.heading[700]};
-  color: ${({ theme }) => theme.color.gray[800]};
-
-  margin-top: 5rem;
 `;
 
 const ResizablePanel = styled.div`
@@ -65,6 +64,6 @@ const RunnerContainer = styled.div`
   flex: 1;
 `;
 
-const S = { Container, CodingContainer, TabContainer, UserCount, ResizablePanel, ResizeButton, RunnerContainer };
+const S = { Container, CodingContainer, TabContainer, MonacoContainer, ResizablePanel, ResizeButton, RunnerContainer };
 
 export default S;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { TestCaseProps } from '@customTypes/modal';
 import Button from '@components/_common/atoms/Button';
@@ -8,22 +8,28 @@ import Icon from '@components/_common/atoms/Icon';
 import TestCaseItem from '../TestCaseItem';
 import S from './style';
 
-export default function TestCase({ status, testCases, onClose }: TestCaseProps) {
-  const [testCaseList, setTestCaseList] = useState(testCases);
+export default function TestCaseModal({ status, testCases, onClose, onsubmit, setTestCaseList }: TestCaseProps) {
+  const [localTestCases, setLocalTestCases] = useState(testCases);
+
+  useEffect(() => {
+    setLocalTestCases(testCases);
+  }, [testCases]);
 
   const handleAddTestCase = () => {
-    setTestCaseList((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
+    setLocalTestCases((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
   };
 
   const handleRemoveTestCase = (id: string | number) => {
-    setTestCaseList((prevList) => prevList.filter((testCase) => testCase.id !== id));
+    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.id !== id));
   };
 
   const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
-    setTestCaseList((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
+    setLocalTestCases((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    setTestCaseList(localTestCases);
+    onsubmit();
     onClose();
   };
 
@@ -42,7 +48,7 @@ export default function TestCase({ status, testCases, onClose }: TestCaseProps) 
       <S.Body>
         <S.Description>테스트 케이스</S.Description>
         <S.ItemWrapper>
-          {testCaseList.map((testCase) => (
+          {localTestCases.map((testCase) => (
             <TestCaseItem
               handleInputChange={handleInputChange}
               handleRemoveTestCase={handleRemoveTestCase}

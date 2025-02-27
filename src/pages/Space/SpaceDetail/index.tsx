@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDraggable } from '@hooks/useDraggable';
+import { useDraggable } from '@hooks/utils/useDraggable';
 import { Outlet, useParams, useNavigate } from 'react-router-dom';
 import IconButton from '@components/_common/atoms/IconButton';
 import Button from '@components/_common/atoms/Button';
@@ -11,6 +11,7 @@ import { SpaceDetail } from '@customTypes/space';
 import { useModalStore } from '@stores/useModalStore';
 import { ROUTES } from '@constants/path';
 import { SPACE_NAV_BUTTON } from '@constants/constants';
+import { useTestcaseUpdate } from '@hooks/useTestcase';
 import S from './style';
 
 export default function SpaceDetail() {
@@ -18,11 +19,14 @@ export default function SpaceDetail() {
   const [timer, settimer] = useState<number>(0);
   const [navButton, setNavbutton] = useState<string>(SPACE_NAV_BUTTON[0]);
   const [testCaseStatus, setTestcaseStatus] = useState<string>('DEFAULT');
-  const { spaceId } = useParams();
-  const { data, refetch } = useSpaceDetail({ spaceId });
-  const { open } = useModalStore();
+  const [testCaseList, setTestCaseList] = useState([]);
 
+  const { spaceId } = useParams();
+
+  const { open } = useModalStore();
+  const { testCaseUpdateMutate } = useTestcaseUpdate();
   const navigate = useNavigate();
+  const { data, refetch } = useSpaceDetail({ spaceId });
   const { spaceStartMutate } = useSpaceStart();
 
   const {
@@ -41,6 +45,7 @@ export default function SpaceDetail() {
     refetch();
     setSpacedata(data?.codingSpace);
     settimer(data?.codingSpace?.codingTime);
+    setTestCaseList(spaceData?.testCase);
     switch (spaceData?.status) {
       case '대기':
         setNavbutton(SPACE_NAV_BUTTON[0]);
@@ -65,10 +70,22 @@ export default function SpaceDetail() {
     }
   }, [data, spaceData, refetch]);
 
+  const hadleSubmin = async () => {
+    const filteredTestCases = testCaseList
+      ?.filter((testCase) => testCase.type !== 'BASE')
+      .map(({ input, output }) => ({ input, output }));
+    const newTestCases = await testCaseUpdateMutate.mutateAsync({ spaceId, testCase: filteredTestCases });
+    const BaseTestCase = testCaseList?.filter((testCase) => testCase.type === 'BASE');
+    const FetchTestCaseList = BaseTestCase.concat(newTestCases);
+    setTestCaseList(FetchTestCaseList);
+  };
+
   const testcaseHandler = () => {
     open('testCase', {
       status: testCaseStatus,
-      testCases: spaceData?.testCase || [],
+      testCases: testCaseList,
+      setTestCaseList,
+      onsubmit: hadleSubmin,
     });
   };
 
@@ -108,7 +125,7 @@ export default function SpaceDetail() {
       </S.Navbar>
 
       <S.MainContent ref={containerRef}>
-        <S.ProblemDescription width={width}>
+        <S.ProblemDescription>
           <TextEditor
             value={spaceData?.description}
             height='100%'
@@ -122,8 +139,8 @@ export default function SpaceDetail() {
         <S.ResizablePanel>
           <S.ResizeButton onMouseDown={handleMouseDown} />
         </S.ResizablePanel>
-        <S.RightContent>
-          <Outlet context={spaceData?.totalUserCount} />
+        <S.RightContent width={100 - width}>
+          <Outlet context={spaceData} />
         </S.RightContent>
       </S.MainContent>
       <S.Footer>

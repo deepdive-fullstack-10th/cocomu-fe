@@ -6,8 +6,8 @@ export const spaceData = {
       id: 1,
       studyId: 1,
       name: '스페이스 제목입니다.',
-      status: '대기',
-      language: 'python',
+      status: '진행',
+      language: 'javascript',
       referenceUrl: 'url',
       description: `
     <h1>🔢 배열의 최댓값과 최솟값 찾기</h1>
@@ -105,4 +105,20 @@ export const spaceStartSuccessResponse = {
 export const spaceStartErrorResponse = {
   code: 4200,
   message: '스페이스 시작에 실패했습니다. studyId가 필요합니다.',
+};
+
+export const TabData = {
+  code: 1100,
+  message: '코딩 스페이스 입장에 성공하였습니다.',
+  result: {
+    tab: {
+      id: 'UUID',
+      code: 'code',
+      user: {
+        id: 1,
+        nickName: '코코',
+        profileImageUrl: 'https://cdn.domain.com/images/*.png',
+      },
+    },
+  },
 };

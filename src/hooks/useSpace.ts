@@ -30,3 +30,13 @@ export function useSpaceStart() {
 
   return { spaceStartMutate };
 }
+
+export function useTabData({ spaceId }: { spaceId: string }) {
+  const query = useQuery({
+    queryKey: ['TabData', spaceId],
+    queryFn: () => spaceApi.tab(spaceId),
+    enabled: !!spaceId,
+  });
+
+  return query;
+}

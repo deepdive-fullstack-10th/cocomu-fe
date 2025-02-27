@@ -43,11 +43,11 @@ const MainContent = styled.div`
   display: flex;
 `;
 
-const ProblemDescription = styled.div<sizeStyleProps>`
+const ProblemDescription = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  width: ${({ width }) => `${width}%` || '40%'};
+  flex: 1;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -93,8 +93,8 @@ const ResizeButton = styled.div`
   cursor: pointer;
 `;
 
-const RightContent = styled.div`
-  flex: 1;
+const RightContent = styled.div<sizeStyleProps>`
+  width: ${({ width }) => `${width}%` || '40%'};
 `;
 
 const Footer = styled.footer`
