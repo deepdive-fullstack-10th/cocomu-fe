@@ -17,7 +17,7 @@ export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, async ({ request }) => {
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page') || '1', 10);
-    const size = parseInt(url.searchParams.get('size') || '8', 10);
+    const size = 8; // Fixed size
     const status = url.searchParams.get('status');
     const joinable = url.searchParams.get('joinable') === 'true';
     const keyword = url.searchParams.get('keyword')?.toLowerCase() || '';
@@ -37,20 +37,18 @@ export const studyHandlers = [
     const endIndex = startIndex + size;
     const paginatedStudies = filteredStudies.slice(startIndex, endIndex);
 
-    return new HttpResponse(
-      JSON.stringify({
-        code: 1000,
-        message: '스터디 목록 조회 성공',
-        result: {
-          studies: paginatedStudies,
-          totalItems: filteredStudies.length,
-        },
-      }),
-      {
-        status: HTTP_STATUS_CODE.SUCCESS,
-        headers: { 'Content-Type': 'application/json' },
+    const response = {
+      ...mockStudyListResponse,
+      result: {
+        ...mockStudyListResponse.result,
+        studies: paginatedStudies,
+        totalPage: mockStudyListResponse.result.totalPage,
       },
-    );
+    };
+
+    return new HttpResponse(JSON.stringify(response), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
   }),
 
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {

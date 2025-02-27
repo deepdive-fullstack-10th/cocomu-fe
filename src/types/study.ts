@@ -43,14 +43,6 @@ export interface FetchStudiesParams {
   keyword?: string;
 }
 
-export interface FetchStudiesResponse {
-  code: number;
-  result: {
-    studies: StudyData[];
-    totalItems: number;
-  };
-}
-
 export interface EditStudyData extends CreateStudyData {
   status: string;
 }

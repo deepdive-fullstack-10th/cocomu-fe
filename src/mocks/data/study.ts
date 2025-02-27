@@ -2,7 +2,7 @@ export const mockStudyListResponse = {
   code: 1100,
   message: '스터디 목록 조회에 성공하였습니다.',
   result: {
-    totalPage: 100,
+    totalPage: 13,
     studies: Array.from({ length: 100 }, (_, index) => {
       const studyGroups = [
         {
