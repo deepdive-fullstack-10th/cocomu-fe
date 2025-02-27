@@ -3,10 +3,9 @@ import { BsPlusLg } from 'react-icons/bs';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { PROGRAMMING_LANGUAGES, STEP_LABELS, STUDY_LIST } from '@constants/constants';
 import SpaceCard from '@components/SpaceCard';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import SearchInput from '@components/_common/atoms/SearchInput';
-import { SpaceData } from '@customTypes/space';
 import useSpaceList from '@hooks/useSpaceList';
 import { useParams } from 'react-router-dom';
 import S from './style';
@@ -46,30 +45,50 @@ function Header({ studyTitle }: { studyTitle: string }) {
 export default function SpaceList() {
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   const { studyId } = useParams<{ studyId: string }>();
-  const { data } = useSpaceList(studyId);
-  const [spaceList, setSpaceList] = useState([]);
+  const { spaces, filters, updateFilters, nextList, hasNextPage, isFetchingNextPage } = useSpaceList(studyId);
+  const observerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (data) {
-      setSpaceList(data);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          nextList().catch((e) => {
+            console.error('무한 스크롤 에러: ', e);
+          });
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
     }
-  }, [data]);
+
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, nextList]);
 
   const handleLanguage = (language: string[]) => {
     setSelectedLanguage(language);
-    /* todo 사용 언어 필터링 */
+    updateFilters({ languages: language.length > 0 ? language : null });
+    console.log(language);
   };
 
   const handleStatus = (status: string[]) => {
     setSelectedStatus(status);
-    /* todo 코딩 스페이스 상태 필터링 */
+    updateFilters({ status: status.length > 0 ? status : null });
   };
 
   const handleMySpace = () => {
-    console.log('내가 참여한 스페이스');
-    /* todo 내가 참여한 스페이스 필터링 */
+    updateFilters({ joinedSpace: true });
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearchKeyword(value);
+    updateFilters({ keyword: value || null });
   };
 
   return (
@@ -100,12 +119,16 @@ export default function SpaceList() {
               />
             </S.ClickFilteredContainer>
             <S.SearchFilteredContainer>
-              <SearchInput placeholder='제목을 검색해 주세요' />
+              <SearchInput
+                placeholder='제목을 검색해 주세요'
+                value={searchKeyword}
+                onChange={handleSearch}
+              />
             </S.SearchFilteredContainer>
           </S.FilteredContainer>
           <S.SpaceListContainer>
-            {spaceList &&
-              spaceList.map((space) => (
+            {spaces &&
+              spaces.map((space) => (
                 <SpaceCard
                   key={space.id}
                   id={space.id}
@@ -119,6 +142,12 @@ export default function SpaceList() {
                   currentUsers={space.currentUsers}
                 />
               ))}
+            {hasNextPage && (
+              <div
+                ref={observerRef}
+                style={{ height: '20px' }}
+              />
+            )}
           </S.SpaceListContainer>
         </S.BodyContainer>
       </div>
