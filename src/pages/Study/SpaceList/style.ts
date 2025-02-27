@@ -54,6 +54,8 @@ const SearchFilteredContainer = styled.div`
 const SpaceListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 70rem;
+
   margin-top: 4rem;
   gap: 2rem;
   overflow: scroll;
