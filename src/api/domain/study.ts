@@ -31,6 +31,15 @@ const studyApi = {
     const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PRIVATE_CREATE, createStudyData);
     return data.result;
   },
+
+  getStudyInfo: async (studyId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.INFO(studyId), {
+      useAuth: false,
+      withCredentials: false,
+    });
+
+    return data.result;
+  },
 };
 
 export default studyApi;
