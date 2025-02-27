@@ -1,21 +1,14 @@
 import { useEffect, useState } from 'react';
-import { StudyData } from '@customTypes/study';
+import { StudyData, FetchStudiesParams } from '@customTypes/study';
 import { fetchStudies } from '@api/domain/study';
 
-interface UseStudyListProps {
-  currentPage: number;
-  itemsPerPage: number;
-  status?: string;
-  languages?: string[];
-  judges?: string[];
-  joinable?: boolean;
-  keyword?: string;
+interface UseStudyListProps extends FetchStudiesParams {
   onTotalItemsChange: (totalItems: number) => void;
 }
 
 export default function useStudyList({
-  currentPage,
-  itemsPerPage,
+  page,
+  size,
   status,
   languages,
   judges,
@@ -29,8 +22,8 @@ export default function useStudyList({
     const loadStudies = async () => {
       try {
         const { studies: fetchedStudies, totalItems } = await fetchStudies({
-          page: currentPage,
-          size: itemsPerPage,
+          page,
+          size,
           status,
           languages,
           judges,
@@ -45,9 +38,7 @@ export default function useStudyList({
     };
 
     loadStudies();
-  }, [currentPage, itemsPerPage, status, languages, judges, joinable, keyword, onTotalItemsChange]);
+  }, [page, size, status, languages, judges, joinable, keyword, onTotalItemsChange]);
 
-  return {
-    studies,
-  };
+  return { studies };
 }

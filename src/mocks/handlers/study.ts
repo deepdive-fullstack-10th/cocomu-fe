@@ -1,12 +1,7 @@
 import { http, HttpResponse } from 'msw';
-import {
-  mockStudyListResponse,
-  createPrivateResponse,
-  createPublicResponse,
-  createStudyErrorResponse,
-} from '@mocks/data/study';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
-import { CreateStudyData } from '@customTypes/study';
+import { CreateStudyData, EditStudyData } from '@customTypes/study';
+
 import {
   createPrivateResponse,
   createPublicResponse,
@@ -15,8 +10,8 @@ import {
   editStudyResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
+  mockStudyListResponse,
 } from '@mocks/data/study';
-import { CreateStudyData, EditStudyData } from '@customTypes/study';
 
 export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, async ({ request }) => {
