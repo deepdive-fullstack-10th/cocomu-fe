@@ -1,9 +1,8 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
-import { SpaceData, SpaceListParams } from '@customTypes/space';
+import { SpaceData, SpaceListParams, CreateSpaceData, TestCaseIO } from '@customTypes/space';
 
-const spaceApi = {
+export const spaceApi = {
   getInfo: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.PAGE(codingSpaceId));
 
@@ -40,24 +39,36 @@ const spaceApi = {
     return data.result;
   },
 
-  getSpaceList: async (studyId: string, params?: SpaceListParams) => {
-    const realParams = Object.entries(params).reduce(
-      (acc, [key, value]) => {
+  getSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
+    const queryParams = {};
+
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
-          acc[key] = value;
+          queryParams[key] = value;
         }
-        return acc;
-      },
-      {} as Record<string, []>,
-    );
+      });
+    }
 
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.SPACE_LIST(studyId), {
-      params: realParams,
+      params: queryParams,
+      paramsSerializer: {
+        serialize: (param) => {
+          const searchParams = new URLSearchParams();
+
+          Object.entries(param).forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+              value.forEach((item) => searchParams.append(`${key}[]`, item));
+            } else {
+              searchParams.append(key, value);
+            }
+          });
+
+          return searchParams.toString();
+        },
+      },
       /* headers: {
         Authorization: `Bearer ${token}`,
-      }, */
-      /* paramsSerializer: {
-        indexes: null,
       }, */
     });
 
