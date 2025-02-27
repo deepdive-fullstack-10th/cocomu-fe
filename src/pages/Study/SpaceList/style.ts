@@ -9,8 +9,11 @@ const HeaderContainer = styled.div`
 `;
 
 const StudyTitle = styled.div`
+  display: flex;
+  white-space: nowrap;
   width: 20%;
   padding: 1rem;
+
   color: ${({ theme }) => theme.color.gray[950]};
   ${({ theme }) => theme.font.heading[600]};
 `;
@@ -53,6 +56,11 @@ const SpaceListContainer = styled.div`
   flex-direction: column;
   margin-top: 4rem;
   gap: 2rem;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const S = {
