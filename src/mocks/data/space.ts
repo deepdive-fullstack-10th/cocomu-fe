@@ -255,7 +255,6 @@ const extendData = (data: SpaceData[]) => {
     extendedData.push(...batchData);
   }
 
-  console.log(extendedData);
   return extendedData;
 };
 
