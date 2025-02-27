@@ -6,6 +6,14 @@ export type TestCaseItemType = 'BASE' | 'CUSTOM';
 
 export type TestCaseStatusData = 'DEFAULT' | 'CUSTOM';
 
+export interface SpaceListParams {
+  joinable?: boolean | null;
+  languages?: string[] | null;
+  status?: SpaceStatusData | null;
+  keyword?: string | null;
+  lastIndex?: number;
+}
+
 export interface SpaceData {
   id: number;
   joinable: boolean;
