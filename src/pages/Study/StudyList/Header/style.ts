@@ -6,31 +6,9 @@ export const HeaderContainer = styled.div`
   align-items: center;
   padding: 8.5rem 0 4rem 0;
   position: relative;
-  z-index: 10;
 `;
 
 export const DropdownWrapper = styled.div`
   display: flex;
   gap: 2rem;
-
-  & > * {
-    width: 14rem;
-    height: 3.6rem;
-    position: relative;
-    z-index: 10;
-    background-color: white;
-  }
-
-  .dropdown-menu {
-    background-color: white !important;
-    z-index: 15;
-  }
-`;
-
-export const SearchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 2rem;
-  width: 25.6rem;
-  height: 3.6rem;
 `;

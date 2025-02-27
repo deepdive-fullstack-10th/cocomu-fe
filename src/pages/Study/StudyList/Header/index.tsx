@@ -71,16 +71,14 @@ export default function Header({
           참여 가능한 스터디 보기
         </ToggleButton>
       </S.DropdownWrapper>
-      <S.SearchWrapper>
-        <SearchInput
-          placeholder='제목을 검색해주세요'
-          value={keyword}
-          onChange={(e) => {
-            setKeyword(e.target.value);
-            onKeywordChange(e.target.value);
-          }}
-        />
-      </S.SearchWrapper>
+      <SearchInput
+        placeholder='제목을 검색해주세요'
+        value={keyword}
+        onChange={(e) => {
+          setKeyword(e.target.value);
+          onKeywordChange(e.target.value);
+        }}
+      />
     </S.HeaderContainer>
   );
 }
