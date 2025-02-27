@@ -110,7 +110,7 @@ export const spaceStartErrorResponse = {
 const sampleData = [
   {
     id: 1,
-    joinedspace: true,
+    joinedSpace: true,
     name: '백준 1023',
     language: 'Python',
     totalUserCount: 4,
@@ -146,7 +146,7 @@ const sampleData = [
   },
   {
     id: 2,
-    joinedspace: true,
+    joinedSpace: true,
     name: '프로그래머스 다트게임',
     language: 'Java',
     totalUserCount: 3,
@@ -177,7 +177,7 @@ const sampleData = [
   },
   {
     id: 3,
-    joinedspace: false,
+    joinedSpace: false,
     name: '프로그래머스 구명보트',
     language: 'C',
     totalUserCount: 2,
@@ -203,7 +203,7 @@ const sampleData = [
   },
   {
     id: 4,
-    joinedspace: true,
+    joinedSpace: true,
     name: '백준 1023',
     language: 'Python',
     totalUserCount: 4,
@@ -242,7 +242,6 @@ const sampleData = [
 const extendData = (data: SpaceData[]) => {
   const convertedData = data.map((item) => ({
     ...item,
-    joinedSpace: item.joinedSpace,
     status: item.status as SpaceStatusData, // status 타입 변환
   }));
 
