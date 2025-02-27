@@ -11,9 +11,9 @@ export interface StudyData {
   id: number;
   joinable: boolean;
   name: string;
-  status: StudyStatusData;
-  languages: ProgrammingLanguage[];
-  judges: Judges[];
+  status: string;
+  languages: string[];
+  judges: string[];
   description: string;
   currentUserCount: number;
   totalUserCount: number;
@@ -31,6 +31,24 @@ export interface StudyFormData extends Record<string, string | string[]> {
 
 export interface CreateStudyData extends StudyFormData {
   description: string;
+}
+
+export interface FetchStudiesParams {
+  page: number;
+  size: number;
+  status?: string;
+  languages?: string[];
+  judges?: string[];
+  joinable?: boolean;
+  keyword?: string;
+}
+
+export interface FetchStudiesResponse {
+  code: number;
+  result: {
+    studies: StudyData[];
+    totalItems: number;
+  };
 }
 
 export interface EditStudyData extends CreateStudyData {

@@ -25,6 +25,12 @@ export default function SelectDropdown<T extends readonly string[]>({
 
   const handleAddItem = (newItem: string) => {
     setIsOpen(false);
+
+    if (newItem === '전체') {
+      onSelect([]);
+      return;
+    }
+
     if (!isMultiSelect) {
       onSelect([newItem]);
       return;
@@ -54,7 +60,7 @@ export default function SelectDropdown<T extends readonly string[]>({
 
       {isOpen && (
         <DropdownList
-          items={[...items]}
+          items={['전체', ...items]}
           size='lg'
           color='black'
           shape='round'

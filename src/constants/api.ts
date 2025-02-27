@@ -1,5 +1,4 @@
 export const BASE_URL = import.meta.env.VITE_API_URL;
-
 const API_V1 = import.meta.env.VITE_API_V1;
 
 const BASE_PATH_V1 = {
