@@ -3,12 +3,13 @@ import { ACCESS_STATUS, ACCESS_STATUS_MAP } from '@constants/constants';
 import { CreateStudyData, StudyFormData } from '@customTypes/study';
 import useEditStudy from '@hooks/useEditStudy';
 import useGetStudyInfo from '@hooks/useGetStudyInfo';
+import Loading from '@pages/Loading';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function StudyEdit() {
   const { studyId } = useParams<{ studyId: string }>();
-  const { data } = useGetStudyInfo(studyId);
+  const { data, isLoading } = useGetStudyInfo(studyId);
   const { editStudyMutate } = useEditStudy();
 
   const [selectedStatus, setSelectedStatus] = useState<(typeof ACCESS_STATUS)[number]>(null);
@@ -37,9 +38,11 @@ export default function StudyEdit() {
     }
   };
 
+  if (isLoading || !initialValues) return <Loading />;
+
   return (
     <StudyCreateForm
-      initialValues={initialValues || undefined}
+      initialValues={initialValues}
       description={description}
       selectedStatus={selectedStatus}
       setSelectedStatus={setSelectedStatus}
