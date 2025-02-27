@@ -5,6 +5,14 @@ export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETE
 
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
+export interface SpaceListParams {
+  joinable?: boolean | null;
+  languages?: string[] | null;
+  status?: SpaceStatusData | null;
+  keyword?: string | null;
+  lastIndex?: number;
+}
+
 export interface SpaceData {
   id: number;
   joinable: boolean;
