@@ -9,7 +9,7 @@ export type TestCaseStatusData = 'DEFAULT' | 'CUSTOM';
 export interface SpaceListParams {
   joinedSpace?: boolean | null;
   languages?: string[] | null;
-  status?: SpaceStatusData | null;
+  status?: SpaceStatusData[] | null;
   keyword?: string | null;
   lastIndex?: number;
 }
