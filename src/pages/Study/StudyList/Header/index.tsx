@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import SearchInput from '@components/_common/atoms/SearchInput';
-import { ACCESS_STATUS_MAP, PROGRAMMING_LANGUAGES, JUDGES } from '@constants/constants';
+import { ACCESS_STATUS, PROGRAMMING_LANGUAGES, JUDGES } from '@constants/constants';
 import * as S from './style';
 
 interface HeaderProps {
@@ -28,15 +28,16 @@ export default function Header({
 
   const handleStatusChange = (values: string[]) => {
     setSelectedAccessStatus(values);
-    const status = Object.entries(ACCESS_STATUS_MAP).find(([, label]) => label === values[0])?.[0];
-    onStatusChange(status || undefined);
+    const status =
+      values.length === 0 || values[0] === '전체' ? undefined : values[0] === '공개' ? 'PUBLIC' : 'PRIVATE';
+    onStatusChange(status);
   };
 
   return (
     <S.HeaderContainer>
       <S.DropdownWrapper>
         <SelectDropdown
-          items={Object.values(ACCESS_STATUS_MAP)}
+          items={[...ACCESS_STATUS]}
           description='전체'
           values={selectedAccessStatus}
           onSelect={handleStatusChange}
