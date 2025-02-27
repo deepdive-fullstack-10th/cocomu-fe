@@ -1,4 +1,4 @@
-import { useState, ComponentProps, FormEventHandler, ChangeEvent, FocusEvent, useEffect } from 'react';
+import { useState, ComponentProps, FormEventHandler, ChangeEvent, FocusEvent } from 'react';
 import { useError } from '@hooks/utils/useError';
 import ValidationError from '@utils/errors/ValidationError';
 
@@ -18,10 +18,6 @@ export function useForm<TFieldData extends Record<string, string | string[]>>({
 }: UseFormProps<TFieldData>) {
   const [formData, setFormData] = useState<TFieldData>(initialValues);
   const { errors, setError, clearError, clearAllErrors, hasErrors } = useError<Record<keyof TFieldData, string>>();
-
-  useEffect(() => {
-    setFormData(initialValues);
-  }, [initialValues]);
 
   const validateAndSetErrors = <T extends keyof TFieldData>({
     value,
