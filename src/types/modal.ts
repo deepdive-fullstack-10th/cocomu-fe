@@ -1,8 +1,9 @@
 import ConfirmModal from '@components/Modal/Confirm';
 import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
-import TestCase from '@components/Modal/TestCase/TestcaseModal';
+import TestCaseModal from '@components/Modal/TestCase/TestCaseModal';
 import Waiting from '@components/Modal/Waiting';
+import { Dispatch, SetStateAction } from 'react';
 import { TestCaseItem, TestCaseStatusData } from './space';
 
 export interface WaitingProps {
@@ -31,6 +32,8 @@ export interface LoginProps {
 export interface TestCaseProps {
   status?: TestCaseStatusData;
   onClose?: () => void;
+  onsubmit?: () => void;
+  setTestCaseList?: Dispatch<SetStateAction<TestCaseItem[]>>;
   testCases?: TestCaseItem[];
 }
 
@@ -49,6 +52,6 @@ export const MODAL_COMPONENTS: {
   waiting: { Component: Waiting, disableOutsideClick: true },
   confirm: { Component: ConfirmModal },
   passwordInput: { Component: PasswordInput },
-  testCase: { Component: TestCase },
+  testCase: { Component: TestCaseModal },
   login: { Component: Login },
 };
