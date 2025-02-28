@@ -7,7 +7,7 @@ export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export interface SpaceListParams {
   joinedSpace?: boolean | null;
-  languages?: string[] | null;
+  language?: string | null;
   status?: SpaceStatusData[] | null;
   keyword?: string | null;
   lastIndex?: number;
