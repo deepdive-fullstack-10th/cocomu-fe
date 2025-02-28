@@ -70,7 +70,7 @@ export default function SpaceDetail() {
     }
   }, [data, spaceData, refetch]);
 
-  const hadleSubmin = async () => {
+  const TestcaseSubmitHadler = async () => {
     const filteredTestCases = testCaseList
       ?.filter((testCase) => testCase.type !== 'BASE')
       .map(({ input, output }) => ({ input, output }));
@@ -85,7 +85,7 @@ export default function SpaceDetail() {
       status: testCaseStatus,
       testCases: testCaseList,
       setTestCaseList,
-      onsubmit: hadleSubmin,
+      onsubmit: TestcaseSubmitHadler,
     });
   };
 
