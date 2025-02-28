@@ -7,10 +7,10 @@ import { BsArrowLeft, BsPlus } from 'react-icons/bs';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import { generateTimer } from '@utils/timeUtils';
 import { useSpaceDetail } from '@hooks/useSpace';
-import { SpaceDetail } from '@customTypes/space';
+import { SpaceDetail, SpaceOutletProps } from '@customTypes/space';
 import { ROUTES } from '@constants/path';
 import { SPACE_NAV_BUTTON } from '@constants/constants';
-import { useTestCaseOpen, useTestCaseSubmit, useSpaceStatusHandler } from './useSpaceDetailHandler';
+import { useTestCaseOpen, useTestCaseSubmit, useSpaceStatusHandler, useCodeRun, useCodeSubmitHandler } from './handler';
 import S from './style';
 
 export default function SpaceDetail() {
@@ -21,6 +21,12 @@ export default function SpaceDetail() {
   const [navButton, setNavbutton] = useState<string>(SPACE_NAV_BUTTON[0]);
   const [testCaseStatus, setTestcaseStatus] = useState<string>('DEFAULT');
   const [testCaseList, setTestCaseList] = useState([]);
+  const [outletProps, setOutletProps] = useState<SpaceOutletProps>();
+  const [tabInfo, setTabInfo] = useState({
+    code: '',
+    id: '',
+  });
+  const [input, setInput] = useState<string>('');
 
   const { spaceId } = useParams();
   const { data, refetch } = useSpaceDetail({ spaceId });
@@ -28,6 +34,8 @@ export default function SpaceDetail() {
   const { TestcaseSubmitHadler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
   const { testcaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHadler);
   const { spaceStartHandler } = useSpaceStatusHandler(spaceId, spaceData?.studyId, spaceData?.status);
+  const { codeRun } = useCodeRun(tabInfo, input, spaceData?.language);
+  const { codeSubmit } = useCodeSubmitHandler(tabInfo, spaceData?.language, testCaseList);
 
   const {
     value: width,
@@ -50,14 +58,18 @@ export default function SpaceDetail() {
       case '대기':
         setNavbutton(SPACE_NAV_BUTTON[0]);
         setTestcaseStatus('DEFAULT');
+        setOutletProps({ totalUserCount: spaceData?.totalUserCount });
         break;
       case '진행':
         setNavbutton(SPACE_NAV_BUTTON[1]);
         setTestcaseStatus('CUSTOM');
+        setOutletProps({ language: spaceData?.language, id: spaceData?.id, setTabInfo, setInput });
+        navigate(ROUTES.SPACE.RUNNING({ spaceId }));
         break;
       case '피드백':
         setNavbutton(SPACE_NAV_BUTTON[2]);
         setTestcaseStatus('CUSTOM');
+        navigate(ROUTES.SPACE.FEEDBACK({ spaceId }));
         break;
       case '종료':
         setNavbutton(SPACE_NAV_BUTTON[3]);
@@ -68,7 +80,7 @@ export default function SpaceDetail() {
         setTestcaseStatus('DEFAULT');
         break;
     }
-  }, [data, spaceData, refetch]);
+  }, [data, spaceData, spaceId, refetch, navigate]);
 
   return (
     <S.PageContainer>
@@ -84,7 +96,6 @@ export default function SpaceDetail() {
           </IconButton>
           <div>{spaceData?.name}</div>
         </S.NavbarLeftcontent>
-
         <S.NavbarRightcontent>
           <div>{generateTimer(timer * 60)}</div>
           {(spaceData?.hasLeaderRole || spaceData?.status === '종료') && (
@@ -98,12 +109,10 @@ export default function SpaceDetail() {
           )}
         </S.NavbarRightcontent>
       </S.Navbar>
-
       <S.MainContent ref={containerRef}>
         <S.ProblemDescription>
           <TextEditor
             value={spaceData?.description}
-            height='100%'
             readOnly
           />
           <S.ReferenceContainer>
@@ -115,7 +124,7 @@ export default function SpaceDetail() {
           <S.ResizeButton onMouseDown={handleMouseDown} />
         </S.ResizablePanel>
         <S.RightContent width={100 - width}>
-          <Outlet context={spaceData} />
+          <Outlet context={outletProps} />
         </S.RightContent>
       </S.MainContent>
       <S.Footer>
@@ -143,15 +152,19 @@ export default function SpaceDetail() {
             <Button
               size='md'
               color='analogous'
+              onClick={codeRun}
             >
               코드 실행
             </Button>
-            <Button
-              size='md'
-              color='primary'
-            >
-              제출하기
-            </Button>
+            {spaceData?.status === '진행' && (
+              <Button
+                size='md'
+                color='primary'
+                onClick={codeSubmit}
+              >
+                제출하기
+              </Button>
+            )}
           </S.FooterItem>
         )}
       </S.Footer>

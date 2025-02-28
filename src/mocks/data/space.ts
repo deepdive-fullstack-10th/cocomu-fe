@@ -113,7 +113,7 @@ export const TabData = {
   result: {
     tab: {
       id: 'UUID',
-      code: 'code',
+      code: '',
       user: {
         id: '1',
         nickName: '코코',

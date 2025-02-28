@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router-dom';
 import { useDraggable } from '@hooks/utils/useDraggable';
-import { SpaceDetail } from '@customTypes/space';
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
+import { SpaceOutletProps } from '@customTypes/space';
 import SpaceRunner from '../SpaceRunner';
 
 import S from './style';
@@ -30,7 +30,7 @@ const User = [
 ];
 
 export default function SpaceReady() {
-  const spaceData = useOutletContext<SpaceDetail>();
+  const outletData = useOutletContext<SpaceOutletProps>();
 
   const {
     value: height,
@@ -51,7 +51,7 @@ export default function SpaceReady() {
           users={User}
           size='lg'
         />
-        <S.UserCount>{`${User.length}${' '}/${' '}${spaceData?.totalUserCount}`}</S.UserCount>
+        <S.UserCount>{`${User.length}${' '}/${' '}${outletData?.totalUserCount}`}</S.UserCount>
       </S.ActiveUsersContainer>
       <S.ResizablePanel>
         <S.ResizeButton onMouseDown={handleMouseDown} />

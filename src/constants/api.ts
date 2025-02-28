@@ -41,8 +41,8 @@ export const END_POINTS_V1 = {
   },
 
   IDE: {
-    RUN: `${BASE_PATH_V1.IDE}/run`,
-    SUBMIT: (fieldId: string) => `${BASE_PATH_V1.IDE}/${fieldId}/submit`,
+    RUN: '/run',
+    SUBMIT: (ideID: string) => `${BASE_PATH_V1.IDE}/${ideID}/submit`,
   },
 
   USER: {

@@ -42,3 +42,30 @@ export const ACCESS_STATUS_MAP = {
   PUBLIC: ACCESS_STATUS[0],
   PRIVATE: ACCESS_STATUS[1],
 } as const;
+
+export const DEFAULT_CODE = {
+  python: `def Main():
+    pass  
+
+Main()`,
+
+  java: `public class Main {
+    public static void Main() {
+        
+    }
+}`,
+
+  javascript: `function Main() {
+    
+}
+
+Main();`,
+
+  c: `#include <stdio.h>
+
+void Main() {
+    
+}
+
+Main();`,
+};
