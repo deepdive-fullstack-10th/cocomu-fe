@@ -17,15 +17,8 @@ const commonStyles = (theme: Theme, isActive?: boolean) => css`
   ${theme.font.heading[100]};
   white-space: nowrap;
   user-select: none;
-
-  &:hover {
-    cursor: pointer;
-    border-color: ${isActive ? theme.color.primary[700] : theme.color.gray[900]};
-    color: ${isActive ? theme.color.primary[700] : theme.color.gray[900]};
-  }
-
   color: ${isActive ? theme?.color.primary[500] : theme?.color.gray[900]};
-  border: 1px solid ${isActive ? theme?.color.primary[500] : theme?.color.gray[900]};
+  border: 1px solid ${isActive ? theme?.color.primary[500] : theme?.color.gray[600]};
 `;
 
 const sizeStyles = {
