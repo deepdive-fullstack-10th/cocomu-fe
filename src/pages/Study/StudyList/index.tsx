@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import Header from './Header';
-import Body from './Body';
-import Footer from './Footer';
+import PageButton from 'src/components/_common/molecules/PageButton';
+import StudyCard from 'src/components/Study/StudyCard';
+import useStudyList from '@hooks/useStudyList';
+import FilterTab from './FilterTab';
 import * as S from './style';
 
 export default function StudyList() {
@@ -17,33 +18,45 @@ export default function StudyList() {
     setCurrentPage(page);
   };
 
+  const { data: studies = [] } = useStudyList({
+    queryParams: {
+      page: currentPage,
+      status,
+      languages,
+      judges,
+      joinable,
+      keyword,
+    },
+    onTotalItemsChange: (newTotalPage) => {
+      if (newTotalPage !== totalPage) {
+        setTotalPage(newTotalPage || 1);
+      }
+    },
+  });
+
   return (
     <S.Container>
-      <Header
+      <FilterTab
         onStatusChange={setStatus}
         onLanguagesChange={setLanguages}
         onJudgesChange={setJudges}
         onJoinableChange={setJoinable}
         onKeywordChange={setKeyword}
       />
-      <Body
-        currentPage={currentPage}
-        status={status}
-        languages={languages}
-        judges={judges}
-        joinable={joinable}
-        keyword={keyword}
-        onTotalItemsChange={(newTotalPage) => {
-          if (newTotalPage !== totalPage) {
-            setTotalPage(newTotalPage || 1);
-          }
-        }}
-      />
-
-      <Footer
-        pages={totalPage}
-        onPageChange={handlePageChange}
-      />
+      <S.BodyContainer>
+        {studies.map((study) => (
+          <StudyCard
+            key={study.id}
+            {...study}
+          />
+        ))}
+      </S.BodyContainer>
+      <S.FooterContainer>
+        <PageButton
+          pages={totalPage}
+          onPageChange={handlePageChange}
+        />
+      </S.FooterContainer>
     </S.Container>
   );
 }

@@ -5,7 +5,7 @@ import SearchInput from '@components/_common/atoms/SearchInput';
 import { ACCESS_STATUS, PROGRAMMING_LANGUAGES, JUDGES } from '@constants/constants';
 import * as S from './style';
 
-interface HeaderProps {
+interface FilterTabProps {
   onStatusChange: (status: string | undefined) => void;
   onLanguagesChange: (languages: string[]) => void;
   onJudgesChange: (judges: string[]) => void;
@@ -13,13 +13,13 @@ interface HeaderProps {
   onKeywordChange: (keyword: string) => void;
 }
 
-export default function Header({
+export default function FilterTab({
   onStatusChange,
   onLanguagesChange,
   onJudgesChange,
   onJoinableChange,
   onKeywordChange,
-}: HeaderProps) {
+}: FilterTabProps) {
   const [selectedAccessStatus, setSelectedAccessStatus] = useState<string[]>([]);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const [selectedJudges, setSelectedJudges] = useState<string[]>([]);
@@ -38,7 +38,7 @@ export default function Header({
   };
 
   return (
-    <S.HeaderContainer>
+    <S.FilterTabContainer>
       <S.DropdownWrapper>
         <SelectDropdown
           items={[...ACCESS_STATUS]}
@@ -82,6 +82,6 @@ export default function Header({
         onChange={(e) => setKeyword(e.target.value)}
         onSearch={fetchStudyList}
       />
-    </S.HeaderContainer>
+    </S.FilterTabContainer>
   );
 }
