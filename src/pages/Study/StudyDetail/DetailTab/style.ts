@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 
-export const HeaderContainer = styled.div`
+export const DetailTabContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;

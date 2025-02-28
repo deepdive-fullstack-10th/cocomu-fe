@@ -6,19 +6,17 @@ import { STUDY_LIST } from '@constants/constants';
 import useGetStudyInfo from '@hooks/useGetStudyInfo';
 import * as S from './style';
 
-interface HeaderProps {
+interface DetailTabProps {
   selectedTab: string;
   onTabChange: (tab: string) => void;
   studyId?: string;
 }
 
-export default function Header({ selectedTab, onTabChange, studyId }: HeaderProps) {
-  const { data: study, isLoading } = useGetStudyInfo(studyId ?? '');
-
-  if (isLoading) return <div>Loading...</div>;
+export default function DetailTab({ selectedTab, onTabChange, studyId }: DetailTabProps) {
+  const { data: study } = useGetStudyInfo(studyId ?? '');
 
   return (
-    <S.HeaderContainer>
+    <S.DetailTabContainer>
       <S.StudyContainer>
         <S.StudyTitle>{study?.name || '스터디 이름 불러오는 중...'}</S.StudyTitle>
         <S.IconButtonWrapper>
@@ -35,6 +33,6 @@ export default function Header({ selectedTab, onTabChange, studyId }: HeaderProp
         selectedTab={selectedTab}
         onTabChange={onTabChange}
       />
-    </S.HeaderContainer>
+    </S.DetailTabContainer>
   );
 }

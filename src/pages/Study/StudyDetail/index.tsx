@@ -5,15 +5,15 @@ import StudyInfo from '@pages/Study/StudyInfo';
 import { useParams } from 'react-router-dom';
 
 import * as S from './style';
-import Header from './header';
+import DetailTab from './DetailTab';
 
 export default function StudyDetail() {
-  const [selectedTab, setSelectedTab] = useState('스터디 정보');
+  const [selectedTab, setSelectedTab] = useState('코딩 스페이스');
   const { studyId } = useParams<{ studyId: string }>();
 
   return (
     <S.Container>
-      <Header
+      <DetailTab
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
         studyId={studyId}
