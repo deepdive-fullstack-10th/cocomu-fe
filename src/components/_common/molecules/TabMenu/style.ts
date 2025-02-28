@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const TabMenuContainer = styled.div`
   display: flex;
@@ -30,9 +31,14 @@ const TabElement = styled.div<{ isSelected: boolean }>`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const S = {
   TabMenuContainer,
   TabElement,
+  StyledLink,
 };
 
 export default S;

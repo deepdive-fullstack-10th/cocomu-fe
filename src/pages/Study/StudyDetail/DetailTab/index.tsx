@@ -4,16 +4,17 @@ import IconButton from '@components/_common/atoms/IconButton';
 import { BsPlusLg } from 'react-icons/bs';
 import { STUDY_LIST } from '@constants/constants';
 import useGetStudyInfo from '@hooks/useGetStudyInfo';
+import { Link, useLocation } from 'react-router-dom';
+
 import * as S from './style';
 
 interface DetailTabProps {
-  selectedTab: string;
-  onTabChange: (tab: string) => void;
   studyId?: string;
 }
 
-export default function DetailTab({ selectedTab, onTabChange, studyId }: DetailTabProps) {
+export default function DetailTab({ studyId }: DetailTabProps) {
   const { data: study } = useGetStudyInfo(studyId ?? '');
+  const location = useLocation();
 
   return (
     <S.DetailTabContainer>
@@ -30,8 +31,8 @@ export default function DetailTab({ selectedTab, onTabChange, studyId }: DetailT
       </S.StudyContainer>
       <TabMenu
         tabs={STUDY_LIST}
-        selectedTab={selectedTab}
-        onTabChange={onTabChange}
+        currentPath={location.pathname}
+        studyId={studyId}
       />
     </S.DetailTabContainer>
   );
