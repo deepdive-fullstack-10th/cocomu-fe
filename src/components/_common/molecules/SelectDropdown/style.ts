@@ -6,6 +6,7 @@ const Container = styled.div`
 
   position: relative;
   width: 14rem;
+  user-select: none;
 `;
 
 const Header = styled.div<{ isOpen: boolean }>`

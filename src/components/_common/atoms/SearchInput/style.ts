@@ -5,6 +5,8 @@ const Container = styled.div`
 
   width: 25.6rem;
   height: 3.6rem;
+
+  user-select: none;
 `;
 
 const Input = styled.input`

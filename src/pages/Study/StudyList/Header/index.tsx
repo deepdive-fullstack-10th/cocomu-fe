@@ -33,6 +33,10 @@ export default function Header({
     onStatusChange(status);
   };
 
+  const fetchStudyList = () => {
+    onKeywordChange(keyword); // 필요한 경우에만 API 호출
+  };
+
   return (
     <S.HeaderContainer>
       <S.DropdownWrapper>
@@ -75,10 +79,8 @@ export default function Header({
       <SearchInput
         placeholder='제목을 검색해주세요'
         value={keyword}
-        onChange={(e) => {
-          setKeyword(e.target.value);
-          onKeywordChange(e.target.value);
-        }}
+        onChange={(e) => setKeyword(e.target.value)}
+        onSearch={fetchStudyList} // 아이콘 클릭 또는 Enter 시 호출
       />
     </S.HeaderContainer>
   );
