@@ -71,8 +71,10 @@ export const spaceApi = {
         Authorization: `Bearer ${token}`,
       }, */
     });
+    const startIndex = params.lastIndex || 0;
+    const limit = startIndex === 0 ? 5 : 10;
 
-    return data.result;
+    return data.result.slice(startIndex, startIndex + limit);
   },
 };
 
