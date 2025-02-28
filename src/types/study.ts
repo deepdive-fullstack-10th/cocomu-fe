@@ -37,17 +37,7 @@ export interface EditStudyData extends CreateStudyData {
   status: string;
 }
 
-export interface FetchStudiesParams {
-  page?: number;
-  size?: number;
-  status?: string;
-  languages?: string[];
-  judges?: string[];
-  joinable?: boolean;
-  keyword?: string;
-}
-
-export interface StudyQueryParams {
+export interface FetchStudiesData {
   page?: number;
   size?: number;
   status?: string;

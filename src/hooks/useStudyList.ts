@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { StudyQueryParams } from '@customTypes/study';
+import { FetchStudiesData } from '@customTypes/study';
 import studyApi from '@api/domain/study';
 import QUERY_KEYS from '@constants/queryKeys';
 
 interface UseStudyListProps {
-  queryParams: StudyQueryParams;
+  queryParams: FetchStudiesData;
   onTotalItemsChange: (totalPage: number) => void;
 }
 
