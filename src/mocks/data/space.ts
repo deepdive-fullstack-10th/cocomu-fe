@@ -115,7 +115,7 @@ export const TabData = {
       id: 'UUID',
       code: 'code',
       user: {
-        id: 1,
+        id: '1',
         nickName: '코코',
         profileImageUrl: 'https://cdn.domain.com/images/*.png',
       },
