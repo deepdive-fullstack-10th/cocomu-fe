@@ -58,7 +58,7 @@ const SpaceListContainer = styled.div`
 
   margin-top: 4rem;
   gap: 2rem;
-  overflow: scroll;
+  overflow-y: auto;
 
   ::-webkit-scrollbar {
     display: none;
