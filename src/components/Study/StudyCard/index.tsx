@@ -6,6 +6,7 @@ import UserProfile from '@components/_common/molecules/UserProfile';
 import ImageTagList from '@components/_common/molecules/ImageTagList';
 import TagList from '@components/_common/molecules/TagList';
 import { formatDate } from '@utils/formatDate';
+import { useNavigate } from 'react-router-dom';
 import S from './style';
 
 export default function StudyCard({
@@ -21,8 +22,14 @@ export default function StudyCard({
   createdAt,
   leader,
 }: StudyData) {
+  const navigate = useNavigate();
+
   const handleCardClick = () => {
-    // id 사용해서 상세페이지로 이동 (joinable 조건)
+    if (joinable) {
+      navigate(`/study/${id}`);
+    } else {
+      navigate(`/study/${id}/participation`);
+    }
   };
 
   return (

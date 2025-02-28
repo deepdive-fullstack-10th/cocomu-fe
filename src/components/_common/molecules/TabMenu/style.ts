@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 const TabMenuContainer = styled.div`
   display: flex;
   position: relative;
-  margin: 0 1rem;
 
   border-bottom: 3px solid ${({ theme }) => theme.color.gray[400]};
 `;
