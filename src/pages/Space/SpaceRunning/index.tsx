@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import { useDraggable } from '@hooks/utils/useDraggable';
-import { SpaceDetail } from '@customTypes/space';
+import { SpaceOutletProps } from '@customTypes/space';
 import { useTabData } from '@hooks/useSpace';
 import Tab from '@components/_common/atoms/Tab';
 import MonacoEditor from '@monaco-editor/react';
+import { DEFAULT_CODE } from '@constants/constants';
 import SpaceRunner from '../SpaceRunner';
-
 import S from './style';
 
 export default function SpaceStart() {
-  const spaceData = useOutletContext<SpaceDetail>();
-  const { spaceId } = useParams();
-  const { data } = useTabData({ spaceId });
-  const [language, setLanguage] = useState<string>('');
+  const outletData = useOutletContext<SpaceOutletProps>();
+  const { data } = useTabData({ spaceId: outletData?.id });
+
+  const [code, setCode] = useState<string>(data?.tab?.code);
 
   const {
     value: height,
@@ -28,8 +28,34 @@ export default function SpaceStart() {
   });
 
   useEffect(() => {
-    setLanguage(spaceData?.language.toLocaleLowerCase());
-  }, [spaceData]);
+    outletData?.setTabInfo((prev) => ({ ...prev, id: data?.tab?.id }));
+    if (data?.tab?.code === '' || data?.tab?.code === undefined) {
+      switch (outletData?.language?.toLocaleLowerCase()) {
+        case 'python':
+          setCode(DEFAULT_CODE.python);
+          break;
+        case 'java':
+          setCode(DEFAULT_CODE.java);
+          break;
+        case 'javascript':
+          setCode(DEFAULT_CODE.javascript);
+          break;
+        case 'c':
+          setCode(DEFAULT_CODE.c);
+          break;
+        default:
+          setCode('');
+          break;
+      }
+    } else {
+      setCode(data?.tab?.code);
+    }
+  }, [outletData, data]);
+
+  const onChangeCode = (value) => {
+    setCode(value);
+    outletData?.setTabInfo((prev) => ({ ...prev, code: value }));
+  };
 
   return (
     <S.Container ref={containerRef}>
@@ -42,13 +68,15 @@ export default function SpaceStart() {
         </S.TabContainer>
         <S.MonacoContainer>
           <MonacoEditor
-            defaultLanguage={language}
+            defaultLanguage={outletData?.language.toLocaleLowerCase()}
             theme='vs'
             options={{
               minimap: { enabled: false },
               scrollBeyondLastLine: false,
               automaticLayout: true,
             }}
+            value={code}
+            onChange={onChangeCode}
           />
         </S.MonacoContainer>
       </S.CodingContainer>
@@ -56,7 +84,7 @@ export default function SpaceStart() {
         <S.ResizeButton onMouseDown={handleMouseDown} />
       </S.ResizablePanel>
       <S.RunnerContainer>
-        <SpaceRunner />
+        <SpaceRunner setInput={outletData?.setInput} />
       </S.RunnerContainer>
     </S.Container>
   );

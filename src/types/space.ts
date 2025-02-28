@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { UserData } from './user';
 
 export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETED';
@@ -5,6 +6,8 @@ export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETE
 export type TestCaseItemType = 'BASE' | 'CUSTOM';
 
 export type TestCaseStatusData = 'DEFAULT' | 'CUSTOM';
+
+export type Language = 'python' | 'java' | 'javascript' | 'c';
 
 export interface SpaceData {
   id: number;
@@ -25,16 +28,25 @@ export interface TestCaseItem {
   type?: TestCaseItemType;
 }
 
+export interface SpaceOutletProps {
+  id?: string;
+  studyId?: string;
+  language?: Language;
+  totalUserCount?: number;
+  setTabInfo?: Dispatch<SetStateAction<{ code: string; id: string }>>;
+  setInput?: Dispatch<SetStateAction<string>>;
+}
+
 export interface SpaceDetail {
   codingTime: number;
   description: string;
   hasLeaderRole: boolean;
-  id: string;
-  studyId: string;
-  language: string;
   name: string;
   referenceUrl: string;
   status: string;
   testCase: TestCaseItem[];
-  totalUserCount: number;
+  id?: string;
+  studyId?: string;
+  language?: Language;
+  totalUserCount?: number;
 }

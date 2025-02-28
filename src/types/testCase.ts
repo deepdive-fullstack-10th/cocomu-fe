@@ -4,3 +4,7 @@ export type testCase = {
 };
 
 export type testCaseList = testCase[];
+
+export interface SubmitTestCaseList extends testCase {
+  id: string;
+}
