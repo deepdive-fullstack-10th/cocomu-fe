@@ -1,22 +1,35 @@
+import React from 'react';
 import S from './style';
 
 type TabMenuProps<T extends readonly string[]> = {
   tabs: T;
-  selectedTab: string;
-  onTabChange?: (menu: T[number]) => void;
+  currentPath: string;
+  studyId?: string;
 };
 
-export default function TabMenu<T extends readonly string[]>({ tabs, selectedTab, onTabChange }: TabMenuProps<T>) {
+export default function TabMenu<T extends readonly string[]>({ tabs, currentPath, studyId }: TabMenuProps<T>) {
+  const getPath = (menu: string) => {
+    if (menu === '코딩 스페이스') {
+      return `/study/${studyId}`;
+    }
+    if (menu === '멤버 보기') {
+      return `/study/${studyId}/members`;
+    }
+    if (menu === '스터디 정보') {
+      return `/study/${studyId}/info`;
+    }
+    return '/';
+  };
+
   return (
     <S.TabMenuContainer>
       {tabs.map((menu) => (
-        <S.TabElement
+        <S.StyledLink
           key={menu}
-          onClick={() => onTabChange?.(menu)}
-          isSelected={selectedTab === menu}
+          to={getPath(menu)}
         >
-          {menu}
-        </S.TabElement>
+          <S.TabElement isSelected={currentPath === getPath(menu)}>{menu}</S.TabElement>
+        </S.StyledLink>
       ))}
     </S.TabMenuContainer>
   );
