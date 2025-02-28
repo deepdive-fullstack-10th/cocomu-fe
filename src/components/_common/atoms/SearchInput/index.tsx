@@ -6,12 +6,19 @@ interface SearchInputProps {
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearch: () => void;
 }
 
-export default function SearchInput({ placeholder = '', value, onChange }: SearchInputProps) {
+export default function SearchInput({ placeholder = '', value, onChange, onSearch }: SearchInputProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
+  };
+
   return (
     <S.Container>
-      <S.SearchIcon>
+      <S.SearchIcon onClick={onSearch}>
         <Icon
           size='md'
           color='700'
@@ -23,6 +30,7 @@ export default function SearchInput({ placeholder = '', value, onChange }: Searc
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onKeyDown={handleKeyDown}
       />
     </S.Container>
   );
