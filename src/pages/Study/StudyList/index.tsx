@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
-import useStudyList from '@hooks/useStudyList';
+import useGetStudyList from '@hooks/useGetStudyList';
 import FilterTab from './FilterTab';
 import * as S from './style';
 
@@ -18,7 +18,7 @@ export default function StudyList() {
     setCurrentPage(page);
   };
 
-  const { data: studies = [] } = useStudyList({
+  const { data: studies = [] } = useGetStudyList({
     queryParams: {
       page: currentPage,
       status,

@@ -10,7 +10,7 @@ import {
   editStudyResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
-  mockStudyListResponse,
+  getStudyListResponse,
 } from '@mocks/data/study';
 
 export const studyHandlers = [
@@ -24,7 +24,7 @@ export const studyHandlers = [
     const languages = url.searchParams.getAll('languages[]');
     const judges = url.searchParams.getAll('judges[]');
 
-    const filteredStudies = mockStudyListResponse.result.studies.filter((study) => {
+    const filteredStudies = getStudyListResponse.result.studies.filter((study) => {
       const matchesStatus = !status || study.status === status;
       const matchesLanguages = languages.length === 0 || study.languages.some((lang) => languages.includes(lang));
       const matchesJudges = judges.length === 0 || study.judges.some((judge) => judges.includes(judge));
@@ -38,11 +38,11 @@ export const studyHandlers = [
     const paginatedStudies = filteredStudies.slice(startIndex, endIndex);
 
     const response = {
-      ...mockStudyListResponse,
+      ...getStudyListResponse,
       result: {
-        ...mockStudyListResponse.result,
+        ...getStudyListResponse.result,
         studies: paginatedStudies,
-        totalPage: mockStudyListResponse.result.totalPage,
+        totalPage: getStudyListResponse.result.totalPage,
       },
     };
 
