@@ -12,6 +12,7 @@ const CardContainer = styled.div`
   background-color: ${({ theme }) => theme.color.gray[50]};
   border: 2px solid ${({ theme }) => theme.color.gray[600]};
   border-radius: 3rem;
+  cursor: pointer;
 `;
 
 const Header = styled.div`
