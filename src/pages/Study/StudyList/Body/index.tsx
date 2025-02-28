@@ -21,11 +21,7 @@ export default function Body({
   keyword,
   onTotalItemsChange,
 }: StudyListBodyProps) {
-  const {
-    data: studies = [],
-    isLoading,
-    error,
-  } = useStudyList({
+  const { data: studies = [] } = useStudyList({
     queryParams: {
       page: currentPage,
       status,
@@ -38,9 +34,6 @@ export default function Body({
       onTotalItemsChange(totalPage);
     },
   });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>스터디 데이터를 불러오는데 실패했습니다.</div>;
 
   return (
     <S.BodyContainer>
