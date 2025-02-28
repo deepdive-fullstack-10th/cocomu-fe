@@ -8,7 +8,7 @@ import Icon from '@components/_common/atoms/Icon';
 import TestCaseItem from '../TestCaseItem';
 import S from './style';
 
-export default function TestCaseModal({ status, testCases, onClose, onsubmit, setTestCaseList }: TestCaseProps) {
+export default function TestCaseModal({ status, testCases, onClose, onSubmit, setTestCaseList }: TestCaseProps) {
   const [localTestCases, setLocalTestCases] = useState(testCases);
 
   useEffect(() => {
@@ -27,9 +27,9 @@ export default function TestCaseModal({ status, testCases, onClose, onsubmit, se
     setLocalTestCases((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
   };
 
-  const onSubmit = async () => {
+  const onSubmitTestCaseUpdate = async () => {
     setTestCaseList(localTestCases);
-    onsubmit();
+    onSubmit();
     onClose();
   };
 
@@ -82,7 +82,7 @@ export default function TestCaseModal({ status, testCases, onClose, onsubmit, se
           <Button
             size='sm'
             color='primary'
-            onClick={onSubmit}
+            onClick={onSubmitTestCaseUpdate}
           >
             수정하기
           </Button>

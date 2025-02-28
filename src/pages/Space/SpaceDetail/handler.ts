@@ -3,7 +3,7 @@ import { useTestcaseUpdate } from '@hooks/useTestcase';
 import { useSpaceStart } from '@hooks/useSpace';
 import { useTabRun, useCodeSubmit } from '@hooks/useIDE';
 
-export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHadler) {
+export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHandler) {
   const { open } = useModalStore();
 
   const testcaseOpenHandler = () => {
@@ -11,7 +11,7 @@ export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, T
       status: testCaseStatus,
       testCases: testCaseList,
       setTestCaseList,
-      onsubmit: TestcaseSubmitHadler,
+      onSubmit: TestcaseSubmitHandler,
     });
   };
 
@@ -21,7 +21,7 @@ export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, T
 export function useTestCaseSubmit(spaceId, testCaseList, setTestCaseList) {
   const { testCaseUpdateMutate } = useTestcaseUpdate();
 
-  const TestcaseSubmitHadler = async () => {
+  const TestcaseSubmitHandler = async () => {
     const filteredTestCases = testCaseList
       ?.filter((testCase) => testCase.type !== 'BASE')
       .map(({ input, output }) => ({ input, output }));
@@ -31,7 +31,7 @@ export function useTestCaseSubmit(spaceId, testCaseList, setTestCaseList) {
     setTestCaseList(FetchTestCaseList);
   };
 
-  return { TestcaseSubmitHadler };
+  return { TestcaseSubmitHandler };
 }
 
 export function useSpaceStatusHandler(spaceId, studyId, status) {
@@ -60,6 +60,7 @@ export function useCodeRun(tabInfo, input, language) {
 
 export function useCodeSubmitHandler(tabInfo, language, testCaseList) {
   const filterTestCaseList = (testCaseList || []).map(({ id, input, output }) => ({ id, input, output }));
+
   const { ideSubmit } = useCodeSubmit();
   const codeSubmit = async () => {
     await ideSubmit.mutateAsync({

@@ -31,8 +31,8 @@ export default function SpaceDetail() {
   const { spaceId } = useParams();
   const { data, refetch } = useSpaceDetail({ spaceId });
 
-  const { TestcaseSubmitHadler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
-  const { testcaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHadler);
+  const { TestcaseSubmitHandler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
+  const { testcaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHandler);
   const { spaceStartHandler } = useSpaceStatusHandler(spaceId, spaceData?.studyId, spaceData?.status);
   const { codeRun } = useCodeRun(tabInfo, input, spaceData?.language);
   const { codeSubmit } = useCodeSubmitHandler(tabInfo, spaceData?.language, testCaseList);

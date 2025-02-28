@@ -32,7 +32,7 @@ export interface LoginProps {
 export interface TestCaseProps {
   status?: TestCaseStatusData;
   onClose?: () => void;
-  onsubmit?: () => void;
+  onSubmit?: () => void;
   setTestCaseList?: Dispatch<SetStateAction<TestCaseItem[]>>;
   testCases?: TestCaseItem[];
 }
