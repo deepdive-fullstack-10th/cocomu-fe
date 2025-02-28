@@ -1,24 +1,25 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { spaceApi } from '@api/domain/space';
 import { SpaceListParams } from '@customTypes/space';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import useDebounce from '@hooks/useDebounce';
 
 export default function useSpaceList(studyId: string) {
-  const queryClient = useQueryClient();
-  const [isFetching, setIsFetching] = useState(false);
-
   const [filters, setFilters] = useState<Omit<SpaceListParams, 'lastIndex'>>({
     status: null,
     language: null,
     joinedSpace: null,
     keyword: null,
   });
+  const queryClient = useQueryClient();
+  const [isFetching, setIsFetching] = useState(false);
+  const debouncedFilters = useDebounce(filters, 100);
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['spaceList', studyId, filters],
+    queryKey: ['spaceList', studyId, debouncedFilters],
     queryFn: async ({ pageParam = 0 }) => {
       const params: SpaceListParams = {
-        ...filters,
+        ...debouncedFilters,
         lastIndex: pageParam,
       };
       console.log('api 호출 파라미터: ', params);
@@ -32,20 +33,19 @@ export default function useSpaceList(studyId: string) {
     enabled: !!studyId,
   });
 
-  const updateFilters = useCallback(
-    (newFilters: Partial<SpaceListParams>) => {
-      setFilters((prev) => {
-        const updated = { ...prev, ...newFilters };
-        console.log('쿼리 키 변경:', updated);
-        return updated;
-      });
+  const updateFilters = useCallback((newFilters: Partial<SpaceListParams>) => {
+    setFilters((prev) => {
+      const updated = { ...prev, ...newFilters };
+      console.log('쿼리 키 변경:', updated);
+      return updated;
+    });
+  }, []);
 
-      queryClient.resetQueries({
-        queryKey: ['spaceList', studyId],
-      });
-    },
-    [studyId, queryClient],
-  );
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['spaceList', studyId],
+    });
+  }, [queryClient, studyId, debouncedFilters]);
 
   const nextList = useCallback(async () => {
     if (isFetching || !hasNextPage || isFetchingNextPage) return;
