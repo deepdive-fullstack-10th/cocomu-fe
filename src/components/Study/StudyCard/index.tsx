@@ -7,6 +7,7 @@ import ImageTagList from '@components/_common/molecules/ImageTagList';
 import TagList from '@components/_common/molecules/TagList';
 import { formatDate } from '@utils/formatDate';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 export default function StudyCard({
@@ -26,9 +27,9 @@ export default function StudyCard({
 
   const handleCardClick = () => {
     if (joinable) {
-      navigate(`/study/${id}`);
+      navigate(ROUTES.STUDY.DETAIL({ studyId: id.toString() }));
     } else {
-      navigate(`/study/${id}/participation`);
+      navigate(ROUTES.STUDY.PARTICIPATION({ studyId: id.toString() }));
     }
   };
 
