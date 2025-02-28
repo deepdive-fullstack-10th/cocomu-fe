@@ -1,6 +1,6 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { CreateStudyData, EditStudyData, FetchStudiesData } from '@customTypes/study';
+import { CreateStudyData, EditStudyData, GetListData } from '@customTypes/study';
 
 const studyApi = {
   getStudyInfo: async (studyId: string) => {
@@ -27,9 +27,9 @@ const studyApi = {
     return data.result;
   },
 
-  fetchStudies: async (fetchStudiesData: FetchStudiesData) => {
+  getList: async (getListData: GetListData) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.LIST, {
-      params: fetchStudiesData,
+      params: getListData,
       useAuth: false,
       withCredentials: false,
     });

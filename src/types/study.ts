@@ -37,7 +37,7 @@ export interface EditStudyData extends CreateStudyData {
   status: string;
 }
 
-export interface FetchStudiesData {
+export interface GetListData {
   page?: number;
   size?: number;
   status?: string;
