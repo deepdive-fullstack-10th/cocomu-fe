@@ -15,7 +15,7 @@ export default function TagList({ items, color, onRemove }: TagListProps) {
         <Tag
           key={item}
           color={color}
-          onRemove={() => onRemove(item)}
+          onRemove={onRemove ? () => onRemove(item) : undefined}
         >
           {item}
         </Tag>
