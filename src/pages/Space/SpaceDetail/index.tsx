@@ -6,15 +6,16 @@ import Button from '@components/_common/atoms/Button';
 import { BsArrowLeft, BsPlus } from 'react-icons/bs';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import { generateTimer } from '@utils/timeUtils';
-import { useSpaceDetail, useSpaceStart } from '@hooks/useSpace';
+import { useSpaceDetail } from '@hooks/useSpace';
 import { SpaceDetail } from '@customTypes/space';
-import { useModalStore } from '@stores/useModalStore';
 import { ROUTES } from '@constants/path';
 import { SPACE_NAV_BUTTON } from '@constants/constants';
-import { useTestcaseUpdate } from '@hooks/useTestcase';
+import { useTestCaseOpen, useTestCaseSubmit, useSpaceStatusHandler } from './useSpaceDetailHandler';
 import S from './style';
 
 export default function SpaceDetail() {
+  const navigate = useNavigate();
+
   const [spaceData, setSpacedata] = useState<SpaceDetail>();
   const [timer, settimer] = useState<number>(0);
   const [navButton, setNavbutton] = useState<string>(SPACE_NAV_BUTTON[0]);
@@ -22,12 +23,11 @@ export default function SpaceDetail() {
   const [testCaseList, setTestCaseList] = useState([]);
 
   const { spaceId } = useParams();
-
-  const { open } = useModalStore();
-  const { testCaseUpdateMutate } = useTestcaseUpdate();
-  const navigate = useNavigate();
   const { data, refetch } = useSpaceDetail({ spaceId });
-  const { spaceStartMutate } = useSpaceStart();
+
+  const { TestcaseSubmitHadler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
+  const { testcaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHadler);
+  const { spaceStartHandler } = useSpaceStatusHandler(spaceId, spaceData?.studyId, spaceData?.status);
 
   const {
     value: width,
@@ -69,31 +69,6 @@ export default function SpaceDetail() {
         break;
     }
   }, [data, spaceData, refetch]);
-
-  const TestcaseSubmitHadler = async () => {
-    const filteredTestCases = testCaseList
-      ?.filter((testCase) => testCase.type !== 'BASE')
-      .map(({ input, output }) => ({ input, output }));
-    const newTestCases = await testCaseUpdateMutate.mutateAsync({ spaceId, testCase: filteredTestCases });
-    const BaseTestCase = testCaseList?.filter((testCase) => testCase.type === 'BASE');
-    const FetchTestCaseList = BaseTestCase.concat(newTestCases);
-    setTestCaseList(FetchTestCaseList);
-  };
-
-  const testcaseHandler = () => {
-    open('testCase', {
-      status: testCaseStatus,
-      testCases: testCaseList,
-      setTestCaseList,
-      onsubmit: TestcaseSubmitHadler,
-    });
-  };
-
-  const spaceStartHandler = () => {
-    if (spaceData?.status === '대기') {
-      spaceStartMutate.mutate({ spaceId, studyId: spaceData?.studyId });
-    }
-  };
 
   return (
     <S.PageContainer>
@@ -150,7 +125,7 @@ export default function SpaceDetail() {
               content='테스트 케이스 추가하기'
               align='center'
               shape='round'
-              onClick={testcaseHandler}
+              onClick={testcaseOpenHandler}
             >
               <BsPlus />
             </IconButton>
@@ -159,7 +134,7 @@ export default function SpaceDetail() {
               content='테스트 케이스 확인하기'
               align='center'
               shape='round'
-              onClick={testcaseHandler}
+              onClick={testcaseOpenHandler}
             />
           )}
         </S.FooterItem>

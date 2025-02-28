@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
-import { useDraggable } from '@hooks/useDraggable';
+import { useDraggable } from '@hooks/utils/useDraggable';
 import { SpaceDetail } from '@customTypes/space';
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import SpaceRunner from '../SpaceRunner';
