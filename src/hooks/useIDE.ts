@@ -11,7 +11,7 @@ export function useTabRun() {
 
 export function useCodeSubmit() {
   const ideSubmit = useMutation({
-    mutationFn: ideApi.condeSubmit,
+    mutationFn: ideApi.codeSubmit,
   });
 
   return { ideSubmit };

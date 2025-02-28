@@ -9,7 +9,7 @@ const ideApi = {
     return data;
   },
 
-  condeSubmit: async (bodyData: IdeCodeSubmit) => {
+  codeSubmit: async (bodyData: IdeCodeSubmit) => {
     const { data } = await axiosInstance.post(END_POINTS_V1.IDE.SUBMIT(bodyData.ideId), {
       bodyData,
     });
