@@ -8,6 +8,10 @@ import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import SearchInput from '@components/_common/atoms/SearchInput';
 import useSpaceList from '@hooks/useSpaceList';
 import { useParams } from 'react-router-dom';
+import ToggleButton from '@components/_common/atoms/ToggleButton';
+import { SpaceStatusData } from '@customTypes/space';
+import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
+import useDebounce from '@hooks/useDebounce';
 import S from './style';
 
 function Header({ studyTitle }: { studyTitle: string }) {
@@ -46,17 +50,19 @@ export default function SpaceList() {
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [joinable, setJoinable] = useState(false);
 
   const { studyId } = useParams<{ studyId: string }>();
-  const { spaces, filters, updateFilters, nextList, hasNextPage, isFetchingNextPage } = useSpaceList(studyId);
+  const { spaces, updateFilters, hasNextPage, isFetchingNextPage, nextList } = useSpaceList(studyId);
   const observerRef = useRef<HTMLDivElement>(null);
+  const debouncedValue = useDebounce(searchKeyword, 300);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
           nextList().catch((e) => {
-            console.error('무한 스크롤 에러: ', e);
+            console.error('스크롤 에러', e);
           });
         }
       },
@@ -70,25 +76,29 @@ export default function SpaceList() {
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, nextList]);
 
+  useEffect(() => {
+    updateFilters({ keyword: debouncedValue || null });
+  }, [debouncedValue, updateFilters]);
+
   const handleLanguage = (language: string[]) => {
     setSelectedLanguage(language);
-    updateFilters({ languages: language.length > 0 ? language : null });
-    console.log(language);
+    updateFilters({ language: language.length > 0 ? String(language) : null });
+    console.log(spaces);
   };
 
-  const handleStatus = (status: string[]) => {
+  const handleStatus = (status: SpaceStatusData[]) => {
     setSelectedStatus(status);
     updateFilters({ status: status.length > 0 ? status : null });
   };
 
-  const handleMySpace = () => {
-    updateFilters({ joinedSpace: true });
+  const handleMySpace = (joined: boolean) => {
+    setJoinable(joined);
+    updateFilters({ joinedSpace: joined });
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchKeyword(value);
-    updateFilters({ keyword: value || null });
   };
 
   return (
@@ -110,13 +120,14 @@ export default function SpaceList() {
                 values={selectedLanguage}
                 onSelect={handleLanguage}
               />
-              <IconButton
-                color='white'
-                align='center'
-                content='내가 참여한 스페이스 보기'
+              <ToggleButton
+                size='md'
                 shape='round'
-                onClick={handleMySpace}
-              />
+                isActive={joinable}
+                onToggle={(join: boolean) => handleMySpace(join)}
+              >
+                내가 참여한 스페이스 보기
+              </ToggleButton>
             </S.ClickFilteredContainer>
             <S.SearchFilteredContainer>
               <SearchInput
@@ -145,8 +156,16 @@ export default function SpaceList() {
             {hasNextPage && (
               <div
                 ref={observerRef}
-                style={{ height: '20px' }}
-              />
+                style={{
+                  height: '0.2rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingBottom: '4rem',
+                }}
+              >
+                <LoadingSpinner />
+              </div>
             )}
           </S.SpaceListContainer>
         </S.BodyContainer>
