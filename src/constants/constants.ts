@@ -15,6 +15,8 @@ export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as con
 
 export const ACCESS_STATUS = ['공개', '비공개'] as const;
 
+export const SPACE_MEMBER_OPTIONS = ['2명', '3명', '4명'] as const;
+
 export const STEP_INFO = {
   WAITING: {
     label: '대기',

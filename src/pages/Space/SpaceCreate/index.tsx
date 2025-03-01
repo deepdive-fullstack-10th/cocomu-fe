@@ -1,3 +1,10 @@
+import SpaceCreateForm from '@components/Space/SpaceCreateForm';
+import { CreateSpaceData } from '@customTypes/space';
+
 export default function SpaceCreate() {
-  return <div>SpaceCreate</div>;
+  const handleSubmit = (spaceData: CreateSpaceData) => {
+    console.log(spaceData);
+  };
+
+  return <SpaceCreateForm onSubmit={handleSubmit} />;
 }
