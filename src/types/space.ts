@@ -21,10 +21,21 @@ export interface SpaceData {
   currentUsers: UserData[];
 }
 
-export interface TestCaseItem {
-  id?: number | string;
+export interface SpaceFormData extends Record<string, string | string[]> {
+  name: string;
+  codingTime: string;
+  referenceUrl: string;
+  totalUserCount: string[];
+  languages: string[];
+}
+
+export interface TestCaseIO {
   input?: string;
   output?: string;
+}
+
+export interface TestCaseItem extends TestCaseIO {
+  id?: number | string;
   type?: TestCaseItemType;
 }
 
@@ -49,4 +60,17 @@ export interface SpaceDetail {
   studyId?: string;
   language?: Language;
   totalUserCount?: number;
+}
+
+export interface CreateSpaceData {
+  studyId: number;
+  codingSpace: {
+    name: string;
+    codingTime: string;
+    referenceUrl: string;
+    totalUserCount: number;
+    languages: string;
+    description: string;
+  };
+  testCases: TestCaseIO[];
 }
