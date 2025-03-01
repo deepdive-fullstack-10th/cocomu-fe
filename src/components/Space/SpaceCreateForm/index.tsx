@@ -8,31 +8,45 @@ import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';
 import { useToastStore } from '@stores/useToastStore';
 import { useNavigate } from 'react-router-dom';
-import { CreateSpaceData, SpaceFormData } from '@customTypes/space';
+import { SpaceFormData, TestCaseIO } from '@customTypes/space';
 import TimeInputField from '@components/_common/molecules/TimeInputField';
 import dayjs, { Dayjs } from 'dayjs';
+import TestCase from '@components/_common/molecules/TestCase';
+import { v4 as uuidv4 } from 'uuid';
 import S from './style';
 
 interface SpaceCreateFormProps {
   initialValues?: SpaceFormData;
   description?: string;
-  onSubmit: (data: CreateSpaceData) => void;
+  onSubmit: (spaceFormData: SpaceFormData, testCases: TestCaseIO[]) => void;
 }
 
 export default function SpaceCreateForm({ initialValues, description, onSubmit }: SpaceCreateFormProps) {
   const { error } = useToastStore();
   const navigate = useNavigate();
   const [content, setContent] = useState(description || '');
-  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
+  const [selectedTime, setSelectedTime] = useState<Dayjs>(dayjs().set('hour', 1).set('minute', 0));
   const { formData, register, registerSelect, hasErrors } = useForm({
-    initialValues: initialValues || {
+    initialValues: initialValues ?? {
       name: '',
-      codingTime: '',
       referenceUrl: '',
       totalUserCount: [],
-      languages: [],
+      language: [],
     },
   });
+  const [localTestCases, setLocalTestCases] = useState([]);
+
+  const handleAddTestCase = () => {
+    setLocalTestCases((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
+  };
+
+  const handleRemoveTestCase = (id: string | number) => {
+    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.id !== id));
+  };
+
+  const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
+    setLocalTestCases((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
+  };
 
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault();
@@ -40,20 +54,18 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
       return error('스페이스 정보를 확인해주세요.');
     }
 
-    const createSpaceData: CreateSpaceData = {
-      studyId: 1,
-      codingSpace: {
-        name: formData.name,
-        codingTime: formData.codingTime,
-        referenceUrl: formData.referenceUrl,
-        totalUserCount: Number(formData.totalUserCount[0]),
-        languages: formData.languages.join(','),
-        description: content,
-      },
-      testCases: [],
+    const spaceFormData: SpaceFormData = {
+      name: formData.name,
+      codingTime: selectedTime.format('HH:mm'),
+      referenceUrl: formData.referenceUrl,
+      totalUserCount: formData.totalUserCount[0],
+      language: formData.language,
+      description: content,
     };
 
-    onSubmit(createSpaceData);
+    const testCases: TestCaseIO[] = localTestCases.map(({ input, output }) => ({ input, output }));
+
+    onSubmit(spaceFormData, testCases);
   };
 
   return (
@@ -106,6 +118,14 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
           onChange={setContent}
         />
       </S.Section>
+
+      <TestCase
+        testCases={localTestCases}
+        handleInputChange={handleInputChange}
+        handleRemoveTestCase={handleRemoveTestCase}
+        handleAddTestCase={handleAddTestCase}
+        isEditable
+      />
 
       <S.ButtonWrapper>
         <Button
