@@ -9,7 +9,7 @@ export default function useCreateSpace() {
   const createSpaceMutate = useMutation({
     mutationFn: spaceApi.create,
     onSuccess: ({ codingSpaceId }) => {
-      navigate(ROUTES.SPACE.WAITING({ spaceId: codingSpaceId }));
+      navigate(ROUTES.SPACE.DETAIL({ spaceId: codingSpaceId }));
     },
   });
 
