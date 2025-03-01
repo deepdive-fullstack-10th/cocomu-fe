@@ -5,8 +5,6 @@ export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETE
 
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
-export type Language = 'python' | 'java' | 'javascript' | 'c';
-
 export interface SpaceData {
   id: number;
   joinedSpace: boolean;
@@ -24,7 +22,8 @@ export interface SpaceFormData extends Record<string, string | string[]> {
   codingTime: string;
   referenceUrl: string;
   totalUserCount: string[];
-  languages: string[];
+  language: string[];
+  description: string;
 }
 
 export interface TestCaseIO {
@@ -40,7 +39,7 @@ export interface TestCaseData extends TestCaseIO {
 export interface SpaceOutletProps {
   id?: string;
   studyId?: string;
-  language?: Language;
+  language?: string;
   totalUserCount?: number;
   setTabInfo?: Dispatch<SetStateAction<{ code: string; id: string }>>;
   setInput?: Dispatch<SetStateAction<string>>;
@@ -56,19 +55,21 @@ export interface SpaceDetail {
   testCase: TestCaseData[];
   id?: string;
   studyId?: string;
-  language?: Language;
+  language?: string;
   totalUserCount?: number;
+}
+
+export interface CreateSpaceFormData extends Record<string, string | number> {
+  name: string;
+  codingTime: string;
+  referenceUrl: string;
+  totalUserCount: number;
+  language: string;
+  description: string;
 }
 
 export interface CreateSpaceData {
   studyId: number;
-  codingSpace: {
-    name: string;
-    codingTime: string;
-    referenceUrl: string;
-    totalUserCount: number;
-    languages: string;
-    description: string;
-  };
+  codingSpace: CreateSpaceFormData;
   testCases: TestCaseIO[];
 }
