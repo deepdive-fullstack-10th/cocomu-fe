@@ -1,27 +1,27 @@
 import { useModalStore } from '@stores/useModalStore';
-import { useTestcaseUpdate } from '@hooks/useTestcase';
 import { useSpaceStart } from '@hooks/useSpace';
 import { useTabRun, useCodeSubmit } from '@hooks/useIDE';
+import { useTestCaseUpdate } from '@hooks/useTestCase';
 
-export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHandler) {
+export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestCaseSubmitHandler) {
   const { open } = useModalStore();
 
-  const testcaseOpenHandler = () => {
+  const testCaseOpenHandler = () => {
     open('testCase', {
       status: testCaseStatus,
       testCases: testCaseList,
       setTestCaseList,
-      onSubmit: TestcaseSubmitHandler,
+      onSubmit: TestCaseSubmitHandler,
     });
   };
 
-  return { testcaseOpenHandler };
+  return { testCaseOpenHandler };
 }
 
 export function useTestCaseSubmit(spaceId, testCaseList, setTestCaseList) {
-  const { testCaseUpdateMutate } = useTestcaseUpdate();
+  const { testCaseUpdateMutate } = useTestCaseUpdate();
 
-  const TestcaseSubmitHandler = async () => {
+  const TestCaseSubmitHandler = async () => {
     const filteredTestCases = testCaseList
       ?.filter((testCase) => testCase.type !== 'BASE')
       .map(({ input, output }) => ({ input, output }));
@@ -31,7 +31,7 @@ export function useTestCaseSubmit(spaceId, testCaseList, setTestCaseList) {
     setTestCaseList(FetchTestCaseList);
   };
 
-  return { TestcaseSubmitHandler };
+  return { TestCaseSubmitHandler };
 }
 
 export function useSpaceStatusHandler(spaceId, studyId, status) {

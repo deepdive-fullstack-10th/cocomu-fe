@@ -1,26 +1,24 @@
 import { BsDash } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import { TestCaseItem } from '@customTypes/space';
+import { TestCaseData } from '@customTypes/space';
 import S from './style';
 
 interface TestCaseItemProps {
-  testCase?: TestCaseItem;
-  edit?: boolean;
-  disabled?: boolean;
+  testCase?: TestCaseData;
+  isEditable?: boolean;
   handleRemoveTestCase?: (id: string | number) => void;
   handleInputChange?: (id: string | number, field: 'input' | 'output', newValue: string) => void;
 }
 
 export default function TestCaseItem({
   testCase,
-  edit,
+  isEditable,
   handleRemoveTestCase,
   handleInputChange,
-  disabled,
 }: TestCaseItemProps) {
   return (
     <S.TestCaseItem>
-      {edit && (
+      {isEditable && (
         <S.RemoveButton>
           <Icon
             size='md'
@@ -34,13 +32,13 @@ export default function TestCaseItem({
       <S.Input
         value={testCase.input}
         onChange={(e) => handleInputChange(testCase.id, 'input', e.target.value)}
-        disabled={disabled}
-        remove={edit}
+        disabled={!isEditable}
+        remove={isEditable}
       />
       <S.Output
         value={testCase.output}
         onChange={(e) => handleInputChange(testCase.id, 'output', e.target.value)}
-        disabled={disabled}
+        disabled={!isEditable}
       />
     </S.TestCaseItem>
   );
