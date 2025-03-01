@@ -15,6 +15,7 @@ const DropdownList = styled.div<DropdownListStyleProps>`
   position: absolute;
   top: 107%;
   left: 0%;
+  z-index: 1;
 
   width: 100%;
   max-height: 20rem;
