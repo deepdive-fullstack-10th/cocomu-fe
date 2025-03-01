@@ -61,7 +61,7 @@ export interface SpaceDetail {
 
 export interface CreateSpaceFormData extends Record<string, string | number> {
   name: string;
-  codingTime: string;
+  codingTime: number;
   referenceUrl: string;
   totalUserCount: number;
   language: string;
