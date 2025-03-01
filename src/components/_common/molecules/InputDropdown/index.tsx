@@ -83,7 +83,7 @@ export default function InputDropdown<T extends readonly string[]>({
           <S.Input
             type='text'
             placeholder={values.length > 0 ? '' : description}
-            value={isMultiSelect ? search : values[0]}
+            value={isMultiSelect ? search : (values[0] ?? '')}
             onChange={(e) => isMultiSelect && setSearch(e.target.value)}
             disabled={!isMultiSelect}
           />
