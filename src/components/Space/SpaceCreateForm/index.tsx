@@ -10,6 +10,7 @@ import { useToastStore } from '@stores/useToastStore';
 import { useNavigate } from 'react-router-dom';
 import { CreateSpaceData, SpaceFormData } from '@customTypes/space';
 import TimeInputField from '@components/_common/molecules/TimeInputField';
+import dayjs, { Dayjs } from 'dayjs';
 import S from './style';
 
 interface SpaceCreateFormProps {
@@ -22,6 +23,7 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
   const { error } = useToastStore();
   const navigate = useNavigate();
   const [content, setContent] = useState(description || '');
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues || {
       name: '',
@@ -56,7 +58,6 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
 
   return (
     <S.Container onSubmit={(e) => handleSubmit(e)}>
-      <TimeInputField />
       <S.Section>
         <S.Header>
           <StepMarker step={1} />
@@ -68,6 +69,11 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
             description='2명 ~ 4명 이하'
             items={SPACE_MEMBER_OPTIONS}
             {...registerSelect('totalUserCount')}
+          />
+          <TimeInputField
+            label='스페이스 문제 풀이 제한시간'
+            value={selectedTime}
+            onChange={setSelectedTime}
           />
           <InputDropdown
             label='스페이스 사용 언어'
