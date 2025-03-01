@@ -1,7 +1,7 @@
 import { authHandlers } from './auth';
 import { studyHandlers } from './study';
 import { testCaseHandlers } from './testCase';
-import { spaceDetailHandlers, spaceStartHandlers, tabDataHandlers } from './space';
+import { spaceDetailHandlers, spaceHandlers, spaceStartHandlers, tabDataHandlers } from './space';
 import { ideRunHandlers, ideSubmitHandler } from './ide';
 
 export const handlers = [
@@ -13,4 +13,5 @@ export const handlers = [
   ...testCaseHandlers,
   ...ideRunHandlers,
   ...ideSubmitHandler,
+  ...spaceHandlers,
 ];
