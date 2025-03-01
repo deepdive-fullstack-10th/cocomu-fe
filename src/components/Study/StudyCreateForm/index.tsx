@@ -36,7 +36,7 @@ export default function StudyCreateForm({
 }: StudyCreateFormProps) {
   const { error } = useToastStore();
   const navigate = useNavigate();
-  const [content, setContent] = useState(description);
+  const [content, setContent] = useState(description || '');
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues || {
       name: '',
