@@ -1,6 +1,7 @@
 import SpaceCreateForm from '@components/Space/SpaceCreateForm';
 import { CreateSpaceData, SpaceFormData, TestCaseIO } from '@customTypes/space';
 import useCreateSpace from '@hooks/useCreateSpace';
+import { convertTimeToMinutes } from '@utils/convertTime';
 import { useParams } from 'react-router-dom';
 
 export default function SpaceCreate() {
@@ -12,7 +13,7 @@ export default function SpaceCreate() {
       studyId: Number(studyId),
       codingSpace: {
         name: spaceFormData.name,
-        codingTime: spaceFormData.codingTime,
+        codingTime: convertTimeToMinutes(spaceFormData.codingTime),
         referenceUrl: spaceFormData.referenceUrl,
         totalUserCount: Number(spaceFormData.totalUserCount[0]),
         language: spaceFormData.language[0],
