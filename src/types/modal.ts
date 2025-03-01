@@ -1,10 +1,9 @@
 import ConfirmModal from '@components/Modal/Confirm';
 import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
-import TestCaseModal from '@components/Modal/TestCase/TestCaseModal';
 import Waiting from '@components/Modal/Waiting';
-import { Dispatch, SetStateAction } from 'react';
-import { TestCaseItem, TestCaseStatusData } from './space';
+import TestCaseModal from '@components/Modal/TestCase/TestCaseModal';
+import { TestCaseData } from './space';
 
 export interface WaitingProps {
   label?: string;
@@ -30,11 +29,9 @@ export interface LoginProps {
 }
 
 export interface TestCaseProps {
-  status?: TestCaseStatusData;
+  isEditable?: boolean;
+  testCases?: TestCaseData[];
   onClose?: () => void;
-  onSubmit?: () => void;
-  setTestCaseList?: Dispatch<SetStateAction<TestCaseItem[]>>;
-  testCases?: TestCaseItem[];
 }
 
 interface ModalConfig<T> {

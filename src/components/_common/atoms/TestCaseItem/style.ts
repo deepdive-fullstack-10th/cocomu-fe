@@ -6,33 +6,43 @@ const TestCaseItem = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  width: 100%;
 `;
 
 const Input = styled.input<{ remove?: boolean }>`
-  width: 43.3rem;
-  padding: 0.6rem ${({ remove }) => (remove ? '4rem' : '2.4rem')};
-
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[900]};
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   border-radius: 0.8rem;
 
-  ${({ theme }) => theme.font.common.default};
-  color: ${({ theme }) => theme.color.gray[900]};
+  width: 80%;
+  padding: 0.6rem ${({ remove }) => (remove ? '4rem' : '2.4rem')};
+  outline: none;
+
+  &:focus {
+    border-color: ${({ theme }) => theme.color.primary[400]};
+  }
 `;
 
 const Output = styled.input`
-  width: 25.6rem;
-  padding: 0.6rem 2.4rem;
-
+  ${({ theme }) => theme.font.common.default};
+  color: ${({ theme }) => theme.color.gray[900]};
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   border-radius: 0.8rem;
 
-  ${({ theme }) => theme.font.common.default};
-  color: ${({ theme }) => theme.color.gray[900]};
+  width: 50%;
+  padding: 0.6rem 2.4rem;
+  outline: none;
+
+  &:focus {
+    border-color: ${({ theme }) => theme.color.primary[400]};
+  }
 `;
 
 const RemoveButton = styled.button`
   position: absolute;
-  left: 2%;
+  left: 1.5%;
 `;
 
 const S = {

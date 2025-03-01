@@ -19,7 +19,7 @@ export default function SpaceDetail() {
   const [spaceData, setSpacedata] = useState<SpaceDetail>();
   const [timer, settimer] = useState<number>(0);
   const [navButton, setNavbutton] = useState<string>(SPACE_NAV_BUTTON[0]);
-  const [testCaseStatus, setTestcaseStatus] = useState<string>('DEFAULT');
+  const [testCaseStatus, setTestCaseStatus] = useState<string>('DEFAULT');
   const [testCaseList, setTestCaseList] = useState([]);
   const [outletProps, setOutletProps] = useState<SpaceOutletProps>();
   const [tabInfo, setTabInfo] = useState({
@@ -31,8 +31,8 @@ export default function SpaceDetail() {
   const { spaceId } = useParams();
   const { data, refetch } = useSpaceDetail({ spaceId });
 
-  const { TestcaseSubmitHandler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
-  const { testcaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestcaseSubmitHandler);
+  const { TestCaseSubmitHandler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
+  const { testCaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestCaseSubmitHandler);
   const { spaceStartHandler } = useSpaceStatusHandler(spaceId, spaceData?.studyId, spaceData?.status);
   const { codeRun } = useCodeRun(tabInfo, input, spaceData?.language);
   const { codeSubmit } = useCodeSubmitHandler(tabInfo, spaceData?.language, testCaseList);
@@ -57,27 +57,27 @@ export default function SpaceDetail() {
     switch (spaceData?.status) {
       case '대기':
         setNavbutton(SPACE_NAV_BUTTON[0]);
-        setTestcaseStatus('DEFAULT');
+        setTestCaseStatus('DEFAULT');
         setOutletProps({ totalUserCount: spaceData?.totalUserCount });
         break;
       case '진행':
         setNavbutton(SPACE_NAV_BUTTON[1]);
-        setTestcaseStatus('CUSTOM');
+        setTestCaseStatus('CUSTOM');
         setOutletProps({ language: spaceData?.language, id: spaceData?.id, setTabInfo, setInput });
         navigate(ROUTES.SPACE.RUNNING({ spaceId }));
         break;
       case '피드백':
         setNavbutton(SPACE_NAV_BUTTON[2]);
-        setTestcaseStatus('CUSTOM');
+        setTestCaseStatus('CUSTOM');
         navigate(ROUTES.SPACE.FEEDBACK({ spaceId }));
         break;
       case '종료':
         setNavbutton(SPACE_NAV_BUTTON[3]);
-        setTestcaseStatus('DEFAULT');
+        setTestCaseStatus('DEFAULT');
         break;
       default:
         setNavbutton(SPACE_NAV_BUTTON[0]);
-        setTestcaseStatus('DEFAULT');
+        setTestCaseStatus('DEFAULT');
         break;
     }
   }, [data, spaceData, spaceId, refetch, navigate]);
@@ -134,7 +134,7 @@ export default function SpaceDetail() {
               content='테스트 케이스 추가하기'
               align='center'
               shape='round'
-              onClick={testcaseOpenHandler}
+              onClick={testCaseOpenHandler}
             >
               <BsPlus />
             </IconButton>
@@ -143,7 +143,7 @@ export default function SpaceDetail() {
               content='테스트 케이스 확인하기'
               align='center'
               shape='round'
-              onClick={testcaseOpenHandler}
+              onClick={testCaseOpenHandler}
             />
           )}
         </S.FooterItem>

@@ -3,9 +3,7 @@ import { UserData } from './user';
 
 export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETED';
 
-export type TestCaseItemType = 'BASE' | 'CUSTOM';
-
-export type TestCaseStatusData = 'DEFAULT' | 'CUSTOM';
+export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export type Language = 'python' | 'java' | 'javascript' | 'c';
 
@@ -34,9 +32,9 @@ export interface TestCaseIO {
   output?: string;
 }
 
-export interface TestCaseItem extends TestCaseIO {
+export interface TestCaseData extends TestCaseIO {
   id?: number | string;
-  type?: TestCaseItemType;
+  type?: TestCaseType;
 }
 
 export interface SpaceOutletProps {
@@ -55,7 +53,7 @@ export interface SpaceDetail {
   name: string;
   referenceUrl: string;
   status: string;
-  testCase: TestCaseItem[];
+  testCase: TestCaseData[];
   id?: string;
   studyId?: string;
   language?: Language;

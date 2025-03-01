@@ -10,21 +10,7 @@ const Header = styled.div`
 `;
 
 const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
-
-const Description = styled.p`
-  ${({ theme }) => theme.font.common.defaultAccent};
-  color: ${({ theme }) => theme.color.gray[900]};
-`;
-
-const ItemWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-
+  width: 70rem;
   max-height: 16rem;
   overflow: auto;
   scrollbar-width: none;
@@ -48,8 +34,6 @@ const S = {
   Container,
   Header,
   Body,
-  Description,
-  ItemWrapper,
   Footer,
 };
 

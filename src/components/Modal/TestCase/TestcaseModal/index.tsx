@@ -1,19 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { TestCaseProps } from '@customTypes/modal';
 import Button from '@components/_common/atoms/Button';
-import IconButtton from '@components/_common/atoms/IconButton';
-import { BsPlus, BsX } from 'react-icons/bs';
+import { BsX } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import TestCaseItem from '../TestCaseItem';
+import TestCase from '@components/_common/molecules/TestCase';
 import S from './style';
 
-export default function TestCaseModal({ status, testCases, onClose, onSubmit, setTestCaseList }: TestCaseProps) {
+export default function TestCaseModal({ isEditable, testCases, onClose }: TestCaseProps) {
   const [localTestCases, setLocalTestCases] = useState(testCases);
-
-  useEffect(() => {
-    setLocalTestCases(testCases);
-  }, [testCases]);
 
   const handleAddTestCase = () => {
     setLocalTestCases((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
@@ -28,8 +23,6 @@ export default function TestCaseModal({ status, testCases, onClose, onSubmit, se
   };
 
   const onSubmitTestCaseUpdate = async () => {
-    setTestCaseList(localTestCases);
-    onSubmit();
     onClose();
   };
 
@@ -46,28 +39,13 @@ export default function TestCaseModal({ status, testCases, onClose, onSubmit, se
       </S.Header>
 
       <S.Body>
-        <S.Description>테스트 케이스</S.Description>
-        <S.ItemWrapper>
-          {localTestCases.map((testCase) => (
-            <TestCaseItem
-              handleInputChange={handleInputChange}
-              handleRemoveTestCase={handleRemoveTestCase}
-              edit={testCase.type === 'CUSTOM' && status === 'CUSTOM'}
-              disabled={status === 'DEFAULT' || testCase.type === 'BASE'}
-              testCase={testCase}
-              key={testCase.id}
-            />
-          ))}
-          {status === 'CUSTOM' && (
-            <IconButtton
-              align='center'
-              content='추가하기'
-              onClick={handleAddTestCase}
-            >
-              <BsPlus />
-            </IconButtton>
-          )}
-        </S.ItemWrapper>
+        <TestCase
+          testCases={localTestCases}
+          handleInputChange={handleInputChange}
+          handleRemoveTestCase={handleRemoveTestCase}
+          handleAddTestCase={handleAddTestCase}
+          isEditable={isEditable}
+        />
       </S.Body>
 
       <S.Footer>
@@ -78,7 +56,7 @@ export default function TestCaseModal({ status, testCases, onClose, onSubmit, se
         >
           닫기
         </Button>
-        {status === 'CUSTOM' && (
+        {isEditable && (
           <Button
             size='sm'
             color='primary'
