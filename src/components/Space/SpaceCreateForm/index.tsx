@@ -13,6 +13,12 @@ import TimeInputField from '@components/_common/molecules/TimeInputField';
 import dayjs, { Dayjs } from 'dayjs';
 import TestCase from '@components/_common/molecules/TestCase';
 import { v4 as uuidv4 } from 'uuid';
+import {
+  validateLanguage,
+  validateName,
+  validateReferenceUrl,
+  validateTotalUserCount,
+} from '@utils/validators/spaceValidators';
 import S from './style';
 
 interface SpaceCreateFormProps {
@@ -80,7 +86,7 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
             label='스페이스 인원'
             description='2명 ~ 4명 이하'
             items={SPACE_MEMBER_OPTIONS}
-            {...registerSelect('totalUserCount')}
+            {...registerSelect('totalUserCount', { validate: validateTotalUserCount })}
           />
           <TimeInputField
             label='스페이스 문제 풀이 제한시간'
@@ -91,12 +97,12 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
             label='스페이스 사용 언어'
             description='사용 언어'
             items={PROGRAMMING_LANGUAGES}
-            {...registerSelect('languages')}
+            {...registerSelect('language', { validate: validateLanguage })}
           />
           <InputField
             label='문제 출처'
             description='링크'
-            {...register('referenceUrl')}
+            {...register('referenceUrl', { validate: { onBlur: validateReferenceUrl.onBlur } })}
           />
         </S.InputWrapper>
       </S.Section>
@@ -109,7 +115,7 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
         <InputField
           label='문제 제목'
           description='문제 제목을 입력해주세요'
-          {...register('name')}
+          {...register('name', { validate: { onBlur: validateName.onBlur } })}
         />
         <TextEditor
           label='문제 내용'
