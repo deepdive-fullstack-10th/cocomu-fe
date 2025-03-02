@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction } from 'react';
 import { UserData } from './user';
 
 export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETED';
-
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export interface SpaceData {
@@ -46,17 +45,17 @@ export interface SpaceOutletProps {
 }
 
 export interface SpaceDetail {
-  codingTime: number;
-  description: string;
-  hasLeaderRole: boolean;
-  name: string;
-  referenceUrl: string;
-  status: string;
-  testCase: TestCaseData[];
   id?: string;
   studyId?: string;
+  name: string;
+  description: string;
+  referenceUrl: string;
   language?: string;
   totalUserCount?: number;
+  codingTime: number;
+  status: string;
+  hasLeaderRole: boolean;
+  testCase: TestCaseData[];
 }
 
 export interface CreateSpaceFormData extends Record<string, string | number> {

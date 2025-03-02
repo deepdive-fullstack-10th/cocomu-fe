@@ -1,15 +1,15 @@
 import { ComponentProps, useState } from 'react';
 import { BsEyeSlash, BsEye } from 'react-icons/bs';
+
 import Icon from '@components/_common/atoms/Icon';
 import S from './style';
 
 interface InputFieldProps extends ComponentProps<'input'> {
   label?: string;
-  description?: string;
   error?: string;
 }
 
-export default function InputField({ type = 'text', label, description, error, ...props }: InputFieldProps) {
+export default function InputField({ type = 'text', label, error, ...props }: InputFieldProps) {
   const [isVisible, setIsVisible] = useState(type !== 'password');
 
   const toggleVisibility = () => {
@@ -23,10 +23,10 @@ export default function InputField({ type = 'text', label, description, error, .
       <S.InputWrapper>
         <S.Input
           type={isVisible ? 'text' : type}
-          placeholder={description}
           isError={!!error}
           {...props}
         />
+
         {type === 'password' && props.value && (
           <S.Icon>
             <Icon

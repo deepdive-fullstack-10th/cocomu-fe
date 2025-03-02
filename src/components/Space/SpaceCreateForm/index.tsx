@@ -106,8 +106,7 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
           />
           <InputField
             label='문제 출처'
-            description='링크'
-            {...register('referenceUrl', { validate: { onBlur: validateReferenceUrl.onBlur } })}
+            {...register('referenceUrl', { validate: { onBlur: validateReferenceUrl.onBlur }, placeholder: '링크' })}
           />
         </S.InputWrapper>
       </S.Section>
@@ -119,8 +118,7 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
         />
         <InputField
           label='문제 제목'
-          description='문제 제목을 입력해주세요'
-          {...register('name', { validate: { onBlur: validateName.onBlur } })}
+          {...register('name', { validate: { onBlur: validateName.onBlur }, placeholder: '문제 제목을 입력해주세요' })}
         />
         <TextEditor
           label='문제 내용'
