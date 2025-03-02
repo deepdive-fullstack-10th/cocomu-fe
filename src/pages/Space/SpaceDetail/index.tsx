@@ -102,54 +102,22 @@ export default function SpaceDetail() {
             <div>{spaceData?.referenceUrl}</div>
           </S.ReferenceContainer>
         </S.ProblemDescription>
+
         <S.ResizablePanel>
           <S.ResizeButton onMouseDown={handleMouseDown} />
         </S.ResizablePanel>
+
         <S.RightContent width={100 - width}>
           <Outlet context={outletProps} />
         </S.RightContent>
       </S.MainContent>
-      <S.Footer>
-        <S.FooterItem>
-          {['진행', '피드백'].includes(spaceData?.status) ? (
-            <IconButton
-              content='테스트 케이스 추가하기'
-              align='center'
-              shape='round'
-              onClick={testCaseOpenHandler}
-            >
-              <BsPlus />
-            </IconButton>
-          ) : (
-            <IconButton
-              content='테스트 케이스 확인하기'
-              align='center'
-              shape='round'
-              onClick={testCaseOpenHandler}
-            />
-          )}
-        </S.FooterItem>
-        {['진행', '피드백'].includes(spaceData?.status) && (
-          <S.FooterItem>
-            <Button
-              size='md'
-              color='analogous'
-              onClick={codeRun}
-            >
-              코드 실행
-            </Button>
-            {spaceData?.status === '진행' && (
-              <Button
-                size='md'
-                color='primary'
-                onClick={codeSubmit}
-              >
-                제출하기
-              </Button>
-            )}
-          </S.FooterItem>
-        )}
-      </S.Footer>
+
+      <SpaceFooter
+        status={data.codingSpace.status}
+        testCases={data.codingSpace.testCase}
+        onCodeRun={codeRun}
+        onCodeSubmit={codeSubmit}
+      />
     </S.PageContainer>
   );
 }
