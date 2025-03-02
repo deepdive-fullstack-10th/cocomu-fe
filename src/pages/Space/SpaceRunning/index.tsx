@@ -1,19 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { useDraggable } from '@hooks/utils/useDraggable';
 import { SpaceOutletProps } from '@customTypes/space';
-import { useTabData } from '@hooks/useSpace';
+import useGetAllTabs from '@hooks/space/useGetAllTabs';
 import Tab from '@components/_common/atoms/Tab';
 import MonacoEditor from '@monaco-editor/react';
-import { DEFAULT_CODE } from '@constants/constants';
+import { DEFAULT_CODE } from '@constants/space';
 import SpaceRunner from '../SpaceRunner';
 import S from './style';
 
-export default function SpaceStart() {
+export default function SpaceRunning() {
   const outletData = useOutletContext<SpaceOutletProps>();
-  const { data } = useTabData({ codingSpaceId: outletData?.id });
+  const { data } = useGetAllTabs(outletData?.id);
 
-  const [code, setCode] = useState<string>(data?.tab?.code);
+  const tabId = data?.tab?.id;
+  const tabCode = data?.tab?.code || DEFAULT_CODE[outletData?.language?.toLowerCase()] || '';
+
+  const [code, setCode] = useState<string>(tabCode);
+
+  useEffect(() => {
+    if (tabId) {
+      outletData?.setTabInfo((prev) => ({ ...prev, id: tabId }));
+    }
+  }, [tabId]);
+
+  const onChangeCode = (value) => {
+    setCode(value);
+    outletData?.setTabInfo((prev) => ({ ...prev, code: value }));
+  };
 
   const {
     value: height,
@@ -26,36 +40,6 @@ export default function SpaceStart() {
     max: 90,
     threshold: 5,
   });
-
-  useEffect(() => {
-    outletData?.setTabInfo((prev) => ({ ...prev, id: data?.tab?.id }));
-    if (data?.tab?.code === '' || data?.tab?.code === undefined) {
-      switch (outletData?.language?.toLocaleLowerCase()) {
-        case 'python':
-          setCode(DEFAULT_CODE.python);
-          break;
-        case 'java':
-          setCode(DEFAULT_CODE.java);
-          break;
-        case 'javascript':
-          setCode(DEFAULT_CODE.javascript);
-          break;
-        case 'c':
-          setCode(DEFAULT_CODE.c);
-          break;
-        default:
-          setCode('');
-          break;
-      }
-    } else {
-      setCode(data?.tab?.code);
-    }
-  }, [outletData, data]);
-
-  const onChangeCode = (value) => {
-    setCode(value);
-    outletData?.setTabInfo((prev) => ({ ...prev, code: value }));
-  };
 
   return (
     <S.Container ref={containerRef}>
