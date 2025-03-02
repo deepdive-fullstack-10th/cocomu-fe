@@ -5,7 +5,8 @@ const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  height: 90vh;
+  width: 100%;
+  height: 100%;
 `;
 
 const S = {
