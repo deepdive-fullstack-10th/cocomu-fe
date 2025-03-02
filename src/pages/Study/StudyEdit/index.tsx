@@ -1,8 +1,8 @@
 import StudyCreateForm from '@components/Study/StudyCreateForm';
 import { ACCESS_STATUS, ACCESS_STATUS_MAP } from '@constants/constants';
 import { CreateStudyData, StudyFormData } from '@customTypes/study';
-import useEditStudy from '@hooks/useEditStudy';
-import useGetStudyInfo from '@hooks/useGetStudyInfo';
+import useEditStudy from '@hooks/study/useEditStudy';
+import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 import Loading from '@pages/Loading';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';

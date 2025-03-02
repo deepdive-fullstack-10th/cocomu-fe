@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
-import useGetStudyList from '@hooks/useGetStudyList';
+import useGetStudyList from '@hooks/study/useGetStudyList';
 import FilterTab from './FilterTab';
 import * as S from './style';
 

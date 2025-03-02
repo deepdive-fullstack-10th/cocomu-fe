@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StudyCreateForm from '@components/Study/StudyCreateForm';
 import { CreateStudyData } from '@customTypes/study';
-import useCreateStudy from '@hooks/useCreateStudy';
+import useCreateStudy from '@hooks/study/useCreateStudy';
 import { ACCESS_STATUS } from '@constants/constants';
 
 export default function StudyCreate() {
