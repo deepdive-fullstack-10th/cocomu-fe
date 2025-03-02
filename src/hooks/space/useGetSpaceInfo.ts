@@ -7,6 +7,6 @@ export default function useGetSpaceInfo(codingSpaceId: string) {
   return useQuery({
     queryKey: [QUERY_KEYS.SPACE_DETAIL, codingSpaceId],
     queryFn: () => spaceApi.getInfo(codingSpaceId),
-    enabled: Boolean(codingSpaceId),
+    enabled: !!codingSpaceId,
   });
 }

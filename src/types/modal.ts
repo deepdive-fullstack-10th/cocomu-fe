@@ -2,7 +2,7 @@ import ConfirmModal from '@components/Modal/Confirm';
 import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
-import TestCaseModal from '@components/Modal/TestCase/TestCaseModal';
+import TestCaseModal from '@components/Modal/TestCase';
 import { TestCaseData } from './space';
 
 export interface WaitingProps {
