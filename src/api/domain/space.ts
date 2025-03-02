@@ -15,10 +15,10 @@ const spaceApi = {
     return data.result;
   },
 
-  start: async ({ spaceId, studyId }: { spaceId: string; studyId: string }) => {
-    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(spaceId), { studyId });
+  start: async ({ codingSpaceId, studyId }: { codingSpaceId: string; studyId: string }) => {
+    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), { studyId });
 
-    return spaceId;
+    return codingSpaceId;
   },
 
   tab: async (codingSpaceId: string) => {

@@ -1,4 +1,4 @@
-import spaceApi from '@api/domain/codingSpace';
+import spaceApi from '@api/domain/space';
 import { ROUTES } from '@constants/path';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ export default function useCreateSpace() {
   const createSpaceMutate = useMutation({
     mutationFn: spaceApi.create,
     onSuccess: ({ codingSpaceId }) => {
-      navigate(ROUTES.SPACE.DETAIL({ spaceId: codingSpaceId }));
+      navigate(ROUTES.SPACE.DETAIL({ codingSpaceId }));
     },
   });
 

@@ -27,9 +27,9 @@ export const spaceDetailHandlers = [
 ];
 
 export const spaceStartHandlers = [
-  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.START(':spaceId')}`, async ({ params, request }) => {
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.START(':codingSpaceId')}`, async ({ params, request }) => {
     const body = (await request.json()) as { studyId?: string };
-    const spaceId = params.spaceId as string;
+    const codingSpaceId = params.codingSpaceId as string;
 
     if (!body.studyId) {
       return new HttpResponse(JSON.stringify(spaceStartErrorResponse), {
@@ -40,7 +40,7 @@ export const spaceStartHandlers = [
     return new HttpResponse(
       JSON.stringify({
         ...spaceStartSuccessResponse,
-        result: { spaceId, studyId: body.studyId },
+        result: { codingSpaceId, studyId: body.studyId },
       }),
       {
         status: HTTP_STATUS_CODE.SUCCESS,

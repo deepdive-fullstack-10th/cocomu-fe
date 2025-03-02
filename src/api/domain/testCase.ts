@@ -3,8 +3,8 @@ import { END_POINTS_V1 } from '@constants/api';
 import { testCaseList } from '@customTypes/testCase';
 
 const testCaseApi = {
-  updateTestCase: async ({ spaceId, testCase }: { spaceId: string; testCase: testCaseList }) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.TEST_CASE_UPDATE(spaceId), { testCase });
+  updateTestCase: async ({ codingSpaceId, testCase }: { codingSpaceId: string; testCase: testCaseList }) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.TEST_CASE_UPDATE(codingSpaceId), { testCase });
 
     return data.result.testCases;
   },

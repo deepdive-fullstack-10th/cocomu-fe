@@ -98,7 +98,7 @@ export const spaceStartSuccessResponse = {
   code: 1200,
   message: '스페이스 시작에 성공했습니다.',
   result: {
-    spaceId: '1',
+    codingSpaceId: '1',
   },
 };
 

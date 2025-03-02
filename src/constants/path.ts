@@ -13,11 +13,11 @@ export const PATH = {
     SPACE_LIST: 'spaces',
   },
   SPACE: {
-    DETAIL: '/space/:spaceId',
+    DETAIL: '/space/:codingSpaceId',
     CREATE: '/space/:studyId/create',
-    WAITING: '/space/:spaceId/wait',
-    RUNNING: '/space/:spaceId/running',
-    FEEDBACK: '/space/:spaceId/feedback',
+    WAITING: '/space/:codingSpaceId/wait',
+    RUNNING: '/space/:codingSpaceId/running',
+    FEEDBACK: '/space/:codingSpaceId/feedback',
   },
   MYPAGE: '/mypage/:userId',
 };
@@ -37,11 +37,11 @@ export const ROUTES = {
       generatePath(`${PATH.STUDY.DETAIL}/${PATH.STUDY.SPACE_LIST}`, { studyId }),
   },
   SPACE: {
-    DETAIL: ({ spaceId }: { spaceId: string }) => generatePath(PATH.SPACE.DETAIL, { spaceId }),
+    DETAIL: ({ codingSpaceId }: { codingSpaceId: string }) => generatePath(PATH.SPACE.DETAIL, { codingSpaceId }),
     CREATE: ({ studyId }: { studyId: string }) => generatePath(PATH.SPACE.CREATE, { studyId }),
-    WAITING: ({ spaceId }: { spaceId: string }) => generatePath(PATH.SPACE.WAITING, { spaceId }),
-    RUNNING: ({ spaceId }: { spaceId: string }) => generatePath(PATH.SPACE.RUNNING, { spaceId }),
-    FEEDBACK: ({ spaceId }: { spaceId: string }) => generatePath(PATH.SPACE.FEEDBACK, { spaceId }),
+    WAITING: ({ codingSpaceId }: { codingSpaceId: string }) => generatePath(PATH.SPACE.WAITING, { codingSpaceId }),
+    RUNNING: ({ codingSpaceId }: { codingSpaceId: string }) => generatePath(PATH.SPACE.RUNNING, { codingSpaceId }),
+    FEEDBACK: ({ codingSpaceId }: { codingSpaceId: string }) => generatePath(PATH.SPACE.FEEDBACK, { codingSpaceId }),
   },
   MYPAGE: ({ userId }: { userId: string }) => generatePath(PATH.MYPAGE, { userId }),
 };

@@ -11,7 +11,7 @@ import S from './style';
 
 export default function SpaceStart() {
   const outletData = useOutletContext<SpaceOutletProps>();
-  const { data } = useTabData({ spaceId: outletData?.id });
+  const { data } = useTabData({ codingSpaceId: outletData?.id });
 
   const [code, setCode] = useState<string>(data?.tab?.code);
 

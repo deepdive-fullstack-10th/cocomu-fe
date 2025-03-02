@@ -28,12 +28,12 @@ export default function SpaceDetail() {
   });
   const [input, setInput] = useState<string>('');
 
-  const { spaceId } = useParams();
-  const { data, refetch } = useSpaceDetail({ spaceId });
+  const { codingSpaceId } = useParams();
+  const { data, refetch } = useSpaceDetail({ codingSpaceId });
 
-  const { TestCaseSubmitHandler } = useTestCaseSubmit(spaceId, testCaseList, setTestCaseList);
+  const { TestCaseSubmitHandler } = useTestCaseSubmit(codingSpaceId, testCaseList, setTestCaseList);
   const { testCaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestCaseSubmitHandler);
-  const { spaceStartHandler } = useSpaceStatusHandler(spaceId, spaceData?.studyId, spaceData?.status);
+  const { spaceStartHandler } = useSpaceStatusHandler(codingSpaceId, spaceData?.studyId, spaceData?.status);
   const { codeRun } = useCodeRun(tabInfo, input, spaceData?.language);
   const { codeSubmit } = useCodeSubmitHandler(tabInfo, spaceData?.language, testCaseList);
 
@@ -64,12 +64,12 @@ export default function SpaceDetail() {
         setNavbutton(SPACE_NAV_BUTTON[1]);
         setTestCaseStatus('CUSTOM');
         setOutletProps({ language: spaceData?.language, id: spaceData?.id, setTabInfo, setInput });
-        navigate(ROUTES.SPACE.RUNNING({ spaceId }));
+        navigate(ROUTES.SPACE.RUNNING({ codingSpaceId }));
         break;
       case '피드백':
         setNavbutton(SPACE_NAV_BUTTON[2]);
         setTestCaseStatus('CUSTOM');
-        navigate(ROUTES.SPACE.FEEDBACK({ spaceId }));
+        navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId }));
         break;
       case '종료':
         setNavbutton(SPACE_NAV_BUTTON[3]);
@@ -80,7 +80,7 @@ export default function SpaceDetail() {
         setTestCaseStatus('DEFAULT');
         break;
     }
-  }, [data, spaceData, spaceId, refetch, navigate]);
+  }, [data, spaceData, codingSpaceId, refetch, navigate]);
 
   return (
     <S.PageContainer>
