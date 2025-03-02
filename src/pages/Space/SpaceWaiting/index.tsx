@@ -29,8 +29,8 @@ const User = [
   },
 ];
 
-export default function SpaceReady() {
-  const outletData = useOutletContext<SpaceOutletProps>();
+export default function SpaceWaiting() {
+  const outletProps = useOutletContext<SpaceOutletProps>();
 
   const {
     value: height,
@@ -51,11 +51,13 @@ export default function SpaceReady() {
           users={User}
           size='lg'
         />
-        <S.UserCount>{`${User.length}${' '}/${' '}${outletData?.totalUserCount}`}</S.UserCount>
+        <S.UserCount>{`${User.length}${' '}/${' '}${outletProps.totalUserCount}`}</S.UserCount>
       </S.ActiveUsersContainer>
+
       <S.ResizablePanel>
         <S.ResizeButton onMouseDown={handleMouseDown} />
       </S.ResizablePanel>
+
       <S.RunnerContainer>
         <SpaceRunner />
       </S.RunnerContainer>
