@@ -1,3 +1,3 @@
-export default function SpaceFinish() {
-  return <div>SpaceFinish</div>;
+export default function SpaceFeedback() {
+  return <div>SpaceFeedback</div>;
 }
