@@ -56,7 +56,7 @@ export default function IconButton({
       >
         {children}
       </Icon>
-      <S.Content>{content}</S.Content>
+      {content}
     </S.IconButtonContainer>
   );
 }
