@@ -9,7 +9,7 @@ export const PROGRAMMING_LANGUAGES = ['Python', 'JavaScript', 'Java', 'C'] as co
 
 export const JUDGES = ['백준', '프로그래머스'] as const;
 
-export const STUDY_LIST = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
+export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
 export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
 

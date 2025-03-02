@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 
 type IconButtonColor = 'none' | 'white';
 type IconButtonTextAlign = 'left' | 'center';
-type ButtonShape = 'default' | 'round';
+type IconButtonShape = 'default' | 'round';
 
 export type IconButtonStyleProps = {
   color?: IconButtonColor;
   align?: IconButtonTextAlign;
-  shape?: ButtonShape;
+  shape?: IconButtonShape;
 };
 
 const colorStyles: { [key in IconButtonColor]: (theme: Theme) => SerializedStyles } = {
@@ -29,42 +29,30 @@ const colorStyles: { [key in IconButtonColor]: (theme: Theme) => SerializedStyle
   `,
 };
 
-const shapeStyles = (shape: ButtonShape = 'default') => css`
+const shapeStyles = (shape: IconButtonShape = 'default') => css`
   border-radius: ${shape === 'round' ? '3.2rem' : '1.1rem'};
 `;
 
 const IconButtonContainer = styled.div<IconButtonStyleProps>`
   ${({ color, theme }) => colorStyles[color](theme)};
   ${({ theme }) => theme.font.common.default};
+  ${({ shape }) => shapeStyles(shape)}
 
   display: flex;
   justify-content: ${({ align }) => (align === 'center' ? 'center' : 'flex-start')};
   align-items: center;
 
   width: 100%;
-  min-width: 20rem;
 
   padding: 0.6rem 2.2rem;
-  border-radius: 2rem;
+  border-radius: 3.2rem;
   gap: 1.2rem;
-  user-select: none;
 
   cursor: pointer;
-  ${({ shape }) => shapeStyles(shape)}
-`;
-
-const Icon = styled.span`
-  margin-top: 0.4rem;
-`;
-
-const Content = styled.span`
-  margin-left: 0.3rem;
 `;
 
 const S = {
   IconButtonContainer,
-  Icon,
-  Content,
 };
 
 export default S;
