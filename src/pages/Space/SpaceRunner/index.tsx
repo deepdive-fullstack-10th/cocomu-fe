@@ -2,7 +2,7 @@ import { useState } from 'react';
 import S from './style';
 
 interface SpaceRunnerProps {
-  setInput: (input: string) => void;
+  setInput?: (input: string) => void;
 }
 
 export default function SpaceRunner({ setInput }: SpaceRunnerProps) {
