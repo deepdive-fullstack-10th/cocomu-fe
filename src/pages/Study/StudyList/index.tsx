@@ -1,62 +1,51 @@
 import { useState } from 'react';
+
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
 import useGetStudyList from '@hooks/study/useGetStudyList';
+import Loading from '@pages/Loading';
 import FilterTab from './FilterTab';
-import * as S from './style';
+import S from './style';
 
 export default function StudyList() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [status, setStatus] = useState<string | undefined>(undefined);
-  const [languages, setLanguages] = useState<string[]>([]);
-  const [judges, setJudges] = useState<string[]>([]);
-  const [joinable, setJoinable] = useState<boolean>(false);
-  const [keyword, setKeyword] = useState<string>('');
-
-  const handlePageChange = (event, page) => {
-    setCurrentPage(page);
-  };
-
-  const { data: studies = [] } = useGetStudyList({
-    queryParams: {
-      page: currentPage,
-      status,
-      languages,
-      judges,
-      joinable,
-      keyword,
-    },
-    onTotalItemsChange: (newTotalPage) => {
-      if (newTotalPage !== totalPage) {
-        setTotalPage(newTotalPage || 1);
-      }
-    },
+  const [filters, setFilters] = useState({
+    page: 1,
+    status: undefined as string | undefined,
+    languages: [] as string[],
+    judges: [] as string[],
+    joinable: false,
+    keyword: '',
   });
+
+  const { data, isLoading } = useGetStudyList(filters);
 
   return (
     <S.Container>
       <FilterTab
-        onStatusChange={setStatus}
-        onLanguagesChange={setLanguages}
-        onJudgesChange={setJudges}
-        onJoinableChange={setJoinable}
-        onKeywordChange={setKeyword}
+        filters={filters}
+        setFilters={setFilters}
       />
-      <S.BodyContainer>
-        {studies.map((study) => (
-          <StudyCard
-            key={study.id}
-            {...study}
-          />
-        ))}
-      </S.BodyContainer>
-      <S.FooterContainer>
-        <PageButton
-          pages={totalPage}
-          onPageChange={handlePageChange}
-        />
-      </S.FooterContainer>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <S.Body>
+            {data.studies.map((study) => (
+              <StudyCard
+                key={study.id}
+                {...study}
+              />
+            ))}
+          </S.Body>
+          <S.Footer>
+            <PageButton
+              totalPage={data.totalPage}
+              currentPage={filters.page}
+              setPage={(page) => setFilters((prev) => ({ ...prev, page }))}
+            />
+          </S.Footer>
+        </>
+      )}
     </S.Container>
   );
 }
