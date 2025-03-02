@@ -3,7 +3,7 @@ import TabMenu from '@components/_common/molecules/TabMenu';
 import IconButton from '@components/_common/atoms/IconButton';
 import { BsPlusLg } from 'react-icons/bs';
 import { STUDY_LIST } from '@constants/constants';
-import useGetStudyInfo from '@hooks/useGetStudyInfo';
+import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 import { useLocation } from 'react-router-dom';
 
 import * as S from './style';

@@ -9,7 +9,7 @@ const spaceApi = {
     return data.result;
   },
 
-  detail: async (codingSpaceId: string) => {
+  getInfo: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.PAGE(codingSpaceId));
 
     return data.result;
@@ -21,7 +21,7 @@ const spaceApi = {
     return codingSpaceId;
   },
 
-  tab: async (codingSpaceId: string) => {
+  getAllTabs: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.TAB(codingSpaceId));
 
     return data.result;
