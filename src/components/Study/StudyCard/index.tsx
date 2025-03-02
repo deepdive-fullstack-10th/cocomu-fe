@@ -1,13 +1,17 @@
 import { BsPerson } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+
 import { ACCESS_STATUS_MAP } from '@constants/constants';
+import { ROUTES } from '@constants/path';
 import { StudyData } from '@customTypes/study';
+
+import { formatDate } from '@utils/formatDate';
+
 import Tag from '@components/_common/atoms/Tag';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import ImageTagList from '@components/_common/molecules/ImageTagList';
 import TagList from '@components/_common/molecules/TagList';
-import { formatDate } from '@utils/formatDate';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@constants/path';
+
 import S from './style';
 
 export default function StudyCard({

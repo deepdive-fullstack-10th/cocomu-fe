@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
+import useGetStudyList from '@hooks/study/useGetStudyList';
+import { StudyData } from '@customTypes/study';
+
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
-import useGetStudyList from '@hooks/study/useGetStudyList';
 import Loading from '@pages/Loading';
 import FilterTab from './FilterTab';
+
 import S from './style';
 
 export default function StudyList() {
@@ -30,7 +33,7 @@ export default function StudyList() {
       ) : (
         <>
           <S.Body>
-            {data.studies.map((study) => (
+            {data.studies.map((study: StudyData) => (
               <StudyCard
                 key={study.id}
                 {...study}

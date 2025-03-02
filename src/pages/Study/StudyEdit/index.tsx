@@ -1,11 +1,14 @@
-import StudyCreateForm from '@components/Study/StudyCreateForm';
-import { ACCESS_STATUS, ACCESS_STATUS_MAP } from '@constants/constants';
-import { CreateStudyData, StudyFormData } from '@customTypes/study';
-import useEditStudy from '@hooks/study/useEditStudy';
-import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
-import Loading from '@pages/Loading';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { ACCESS_STATUS, ACCESS_STATUS_MAP } from '@constants/constants';
+import { CreateStudyData, StudyFormData } from '@customTypes/study';
+
+import useEditStudy from '@hooks/study/useEditStudy';
+import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
+
+import StudyCreateForm from '@components/Study/StudyCreateForm';
+import Loading from '@pages/Loading';
 
 export default function StudyEdit() {
   const { studyId } = useParams<{ studyId: string }>();
