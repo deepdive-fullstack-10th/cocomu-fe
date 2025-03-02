@@ -1,15 +1,9 @@
-import InputField from '@components/_common/molecules/InputField';
-import InputDropdown from '@components/_common/molecules/InputDropdown';
-import { JUDGES, PROGRAMMING_LANGUAGES, ACCESS_STATUS } from '@constants/constants';
-import RadioField from '@components/_common/molecules/RadioField';
-import { useForm } from '@hooks/utils/useForm';
 import { Dispatch, SetStateAction, useState } from 'react';
-import StepMarker from '@components/_common/atoms/StepMarker';
-import TextEditor from '@components/_common/atoms/TextEditor';
-import Button from '@components/_common/atoms/Button';
-import { StudyFormData } from '@customTypes/study';
-import { useToastStore } from '@stores/useToastStore';
 import { useNavigate } from 'react-router-dom';
+
+import { useToastStore } from '@stores/useToastStore';
+import { useForm } from '@hooks/utils/useForm';
+
 import {
   validateJudges,
   validateLanguages,
@@ -17,6 +11,18 @@ import {
   validatePassword,
   validateTotalUserCount,
 } from '@utils/validators/studyValidators';
+
+import { JUDGES, PROGRAMMING_LANGUAGES, ACCESS_STATUS } from '@constants/constants';
+
+import { StudyFormData } from '@customTypes/study';
+
+import InputField from '@components/_common/molecules/InputField';
+import InputDropdown from '@components/_common/molecules/InputDropdown';
+import RadioField from '@components/_common/molecules/RadioField';
+import StepHeader from '@components/_common/molecules/StepHeader';
+import TextEditor from '@components/_common/atoms/TextEditor';
+import Button from '@components/_common/atoms/Button';
+
 import S from './style';
 
 interface StudyCreateFormProps {
@@ -37,6 +43,7 @@ export default function StudyCreateForm({
   const { error } = useToastStore();
   const navigate = useNavigate();
   const [content, setContent] = useState(description || '');
+
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues || {
       name: '',
@@ -56,12 +63,12 @@ export default function StudyCreateForm({
   };
 
   return (
-    <S.Container onSubmit={(e) => handleSubmit(e)}>
+    <S.Container onSubmit={handleSubmit}>
       <S.Section>
-        <S.Header>
-          <StepMarker step={1} />
-          <S.Description>스터디 정보를 입력해주세요.</S.Description>
-        </S.Header>
+        <StepHeader
+          step={1}
+          description='스터디 정보를 입력해주세요.'
+        />
         <RadioField
           name='access_status'
           options={ACCESS_STATUS}
@@ -98,10 +105,10 @@ export default function StudyCreateForm({
       </S.Section>
 
       <S.Section>
-        <S.Header>
-          <StepMarker step={2} />
-          <S.Description>스터디에 대해 소개해주세요.</S.Description>
-        </S.Header>
+        <StepHeader
+          step={2}
+          description='스터디에 대해 소개해주세요.'
+        />
         <InputField
           label='스터디 이름'
           description='스터디 이름을 입력해주세요'
