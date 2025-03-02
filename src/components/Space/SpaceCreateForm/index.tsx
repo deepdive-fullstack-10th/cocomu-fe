@@ -1,24 +1,29 @@
-import InputField from '@components/_common/molecules/InputField';
-import InputDropdown from '@components/_common/molecules/InputDropdown';
-import { PROGRAMMING_LANGUAGES, SPACE_MEMBER_OPTIONS } from '@constants/constants';
-import { useForm } from '@hooks/utils/useForm';
 import { useState } from 'react';
-import StepMarker from '@components/_common/atoms/StepMarker';
-import TextEditor from '@components/_common/atoms/TextEditor';
-import Button from '@components/_common/atoms/Button';
-import { useToastStore } from '@stores/useToastStore';
 import { useNavigate } from 'react-router-dom';
-import { SpaceFormData, TestCaseIO } from '@customTypes/space';
-import TimeInputField from '@components/_common/molecules/TimeInputField';
 import dayjs, { Dayjs } from 'dayjs';
-import TestCase from '@components/_common/molecules/TestCase';
 import { v4 as uuidv4 } from 'uuid';
+
+import { useToastStore } from '@stores/useToastStore';
+import { useForm } from '@hooks/utils/useForm';
+
 import {
   validateLanguage,
   validateName,
   validateReferenceUrl,
   validateTotalUserCount,
 } from '@utils/validators/spaceValidators';
+
+import { PROGRAMMING_LANGUAGES, SPACE_MEMBER_OPTIONS } from '@constants/constants';
+import { SpaceFormData, TestCaseIO } from '@customTypes/space';
+
+import InputField from '@components/_common/molecules/InputField';
+import InputDropdown from '@components/_common/molecules/InputDropdown';
+import TimeInputField from '@components/_common/molecules/TimeInputField';
+import TestCase from '@components/_common/molecules/TestCase';
+import StepHeader from '@components/_common/molecules/StepHeader';
+import TextEditor from '@components/_common/atoms/TextEditor';
+import Button from '@components/_common/atoms/Button';
+
 import S from './style';
 
 interface SpaceCreateFormProps {
@@ -75,12 +80,12 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
   };
 
   return (
-    <S.Container onSubmit={(e) => handleSubmit(e)}>
+    <S.Container onSubmit={handleSubmit}>
       <S.Section>
-        <S.Header>
-          <StepMarker step={1} />
-          <S.Description>코딩 스페이스의 정보를 입력해주세요.</S.Description>
-        </S.Header>
+        <StepHeader
+          step={1}
+          description='코딩 스페이스의 정보를 입력해주세요.'
+        />
         <S.InputWrapper>
           <InputDropdown
             label='스페이스 인원'
@@ -108,10 +113,10 @@ export default function SpaceCreateForm({ initialValues, description, onSubmit }
       </S.Section>
 
       <S.Section>
-        <S.Header>
-          <StepMarker step={2} />
-          <S.Description>코딩 스페이스에서 풀어볼 문제를 작성해주세요.</S.Description>
-        </S.Header>
+        <StepHeader
+          step={2}
+          description='코딩 스페이스에서 풀어볼 문제를 작성해주세요.'
+        />
         <InputField
           label='문제 제목'
           description='문제 제목을 입력해주세요'

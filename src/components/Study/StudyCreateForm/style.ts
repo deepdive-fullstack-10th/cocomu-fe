@@ -16,17 +16,6 @@ const Section = styled.div`
   gap: 5.3rem;
 `;
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 11px;
-`;
-
-const Description = styled.p`
-  ${({ theme }) => theme.font.heading[500]};
-  color: ${({ theme }) => theme.color.gray[950]};
-`;
-
 const InputWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -43,8 +32,6 @@ const ButtonWrapper = styled.div`
 const S = {
   Container,
   Section,
-  Header,
-  Description,
   InputWrapper,
   ButtonWrapper,
 };
