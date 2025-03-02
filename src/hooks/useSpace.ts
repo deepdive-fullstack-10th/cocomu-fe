@@ -1,14 +1,14 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import spaceApi from '@api/domain/codingSpace';
+import spaceApi from '@api/domain/space';
 import { WAITING_INFO } from '@constants/modal';
 import { useModalStore } from '@stores/useModalStore';
 import { useNavigate } from 'react-router-dom';
 
-export function useSpaceDetail({ spaceId }: { spaceId: string }) {
+export function useSpaceDetail({ codingSpaceId }: { codingSpaceId: string }) {
   const query = useQuery({
-    queryKey: ['spaceDetail', spaceId],
-    queryFn: () => spaceApi.detail(spaceId),
-    enabled: !!spaceId,
+    queryKey: ['spaceDetail', codingSpaceId],
+    queryFn: () => spaceApi.detail(codingSpaceId),
+    enabled: !!codingSpaceId,
   });
 
   return query;
@@ -19,11 +19,11 @@ export function useSpaceStart() {
   const { open } = useModalStore();
   const spaceStartMutate = useMutation({
     mutationFn: spaceApi.start,
-    onSuccess: (spaceId) => {
+    onSuccess: (codingSpaceId) => {
       open('waiting', {
         label: WAITING_INFO.problem.label,
         description: WAITING_INFO.problem.description,
-        navigate: navigate(WAITING_INFO.problem.navigate(spaceId)),
+        navigate: navigate(WAITING_INFO.problem.navigate(codingSpaceId)),
       });
     },
   });
@@ -31,11 +31,11 @@ export function useSpaceStart() {
   return { spaceStartMutate };
 }
 
-export function useTabData({ spaceId }: { spaceId: string }) {
+export function useTabData({ codingSpaceId }: { codingSpaceId: string }) {
   const query = useQuery({
-    queryKey: ['TabData', spaceId],
-    queryFn: () => spaceApi.tab(spaceId),
-    enabled: !!spaceId,
+    queryKey: ['TabData', codingSpaceId],
+    queryFn: () => spaceApi.tab(codingSpaceId),
+    enabled: !!codingSpaceId,
   });
 
   return query;

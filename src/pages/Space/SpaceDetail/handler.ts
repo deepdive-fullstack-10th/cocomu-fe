@@ -18,14 +18,14 @@ export function useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, T
   return { testCaseOpenHandler };
 }
 
-export function useTestCaseSubmit(spaceId, testCaseList, setTestCaseList) {
+export function useTestCaseSubmit(codingSpaceId, testCaseList, setTestCaseList) {
   const { testCaseUpdateMutate } = useTestCaseUpdate();
 
   const TestCaseSubmitHandler = async () => {
     const filteredTestCases = testCaseList
       ?.filter((testCase) => testCase.type !== 'BASE')
       .map(({ input, output }) => ({ input, output }));
-    const newTestCases = await testCaseUpdateMutate.mutateAsync({ spaceId, testCase: filteredTestCases });
+    const newTestCases = await testCaseUpdateMutate.mutateAsync({ codingSpaceId, testCase: filteredTestCases });
     const BaseTestCase = testCaseList?.filter((testCase) => testCase.type === 'BASE');
     const FetchTestCaseList = BaseTestCase.concat(newTestCases);
     setTestCaseList(FetchTestCaseList);
@@ -34,11 +34,11 @@ export function useTestCaseSubmit(spaceId, testCaseList, setTestCaseList) {
   return { TestCaseSubmitHandler };
 }
 
-export function useSpaceStatusHandler(spaceId, studyId, status) {
+export function useSpaceStatusHandler(codingSpaceId, studyId, status) {
   const { spaceStartMutate } = useSpaceStart();
   const spaceStartHandler = () => {
     if (status === '대기') {
-      spaceStartMutate.mutate({ spaceId, studyId });
+      spaceStartMutate.mutate({ codingSpaceId, studyId });
     }
   };
   return { spaceStartHandler };

@@ -14,7 +14,7 @@ export interface WaitingProps {
 
 export interface ConfirmProps {
   studyId?: number;
-  spaceId?: number;
+  codingSpaceId?: number;
   name?: string;
   onClose?: () => void;
 }

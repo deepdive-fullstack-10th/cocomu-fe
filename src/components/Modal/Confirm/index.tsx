@@ -2,9 +2,9 @@ import Button from '@components/_common/atoms/Button';
 import { ConfirmProps } from '@customTypes/modal';
 import S from './style';
 
-export default function ConfirmModal({ studyId, spaceId, name, onClose }: ConfirmProps) {
+export default function ConfirmModal({ studyId, codingSpaceId, name, onClose }: ConfirmProps) {
   const handleConfirm = () => {
-    // TODO: CodingSpace 참여하기 api 호출 (studyId, spaceId 사용 예정)
+    // TODO: CodingSpace 참여하기 api 호출 (studyId, codingSpaceId 사용 예정)
     onClose();
   };
 
