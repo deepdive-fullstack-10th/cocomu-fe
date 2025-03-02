@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
+
 import { useDraggable } from '@hooks/utils/useDraggable';
-import { SpaceOutletProps } from '@customTypes/space';
 import useGetAllTabs from '@hooks/space/useGetAllTabs';
-import Tab from '@components/_common/atoms/Tab';
+
+import { SpaceOutletProps } from '@customTypes/space';
+
 import MonacoEditor from '@monaco-editor/react';
+
 import { DEFAULT_CODE } from '@constants/space';
+
+import Tab from '@components/_common/atoms/Tab';
 import SpaceRunner from '../SpaceRunner';
+
 import S from './style';
 
 export default function SpaceRunning() {

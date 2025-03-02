@@ -1,7 +1,10 @@
 import { useOutletContext } from 'react-router-dom';
+
 import { useDraggable } from '@hooks/utils/useDraggable';
-import AvatarGroup from '@components/_common/molecules/AvatarGroup';
+
 import { SpaceOutletProps } from '@customTypes/space';
+
+import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import SpaceRunner from '../SpaceRunner';
 
 import S from './style';

@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useDraggable } from '@hooks/utils/useDraggable';
 import { Outlet, useParams } from 'react-router-dom';
-import TextEditor from '@components/_common/atoms/TextEditor';
-import { SpaceDetail } from '@customTypes/space';
+
+import { useDraggable } from '@hooks/utils/useDraggable';
 import useGetSpaceInfo from '@hooks/space/useGetSpaceInfo';
+
+import { SpaceDetail } from '@customTypes/space';
+
 import SpaceNavbar from '@components/Space/SpaceNavbar';
 import SpaceFooter from '@components/Space/SpaceFooter';
+import TextEditor from '@components/_common/atoms/TextEditor';
+
 import Loading from '@pages/Loading';
+
 import { useCodeRun, useCodeSubmitHandler } from './handler';
+
 import S from './style';
 
 export default function SpaceDetail() {
