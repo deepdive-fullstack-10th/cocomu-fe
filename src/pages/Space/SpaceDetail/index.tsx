@@ -1,41 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDraggable } from '@hooks/utils/useDraggable';
-import { Outlet, useParams, useNavigate } from 'react-router-dom';
-import IconButton from '@components/_common/atoms/IconButton';
-import Button from '@components/_common/atoms/Button';
-import { BsArrowLeft, BsPlus } from 'react-icons/bs';
+import { Outlet, useParams } from 'react-router-dom';
 import TextEditor from '@components/_common/atoms/TextEditor';
-import { generateTimer } from '@utils/timeUtils';
-import { useSpaceDetail } from '@hooks/useSpace';
-import { SpaceDetail, SpaceOutletProps } from '@customTypes/space';
-import { ROUTES } from '@constants/path';
-import { SPACE_NAV_BUTTON } from '@constants/constants';
-import { useTestCaseOpen, useTestCaseSubmit, useSpaceStatusHandler, useCodeRun, useCodeSubmitHandler } from './handler';
+import { SpaceDetail } from '@customTypes/space';
+import useGetSpaceInfo from '@hooks/space/useGetSpaceInfo';
+import SpaceNavbar from '@components/Space/SpaceNavbar';
+import SpaceFooter from '@components/Space/SpaceFooter';
+import Loading from '@pages/Loading';
+import { useCodeRun, useCodeSubmitHandler } from './handler';
 import S from './style';
 
 export default function SpaceDetail() {
-  const navigate = useNavigate();
   const { codingSpaceId } = useParams();
   const { data, isLoading } = useGetSpaceInfo(codingSpaceId);
+  const [outletProps, setOutletProps] = useState(null);
 
-  const [spaceData, setSpacedata] = useState<SpaceDetail>();
-  const [timer, settimer] = useState<number>(0);
-  const [navButton, setNavbutton] = useState<string>(SPACE_NAV_BUTTON[0]);
-  const [testCaseStatus, setTestCaseStatus] = useState<string>('DEFAULT');
-  const [testCaseList, setTestCaseList] = useState([]);
-  const [outletProps, setOutletProps] = useState<SpaceOutletProps>();
   const [tabInfo, setTabInfo] = useState({
-    code: '',
     id: '',
+    code: '',
   });
   const [input, setInput] = useState<string>('');
 
+  const { codeRun } = useCodeRun(tabInfo, input, data?.language);
+  const { codeSubmit } = useCodeSubmitHandler(tabInfo, data?.language, data?.codingSpace.testCase);
 
-  const { TestCaseSubmitHandler } = useTestCaseSubmit(codingSpaceId, testCaseList, setTestCaseList);
-  const { testCaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestCaseSubmitHandler);
-  const { spaceStartHandler } = useSpaceStatusHandler(codingSpaceId, spaceData?.studyId, spaceData?.status);
-  const { codeRun } = useCodeRun(tabInfo, input, spaceData?.language);
-  const { codeSubmit } = useCodeSubmitHandler(tabInfo, spaceData?.language, testCaseList);
+  useEffect(() => {
+    if (!data?.codingSpace) return;
+
+    const { status, totalUserCount, language, id } = data.codingSpace;
+
+    if (status === '대기') {
+      setOutletProps({ totalUserCount });
+    } else if (status === '진행') {
+      setOutletProps({ language, id, setTabInfo, setInput });
+    } else if (status === '피드백') {
+      setOutletProps({ feedbackMode: true });
+    } else if (status === '종료') {
+      setOutletProps({});
+    }
+  }, [data]);
 
   const {
     value: width,
@@ -49,38 +52,7 @@ export default function SpaceDetail() {
     threshold: 5,
   });
 
-  useEffect(() => {
-    refetch();
-    setSpacedata(data?.codingSpace);
-    settimer(data?.codingSpace?.codingTime);
-    setTestCaseList(spaceData?.testCase);
-    switch (spaceData?.status) {
-      case '대기':
-        setNavbutton(SPACE_NAV_BUTTON[0]);
-        setTestCaseStatus('DEFAULT');
-        setOutletProps({ totalUserCount: spaceData?.totalUserCount });
-        break;
-      case '진행':
-        setNavbutton(SPACE_NAV_BUTTON[1]);
-        setTestCaseStatus('CUSTOM');
-        setOutletProps({ language: spaceData?.language, id: spaceData?.id, setTabInfo, setInput });
-        navigate(ROUTES.SPACE.RUNNING({ codingSpaceId }));
-        break;
-      case '피드백':
-        setNavbutton(SPACE_NAV_BUTTON[2]);
-        setTestCaseStatus('CUSTOM');
-        navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId }));
-        break;
-      case '종료':
-        setNavbutton(SPACE_NAV_BUTTON[3]);
-        setTestCaseStatus('DEFAULT');
-        break;
-      default:
-        setNavbutton(SPACE_NAV_BUTTON[0]);
-        setTestCaseStatus('DEFAULT');
-        break;
-    }
-  }, [data, spaceData, codingSpaceId, refetch, navigate]);
+  if (isLoading || outletProps === null) return <Loading />;
 
   return (
     <S.PageContainer>
@@ -94,12 +66,18 @@ export default function SpaceDetail() {
       <S.MainContent ref={containerRef}>
         <S.ProblemDescription>
           <TextEditor
-            value={spaceData?.description}
+            value={data.codingSpace.description}
             readOnly
           />
           <S.ReferenceContainer>
-            <div>출처</div>
-            <div>{spaceData?.referenceUrl}</div>
+            출처 :
+            <a
+              href={data.codingSpace.referenceUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              {data.codingSpace.referenceUrl}
+            </a>
           </S.ReferenceContainer>
         </S.ProblemDescription>
 
