@@ -84,8 +84,10 @@ export default function StudyCreateForm({
           />
           <InputField
             label='모집 인원'
-            description='2명 ~ 50명 이하'
-            {...register('totalUserCount', { validate: { onBlur: validateTotalUserCount.onBlur } })}
+            {...register('totalUserCount', {
+              validate: { onBlur: validateTotalUserCount.onBlur },
+              placeholder: '2명 ~ 50명 이하',
+            })}
           />
           <InputDropdown
             label='스터디 사용 언어'
@@ -111,8 +113,10 @@ export default function StudyCreateForm({
         />
         <InputField
           label='스터디 이름'
-          description='스터디 이름을 입력해주세요'
-          {...register('name', { validate: { onBlur: validateName.onBlur } })}
+          {...register('name', {
+            validate: { onBlur: validateName.onBlur },
+            placeholder: '스터디 이름을 입력해주세요',
+          })}
         />
         <TextEditor
           label='스터디 소개'
