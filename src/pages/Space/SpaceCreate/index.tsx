@@ -1,6 +1,6 @@
 import SpaceCreateForm from '@components/Space/SpaceCreateForm';
 import { CreateSpaceData, SpaceFormData, TestCaseIO } from '@customTypes/space';
-import useCreateSpace from '@hooks/useCreateSpace';
+import useCreateSpace from '@hooks/space/useCreateSpace';
 import { convertTimeToMinutes } from '@utils/convertTime';
 import { useParams } from 'react-router-dom';
 
