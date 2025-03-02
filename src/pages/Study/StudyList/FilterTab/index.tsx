@@ -1,86 +1,62 @@
-import { useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import SearchInput from '@components/_common/atoms/SearchInput';
 import { ACCESS_STATUS, PROGRAMMING_LANGUAGES, JUDGES } from '@constants/constants';
-import * as S from './style';
+import S from './style';
 
-interface FilterTabProps {
-  onStatusChange: (status: string | undefined) => void;
-  onLanguagesChange: (languages: string[]) => void;
-  onJudgesChange: (judges: string[]) => void;
-  onJoinableChange: (joinable: boolean) => void;
-  onKeywordChange: (keyword: string) => void;
+interface Filters {
+  status: string | undefined;
+  languages: string[];
+  judges: string[];
+  joinable: boolean;
+  keyword: string;
 }
 
-export default function FilterTab({
-  onStatusChange,
-  onLanguagesChange,
-  onJudgesChange,
-  onJoinableChange,
-  onKeywordChange,
-}: FilterTabProps) {
-  const [selectedAccessStatus, setSelectedAccessStatus] = useState<string[]>([]);
-  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
-  const [selectedJudges, setSelectedJudges] = useState<string[]>([]);
-  const [joinable, setJoinable] = useState(false);
-  const [keyword, setKeyword] = useState('');
+interface FilterTabProps {
+  filters: Filters;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+}
 
-  const handleStatusChange = (values: string[]) => {
-    setSelectedAccessStatus(values);
-    const status =
-      values.length === 0 || values[0] === '전체' ? undefined : values[0] === '공개' ? 'PUBLIC' : 'PRIVATE';
-    onStatusChange(status);
-  };
-
-  const fetchStudyList = () => {
-    onKeywordChange(keyword);
-  };
-
+export default function FilterTab({ filters, setFilters }: FilterTabProps) {
   return (
     <S.FilterTabContainer>
       <S.DropdownWrapper>
         <SelectDropdown
           items={[...ACCESS_STATUS]}
           description='전체'
-          values={selectedAccessStatus}
-          onSelect={handleStatusChange}
+          values={filters.status ? [filters.status] : []}
+          onSelect={(values) => {
+            const newStatus =
+              values.length === 0 || values[0] === '전체' ? undefined : values[0] === '공개' ? 'PUBLIC' : 'PRIVATE';
+            setFilters((prev) => ({ ...prev, status: newStatus }));
+          }}
         />
         <SelectDropdown
           items={[...PROGRAMMING_LANGUAGES]}
           description='사용 언어'
-          values={selectedLanguages}
-          onSelect={(values) => {
-            setSelectedLanguages(values);
-            onLanguagesChange(values);
-          }}
+          values={filters.languages}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, languages: values }))}
         />
         <SelectDropdown
           items={[...JUDGES]}
           description='사용 플랫폼'
-          values={selectedJudges}
-          onSelect={(values) => {
-            setSelectedJudges(values);
-            onJudgesChange(values);
-          }}
+          values={filters.judges}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, judges: values }))}
         />
         <ToggleButton
           size='md'
           shape='round'
-          isActive={joinable}
-          onToggle={(newJoinable) => {
-            setJoinable(newJoinable);
-            onJoinableChange(newJoinable);
-          }}
+          isActive={filters.joinable}
+          onToggle={(value) => setFilters((prev) => ({ ...prev, joinable: value }))}
         >
           참여 가능한 스터디 보기
         </ToggleButton>
       </S.DropdownWrapper>
       <SearchInput
         placeholder='제목을 검색해주세요'
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-        onSearch={fetchStudyList}
+        value={filters.keyword}
+        onChange={(e) => setFilters((prev) => ({ ...prev, keyword: e.target.value }))}
+        onSearch={() => {}}
       />
     </S.FilterTabContainer>
   );
