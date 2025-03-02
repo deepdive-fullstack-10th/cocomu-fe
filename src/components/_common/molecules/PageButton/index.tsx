@@ -4,8 +4,9 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import S from './style';
 
 interface PageButtonsProps {
-  pages: number;
-  onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+  totalPage: number;
+  currentPage: number;
+  setPage: (page: number) => void;
 }
 
 function PreviousButton() {
@@ -36,13 +37,14 @@ function NextButton() {
   );
 }
 
-export default function PageButton({ pages, onPageChange }: PageButtonsProps) {
+export default function PageButton({ totalPage, currentPage, setPage }: PageButtonsProps) {
   return (
     <S.StyledPagination
-      count={pages}
+      count={totalPage}
       color='primary'
       size='small'
-      onChange={onPageChange}
+      page={currentPage}
+      onChange={(_, page) => setPage(page)}
       renderItem={(item) => (
         <PaginationItem
           {...item}
