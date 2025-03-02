@@ -15,6 +15,8 @@ import S from './style';
 
 export default function SpaceDetail() {
   const navigate = useNavigate();
+  const { codingSpaceId } = useParams();
+  const { data, isLoading } = useGetSpaceInfo(codingSpaceId);
 
   const [spaceData, setSpacedata] = useState<SpaceDetail>();
   const [timer, settimer] = useState<number>(0);
@@ -28,8 +30,6 @@ export default function SpaceDetail() {
   });
   const [input, setInput] = useState<string>('');
 
-  const { codingSpaceId } = useParams();
-  const { data, refetch } = useSpaceDetail({ codingSpaceId });
 
   const { TestCaseSubmitHandler } = useTestCaseSubmit(codingSpaceId, testCaseList, setTestCaseList);
   const { testCaseOpenHandler } = useTestCaseOpen(testCaseStatus, testCaseList, setTestCaseList, TestCaseSubmitHandler);
@@ -84,31 +84,13 @@ export default function SpaceDetail() {
 
   return (
     <S.PageContainer>
-      <S.Navbar>
-        <S.NavbarLeftcontent>
-          <IconButton
-            content='돌아가기'
-            align='center'
-            color='none'
-            onClick={() => navigate(ROUTES.STUDY.DETAIL({ studyId: spaceData?.studyId }))}
-          >
-            <BsArrowLeft />
-          </IconButton>
-          <div>{spaceData?.name}</div>
-        </S.NavbarLeftcontent>
-        <S.NavbarRightcontent>
-          <div>{generateTimer(timer * 60)}</div>
-          {(spaceData?.hasLeaderRole || spaceData?.status === '종료') && (
-            <Button
-              size='md'
-              color='triadic'
-              onClick={spaceStartHandler}
-            >
-              {navButton}
-            </Button>
-          )}
-        </S.NavbarRightcontent>
-      </S.Navbar>
+      <SpaceNavbar
+        studyId={data.codingSpace.studyId}
+        status={data.codingSpace.status}
+        timer={data.codingSpace.codingTime}
+        name={data.codingSpace.name}
+      />
+
       <S.MainContent ref={containerRef}>
         <S.ProblemDescription>
           <TextEditor
