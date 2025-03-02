@@ -36,38 +36,9 @@ export const STEP_INFO = {
   },
 } as const;
 
-export const SPACE_NAV_BUTTON = ['문제 풀이 시작', '피드백 시작', '피드백 종료', '나가기'] as const;
-
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
 export const ACCESS_STATUS_MAP = {
   PUBLIC: ACCESS_STATUS[0],
   PRIVATE: ACCESS_STATUS[1],
 } as const;
-
-export const DEFAULT_CODE = {
-  python: `def Main():
-    pass  
-
-Main()`,
-
-  java: `public class Main {
-    public static void Main() {
-        
-    }
-}`,
-
-  javascript: `function Main() {
-    
-}
-
-Main();`,
-
-  c: `#include <stdio.h>
-
-void Main() {
-    
-}
-
-Main();`,
-};
