@@ -40,7 +40,8 @@ const ResizablePanel = styled.div`
   width: 100%;
   height: 1.3rem;
 
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-top: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
   background: ${({ theme }) => theme.color.gray[50]};
 
   display: flex;
