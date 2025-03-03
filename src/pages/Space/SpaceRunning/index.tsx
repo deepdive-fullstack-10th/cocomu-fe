@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useState } from 'react';
+import { useOutletContext, useParams } from 'react-router-dom';
 
 import { useDraggable } from '@hooks/utils/useDraggable';
-import useGetAllTabs from '@hooks/space/useGetAllTabs';
+import useGetTab from '@hooks/space/useGetTab';
 
 import { SpaceOutletProps } from '@customTypes/space';
 
@@ -19,26 +19,23 @@ import Loading from '@pages/Loading';
 import S from './style';
 
 export default function SpaceRunning() {
+  const { codingSpaceId } = useParams();
   const outletData = useOutletContext<SpaceOutletProps>();
-  const { data } = useGetAllTabs(outletData?.id);
+  const { data, isLoading } = useGetTab(codingSpaceId);
 
-  const tabId = data?.tab?.id;
+  const tabId = data?.tab?.id || '';
   const tabCode = data?.tab?.code || DEFAULT_CODE[outletData?.language?.toLowerCase()] || '';
 
-  const [code, setCode] = useState<string>(tabCode);
+  const [code, setCode] = useState(tabCode);
 
   const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
-  useEffect(() => {
-    if (tabId) {
-      outletData?.setTabInfo((prev) => ({ ...prev, id: tabId }));
-    }
-  }, [tabId]);
-
-  const onChangeCode = (value) => {
+  const handleCodeChange = (value: string) => {
     setCode(value);
-    outletData?.setTabInfo((prev) => ({ ...prev, code: value }));
+    outletData?.setTabInfo((prev) => ({ ...prev, id: tabId, code: value }));
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <S.Container ref={containerRef}>
@@ -47,7 +44,7 @@ export default function SpaceRunning() {
 
         <S.MonacoContainer>
           <MonacoEditor
-            defaultLanguage={outletData?.language.toLocaleLowerCase()}
+            defaultLanguage={outletData?.language.toLowerCase()}
             theme='vs'
             options={{
               minimap: { enabled: false },
@@ -55,7 +52,7 @@ export default function SpaceRunning() {
               automaticLayout: true,
             }}
             value={code}
-            onChange={onChangeCode}
+            onChange={handleCodeChange}
           />
         </S.MonacoContainer>
       </S.CodingContainer>

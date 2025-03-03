@@ -36,6 +36,7 @@ export default function StudyDetail() {
   return (
     <S.Container>
       <S.Header>
+        {/* TODO: 스터디 상세 페이지 조회 api 호출하여 스터디 이름 받아오기 */}
         <S.Name>딥다이버즈 스터디임</S.Name>
         <S.ButtonWrapper>
           <IconButton
