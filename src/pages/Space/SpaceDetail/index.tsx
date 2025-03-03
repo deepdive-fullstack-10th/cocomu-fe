@@ -30,12 +30,12 @@ export default function SpaceDetail() {
   useEffect(() => {
     if (!data?.codingSpace) return;
 
-    const { status, totalUserCount, language, id } = data.codingSpace;
+    const { status, totalUserCount, language } = data.codingSpace;
 
     if (status === '대기') {
       setOutletProps({ totalUserCount });
     } else if (status === '진행') {
-      setOutletProps({ language, id, setTabInfo, setInput });
+      setOutletProps({ language, setTabInfo, setInput });
     } else if (status === '피드백') {
       setOutletProps({ feedbackMode: true });
     } else if (status === '종료') {
