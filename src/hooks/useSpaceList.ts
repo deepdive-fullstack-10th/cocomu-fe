@@ -17,10 +17,9 @@ export default function useSpaceList(studyId: string) {
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['spaceList', studyId, debouncedFilters],
-    queryFn: async ({ pageParam = 0 }) => {
+    queryFn: async () => {
       const params: SpaceListParams = {
         ...debouncedFilters,
-        lastIndex: pageParam,
       };
       console.log('api 호출 파라미터: ', params);
       return spaceApi.fetchSpaceList(studyId, params);
