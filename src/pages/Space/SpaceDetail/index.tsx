@@ -3,6 +3,8 @@ import { Outlet, useParams } from 'react-router-dom';
 
 import { useDraggable } from '@hooks/utils/useDraggable';
 import useGetSpaceInfo from '@hooks/space/useGetSpaceInfo';
+import useRunIDE from '@hooks/ide/useRunIDE';
+import useSubmitIDE from '@hooks/ide/useSubmitIDE';
 
 import SpaceNavbar from '@components/Space/SpaceNavbar';
 import SpaceFooter from '@components/Space/SpaceFooter';
@@ -10,7 +12,6 @@ import TextEditor from '@components/_common/atoms/TextEditor';
 import ResizablePanel from '@components/Space/ResizablePanel';
 
 import Loading from '@pages/Loading';
-import { useCodeRun, useCodeSubmitHandler } from './handler';
 
 import S from './style';
 
@@ -20,12 +21,30 @@ export default function SpaceDetail() {
   const [outletProps, setOutletProps] = useState(null);
 
   const [tabInfo, setTabInfo] = useState({ id: '', code: '' });
-  const [input, setInput] = useState<string>('');
+  const [inputData, setInputData] = useState<string>('');
+
+  const { runIDEMutate } = useRunIDE();
+  const { submitIDEMutate } = useSubmitIDE();
 
   const { value: width, containerRef, handleMouseDown } = useDraggable({ direction: 'x' });
 
-  const { codeRun } = useCodeRun(tabInfo, input, data?.language);
-  const { codeSubmit } = useCodeSubmitHandler(tabInfo, data?.language, data?.codingSpace.testCase);
+  const handleRun = () => {
+    runIDEMutate.mutate({ ideId: tabInfo?.id, language: data?.language, inputData, code: tabInfo?.code });
+  };
+
+  const handleSubmit = () => {
+    const testCases =
+      data?.codingSpace.testCase?.map(({ id, input, output }) => ({
+        id,
+        input,
+        output,
+      })) || [];
+
+    submitIDEMutate.mutate({
+      ideId: tabInfo?.id,
+      submitIDEData: { ideId: tabInfo?.id, language: data?.language, code: tabInfo?.code, testCases },
+    });
+  };
 
   useEffect(() => {
     if (!data?.codingSpace) return;
@@ -35,7 +54,7 @@ export default function SpaceDetail() {
     if (status === '대기') {
       setOutletProps({ totalUserCount });
     } else if (status === '진행') {
-      setOutletProps({ language, setTabInfo, setInput });
+      setOutletProps({ language, setTabInfo, setInputData });
     } else if (status === '피드백') {
       setOutletProps({ feedbackMode: true });
     } else if (status === '종료') {
@@ -86,8 +105,8 @@ export default function SpaceDetail() {
         codingSpaceId={String(data.codingSpace.id)}
         status={data.codingSpace.status}
         testCases={data.codingSpace.testCase}
-        onCodeRun={codeRun}
-        onCodeSubmit={codeSubmit}
+        onCodeRun={handleRun}
+        onCodeSubmit={handleSubmit}
       />
     </S.Container>
   );
