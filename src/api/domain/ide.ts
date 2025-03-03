@@ -1,18 +1,16 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { IdeCodeRun, IdeCodeSubmit } from '@customTypes/ide';
+import { RunIDEData, SubmitIDEData } from '@customTypes/ide';
 
 const ideApi = {
-  codeRun: async (bodyData: IdeCodeRun) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.IDE.RUN, { bodyData });
+  run: async (runIDEData: RunIDEData) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.IDE.RUN, runIDEData);
 
     return data;
   },
 
-  codeSubmit: async (bodyData: IdeCodeSubmit) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.IDE.SUBMIT(bodyData.ideId), {
-      bodyData,
-    });
+  submit: async (ideId: string, submitIDEData: SubmitIDEData) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.IDE.SUBMIT(ideId), submitIDEData);
 
     return data;
   },
