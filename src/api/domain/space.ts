@@ -9,8 +9,14 @@ const spaceApi = {
     return data.result;
   },
 
-  getAllTabs: async (codingSpaceId: string) => {
+  getTab: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.TAB(codingSpaceId));
+
+    return data.result;
+  },
+
+  getAllTabs: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.ALL_TABS(codingSpaceId));
 
     return data.result;
   },
@@ -21,8 +27,8 @@ const spaceApi = {
     return data.result;
   },
 
-  start: async ({ codingSpaceId, studyId }: { codingSpaceId: string; studyId: string }) => {
-    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), { studyId });
+  start: async (codingSpaceId: string, studyId: string) => {
+    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), studyId);
 
     return codingSpaceId;
   },
