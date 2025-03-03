@@ -10,9 +10,11 @@ import MonacoEditor from '@monaco-editor/react';
 
 import { DEFAULT_CODE } from '@constants/space';
 
-import Tab from '@components/_common/atoms/Tab';
 import ResizablePanel from '@components/Space/ResizablePanel';
 import ExecutionPanel from '@components/Space/ExecutionPanel';
+import UserTabList from '@components/Space/UserTabList';
+
+import Loading from '@pages/Loading';
 
 import S from './style';
 
@@ -41,12 +43,8 @@ export default function SpaceRunning() {
   return (
     <S.Container ref={containerRef}>
       <S.CodingContainer height={height}>
-        <S.TabContainer>
-          <Tab
-            color='primary'
-            name={data?.tab.user.nickName}
-          />
-        </S.TabContainer>
+        <UserTabList users={data?.tab?.user ? [data.tab.user] : []} />
+
         <S.MonacoContainer>
           <MonacoEditor
             defaultLanguage={outletData?.language.toLocaleLowerCase()}
