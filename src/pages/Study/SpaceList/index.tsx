@@ -52,7 +52,7 @@ export default function SpaceList() {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [joinable, setJoinable] = useState(false);
 
-  const { studyId } = useParams<{ studyId: string }>();
+  const { studyId } = useParams<{ studyId: string }>(1);
   const { spaces, updateFilters, hasNextPage, isFetchingNextPage, nextList } = useSpaceList(studyId);
   const observerRef = useRef<HTMLDivElement>(null);
   const debouncedValue = useDebounce(searchKeyword, 300);
@@ -96,9 +96,8 @@ export default function SpaceList() {
     updateFilters({ joinedSpace: joined });
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setSearchKeyword(value);
+  const handleSearch = () => {
+    setSearchKeyword(searchKeyword);
   };
 
   return (
@@ -133,7 +132,8 @@ export default function SpaceList() {
               <SearchInput
                 placeholder='제목을 검색해 주세요'
                 value={searchKeyword}
-                onChange={handleSearch}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                onSearch={handleSearch}
               />
             </S.SearchFilteredContainer>
           </S.FilteredContainer>
