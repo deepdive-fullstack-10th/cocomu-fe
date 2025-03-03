@@ -36,13 +36,11 @@ const UserCount = styled.div`
   margin-top: 5rem;
 `;
 
-const RunnerContainer = styled.div`
-  display: flex;
-  flex: 1;
+const ExecutionDisabled = styled.div`
   opacity: 0.5;
   pointer-events: none;
 `;
 
-const S = { Container, ActiveUsersContainer, UserCount, RunnerContainer };
+const S = { Container, ActiveUsersContainer, UserCount, ExecutionDisabled };
 
 export default S;

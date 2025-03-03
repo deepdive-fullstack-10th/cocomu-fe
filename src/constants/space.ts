@@ -47,6 +47,11 @@ export const FOOTER_ACTIONS = {
   },
 } as const;
 
+export const RUNNER_TAB = {
+  INPUT: '입력',
+  OUTPUT: '실행 결과',
+} as const;
+
 export const DEFAULT_CODE = {
   python: `def Main():
       pass  
