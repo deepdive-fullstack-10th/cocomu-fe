@@ -40,19 +40,15 @@ export const spaceApi = {
   },
 
   getSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
-    const queryParams = {};
+    const queryParams = params ? { ...params } : {};
 
-    if (params) {
-      Object.entries(params).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          queryParams[key] = value;
-        }
-      });
-    }
+    Object.keys(queryParams).forEach((key) => {
+      if (queryParams[key] === null || queryParams[key] === undefined) delete queryParams[key];
+    });
 
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.SPACE_LIST(studyId), {
-      params: queryParams,
-      paramsSerializer: {
+      params: Object.keys(queryParams).length > 0 ? queryParams : undefined,
+      /* paramsSerializer: {
         serialize: (param) => {
           const searchParams = new URLSearchParams();
 
@@ -60,18 +56,18 @@ export const spaceApi = {
             if (Array.isArray(value)) {
               value.forEach((item) => searchParams.append(`${key}[]`, item));
             } else {
-              searchParams.append(key, value);
+              searchParams.append(key, String(value));
             }
           });
 
           return searchParams.toString();
         },
-      },
+      }, */
       /* headers: {
         Authorization: `Bearer ${token}`,
       }, */
     });
-    const startIndex = params.lastIndex || 0;
+    const startIndex = params?.lastIndex ?? null;
     const limit = startIndex === 0 ? 5 : 10;
 
     return data.result.slice(startIndex, startIndex + limit);
