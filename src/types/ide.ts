@@ -1,16 +1,15 @@
-import { Language } from './space';
-import { SubmitTestCaseList } from './testCase';
+import { SubmitTestCase } from './space';
 
-export interface IdeCodeRun {
+export interface RunIDEData {
   ideId: string;
-  language: Language;
+  language: string;
   inputData: string;
   code: string;
 }
 
-export interface IdeCodeSubmit {
+export interface SubmitIDEData {
   ideId: string;
-  language: Language;
+  language: string;
   code: string;
-  testCases: SubmitTestCaseList[];
+  testCases: SubmitTestCase[];
 }

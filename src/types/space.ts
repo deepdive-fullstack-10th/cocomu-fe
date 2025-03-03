@@ -30,8 +30,11 @@ export interface TestCaseIO {
   output?: string;
 }
 
-export interface TestCaseData extends TestCaseIO {
+export interface SubmitTestCase extends TestCaseIO {
   id?: number | string;
+}
+
+export interface TestCaseData extends SubmitTestCase {
   type?: TestCaseType;
 }
 
@@ -42,20 +45,6 @@ export interface SpaceOutletProps {
   totalUserCount?: number;
   setTabInfo?: Dispatch<SetStateAction<{ code: string; id: string }>>;
   setInput?: Dispatch<SetStateAction<string>>;
-}
-
-export interface SpaceDetail {
-  id?: string;
-  studyId?: string;
-  name: string;
-  description: string;
-  referenceUrl: string;
-  language?: string;
-  totalUserCount?: number;
-  codingTime: number;
-  status: string;
-  hasLeaderRole: boolean;
-  testCase: TestCaseData[];
 }
 
 export interface CreateSpaceFormData extends Record<string, string | number> {
