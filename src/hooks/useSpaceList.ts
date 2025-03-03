@@ -17,17 +17,18 @@ export default function useSpaceList(studyId: string) {
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['spaceList', studyId, debouncedFilters],
-    queryFn: async () => {
+    queryFn: async ({ pageParam }) => {
       const params: SpaceListParams = {
         ...debouncedFilters,
+        lastIndex: pageParam,
       };
       console.log('api 호출 파라미터: ', params);
       return spaceApi.fetchSpaceList(studyId, params);
     },
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length === 0) return undefined;
-      return lastPage[lastPage.length - 1].id + 1;
+      return allPages.reduce((sum, page) => sum + page.length, 0);
     },
     enabled: !!studyId,
   });
@@ -42,7 +43,7 @@ export default function useSpaceList(studyId: string) {
 
   useEffect(() => {
     queryClient.invalidateQueries({
-      queryKey: ['spaceList', studyId],
+      queryKey: ['spaceList', studyId, debouncedFilters],
     });
   }, [queryClient, studyId, debouncedFilters]);
 
@@ -58,7 +59,7 @@ export default function useSpaceList(studyId: string) {
     } finally {
       setTimeout(() => {
         setIsFetching(false);
-      }, 500);
+      }, 100);
     }
   }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 

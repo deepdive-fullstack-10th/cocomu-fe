@@ -31,7 +31,7 @@ const TabMenuContainer = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 3rem 14rem 0 14rem;
+  padding: 3rem 0;
 `;
 
 const FilteredContainer = styled.div`

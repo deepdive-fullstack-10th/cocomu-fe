@@ -242,13 +242,22 @@ const sampleData = [
 const extendData = (data: SpaceData[]) => {
   const extendedData: SpaceData[] = [];
   const dataLength = data.length;
+  const userIds = new Set();
 
   for (let i = 0; i < 30; i++) {
-    const batchData = data.map((item, index) => ({
-      ...item,
-      id: item.id + i * (dataLength + 1) + index,
-      status: item.status as SpaceStatusData,
-    }));
+    const batchData = data.map((item, index) => {
+      let newId = item.id + (i + 1) * (dataLength * 30) + index;
+
+      while (userIds.has(newId)) {
+        newId += 5;
+      }
+      userIds.add(newId);
+
+      return {
+        ...item,
+        id: newId,
+      };
+    });
 
     extendedData.push(...batchData);
   }
