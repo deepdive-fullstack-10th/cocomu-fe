@@ -1,8 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useToastStore } from '@stores/useToastStore';
 import { PATH } from '@constants/path';
 
 import Loading from '@pages/Loading';
@@ -27,20 +24,6 @@ const SpaceCreate = lazy(() => import('@pages/Space/SpaceCreate'));
 const SpaceWaiting = lazy(() => import('@pages/Space/SpaceWaiting'));
 const SpaceRunning = lazy(() => import('@pages/Space/SpaceRunning'));
 const SpaceFeedback = lazy(() => import('@pages/Space/SpaceFeedback'));
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      throwOnError: true,
-      retry: 0,
-    },
-    mutations: {
-      onError: (error) => {
-        useToastStore.getState().error(error.message);
-      },
-    },
-  },
-});
 
 const router = createBrowserRouter(
   [
@@ -99,11 +82,8 @@ const router = createBrowserRouter(
 
 export default function AppRouter() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </QueryClientProvider>
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 }
