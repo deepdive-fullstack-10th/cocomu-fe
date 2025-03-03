@@ -36,11 +36,6 @@ const UserCount = styled.div`
   margin-top: 5rem;
 `;
 
-const ExecutionDisabled = styled.div`
-  opacity: 0.5;
-  pointer-events: none;
-`;
-
-const S = { Container, ActiveUsersContainer, UserCount, ExecutionDisabled };
+const S = { Container, ActiveUsersContainer, UserCount };
 
 export default S;

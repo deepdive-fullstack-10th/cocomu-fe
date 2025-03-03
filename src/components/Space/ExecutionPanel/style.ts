@@ -1,9 +1,16 @@
 import styled from '@emotion/styled';
 
-const Container = styled.div`
+const Container = styled.div<{ disabled: boolean }>`
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    pointer-events: none;
+  `}
 `;
 
 const TabList = styled.div`

@@ -52,9 +52,7 @@ export default function SpaceWaiting() {
         onMouseDown={handleMouseDown}
       />
 
-      <S.ExecutionDisabled>
-        <ExecutionPanel />
-      </S.ExecutionDisabled>
+      <ExecutionPanel disabled />
     </S.Container>
   );
 }
