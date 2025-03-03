@@ -5,13 +5,14 @@ import S from './style';
 interface ExecutionPanelProps {
   setInput?: (input: string) => void;
   output?: string;
+  disabled?: boolean;
 }
 
-export default function ExecutionPanel({ setInput, output }: ExecutionPanelProps) {
+export default function ExecutionPanel({ setInput, output, disabled }: ExecutionPanelProps) {
   const [selectedTab, setSelectedTab] = useState<keyof typeof RUNNER_TAB>('INPUT');
 
   return (
-    <S.Container>
+    <S.Container disabled={disabled}>
       <S.TabList>
         {Object.entries(RUNNER_TAB).map(([key, label]) => (
           <S.Tab
