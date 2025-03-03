@@ -67,10 +67,12 @@ export default function SpaceDetail() {
   return (
     <S.Container>
       <SpaceNavbar
+        codingSpaceId={String(data.codingSpace.id)}
         studyId={data.codingSpace.studyId}
         status={data.codingSpace.status}
-        timer={data.codingSpace.codingTime}
+        isLeader={data.codingSpace.hasLeaderRole}
         name={data.codingSpace.name}
+        timer={data.codingSpace.codingTime}
       />
 
       <S.MainContent ref={containerRef}>
