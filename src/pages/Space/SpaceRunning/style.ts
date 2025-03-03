@@ -39,11 +39,6 @@ const TabContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
 `;
 
-const RunnerContainer = styled.div`
-  display: flex;
-  flex: 1;
-`;
-
-const S = { Container, CodingContainer, TabContainer, MonacoContainer, RunnerContainer };
+const S = { Container, CodingContainer, TabContainer, MonacoContainer };
 
 export default S;

@@ -12,7 +12,7 @@ import { DEFAULT_CODE } from '@constants/space';
 
 import Tab from '@components/_common/atoms/Tab';
 import ResizablePanel from '@components/Space/ResizablePanel';
-import SpaceRunner from '../SpaceRunner';
+import ExecutionPanel from '@components/Space/ExecutionPanel';
 
 import S from './style';
 
@@ -67,9 +67,7 @@ export default function SpaceRunning() {
         onMouseDown={handleMouseDown}
       />
 
-      <S.RunnerContainer>
-        <SpaceRunner setInput={outletData?.setInput} />
-      </S.RunnerContainer>
+      <ExecutionPanel setInput={outletData?.setInput} />
     </S.Container>
   );
 }

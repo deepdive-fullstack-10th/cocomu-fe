@@ -5,7 +5,7 @@ import { SpaceOutletProps } from '@customTypes/space';
 
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import ResizablePanel from '@components/Space/ResizablePanel';
-import SpaceRunner from '../SpaceRunner';
+import ExecutionPanel from '@components/Space/ExecutionPanel';
 
 import S from './style';
 
@@ -52,9 +52,9 @@ export default function SpaceWaiting() {
         onMouseDown={handleMouseDown}
       />
 
-      <S.RunnerContainer>
-        <SpaceRunner />
-      </S.RunnerContainer>
+      <S.ExecutionDisabled>
+        <ExecutionPanel />
+      </S.ExecutionDisabled>
     </S.Container>
   );
 }
