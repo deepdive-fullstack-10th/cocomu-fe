@@ -6,9 +6,10 @@ import {
   spaceStartErrorResponse,
   spaceStartSuccessResponse,
   TabData,
+  getSpaceListErrorResponse,
+  getSpaceListResponse,
 } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
-import { getSpaceListErrorResponse, getSpaceListResponse } from '@mocks/data/space';
 import { CreateSpaceData } from '@customTypes/space';
 
 export const spaceDetailHandlers = [

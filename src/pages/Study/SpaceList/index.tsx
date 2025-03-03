@@ -2,7 +2,7 @@ import IconButton from '@components/_common/atoms/IconButton';
 import { BsPlusLg } from 'react-icons/bs';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { PROGRAMMING_LANGUAGES, STEP_LABELS, STUDY_LIST } from '@constants/constants';
-import SpaceCard from '@components/SpaceCard';
+import SpaceCard from '@components/Space/SpaceCard';
 import { useEffect, useRef, useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import SearchInput from '@components/_common/atoms/SearchInput';
@@ -14,45 +14,13 @@ import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import useDebounce from '@hooks/useDebounce';
 import S from './style';
 
-function Header({ studyTitle }: { studyTitle: string }) {
-  const [selectedTab, setSelectedTab] = useState<string>(STUDY_LIST[0]);
-
-  const onCreateSpace = () => {};
-
-  return (
-    <div>
-      <S.HeaderContainer>
-        <S.StudyTitle>{studyTitle}</S.StudyTitle>
-        <S.CreateButtonContainer>
-          <IconButton
-            color='white'
-            align='center'
-            content='스페이스 생성하기'
-            shape='round'
-            onClick={onCreateSpace}
-          >
-            <BsPlusLg />
-          </IconButton>
-        </S.CreateButtonContainer>
-        <S.TabMenuContainer>
-          <TabMenu
-            tabs={STUDY_LIST}
-            selectedTab={selectedTab}
-            onTabChange={setSelectedTab}
-          />
-        </S.TabMenuContainer>
-      </S.HeaderContainer>
-    </div>
-  );
-}
-
 export default function SpaceList() {
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [joinable, setJoinable] = useState(false);
 
-  const { studyId } = useParams<{ studyId: string }>(1);
+  const { studyId } = useParams<{ studyId: string }>();
   const { spaces, updateFilters, hasNextPage, isFetchingNextPage, nextList } = useSpaceList(studyId);
   const observerRef = useRef<HTMLDivElement>(null);
   const debouncedValue = useDebounce(searchKeyword, 300);
@@ -101,75 +69,70 @@ export default function SpaceList() {
   };
 
   return (
-    <div>
-      <Header studyTitle='딥다이버즈 스터디임' />
-      <div>
-        <S.BodyContainer>
-          <S.FilteredContainer>
-            <S.ClickFilteredContainer>
-              <SelectDropdown
-                description='전체'
-                items={STEP_LABELS}
-                values={selectedStatus}
-                onSelect={handleStatus}
-              />
-              <SelectDropdown
-                description='사용 언어'
-                items={PROGRAMMING_LANGUAGES}
-                values={selectedLanguage}
-                onSelect={handleLanguage}
-              />
-              <ToggleButton
-                size='md'
-                shape='round'
-                isActive={joinable}
-                onToggle={(join: boolean) => handleMySpace(join)}
-              >
-                내가 참여한 스페이스 보기
-              </ToggleButton>
-            </S.ClickFilteredContainer>
-            <S.SearchFilteredContainer>
-              <SearchInput
-                placeholder='제목을 검색해 주세요'
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-                onSearch={handleSearch}
-              />
-            </S.SearchFilteredContainer>
-          </S.FilteredContainer>
-          <S.SpaceListContainer>
-            {spaces &&
-              spaces.map((space) => (
-                <SpaceCard
-                  key={space.id}
-                  id={space.id}
-                  joinedSpace={space.joinedSpace}
-                  name={space.name}
-                  language={space.language}
-                  totalUserCount={space.totalUserCount}
-                  createdAt={space.createdAt}
-                  status={space.status}
-                  leader={space.leader}
-                  currentUsers={space.currentUsers}
-                />
-              ))}
-            {hasNextPage && (
-              <div
-                ref={observerRef}
-                style={{
-                  height: '0.2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingBottom: '4rem',
-                }}
-              >
-                <LoadingSpinner />
-              </div>
-            )}
-          </S.SpaceListContainer>
-        </S.BodyContainer>
-      </div>
-    </div>
+    <S.BodyContainer>
+      <S.FilteredContainer>
+        <S.ClickFilteredContainer>
+          <SelectDropdown
+            description='전체'
+            items={STEP_LABELS}
+            values={selectedStatus}
+            onSelect={handleStatus}
+          />
+          <SelectDropdown
+            description='사용 언어'
+            items={PROGRAMMING_LANGUAGES}
+            values={selectedLanguage}
+            onSelect={handleLanguage}
+          />
+          <ToggleButton
+            size='md'
+            shape='round'
+            isActive={joinable}
+            onToggle={(join: boolean) => handleMySpace(join)}
+          >
+            내가 참여한 스페이스 보기
+          </ToggleButton>
+        </S.ClickFilteredContainer>
+        <S.SearchFilteredContainer>
+          <SearchInput
+            placeholder='제목을 검색해 주세요'
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            onSearch={handleSearch}
+          />
+        </S.SearchFilteredContainer>
+      </S.FilteredContainer>
+      <S.SpaceListContainer>
+        {spaces &&
+          spaces.map((space) => (
+            <SpaceCard
+              key={space.id}
+              id={space.id}
+              joinedSpace={space.joinedSpace}
+              name={space.name}
+              language={space.language}
+              totalUserCount={space.totalUserCount}
+              createdAt={space.createdAt}
+              status={space.status}
+              leader={space.leader}
+              currentUsers={space.currentUsers}
+            />
+          ))}
+        {hasNextPage && (
+          <div
+            ref={observerRef}
+            style={{
+              height: '0.2rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingBottom: '4rem',
+            }}
+          >
+            <LoadingSpinner />
+          </div>
+        )}
+      </S.SpaceListContainer>
+    </S.BodyContainer>
   );
 }
