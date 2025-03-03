@@ -107,7 +107,7 @@ export const spaceStartErrorResponse = {
   message: '스페이스 시작에 실패했습니다. studyId가 필요합니다.',
 };
 
-export const TabData = {
+export const getTabResponse = {
   code: 1100,
   message: '코딩 스페이스 입장에 성공하였습니다.',
   result: {
@@ -117,10 +117,15 @@ export const TabData = {
       user: {
         id: '1',
         nickName: '코코',
-        profileImageUrl: 'https://cdn.domain.com/images/*.png',
+        profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     },
   },
+};
+
+export const getTabErrorResponse = {
+  code: 4200,
+  message: '탭 조회에 실패하였습니다.',
 };
 
 export const createResponse = {
