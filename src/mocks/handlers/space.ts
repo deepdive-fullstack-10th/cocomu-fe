@@ -2,11 +2,12 @@ import { http, HttpResponse } from 'msw';
 import {
   createErrorResponse,
   createResponse,
+  getSpaceErrorResponse,
+  getSpaceResponse,
   getTabErrorResponse,
   getTabResponse,
-  spaceData,
   spaceStartErrorResponse,
-  spaceStartSuccessResponse,
+  spaceStartResponse,
   updateTestCaseErrorResponse,
   updateTestCaseResponse,
 } from '@mocks/data/space';
@@ -43,37 +44,31 @@ export const spaceHandlers = [
   }),
 
   http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.START(':codingSpaceId')}`, async ({ params, request }) => {
-    const body = (await request.json()) as { studyId?: string };
-    const codingSpaceId = params.codingSpaceId as string;
+    const body = await request.json();
+    const { codingSpaceId } = params;
 
-    if (!body.studyId) {
+    if (!body || !codingSpaceId) {
       return new HttpResponse(JSON.stringify(spaceStartErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(
-      JSON.stringify({
-        ...spaceStartSuccessResponse,
-        result: { codingSpaceId, studyId: body.studyId },
-      }),
-      {
-        status: HTTP_STATUS_CODE.SUCCESS,
-      },
-    );
+    return new HttpResponse(JSON.stringify(spaceStartResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
   }),
 
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.PAGE(':codingSpaceId')}`, async ({ params }) => {
     const { codingSpaceId } = params;
+
     if (!codingSpaceId) {
-      return new HttpResponse(JSON.stringify({ error: 'Invalid coding space ID' }), {
+      return new HttpResponse(JSON.stringify(getSpaceErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(spaceData), {
+    return new HttpResponse(JSON.stringify(getSpaceResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
-      headers: { 'Content-Type': 'application/json' },
     });
   }),
 
