@@ -1,10 +1,10 @@
 import { useOutletContext } from 'react-router-dom';
 
 import { useDraggable } from '@hooks/utils/useDraggable';
-
 import { SpaceOutletProps } from '@customTypes/space';
 
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
+import ResizablePanel from '@components/Space/ResizablePanel';
 import SpaceRunner from '../SpaceRunner';
 
 import S from './style';
@@ -35,17 +35,7 @@ const User = [
 export default function SpaceWaiting() {
   const outletProps = useOutletContext<SpaceOutletProps>();
 
-  const {
-    value: height,
-    containerRef,
-    handleMouseDown,
-  } = useDraggable({
-    direction: 'y',
-    initialValue: 70,
-    min: 10,
-    max: 90,
-    threshold: 5,
-  });
+  const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
   return (
     <S.Container ref={containerRef}>
@@ -54,12 +44,13 @@ export default function SpaceWaiting() {
           users={User}
           size='lg'
         />
-        <S.UserCount>{`${User.length}${' '}/${' '}${outletProps.totalUserCount}`}</S.UserCount>
+        <S.UserCount>{`${User.length} / ${outletProps.totalUserCount}`}</S.UserCount>
       </S.ActiveUsersContainer>
 
-      <S.ResizablePanel>
-        <S.ResizeButton onMouseDown={handleMouseDown} />
-      </S.ResizablePanel>
+      <ResizablePanel
+        direction='x'
+        onMouseDown={handleMouseDown}
+      />
 
       <S.RunnerContainer>
         <SpaceRunner />
