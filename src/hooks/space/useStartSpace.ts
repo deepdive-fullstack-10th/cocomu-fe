@@ -10,7 +10,8 @@ export default function useStartSpace() {
   const { open } = useModalStore();
 
   const startSpaceMutate = useMutation({
-    mutationFn: spaceApi.start,
+    mutationFn: ({ codingSpaceId, studyId }: { codingSpaceId: string; studyId: string }) =>
+      spaceApi.start(codingSpaceId, studyId),
     onSuccess: (codingSpaceId) => {
       open('waiting', {
         label: WAITING_INFO.problem.label,
