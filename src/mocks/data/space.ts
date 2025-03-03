@@ -1,4 +1,4 @@
-export const spaceData = {
+export const getSpaceResponse = {
   code: 1100,
   message: '코딩 스페이스 입장에 성공하였습니다.',
   result: {
@@ -10,69 +10,69 @@ export const spaceData = {
       language: 'javascript',
       referenceUrl: 'url',
       description: `
-    <h1>🔢 배열의 최댓값과 최솟값 찾기</h1>
+        <h1>배열의 최댓값과 최솟값 찾기</h1>
+        <br>
+        <h1>📌 문제 설명</h1>
+        <br>
+        <p>정수로 이루어진 배열 <strong>numbers</strong>가 주어집니다.</p>
+        <p>이 배열에서 <strong>가장 큰 값과 가장 작은 값을 찾아</strong> 두 값의 차이를 반환하는 함수를 구현하세요.</p>
 
-    <h1>📌 문제 설명</h1>
+        <blockquote>
+          <p>주어진 배열의 최댓값과 최솟값을 찾아 차이를 반환하세요.</p>
+        </blockquote>
 
-    <p>정수로 이루어진 배열 <strong>numbers</strong>가 주어집니다.</p>
-    <p>이 배열에서 <strong>가장 큰 값과 가장 작은 값을 찾아</strong> 두 값의 차이를 반환하는 함수를 구현하세요.</p>
+        <hr />
+        <br>
+        <h1>✅ 입력 예시</h1>
+        <br>
+        <pre><code>
+        Input: [3, 7, 2, 9, 1]
+        Output: 8  (9 - 1 = 8)
+        </code></pre>
 
-    <blockquote>
-      <p>주어진 배열의 최댓값과 최솟값을 찾아 차이를 반환하세요.</p>
-    </blockquote>
+        <pre><code>
+        Input: [-5, 0, 15, -10, 20]
+        Output: 30 (20 - (-10) = 30)
+        </code></pre>
 
-    <hr />
+        <hr />
+        <br>
+        <h1>🛠️ 제한 조건</h1>
+        <br>
+        <ul>
+          <li>배열의 길이는 <strong>2 이상 100 이하</strong>입니다.</li>
+          <li>배열의 모든 원소는 <strong>-10,000 이상 10,000 이하</strong>의 정수입니다.</li>
+          <li>배열에는 중복된 값이 포함될 수 있습니다.</li>
+        </ul>
 
-    <h1>✅ 입력 예시</h1>
+        <hr />
+        <br>
+        <h1>💡 해결 방법</h1>
+        <br>
+        <p>배열을 순회하면서 <mark>최댓값과 최솟값을 찾고</mark> 두 값의 차이를 반환하면 됩니다.</p>
+        <p><code>Math.max()</code>와 <code>Math.min()</code>을 활용하면 쉽게 구할 수 있습니다.</p>
 
-    <pre><code>
-    Input: [3, 7, 2, 9, 1]
-    Output: 8  (9 - 1 = 8)
-    </code></pre>
+        <hr />
+        <br>
+        <h1>📝 예제 코드 (JavaScript)</h1>
+        <br>
+        <pre><code>
+        function findDifference(numbers) {
+          const max = Math.max(...numbers);
+          const min = Math.min(...numbers);
+          return max - min;
+        }
 
-    <pre><code>
-    Input: [-5, 0, 15, -10, 20]
-    Output: 30 (20 - (-10) = 30)
-    </code></pre>
+        console.log(findDifference([3, 7, 2, 9, 1])); // 8
+        console.log(findDifference([-5, 0, 15, -10, 20])); // 30
+        </code></pre>
 
-    <hr />
-
-    <h1>🛠️ 제한 조건</h1>
-
-    <ul>
-      <li>배열의 길이는 <strong>2 이상 100 이하</strong>입니다.</li>
-      <li>배열의 모든 원소는 <strong>-10,000 이상 10,000 이하</strong>의 정수입니다.</li>
-      <li>배열에는 중복된 값이 포함될 수 있습니다.</li>
-    </ul>
-
-    <hr />
-
-    <h1>💡 해결 방법</h1>
-
-    <p>배열을 순회하면서 <mark>최댓값과 최솟값을 찾고</mark> 두 값의 차이를 반환하면 됩니다.</p>
-    <p><code>Math.max()</code>와 <code>Math.min()</code>을 활용하면 쉽게 구할 수 있습니다.</p>
-
-    <hr />
-
-    <h1>📝 예제 코드 (JavaScript)</h1>
-
-    <pre><code>
-    function findDifference(numbers) {
-      const max = Math.max(...numbers);
-      const min = Math.min(...numbers);
-      return max - min;
-    }
-
-    console.log(findDifference([3, 7, 2, 9, 1])); // 8
-    console.log(findDifference([-5, 0, 15, -10, 20])); // 30
-    </code></pre>
-
-    <hr />
-
-    <h1>🚀 제출 및 실행</h1>
-
-    <p>아래 코드 영역에 <strong>findDifference</strong> 함수를 작성하고 실행하세요.</p>
-  `,
+        <hr />
+        <br>
+        <h1>🚀 제출 및 실행</h1>
+        <br>
+        <p>아래 코드 영역에 <strong>findDifference</strong> 함수를 작성하고 실행하세요.</p>
+      `,
       codingTime: 30,
       totalUserCount: 4,
       hasLeaderRole: true,
@@ -94,7 +94,12 @@ export const spaceData = {
   },
 };
 
-export const spaceStartSuccessResponse = {
+export const getSpaceErrorResponse = {
+  code: 4200,
+  message: '코딩 스페이스 조회에 실패했습니다.',
+};
+
+export const spaceStartResponse = {
   code: 1200,
   message: '스페이스 시작에 성공했습니다.',
   result: {
