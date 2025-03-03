@@ -14,6 +14,7 @@ import {
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
 import { getSpaceListErrorResponse, getSpaceListResponse } from '@mocks/data/space';
+import { CreateSpaceData } from '@customTypes/space';
 
 export const spaceHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.CREATE}`, async ({ request }) => {
