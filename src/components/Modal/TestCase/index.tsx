@@ -5,10 +5,12 @@ import Button from '@components/_common/atoms/Button';
 import { BsX } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
 import TestCase from '@components/_common/molecules/TestCase';
+import useUpdateTestCase from '@hooks/space/useUpdateTestCase';
 import S from './style';
 
-export default function TestCaseModal({ isEditable, testCases, onClose }: TestCaseProps) {
+export default function TestCaseModal({ codingSpaceId, isEditable, testCases, onClose }: TestCaseProps) {
   const [localTestCases, setLocalTestCases] = useState(testCases);
+  const { updateTestCaseMutate } = useUpdateTestCase();
 
   const handleAddTestCase = () => {
     setLocalTestCases((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
@@ -22,7 +24,10 @@ export default function TestCaseModal({ isEditable, testCases, onClose }: TestCa
     setLocalTestCases((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
   };
 
-  const onSubmitTestCaseUpdate = async () => {
+  const handleUpdate = () => {
+    const formattedTestCases = localTestCases.map(({ input, output }) => ({ input, output }));
+    updateTestCaseMutate.mutate({ codingSpaceId, testCases: formattedTestCases });
+
     onClose();
   };
 
@@ -60,7 +65,7 @@ export default function TestCaseModal({ isEditable, testCases, onClose }: TestCa
           <Button
             size='sm'
             color='primary'
-            onClick={onSubmitTestCaseUpdate}
+            onClick={handleUpdate}
           >
             수정하기
           </Button>
