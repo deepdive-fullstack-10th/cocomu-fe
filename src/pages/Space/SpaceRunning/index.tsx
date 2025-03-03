@@ -11,6 +11,7 @@ import MonacoEditor from '@monaco-editor/react';
 import { DEFAULT_CODE } from '@constants/space';
 
 import Tab from '@components/_common/atoms/Tab';
+import ResizablePanel from '@components/Space/ResizablePanel';
 import SpaceRunner from '../SpaceRunner';
 
 import S from './style';
@@ -24,6 +25,8 @@ export default function SpaceRunning() {
 
   const [code, setCode] = useState<string>(tabCode);
 
+  const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
+
   useEffect(() => {
     if (tabId) {
       outletData?.setTabInfo((prev) => ({ ...prev, id: tabId }));
@@ -34,18 +37,6 @@ export default function SpaceRunning() {
     setCode(value);
     outletData?.setTabInfo((prev) => ({ ...prev, code: value }));
   };
-
-  const {
-    value: height,
-    containerRef,
-    handleMouseDown,
-  } = useDraggable({
-    direction: 'y',
-    initialValue: 70,
-    min: 10,
-    max: 90,
-    threshold: 5,
-  });
 
   return (
     <S.Container ref={containerRef}>
@@ -70,9 +61,12 @@ export default function SpaceRunning() {
           />
         </S.MonacoContainer>
       </S.CodingContainer>
-      <S.ResizablePanel>
-        <S.ResizeButton onMouseDown={handleMouseDown} />
-      </S.ResizablePanel>
+
+      <ResizablePanel
+        direction='x'
+        onMouseDown={handleMouseDown}
+      />
+
       <S.RunnerContainer>
         <SpaceRunner setInput={outletData?.setInput} />
       </S.RunnerContainer>

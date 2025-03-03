@@ -4,7 +4,7 @@ interface sizeStyleProps {
   width?: number;
 }
 
-const PageContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -41,38 +41,15 @@ const ReferenceContainer = styled.div`
   ${({ theme }) => theme.font.common.block};
 `;
 
-const ResizablePanel = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-right: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-left: 1px solid ${({ theme }) => theme.color.gray[600]};
-  background: ${({ theme }) => theme.color.gray[50]};
-
-  width: 1.3rem;
-`;
-
-const ResizeButton = styled.div`
-  width: 0.5rem;
-  height: 10rem;
-  background: ${({ theme }) => theme.color.gray[600]};
-  border-radius: 20rem;
-
-  cursor: pointer;
-`;
-
 const RightContent = styled.div<sizeStyleProps>`
   width: ${({ width }) => `${width}%` || '40%'};
 `;
 
 const S = {
-  PageContainer,
+  Container,
   MainContent,
   ProblemDescription,
   ReferenceContainer,
-  ResizablePanel,
-  ResizeButton,
   RightContent,
 };
 

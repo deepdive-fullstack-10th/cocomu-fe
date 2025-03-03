@@ -36,27 +36,6 @@ const UserCount = styled.div`
   margin-top: 5rem;
 `;
 
-const ResizablePanel = styled.div`
-  width: 100%;
-  height: 1.3rem;
-
-  border-top: 1px solid ${({ theme }) => theme.color.gray[600]};
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
-  background: ${({ theme }) => theme.color.gray[50]};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ResizeButton = styled.div`
-  width: 10rem;
-  height: 0.5rem;
-  background: ${({ theme }) => theme.color.gray[600]};
-  border-radius: 20rem;
-  cursor: pointer;
-`;
-
 const RunnerContainer = styled.div`
   display: flex;
   flex: 1;
@@ -64,6 +43,6 @@ const RunnerContainer = styled.div`
   pointer-events: none;
 `;
 
-const S = { Container, ActiveUsersContainer, UserCount, ResizablePanel, ResizeButton, RunnerContainer };
+const S = { Container, ActiveUsersContainer, UserCount, RunnerContainer };
 
 export default S;

@@ -39,31 +39,11 @@ const TabContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
 `;
 
-const ResizablePanel = styled.div`
-  width: 100%;
-  height: 1.3rem;
-
-  border: 1px solid ${({ theme }) => theme.color.gray[600]};
-  background: ${({ theme }) => theme.color.gray[50]};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ResizeButton = styled.div`
-  width: 10rem;
-  height: 0.5rem;
-  background: ${({ theme }) => theme.color.gray[600]};
-  border-radius: 20rem;
-  cursor: pointer;
-`;
-
 const RunnerContainer = styled.div`
   display: flex;
   flex: 1;
 `;
 
-const S = { Container, CodingContainer, TabContainer, MonacoContainer, ResizablePanel, ResizeButton, RunnerContainer };
+const S = { Container, CodingContainer, TabContainer, MonacoContainer, RunnerContainer };
 
 export default S;

@@ -4,14 +4,12 @@ import { Outlet, useParams } from 'react-router-dom';
 import { useDraggable } from '@hooks/utils/useDraggable';
 import useGetSpaceInfo from '@hooks/space/useGetSpaceInfo';
 
-import { SpaceDetail } from '@customTypes/space';
-
 import SpaceNavbar from '@components/Space/SpaceNavbar';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import TextEditor from '@components/_common/atoms/TextEditor';
+import ResizablePanel from '@components/Space/ResizablePanel';
 
 import Loading from '@pages/Loading';
-
 import { useCodeRun, useCodeSubmitHandler } from './handler';
 
 import S from './style';
@@ -21,11 +19,10 @@ export default function SpaceDetail() {
   const { data, isLoading } = useGetSpaceInfo(codingSpaceId);
   const [outletProps, setOutletProps] = useState(null);
 
-  const [tabInfo, setTabInfo] = useState({
-    id: '',
-    code: '',
-  });
+  const [tabInfo, setTabInfo] = useState({ id: '', code: '' });
   const [input, setInput] = useState<string>('');
+
+  const { value: width, containerRef, handleMouseDown } = useDraggable({ direction: 'x' });
 
   const { codeRun } = useCodeRun(tabInfo, input, data?.language);
   const { codeSubmit } = useCodeSubmitHandler(tabInfo, data?.language, data?.codingSpace.testCase);
@@ -46,22 +43,10 @@ export default function SpaceDetail() {
     }
   }, [data]);
 
-  const {
-    value: width,
-    containerRef,
-    handleMouseDown,
-  } = useDraggable({
-    direction: 'x',
-    initialValue: 40,
-    min: 10,
-    max: 90,
-    threshold: 5,
-  });
-
   if (isLoading || outletProps === null) return <Loading />;
 
   return (
-    <S.PageContainer>
+    <S.Container>
       <SpaceNavbar
         studyId={data.codingSpace.studyId}
         status={data.codingSpace.status}
@@ -87,9 +72,10 @@ export default function SpaceDetail() {
           </S.ReferenceContainer>
         </S.ProblemDescription>
 
-        <S.ResizablePanel>
-          <S.ResizeButton onMouseDown={handleMouseDown} />
-        </S.ResizablePanel>
+        <ResizablePanel
+          direction='y'
+          onMouseDown={handleMouseDown}
+        />
 
         <S.RightContent width={100 - width}>
           <Outlet context={outletProps} />
@@ -103,6 +89,6 @@ export default function SpaceDetail() {
         onCodeRun={codeRun}
         onCodeSubmit={codeSubmit}
       />
-    </S.PageContainer>
+    </S.Container>
   );
 }
