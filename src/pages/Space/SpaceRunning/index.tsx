@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 
 import { useDraggable } from '@hooks/utils/useDraggable';
@@ -23,16 +23,21 @@ export default function SpaceRunning() {
   const outletData = useOutletContext<SpaceOutletProps>();
   const { data, isLoading } = useGetTab(codingSpaceId);
 
-  const tabId = data?.tab?.id || '';
-  const tabCode = data?.tab?.code || DEFAULT_CODE[outletData?.language?.toLowerCase()] || '';
-
-  const [code, setCode] = useState(tabCode);
+  const [code, setCode] = useState(data?.tab?.code);
 
   const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
+  useEffect(() => {
+    if (!data?.tab) return;
+
+    outletData?.setTabInfo((prev) => ({ ...prev, id: data?.tab?.id }));
+
+    setCode(data?.tab?.code || DEFAULT_CODE[outletData?.language?.toLocaleLowerCase()] || '');
+  }, [outletData, data?.tab]);
+
   const handleCodeChange = (value: string) => {
     setCode(value);
-    outletData?.setTabInfo((prev) => ({ ...prev, id: tabId, code: value }));
+    outletData?.setTabInfo((prev) => ({ ...prev, code: value }));
   };
 
   if (isLoading) return <Loading />;
