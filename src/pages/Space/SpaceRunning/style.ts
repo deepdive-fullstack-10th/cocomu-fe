@@ -33,12 +33,6 @@ const MonacoContainer = styled.div`
   overflow: auto;
 `;
 
-const TabContainer = styled.div`
-  display: flex;
-  background: ${({ theme }) => theme.color.gray[100]};
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
-`;
-
-const S = { Container, CodingContainer, TabContainer, MonacoContainer };
+const S = { Container, CodingContainer, MonacoContainer };
 
 export default S;
