@@ -18,31 +18,19 @@ export const studyHandlers = [
     const url = new URL(request.url);
     const page = Number(url.searchParams.get('page')) || 1;
     const size = 20;
-    const status = url.searchParams.get('status');
-    const joinable = url.searchParams.get('joinable') === 'true';
-    const keyword = url.searchParams.get('keyword')?.toLowerCase() || '';
-    const languages = url.searchParams.getAll('languages[]');
-    const judges = url.searchParams.getAll('judges[]');
-
-    const filteredStudies = getStudyListResponse.result.studies.filter((study) => {
-      const matchesStatus = !status || study.status === status;
-      const matchesLanguages = languages.length === 0 || study.languages.some((lang) => languages.includes(lang));
-      const matchesJudges = judges.length === 0 || study.judges.some((judge) => judges.includes(judge));
-      const matchesJoinable = !joinable || study.joinable === true;
-      const matchesKeyword = !keyword || study.name.toLowerCase().includes(keyword);
-      return matchesStatus && matchesLanguages && matchesJudges && matchesJoinable && matchesKeyword;
-    });
 
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
-    const paginatedStudies = filteredStudies.slice(startIndex, endIndex);
+
+    const totalPage = Math.ceil(getStudyListResponse.result.studies.length / size);
+    const paginatedStudies = getStudyListResponse.result.studies.slice(startIndex, endIndex);
 
     const response = {
       ...getStudyListResponse,
       result: {
         ...getStudyListResponse.result,
         studies: paginatedStudies,
-        totalPage: getStudyListResponse.result.totalPage,
+        totalPage,
       },
     };
 
