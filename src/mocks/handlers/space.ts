@@ -2,10 +2,11 @@ import { http, HttpResponse } from 'msw';
 import {
   createErrorResponse,
   createResponse,
+  getTabErrorResponse,
+  getTabResponse,
   spaceData,
   spaceStartErrorResponse,
   spaceStartSuccessResponse,
-  TabData,
   updateTestCaseErrorResponse,
   updateTestCaseResponse,
 } from '@mocks/data/space';
@@ -29,15 +30,15 @@ export const spaceHandlers = [
 
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.TAB(':codingSpaceId')}`, async ({ params }) => {
     const { codingSpaceId } = params;
+
     if (!codingSpaceId) {
-      return new HttpResponse(JSON.stringify({ error: 'Invalid coding space ID' }), {
+      return new HttpResponse(JSON.stringify(getTabErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(TabData), {
+    return new HttpResponse(JSON.stringify(getTabResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
-      headers: { 'Content-Type': 'application/json' },
     });
   }),
 
