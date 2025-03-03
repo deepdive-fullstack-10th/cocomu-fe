@@ -49,7 +49,7 @@ export default function SpaceRunning() {
 
         <S.MonacoContainer>
           <MonacoEditor
-            defaultLanguage={outletData?.language.toLowerCase()}
+            defaultLanguage={outletData?.language.toLocaleLowerCase()}
             theme='vs'
             options={{
               minimap: { enabled: false },
@@ -67,7 +67,7 @@ export default function SpaceRunning() {
         onMouseDown={handleMouseDown}
       />
 
-      <ExecutionPanel setInput={outletData?.setInput} />
+      <ExecutionPanel setInput={outletData?.setInputData} />
     </S.Container>
   );
 }

@@ -39,12 +39,10 @@ export interface TestCaseData extends SubmitTestCase {
 }
 
 export interface SpaceOutletProps {
-  id?: string;
-  studyId?: string;
   language?: string;
   totalUserCount?: number;
   setTabInfo?: Dispatch<SetStateAction<{ code: string; id: string }>>;
-  setInput?: Dispatch<SetStateAction<string>>;
+  setInputData?: Dispatch<SetStateAction<string>>;
 }
 
 export interface CreateSpaceFormData extends Record<string, string | number> {
