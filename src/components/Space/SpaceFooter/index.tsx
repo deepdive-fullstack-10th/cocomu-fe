@@ -7,18 +7,20 @@ import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
 interface SpaceFooterProps {
+  codingSpaceId: string;
   status: keyof typeof FOOTER_ACTIONS;
   testCases: TestCaseData;
   onCodeRun?: () => void;
   onCodeSubmit?: () => void;
 }
 
-export default function SpaceFooter({ status, testCases, onCodeRun, onCodeSubmit }: SpaceFooterProps) {
+export default function SpaceFooter({ codingSpaceId, status, testCases, onCodeRun, onCodeSubmit }: SpaceFooterProps) {
   const { open } = useModalStore();
   const { testCaseLabel, isTestCaseEditable, showRun, showSubmit } = FOOTER_ACTIONS[status];
 
   const handleOpenTestCase = () => {
     open('testCase', {
+      codingSpaceId,
       isEditable: isTestCaseEditable,
       testCases,
     });

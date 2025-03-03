@@ -97,6 +97,7 @@ export default function SpaceDetail() {
       </S.MainContent>
 
       <SpaceFooter
+        codingSpaceId={String(data.codingSpace.id)}
         status={data.codingSpace.status}
         testCases={data.codingSpace.testCase}
         onCodeRun={codeRun}
