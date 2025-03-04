@@ -35,19 +35,18 @@ export const StudyTitle = styled.h1`
 
 const TagContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.2rem 11.3rem;
+  grid-template-columns: repeat(4, auto);
+  gap: 2.1rem;
   padding: 4.2rem 0 2.5rem;
   justify-content: start;
   align-self: flex-start;
 `;
 
 const TagText = styled.div`
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   ${theme.font.common.default};
-  gap: 1rem;
+  padding: 0 2.1rem 0 0;
   overflow: hidden;
 
   & > span {

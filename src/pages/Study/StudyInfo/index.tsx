@@ -3,6 +3,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import Tag from '@components/_common/atoms/Tag';
+import TagList from '@components/_common/molecules/TagList';
 import Button from '@components/_common/atoms/Button';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
@@ -27,6 +28,7 @@ export default function StudyInfo() {
     createdAt = '',
     description = '설명 없음',
     languages = [],
+    workbooks = [],
     totalUserCount = 0,
     leader = {
       id: 0,
@@ -78,29 +80,29 @@ export default function StudyInfo() {
       <S.BodyContainer>
         <S.StudyTitle>{name}</S.StudyTitle>
         <S.TagContainer>
-          <S.TagText>
-            공개 여부
-            <Tag color='primary'>{status === 'PUBLIC' ? '공개' : '비공개'}</Tag>
-          </S.TagText>
-          <S.TagText>
-            모집 인원
-            <Tag color='secondary'>
-              {totalUserCount}
-              {' 명'}
-            </Tag>
-          </S.TagText>
-          <S.TagText>
-            주력 언어
-            <Tag color='analogous'>{languages.join(', ') || '정보 없음'}</Tag>
-          </S.TagText>
-          <S.TagText>
-            시작 날짜
-            <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
-          </S.TagText>
-          <S.TagText>
-            사용 플랫폼
-            <Tag color='gray'>백준</Tag>
-          </S.TagText>
+          <S.TagText>공개 여부</S.TagText>
+          <Tag color='primary'>{status === 'PUBLIC' ? '공개' : '비공개'}</Tag>
+          <S.TagText>모집 인원</S.TagText>
+          <Tag color='secondary'>
+            {totalUserCount}
+            {' 명'}
+          </Tag>
+          <S.TagText>시작 날짜</S.TagText>
+          <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
+          <div />
+          <div />
+          <S.TagText>주력 언어</S.TagText>
+          <TagList
+            items={languages.length > 0 ? languages : ['정보 없음']}
+            color='analogous'
+          />
+          <div />
+          <div />
+          <S.TagText>사용 플랫폼</S.TagText>
+          <TagList
+            items={workbooks.length > 0 ? workbooks : ['정보 없음']}
+            color='gray'
+          />
         </S.TagContainer>
         <S.ProjectIntro>프로젝트 소개</S.ProjectIntro>
         <S.Description>{description}</S.Description>
