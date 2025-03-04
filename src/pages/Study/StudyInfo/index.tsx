@@ -1,6 +1,5 @@
-// StudyInfo.jsx
 import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import Tag from '@components/_common/atoms/Tag';
@@ -8,6 +7,7 @@ import Button from '@components/_common/atoms/Button';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 import { formatDate } from '@utils/formatDate';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 interface StudyContext {
@@ -16,6 +16,7 @@ interface StudyContext {
 }
 
 export default function StudyInfo() {
+  const navigate = useNavigate();
   const { studyId, isLeader } = useOutletContext<StudyContext>();
   const { data } = useGetStudyInfo(studyId);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -34,6 +35,10 @@ export default function StudyInfo() {
     },
   } = data || {};
 
+  const handleNavigateToEdit = () => {
+    navigate(ROUTES.STUDY.EDIT({ studyId }));
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -46,7 +51,7 @@ export default function StudyInfo() {
                 <DropdownItem
                   item='스터디 수정하기'
                   size='lg'
-                  onClick={() => console.log('스터디 수정 클릭')}
+                  onClick={handleNavigateToEdit}
                 />
                 <DropdownItem
                   item='스터디 삭제하기'
