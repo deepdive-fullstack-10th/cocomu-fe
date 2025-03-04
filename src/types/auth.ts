@@ -1,4 +1,4 @@
-export interface LogInParams {
+export interface LogInData {
   provider: string;
   oauthCode: string;
 }
