@@ -1,13 +1,14 @@
 import { http, HttpResponse } from 'msw';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateStudyData, EditStudyData } from '@customTypes/study';
-
 import {
   createPrivateResponse,
   createPublicResponse,
   createStudyErrorResponse,
   editStudyErrorResponse,
   editStudyResponse,
+  getSpaceListErrorResponse,
+  getSpaceListResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
   getStudyListResponse,
@@ -17,7 +18,7 @@ export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, async ({ request }) => {
     const url = new URL(request.url);
     const page = Number(url.searchParams.get('page')) || 1;
-    const size = 20;
+    const size = 12;
 
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
@@ -105,6 +106,20 @@ export const studyHandlers = [
       });
     }
     return new HttpResponse(JSON.stringify(editStudyResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.SPACE_LIST(':studyId')}`, ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId || Number.isNaN(Number(studyId))) {
+      return new HttpResponse(JSON.stringify(getSpaceListErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getSpaceListResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
