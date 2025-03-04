@@ -8,12 +8,16 @@ import TabMenu from '@components/_common/molecules/TabMenu';
 import IconButton from '@components/_common/atoms/IconButton';
 import { BsPlusLg } from 'react-icons/bs';
 
+import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 import S from './style';
 
 export default function StudyDetail() {
   const navigate = useNavigate();
   const { studyId } = useParams<{ studyId: string }>(); // studyId 가져오기
+  const { data } = useGetStudyInfo(studyId); // 스터디 정보 가져오기
   const [selectedTab, setSelectedTab] = useState<(typeof STUDY_TABS)[number]>(STUDY_TABS[0]);
+
+  const { name = '스터디 이름 불러오는 중...' } = data || {};
 
   const handleTabNavigation = (tab: (typeof STUDY_TABS)[number]) => {
     if (!studyId) return;
@@ -38,8 +42,7 @@ export default function StudyDetail() {
   return (
     <S.Container>
       <S.Header>
-        {/* TODO: 스터디 상세 페이지 조회 api 호출하여 스터디 이름 받아오기 */}
-        <S.Name>딥다이버즈 스터디임</S.Name>
+        <S.Name>{name}</S.Name>
         <S.ButtonWrapper>
           <IconButton
             shape='round'
