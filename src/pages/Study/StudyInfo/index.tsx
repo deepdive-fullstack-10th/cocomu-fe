@@ -9,32 +9,21 @@ import DropdownItem from '@components/_common/atoms/DropdownItem';
 import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 import { formatDate } from '@utils/formatDate';
 import { ROUTES } from '@constants/path';
+import Loading from '@pages/Loading';
 import S from './style';
 
 export default function StudyInfo() {
   const navigate = useNavigate();
   const { studyId } = useParams<{ studyId: string }>();
-  const { data } = useGetStudyInfo(studyId);
+  const { data, isLoading } = useGetStudyInfo(studyId);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  if (isLoading) return <Loading />;
 
   /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
   const loginedUserId = 1;
-  const isLeader = loginedUserId === data?.leader?.id;
-
-  const {
-    name = '스터디 불러오는 중...',
-    status = 'PRIVATE',
-    createdAt = '',
-    description = '설명 없음',
-    languages = [],
-    workbooks = [],
-    totalUserCount = 0,
-    leader = {
-      id: 0,
-      nickName: '알 수 없음',
-      profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-    },
-  } = data || {};
+  const { name, status, createdAt, description, languages, workbooks, totalUserCount, leader } = data;
+  const isLeader = loginedUserId === leader.id;
 
   const handleNavigateToEdit = () => {
     navigate(ROUTES.STUDY.EDIT({ studyId }));
@@ -82,21 +71,14 @@ export default function StudyInfo() {
           <S.TagText>공개 여부</S.TagText>
           <Tag color='primary'>{status === 'PUBLIC' ? '공개' : '비공개'}</Tag>
           <S.TagText>모집 인원</S.TagText>
-          <Tag color='secondary'>
-            {totalUserCount}
-            {' 명'}
-          </Tag>
+          <Tag color='secondary'>{totalUserCount} 명</Tag>
           <S.TagText>시작 날짜</S.TagText>
           <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
-          <div />
-          <div />
           <S.TagText>주력 언어</S.TagText>
           <TagList
             items={languages.length > 0 ? languages : ['정보 없음']}
             color='analogous'
           />
-          <div />
-          <div />
           <S.TagText>사용 플랫폼</S.TagText>
           <TagList
             items={workbooks.length > 0 ? workbooks : ['정보 없음']}
