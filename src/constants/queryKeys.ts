@@ -1,4 +1,5 @@
 const QUERY_KEYS = {
+  USER_DETAIL: 'user_detail',
   STUDY_DETAIL: 'study_detail',
   STUDY_LIST: 'study_list',
   SPACE_DETAIL: 'space_detail',
