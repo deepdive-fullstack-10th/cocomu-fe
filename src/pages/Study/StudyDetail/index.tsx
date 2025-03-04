@@ -12,10 +12,12 @@ import S from './style';
 
 export default function StudyDetail() {
   const navigate = useNavigate();
-  const { studyId } = useParams<{ studyId: string }>();
+  const { studyId } = useParams<{ studyId: string }>(); // studyId 가져오기
   const [selectedTab, setSelectedTab] = useState<(typeof STUDY_TABS)[number]>(STUDY_TABS[0]);
 
   const handleTabNavigation = (tab: (typeof STUDY_TABS)[number]) => {
+    if (!studyId) return;
+
     if (tab === STUDY_TABS[0]) {
       navigate(ROUTES.STUDY.DETAIL({ studyId }));
     } else if (tab === STUDY_TABS[1]) {
@@ -53,7 +55,7 @@ export default function StudyDetail() {
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
       />
-      <Outlet />
+      <Outlet context={{ studyId }} />
     </S.Container>
   );
 }
