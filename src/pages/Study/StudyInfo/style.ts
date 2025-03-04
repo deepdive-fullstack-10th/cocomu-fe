@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { theme } from '@styles/theme';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4.5rem;
-  padding: 60px 16px;
+  gap: 2.7rem;
 `;
 
 const Header = styled.div`
@@ -13,22 +13,31 @@ const Header = styled.div`
   align-items: center;
 `;
 
+const LeaderInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const LeaderName = styled.span`
+  ${theme.font.common.default};
+  font-weight: bold;
+`;
+
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const StudyTitle = styled.h1`
-  ${({ theme }) => theme.font.heading[700]};
-  padding: 2.2rem 0;
-  color: ${({ theme }) => theme.color.gray[950]};
+export const StudyTitle = styled.h1`
+  ${theme.font.heading[600]};
 `;
 
 const TagContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem 11.3rem;
-  padding: 4.3rem 0 5.2rem;
+  gap: 3.2rem 11.3rem;
+  padding: 4.2rem 0 2.5rem;
   justify-content: start;
   align-self: flex-start;
 `;
@@ -37,7 +46,7 @@ const TagText = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  ${({ theme }) => theme.font.common.default};
+  ${theme.font.common.default};
   gap: 1rem;
   overflow: hidden;
 
@@ -47,16 +56,15 @@ const TagText = styled.div`
 `;
 
 const ProjectIntro = styled.h2`
-  ${({ theme }) => theme.font.heading[400]};
-  padding: 2rem 0;
+  ${theme.font.heading[400]};
+  padding: 2.7rem 0;
 `;
 
 const Description = styled.p`
   white-space: pre-line;
-  ${({ theme }) => theme.font.common.default};
+  ${theme.font.common.default};
 `;
 
-// 아이콘 컨테이너
 const IconContainer = styled.div`
   position: relative;
   display: flex;
@@ -68,12 +76,11 @@ const IconContainer = styled.div`
   }
 `;
 
-// 드롭다운 스타일
 const Dropdown = styled.div`
   position: absolute;
   top: 2.5rem;
   right: 0;
-  background: ${({ theme }) => theme.color.gray[50]};
+  background: ${theme.color.gray[50]};
   border-radius: 0.8rem;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -85,6 +92,8 @@ const Dropdown = styled.div`
 const S = {
   Container,
   Header,
+  LeaderInfo,
+  LeaderName,
   BodyContainer,
   StudyTitle,
   TagContainer,

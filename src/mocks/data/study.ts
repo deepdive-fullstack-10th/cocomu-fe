@@ -77,7 +77,7 @@ export const getStudyInfoResponse = {
     createdAt: '2025-02-01T13:20:50.197Z',
     leader: {
       id: 1,
-      name: '새싹이',
+      nickName: '새싹이',
       profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     },
   },
