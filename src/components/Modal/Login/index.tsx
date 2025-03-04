@@ -1,12 +1,27 @@
 import { BsXLg } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
 import { LoginProps } from '@customTypes/modal';
+import { GITHUB_AUTH_API_URL, GOOGLE_AUTH_API_URL, KAKAO_AUTH_API_URL } from '@constants/api';
+import { useToastStore } from '@stores/useToastStore';
 import S from './style';
 
 export default function Login({ onClose }: LoginProps) {
+  const { error } = useToastStore();
+
   const handleClick = (platform: string) => {
-    /* 각 플랫폼으로 로그인 클릭 시 발생하는 이벤트 */
-    console.log(`please access your ${platform}`);
+    const authUrls = {
+      google: GOOGLE_AUTH_API_URL,
+      github: GITHUB_AUTH_API_URL,
+      kakao: KAKAO_AUTH_API_URL,
+    };
+
+    const authUrl = authUrls[platform];
+
+    if (authUrl) {
+      window.location.href = authUrl;
+    } else {
+      error('지원하지 않는 로그인 플랫폼입니다.');
+    }
   };
 
   return (
@@ -20,6 +35,7 @@ export default function Login({ onClose }: LoginProps) {
           <BsXLg />
         </Icon>
       </S.Header>
+
       <S.Body>
         <S.Logo src='https://cdn.cocomu.co.kr/images/default/Logo.png' />
         <S.WelcomeText>
@@ -27,6 +43,7 @@ export default function Login({ onClose }: LoginProps) {
           <br />
           환영합니다!
         </S.WelcomeText>
+
         <S.ButtonWrapper>
           <S.LoginButton
             buttonType='google'
@@ -35,6 +52,7 @@ export default function Login({ onClose }: LoginProps) {
             <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/google.png' />
             <S.ButtonLabel>Google 로그인</S.ButtonLabel>
           </S.LoginButton>
+
           <S.LoginButton
             buttonType='github'
             onClick={() => handleClick('github')}
@@ -42,6 +60,7 @@ export default function Login({ onClose }: LoginProps) {
             <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/github.png' />
             <S.ButtonLabel>GitHub 로그인</S.ButtonLabel>
           </S.LoginButton>
+
           <S.LoginButton
             buttonType='kakao'
             onClick={() => handleClick('kakao')}
