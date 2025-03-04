@@ -67,8 +67,6 @@ export const STOMP_ENDPOINTS = {
   RESULT_SUBSCRIBE: (ideId: string) => `/sub/stomp/ide-result/${ideId}`,
 } as const;
 
-export const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN';
-
 export const HTTP_STATUS_CODE = {
   SUCCESS: 200,
   BAD_REQUEST: 400,
@@ -85,3 +83,25 @@ export const ERROR_CODE = {
   UNAUTHORIZED: 9201,
   UNEXPECTED_TOKEN_ERROR: 9999,
 } as const;
+
+export const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
+
+const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
+
+const OAUTH_BASE_URL = import.meta.env.VITE_OAUTH_BASE_URL;
+
+const REDIRECT_BASE_URL = `${OAUTH_BASE_URL}/callback`;
+
+/* eslint-disable max-len */
+
+export const GOOGLE_AUTH_API_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&scope=profile%20email&redirect_uri=${REDIRECT_BASE_URL}/google`;
+
+export const GITHUB_AUTH_API_URL = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}/github`;
+
+export const KAKAO_AUTH_API_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}/kakao`;
+
+/* eslint-enable max-len */
