@@ -89,7 +89,7 @@ export default function StudyInfo() {
             color='gray'
           />
         </S.TagContainer>
-        <S.ProjectIntro>프로젝트 소개</S.ProjectIntro>
+        <S.StudyIntro>스터디 소개</S.StudyIntro>
         <TextEditor
           value={description}
           readOnly

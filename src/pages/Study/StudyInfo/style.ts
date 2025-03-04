@@ -54,14 +54,9 @@ const TagText = styled.div`
   }
 `;
 
-const ProjectIntro = styled.h2`
+const StudyIntro = styled.h2`
   ${theme.font.heading[400]};
   padding: 2.7rem 0;
-`;
-
-const Description = styled.p`
-  white-space: pre-line;
-  ${theme.font.common.default};
 `;
 
 const IconContainer = styled.div`
@@ -96,8 +91,7 @@ const S = {
   StudyTitle,
   TagContainer,
   TagText,
-  ProjectIntro,
-  Description,
+  StudyIntro,
   IconContainer,
   Dropdown,
 };
