@@ -47,6 +47,7 @@ export const END_POINTS_V1 = {
 
   USER: {
     UPDATE_PROFILE: BASE_PATH_V1.USER,
+    INFO: `${BASE_PATH_V1.USER}/me`,
     MY_PAGE: (userId: string) => `${BASE_PATH_V1.USER}/me/${userId}`,
   },
 
