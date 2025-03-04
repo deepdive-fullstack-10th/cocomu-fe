@@ -1,5 +1,6 @@
+// StudyInfo.jsx
 import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom'; // Outlet을 통해 studyId 가져오기
+import { useOutletContext } from 'react-router-dom';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import Tag from '@components/_common/atoms/Tag';
@@ -11,15 +12,13 @@ import S from './style';
 
 interface StudyContext {
   studyId: string;
+  isLeader: boolean;
 }
 
 export default function StudyInfo() {
-  const { studyId } = useOutletContext<StudyContext>();
+  const { studyId, isLeader } = useOutletContext<StudyContext>();
   const { data } = useGetStudyInfo(studyId);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
-  const isLogined = 1;
 
   const {
     name = '스터디 이름 불러오는 중...',
@@ -34,8 +33,6 @@ export default function StudyInfo() {
       profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     },
   } = data || {};
-
-  const isLeader = isLogined === leader.id;
 
   return (
     <S.Container>
