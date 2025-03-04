@@ -56,7 +56,7 @@ export const studyHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PUBLIC_CREATE}`, async ({ request }) => {
     const body = (await request.json()) as Omit<CreateStudyData, 'password'>;
 
-    if (!body.name || !body.totalUserCount || !body.languages || !body.judges || !body.description) {
+    if (!body.name || !body.totalUserCount || !body.languages || !body.workbooks || !body.description) {
       return new HttpResponse(JSON.stringify(createStudyErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
@@ -70,7 +70,14 @@ export const studyHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PRIVATE_CREATE}`, async ({ request }) => {
     const body = (await request.json()) as CreateStudyData;
 
-    if (!body.name || !body.password || !body.totalUserCount || !body.languages || !body.judges || !body.description) {
+    if (
+      !body.name ||
+      !body.password ||
+      !body.totalUserCount ||
+      !body.languages ||
+      !body.workbooks ||
+      !body.description
+    ) {
       return new HttpResponse(JSON.stringify(createStudyErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
@@ -90,7 +97,7 @@ export const studyHandlers = [
       !body.name ||
       !body.totalUserCount ||
       !body.languages ||
-      !body.judges ||
+      !body.workbooks ||
       !body.description
     ) {
       return new HttpResponse(JSON.stringify(editStudyErrorResponse), {

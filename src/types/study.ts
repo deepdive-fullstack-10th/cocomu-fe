@@ -13,7 +13,7 @@ export interface StudyData {
   name: string;
   status: string;
   languages: string[];
-  judges: string[];
+  workbooks: string[];
   description: string;
   currentUserCount: number;
   totalUserCount: number;
@@ -26,7 +26,7 @@ export interface StudyFormData extends Record<string, string | string[]> {
   password: string;
   totalUserCount: string;
   languages: string[];
-  judges: string[];
+  workbooks: string[];
 }
 
 export interface CreateStudyData extends StudyFormData {
@@ -42,7 +42,7 @@ export interface GetListParams {
   size?: number;
   status?: string;
   languages?: string[];
-  judges?: string[];
+  workbooks?: string[];
   joinable?: boolean;
   keyword?: string;
 }

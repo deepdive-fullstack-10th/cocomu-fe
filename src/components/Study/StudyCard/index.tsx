@@ -20,7 +20,7 @@ export default function StudyCard({
   name,
   status,
   languages,
-  judges,
+  workbooks,
   description,
   currentUserCount,
   totalUserCount,
@@ -48,7 +48,7 @@ export default function StudyCard({
         <S.Title>{name}</S.Title>
         <S.Description>{description}</S.Description>
         <TagList
-          items={judges}
+          items={workbooks}
           color='gray'
         />
         <ImageTagList items={languages} />

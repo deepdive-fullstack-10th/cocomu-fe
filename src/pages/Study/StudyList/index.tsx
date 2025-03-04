@@ -15,7 +15,7 @@ export default function StudyList() {
     page: 1,
     status: undefined as string | undefined,
     languages: [] as string[],
-    judges: [] as string[],
+    workbooks: [] as string[],
     joinable: false,
     keyword: '',
   });

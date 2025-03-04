@@ -27,7 +27,7 @@ export default function StudyEdit() {
         password: '',
         totalUserCount: data.totalUserCount.toString(),
         languages: data.languages,
-        judges: data.judges,
+        workbooks: data.workbooks,
       });
       setDescription(data.description);
     }
