@@ -10,6 +10,7 @@ import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 import { formatDate } from '@utils/formatDate';
 import { ROUTES } from '@constants/path';
 import Loading from '@pages/Loading';
+import TextEditor from '@components/_common/atoms/TextEditor';
 import S from './style';
 
 export default function StudyInfo() {
@@ -71,7 +72,10 @@ export default function StudyInfo() {
           <S.TagText>공개 여부</S.TagText>
           <Tag color='primary'>{status === 'PUBLIC' ? '공개' : '비공개'}</Tag>
           <S.TagText>모집 인원</S.TagText>
-          <Tag color='secondary'>{totalUserCount} 명</Tag>
+          <Tag color='secondary'>
+            {totalUserCount}
+            {' 명'}
+          </Tag>
           <S.TagText>시작 날짜</S.TagText>
           <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
           <S.TagText>주력 언어</S.TagText>
@@ -86,7 +90,10 @@ export default function StudyInfo() {
           />
         </S.TagContainer>
         <S.ProjectIntro>프로젝트 소개</S.ProjectIntro>
-        <S.Description>{description}</S.Description>
+        <TextEditor
+          value={description}
+          readOnly
+        />
       </S.BodyContainer>
     </S.Container>
   );
