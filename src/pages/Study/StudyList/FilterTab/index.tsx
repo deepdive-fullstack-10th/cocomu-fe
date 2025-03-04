@@ -9,7 +9,7 @@ import S from './style';
 interface Filters {
   status: string | undefined;
   languages: string[];
-  judges: string[];
+  workbooks: string[];
   joinable: boolean;
   keyword: string;
 }
@@ -42,8 +42,8 @@ export default function FilterTab({ filters, setFilters }: FilterTabProps) {
         <SelectDropdown
           items={[...JUDGES]}
           description='사용 플랫폼'
-          values={filters.judges}
-          onSelect={(values) => setFilters((prev) => ({ ...prev, judges: values }))}
+          values={filters.workbooks}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, workbooks: values }))}
         />
         <ToggleButton
           size='md'

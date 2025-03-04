@@ -52,8 +52,8 @@ export const validateLanguages = (languages: string[]) => {
   }
 };
 
-export const validateJudges = (judges: string[]) => {
-  if (isEmptyArray(judges)) {
-    throw new ValidationError({ inputName: 'judges', message: '사용할 플랫폼을 하나 이상 선택해야 합니다.' });
+export const validateJudges = (workbooks: string[]) => {
+  if (isEmptyArray(workbooks)) {
+    throw new ValidationError({ inputName: 'workbooks', message: '사용할 플랫폼을 하나 이상 선택해야 합니다.' });
   }
 };

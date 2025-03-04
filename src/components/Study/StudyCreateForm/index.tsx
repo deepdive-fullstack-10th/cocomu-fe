@@ -50,7 +50,7 @@ export default function StudyCreateForm({
       password: '',
       totalUserCount: '',
       languages: [],
-      judges: [],
+      workbooks: [],
     },
   });
 
@@ -101,7 +101,7 @@ export default function StudyCreateForm({
             description='백준, 프로그래머스 ...'
             items={JUDGES}
             isMultiSelect
-            {...registerSelect('judges', { validate: validateJudges })}
+            {...registerSelect('workbooks', { validate: validateJudges })}
           />
         </S.InputWrapper>
       </S.Section>
