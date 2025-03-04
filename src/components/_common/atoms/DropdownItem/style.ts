@@ -1,7 +1,7 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export type listTextColor = 'gray' | 'black';
+export type listTextColor = 'gray' | 'black' | 'triadic';
 export type listTextSize = 'md' | 'lg';
 
 export interface DropDownItemStyleProps {
@@ -39,6 +39,9 @@ const colorStyles = {
   `,
   gray: (theme: Theme) => css`
     color: ${theme.color.gray[800]};
+  `,
+  triadic: (theme: Theme) => css`
+    color: ${theme.color.triadic[800]};
   `,
 };
 

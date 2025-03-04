@@ -19,7 +19,7 @@ export default function StudyInfo() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
-  const isLogined = 1;
+  const isLogined = 2;
 
   const {
     name = '스터디 이름 불러오는 중...',
@@ -48,10 +48,13 @@ export default function StudyInfo() {
               <S.Dropdown>
                 <DropdownItem
                   item='스터디 수정하기'
+                  size='lg'
                   onClick={() => console.log('스터디 수정 클릭')}
                 />
                 <DropdownItem
                   item='스터디 삭제하기'
+                  color='triadic'
+                  size='lg'
                   onClick={() => console.log('스터디 삭제 클릭')}
                 />
               </S.Dropdown>
