@@ -22,7 +22,7 @@ export default function StudyInfo() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const {
-    name = '스터디 이름 불러오는 중...',
+    name = '스터디 불러오는 중...',
     status = 'PRIVATE',
     createdAt = '',
     description = '설명 없음',
@@ -42,7 +42,10 @@ export default function StudyInfo() {
   return (
     <S.Container>
       <S.Header>
-        <S.StudyTitle>{name}</S.StudyTitle>
+        <UserProfile
+          user={leader}
+          size='md'
+        />
         {isLeader ? (
           <S.IconContainer>
             <BsThreeDotsVertical onClick={() => setDropdownOpen(!dropdownOpen)} />
@@ -73,10 +76,7 @@ export default function StudyInfo() {
         )}
       </S.Header>
       <S.BodyContainer>
-        <UserProfile
-          user={leader}
-          size='md'
-        />
+        <S.StudyTitle>{name}</S.StudyTitle>
         <S.TagContainer>
           <S.TagText>
             공개 여부
