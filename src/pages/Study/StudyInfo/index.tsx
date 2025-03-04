@@ -19,7 +19,7 @@ export default function StudyInfo() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
-  const isLogined = 2;
+  const isLogined = 1;
 
   const {
     name = '스터디 이름 불러오는 중...',
