@@ -6,6 +6,7 @@ import Button from '@components/_common/atoms/Button';
 import DropdownList from '@components/_common/molecules/DropdownList';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@constants/path';
+import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
 interface NavbarProps<T extends readonly string[]> {
@@ -14,8 +15,10 @@ interface NavbarProps<T extends readonly string[]> {
 }
 
 export default function NavBar<T extends readonly string[]>({ items, isLogined }: NavbarProps<T>) {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const { open } = useModalStore();
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
@@ -36,7 +39,7 @@ export default function NavBar<T extends readonly string[]>({ items, isLogined }
   };
 
   const handleLoginClick = () => {
-    // 로그인 실행
+    open('login');
   };
 
   const handleItemSelect = (selectedItem: string) => {
