@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import Tag from '@components/_common/atoms/Tag';
@@ -11,16 +11,15 @@ import { formatDate } from '@utils/formatDate';
 import { ROUTES } from '@constants/path';
 import S from './style';
 
-interface StudyContext {
-  studyId: string;
-  isLeader: boolean;
-}
-
 export default function StudyInfo() {
   const navigate = useNavigate();
-  const { studyId, isLeader } = useOutletContext<StudyContext>();
+  const { studyId } = useParams<{ studyId: string }>();
   const { data } = useGetStudyInfo(studyId);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
+  const loginedUserId = 1;
+  const isLeader = loginedUserId === data?.leader?.id;
 
   const {
     name = '스터디 불러오는 중...',
