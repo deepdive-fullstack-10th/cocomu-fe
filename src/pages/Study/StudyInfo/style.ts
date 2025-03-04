@@ -79,13 +79,12 @@ const Dropdown = styled.div`
   position: absolute;
   top: 2.5rem;
   right: 0;
-  background: ${theme.color.gray[50]};
-  border-radius: 0.8rem;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: ${theme.color.gray[50]};
   overflow: hidden;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
+  z-index: 1;
+  border: 1px solid ${theme.color.gray[600]};
+  border-radius: 0.8rem;
+  user-select: none;
 `;
 
 const S = {
