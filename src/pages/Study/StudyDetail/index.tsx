@@ -1,3 +1,4 @@
+// StudyDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
@@ -13,11 +14,15 @@ import S from './style';
 
 export default function StudyDetail() {
   const navigate = useNavigate();
-  const { studyId } = useParams<{ studyId: string }>(); // studyId 가져오기
-  const { data } = useGetStudyInfo(studyId); // 스터디 정보 가져오기
+  const { studyId } = useParams<{ studyId: string }>();
+  const { data } = useGetStudyInfo(studyId);
   const [selectedTab, setSelectedTab] = useState<(typeof STUDY_TABS)[number]>(STUDY_TABS[0]);
 
-  const { name = '스터디 이름 불러오는 중...' } = data || {};
+  const { name = '스터디 이름 불러오는 중...', leader = { id: 0 } } = data || {};
+
+  /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
+  const isLogined = 1;
+  const isLeader = isLogined === leader.id;
 
   const handleTabNavigation = (tab: (typeof STUDY_TABS)[number]) => {
     if (!studyId) return;
@@ -58,7 +63,7 @@ export default function StudyDetail() {
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
       />
-      <Outlet context={{ studyId }} />
+      <Outlet context={{ studyId, isLeader }} />
     </S.Container>
   );
 }
