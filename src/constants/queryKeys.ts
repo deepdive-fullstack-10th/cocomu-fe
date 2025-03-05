@@ -5,6 +5,7 @@ const QUERY_KEYS = {
   SPACE_DETAIL: 'space_detail',
   SPACE_TAB: 'space_tab',
   SPACE_ALL_TAB: 'space_all_tab',
+  STUDY_PARTICIPATION: 'study_participation',
 } as const;
 
 export default QUERY_KEYS;

@@ -1,11 +1,28 @@
 import Button from '@components/_common/atoms/Button';
 import { ConfirmProps } from '@customTypes/modal';
+import useJoinPublicStudy from '@hooks/study/useJoinPublicStudy';
+import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
-export default function ConfirmModal({ studyId, codingSpaceId, name, onClose }: ConfirmProps) {
+interface ConfirmModalProps extends ConfirmProps {
+  navigateToStudy?: (studyId: number) => void;
+}
+
+export default function ConfirmModal({ studyId, name, navigateToStudy }: ConfirmModalProps) {
+  const { joinPublicMutate } = useJoinPublicStudy();
+  const { close } = useModalStore();
+
   const handleConfirm = () => {
-    // TODO: CodingSpace 참여하기 api 호출 (studyId, codingSpaceId 사용 예정)
-    onClose();
+    console.log(`[ConfirmModal] Joining study with ID: ${studyId}`);
+    joinPublicMutate.mutate({
+      studyId,
+      onClose: () => {
+        close();
+        if (navigateToStudy) {
+          navigateToStudy(studyId);
+        }
+      },
+    });
   };
 
   return (
@@ -23,7 +40,7 @@ export default function ConfirmModal({ studyId, codingSpaceId, name, onClose }: 
         <Button
           color='white'
           size='md'
-          onClick={onClose}
+          onClick={close}
         >
           취소
         </Button>
