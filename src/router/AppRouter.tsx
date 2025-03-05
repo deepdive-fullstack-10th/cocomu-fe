@@ -13,7 +13,7 @@ const StudyEdit = lazy(() => import('@pages/Study/StudyEdit'));
 const StudyParticipation = lazy(() => import('@pages/Study/StudyParticipation'));
 const StudyDetail = lazy(() => import('@pages/Study/StudyDetail'));
 
-const SpaceList = lazy(() => import('@pages/Study/SpaceList'));
+const SpaceList = lazy(() => import('src/pages/Space/SpaceList'));
 const MemberList = lazy(() => import('@pages/Study/MemberList'));
 const StudyInfo = lazy(() => import('@pages/Study/StudyInfo'));
 
