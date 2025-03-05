@@ -21,7 +21,6 @@ export const END_POINTS_V1 = {
     LEAVE: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/leave`,
     DELETE: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/remove`,
     DETAIL: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}`,
-    SPACE_LIST: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}`,
     MEMBER_LIST: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/members`,
     INFO: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/studyInfo`,
     PARTICIPATED_STUDIES: (userId: string) => `${BASE_PATH_V1.STUDY}/me/${userId}`,
@@ -30,6 +29,7 @@ export const END_POINTS_V1 = {
   CODING_SPACE: {
     CREATE: BASE_PATH_V1.CODING_SPACE,
     JOIN: `${BASE_PATH_V1.CODING_SPACE}/join`,
+    SPACE_LIST: (studyId: string) => `${BASE_PATH_V1.CODING_SPACE}/studies/${studyId}`,
     PAGE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}`,
     TAB: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tab`,
     ALL_TABS: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tabs`,

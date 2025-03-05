@@ -4,6 +4,15 @@ import { UserData } from './user';
 export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETED';
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
+export interface SpaceListParams {
+  joinedMe?: boolean;
+  languageIds: string | undefined;
+  status?: string[];
+  keyword?: string;
+  lastId?: number;
+  currentUserCount?: number;
+}
+
 export interface SpaceData {
   id: number;
   joinedMe: boolean;
@@ -11,7 +20,7 @@ export interface SpaceData {
   language: string;
   totalUserCount: number;
   createdAt: string;
-  status: SpaceStatusData;
+  status: string;
   leader: UserData;
   currentUsers: UserData[];
 }

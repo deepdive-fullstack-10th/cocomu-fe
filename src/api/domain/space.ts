@@ -1,8 +1,8 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
+import { CreateSpaceData, SpaceData, SpaceListParams, TestCaseIO } from '@customTypes/space';
 
-const spaceApi = {
+export const spaceApi = {
   getInfo: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.PAGE(codingSpaceId));
 
@@ -35,6 +35,17 @@ const spaceApi = {
 
   updateTestCase: async (codingSpaceId: string, testCases: TestCaseIO[]) => {
     const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.TEST_CASE_UPDATE(codingSpaceId), testCases);
+
+    return data.result;
+  },
+
+  getSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.SPACE_LIST(studyId), {
+      params,
+      /* headers: {
+        Authorization: `Bearer ${token}`,
+      }, */
+    });
 
     return data.result;
   },

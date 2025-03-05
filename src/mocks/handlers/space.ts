@@ -7,9 +7,11 @@ import {
   getTabErrorResponse,
   getTabResponse,
   spaceStartErrorResponse,
-  spaceStartResponse,
+  spaceStartSuccessResponse,
   updateTestCaseErrorResponse,
   updateTestCaseResponse,
+  getSpaceListErrorResponse,
+  getSpaceListResponse,
 } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
@@ -53,7 +55,7 @@ export const spaceHandlers = [
       });
     }
 
-    return new HttpResponse(JSON.stringify(spaceStartResponse), {
+    return new HttpResponse(JSON.stringify(spaceStartSuccessResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
@@ -89,4 +91,36 @@ export const spaceHandlers = [
       });
     },
   ),
+
+  http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.SPACE_LIST(':studyId')}`, async ({ request, params }) => {
+    const { studyId } = params;
+    if (!studyId || Number.isNaN(Number(studyId))) {
+      return new HttpResponse(JSON.stringify(getSpaceListErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    const url = new URL(request.url);
+    const lastId = parseInt(url.searchParams.get('lastId'), 10) || 0;
+    const limit = 20;
+    const totalSpaceData = getSpaceListResponse.result;
+
+    let filteredData;
+    if (lastId > 0) {
+      filteredData = totalSpaceData.filter((item) => item.id > lastId);
+    } else {
+      filteredData = totalSpaceData;
+    }
+
+    const partialSpaceData = filteredData.slice(0, limit);
+
+    const response = {
+      ...getSpaceListResponse,
+      result: partialSpaceData,
+    };
+
+    return new HttpResponse(JSON.stringify(response), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
 ];
