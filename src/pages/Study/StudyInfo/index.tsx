@@ -78,11 +78,15 @@ export default function StudyInfo() {
           </Tag>
           <S.TagText>시작 날짜</S.TagText>
           <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
+          <div />
+          <div />
           <S.TagText>주력 언어</S.TagText>
           <TagList
             items={languages.length > 0 ? languages : ['정보 없음']}
             color='analogous'
           />
+          <div />
+          <div />
           <S.TagText>사용 플랫폼</S.TagText>
           <TagList
             items={workbooks.length > 0 ? workbooks : ['정보 없음']}
