@@ -10,45 +10,45 @@ import { formatDate } from '@utils/formatDate';
 import TagList from '@components/_common/molecules/TagList';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import { useModalStore } from '@stores/useModalStore';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 export default function StudyParticipation() {
   const navigate = useNavigate();
   const { open, close } = useModalStore();
-  const { studyId: paramStudyId } = useParams<{ studyId: string }>();
-  const { data, isLoading } = useGetStudyInfo(paramStudyId);
+  const { studyId } = useParams<{ studyId: string }>();
+  const { data, isLoading } = useGetStudyInfo(studyId!);
 
   if (isLoading) return <Loading />;
 
   const { name, status, createdAt, description, languages, workbooks, totalUserCount, leader } = data;
-  const parsedStudyId = paramStudyId ? Number(paramStudyId) : null;
+
+  const navigateToStudy = (id: string) => navigate(ROUTES.STUDY.DETAIL({ studyId: id }));
 
   const handleJoinClick = () => {
     if (status === 'PUBLIC') {
       open('confirm', {
-        studyId: parsedStudyId,
+        studyId: String(studyId), // 🔹 확실히 string으로 변환
         name,
-        onClose: () => close(),
-        navigateToStudy: (studyId: number) => navigate(`/study/${studyId}`),
+        onClose: close,
+        navigateToStudy,
       });
-    } else if (status === 'PRIVATE') {
-      open('passwordInput', { studyId: parsedStudyId });
+    } else {
+      open('passwordInput', { studyId: String(studyId) }); // 🔹 여기서도 변환
     }
   };
 
   return (
     <S.Container>
       <S.Header>
-        <div>
-          <IconButton
-            align='left'
-            color='white'
-            shape='round'
-            content='다른 스터디 보러가기'
-          >
-            <BsArrowLeft />
-          </IconButton>
-        </div>
+        <IconButton
+          align='left'
+          color='white'
+          shape='round'
+          content='다른 스터디 보러가기'
+        >
+          <BsArrowLeft />
+        </IconButton>
       </S.Header>
 
       <S.BodyContainer>
@@ -61,10 +61,7 @@ export default function StudyParticipation() {
           <S.TagText>공개 여부</S.TagText>
           <Tag color='primary'>{status === 'PUBLIC' ? '공개' : '비공개'}</Tag>
           <S.TagText>모집 인원</S.TagText>
-          <Tag color='secondary'>
-            {totalUserCount}
-            {' 명'}
-          </Tag>
+          <Tag color='secondary'>{totalUserCount} 명</Tag>
           <S.TagText>시작 날짜</S.TagText>
           <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
           <S.TagText>주력 언어</S.TagText>
