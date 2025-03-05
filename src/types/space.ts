@@ -10,6 +10,7 @@ export interface SpaceListParams {
   status?: string[];
   keyword?: string;
   lastId?: number;
+  CurrentUserCount?: number;
 }
 
 export interface SpaceData {

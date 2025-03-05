@@ -13,6 +13,7 @@ export default function SpaceList() {
     joinedMe: true,
     keyword: '',
     lastId: 0,
+    currentUserCount: 1,
   });
   const { studyId } = useParams<{ studyId: string }>();
   const { spaces, isLoading, hasNextPage, isFetchingNextPage, nextList } = useGetSpaceList(studyId, filters);
@@ -50,7 +51,7 @@ export default function SpaceList() {
             <SpaceCard
               key={space.id}
               id={space.id}
-              joinedSpace={space.joinedSpace}
+              joinedMe={space.joinedMe}
               name={space.name}
               language={space.language}
               totalUserCount={space.totalUserCount}
