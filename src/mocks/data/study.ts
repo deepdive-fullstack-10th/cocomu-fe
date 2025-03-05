@@ -122,7 +122,7 @@ export const editStudyErrorResponse = {
   message: '유효성 검사 실패',
 };
 
-export const joinPublicStudySuccessResponse = {
+export const joinPublicStudyResponse = {
   code: 1200,
   message: '공개 스터디 참가에 성공했습니다.',
 };
