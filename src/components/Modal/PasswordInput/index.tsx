@@ -1,16 +1,28 @@
 import { useState } from 'react';
 import InputField from '@components/_common/molecules/InputField';
 import Button from '@components/_common/atoms/Button';
-import { PasswordInputProps } from '@customTypes/modal';
+import useJoinStudy from '@hooks/study/useJoinStudy';
 import S from './style';
 
-export default function PasswordInput({ studyId, onClose }: PasswordInputProps) {
+interface PasswordInputProps {
+  studyId: string;
+  onClose: () => void;
+  navigateToStudy?: (studyId: string) => void;
+}
+
+export default function PasswordInput({ studyId, onClose, navigateToStudy }: PasswordInputProps) {
   const [password, setPassword] = useState('');
-  // useForm 사용 예정
+  const { joinPrivateStudy } = useJoinStudy();
 
   const handleConfirm = () => {
-    // TODO: 비공개 스터디 참가 api 호출 (studyId 사용 예정)
-    onClose();
+    joinPrivateStudy.mutate({
+      studyId,
+      password,
+      onClose: () => {
+        onClose();
+        if (navigateToStudy) navigateToStudy(studyId);
+      },
+    });
   };
 
   return (
@@ -19,9 +31,7 @@ export default function PasswordInput({ studyId, onClose }: PasswordInputProps) 
       <InputField
         type='password'
         value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <S.ButtonWrapper>
         <Button

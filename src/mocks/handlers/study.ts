@@ -10,6 +10,8 @@ import {
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
   getStudyListResponse,
+  joinPrivateStudyErrorResponse,
+  joinPrivateStudyResponse,
   joinPublicStudyErrorResponse,
   joinPublicStudyResponse,
 } from '@mocks/data/study';
@@ -120,6 +122,20 @@ export const studyHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(joinPublicStudyResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PRIVATE_JOIN}`, async ({ request }) => {
+    const body = (await request.json()) as { studyId: string; password: string };
+
+    if (!body.studyId || !body.password) {
+      return new HttpResponse(JSON.stringify(joinPrivateStudyErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(joinPrivateStudyResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),

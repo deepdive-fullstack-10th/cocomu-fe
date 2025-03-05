@@ -28,13 +28,17 @@ export default function StudyParticipation() {
   const handleJoinClick = () => {
     if (status === 'PUBLIC') {
       open('confirm', {
-        studyId: String(studyId), // 🔹 확실히 string으로 변환
+        studyId: String(studyId),
         name,
         onClose: close,
         navigateToStudy,
       });
     } else {
-      open('passwordInput', { studyId: String(studyId) }); // 🔹 여기서도 변환
+      open('passwordInput', {
+        studyId: String(studyId),
+        onClose: close,
+        navigateToStudy,
+      });
     }
   };
 
@@ -61,7 +65,10 @@ export default function StudyParticipation() {
           <S.TagText>공개 여부</S.TagText>
           <Tag color='primary'>{status === 'PUBLIC' ? '공개' : '비공개'}</Tag>
           <S.TagText>모집 인원</S.TagText>
-          <Tag color='secondary'>{totalUserCount} 명</Tag>
+          <Tag color='secondary'>
+            {totalUserCount}
+            {' 명'}
+          </Tag>
           <S.TagText>시작 날짜</S.TagText>
           <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
           <S.TagText>주력 언어</S.TagText>
