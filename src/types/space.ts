@@ -5,10 +5,10 @@ export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETE
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export interface SpaceListParams {
-  joinable?: boolean | null;
-  languages?: string[] | null;
-  status?: SpaceStatusData[] | null;
-  keyword?: string | null;
+  joinedMe?: boolean;
+  languageIds: number | undefined;
+  status?: string[];
+  keyword?: string;
   lastIndex?: number;
 }
 
@@ -19,7 +19,7 @@ export interface SpaceData {
   language: string;
   totalUserCount: number;
   createdAt: string;
-  status: SpaceStatusData;
+  status: string;
   leader: UserData;
   currentUsers: UserData[];
 }
