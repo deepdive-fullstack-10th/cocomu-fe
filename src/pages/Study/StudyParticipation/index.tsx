@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import UserProfile from '@components/_common/molecules/UserProfile';
@@ -10,35 +9,30 @@ import Loading from '@pages/Loading';
 import { formatDate } from '@utils/formatDate';
 import TagList from '@components/_common/molecules/TagList';
 import TextEditor from '@components/_common/atoms/TextEditor';
-import { ROUTES } from '@constants/path';
-import ConfirmModal from '@components/Modal/Confirm';
-import PasswordInput from '@components/Modal/PasswordInput';
 import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
 export default function StudyParticipation() {
-  const { open } = useModalStore();
   const navigate = useNavigate();
-  const { studyId } = useParams<{ studyId: string }>();
-  const { data, isLoading } = useGetStudyInfo(studyId);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const { open, close } = useModalStore();
+  const { studyId: paramStudyId } = useParams<{ studyId: string }>();
+  const { data, isLoading } = useGetStudyInfo(paramStudyId);
 
   if (isLoading) return <Loading />;
 
-  /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
   const { name, status, createdAt, description, languages, workbooks, totalUserCount, leader } = data;
-  const parsedStudyId = studyId ? Number(studyId) : null;
-
-  const handleNavigateToStudyList = () => {
-    navigate(ROUTES.ROOT());
-  };
+  const parsedStudyId = paramStudyId ? Number(paramStudyId) : null;
 
   const handleJoinClick = () => {
     if (status === 'PUBLIC') {
-      open('confirm', { studyId: Number(studyId), name });
+      open('confirm', {
+        studyId: parsedStudyId,
+        name,
+        onClose: () => close(),
+        navigateToStudy: (studyId: number) => navigate(`/study/${studyId}`),
+      });
     } else if (status === 'PRIVATE') {
-      open('passwordInput', { studyId: Number(studyId) });
+      open('passwordInput', { studyId: parsedStudyId });
     }
   };
 
@@ -51,7 +45,6 @@ export default function StudyParticipation() {
             color='white'
             shape='round'
             content='다른 스터디 보러가기'
-            onClick={handleNavigateToStudyList}
           >
             <BsArrowLeft />
           </IconButton>
@@ -74,15 +67,11 @@ export default function StudyParticipation() {
           </Tag>
           <S.TagText>시작 날짜</S.TagText>
           <Tag color='triadic'>{formatDate(createdAt) || '정보 없음'}</Tag>
-          <div />
-          <div />
           <S.TagText>주력 언어</S.TagText>
           <TagList
             items={languages.length > 0 ? languages : ['정보 없음']}
             color='analogous'
           />
-          <div />
-          <div />
           <S.TagText>사용 플랫폼</S.TagText>
           <TagList
             items={workbooks.length > 0 ? workbooks : ['정보 없음']}
@@ -106,21 +95,6 @@ export default function StudyParticipation() {
           참여하기
         </Button>
       </S.FooterContainer>
-      {showConfirmModal && (
-        <ConfirmModal
-          studyId={parsedStudyId}
-          codingSpaceId={null}
-          name={name}
-          onClose={() => setShowConfirmModal(false)}
-        />
-      )}
-
-      {showPasswordModal && (
-        <PasswordInput
-          studyId={parsedStudyId}
-          onClose={() => setShowPasswordModal(false)}
-        />
-      )}
     </S.Container>
   );
 }

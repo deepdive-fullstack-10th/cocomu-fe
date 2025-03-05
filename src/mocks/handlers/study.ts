@@ -108,4 +108,18 @@ export const studyHandlers = [
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PUBLIC_JOIN}`, async ({ request }) => {
+    const body = (await request.json()) as { studyId?: number }; // 🔹 명확한 타입 지정
+
+    if (!body.studyId) {
+      return new HttpResponse(JSON.stringify({ code: 4200, message: '스터디 ID가 누락되었습니다.' }), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify({ code: 1200, message: '공개 스터디 참가에 성공했습니다.' }), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
 ];
