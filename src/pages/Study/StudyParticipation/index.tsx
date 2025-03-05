@@ -23,6 +23,10 @@ export default function StudyParticipation() {
 
   const { name, status, createdAt, description, languages, workbooks, totalUserCount, leader } = data;
 
+  const handleNavigateToStudyList = () => {
+    navigate(ROUTES.ROOT());
+  };
+
   const navigateToStudy = (id: string) => navigate(ROUTES.STUDY.DETAIL({ studyId: id }));
 
   const handleJoinClick = () => {
@@ -45,14 +49,17 @@ export default function StudyParticipation() {
   return (
     <S.Container>
       <S.Header>
-        <IconButton
-          align='left'
-          color='white'
-          shape='round'
-          content='다른 스터디 보러가기'
-        >
-          <BsArrowLeft />
-        </IconButton>
+        <div>
+          <IconButton
+            align='left'
+            color='white'
+            shape='round'
+            content='다른 스터디 보러가기'
+            onClick={handleNavigateToStudyList}
+          >
+            <BsArrowLeft />
+          </IconButton>
+        </div>
       </S.Header>
 
       <S.BodyContainer>
