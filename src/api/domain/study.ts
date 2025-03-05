@@ -38,7 +38,7 @@ const studyApi = {
     return data.result;
   },
 
-  getSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
+  fetchSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
     const queryParams = params ? { ...params } : {};
 
     Object.keys(queryParams).forEach((key) => {
@@ -51,10 +51,9 @@ const studyApi = {
         Authorization: `Bearer ${token}`,
       }, */
     });
-    const { lastIndex = 0 } = params;
 
     const startIndex = params?.lastIndex ?? 0;
-    const limit = lastIndex === 0 ? 5 : 10;
+    const limit = 20;
 
     return data.result.slice(startIndex, startIndex + limit);
   },

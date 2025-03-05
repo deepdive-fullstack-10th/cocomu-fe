@@ -1,8 +1,8 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { spaceApi } from '@api/domain/space';
 import { SpaceListParams } from '@customTypes/space';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import useDebounce from '@hooks/useDebounce';
+import useDebounce from '@hooks/utils/useDebounce';
+import studyApi from '@api/domain/study';
 
 export default function useSpaceList(studyId: string) {
   const [filters, setFilters] = useState<Omit<SpaceListParams, 'lastIndex'>>({
@@ -23,7 +23,7 @@ export default function useSpaceList(studyId: string) {
         lastIndex: pageParam,
       };
       console.log('api 호출 파라미터: ', params);
-      return spaceApi.fetchSpaceList(studyId, params);
+      return studyApi.fetchSpaceList(studyId, params);
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
