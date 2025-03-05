@@ -1,13 +1,10 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { LogInParams } from '@customTypes/auth';
+import { LogInData } from '@customTypes/auth';
 
 const authApi = {
-  login: async ({ provider, oauthCode }: LogInParams) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.AUTH.OAUTH_LOGIN, null, {
-      params: { provider, oauthCode },
-      useAuth: false,
-    });
+  login: async (logInData: LogInData) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.AUTH.OAUTH_LOGIN, logInData, { useAuth: false });
 
     return data.result;
   },

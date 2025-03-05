@@ -21,11 +21,11 @@ const Body = styled.div`
   align-items: center;
   gap: 3.2rem;
 
-  padding: 0 5.4rem 3rem 5.4rem;
+  padding: 0 5.6rem 3rem 5.6rem;
 `;
 
 const Logo = styled.img`
-  width: 42%;
+  width: 14rem;
   height: auto;
 `;
 

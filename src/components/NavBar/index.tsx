@@ -1,48 +1,52 @@
 import { useState } from 'react';
-import ProfileImage from '@components/_common/atoms/ProfileImage';
+import { useNavigate } from 'react-router-dom';
 import { BsChevronDown } from 'react-icons/bs';
+
+import ProfileImage from '@components/_common/atoms/ProfileImage';
 import Icon from '@components/_common/atoms/Icon';
 import Button from '@components/_common/atoms/Button';
-import DropdownList from '@components/_common/molecules/DropdownList';
-import { useNavigate } from 'react-router-dom';
+import DropdownItem from '@components/_common/atoms/DropdownItem';
+
+import { UserData } from '@customTypes/user';
+
 import { ROUTES } from '@constants/path';
+import { NAVBAR_DROPDOWN_LABELS } from '@constants/constants';
+import { ACCESS_TOKEN_KEY } from '@constants/api';
+
+import { useModalStore } from '@stores/useModalStore';
+
 import S from './style';
 
-interface NavbarProps<T extends readonly string[]> {
-  items: T;
-  isLogined: boolean;
+interface NavbarProps {
+  isLoggedIn: boolean;
+  user?: UserData;
 }
 
-export default function NavBar<T extends readonly string[]>({ items, isLogined }: NavbarProps<T>) {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   const navigate = useNavigate();
+  const { open } = useModalStore();
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
-  const handleLogoClick = () => {
-    navigate(ROUTES.ROOT());
-  };
+  const handleLogoClick = () => navigate(ROUTES.ROOT());
 
-  const handleStudyClick = () => {
-    navigate(ROUTES.STUDY.CREATE());
-  };
+  const handleStudyClick = () => navigate(ROUTES.STUDY.CREATE());
 
-  const handleMyPageClick = () => {
-    // 마이페이지 이동
-  };
+  const handleMyPageClick = () => navigate(ROUTES.MYPAGE({ userId: String(user.id) }));
 
   const handleLogoutClick = () => {
-    // 로그아웃 실행
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    window.location.href = ROUTES.ROOT();
   };
 
-  const handleLoginClick = () => {
-    // 로그인 실행
-  };
+  const handleLoginClick = () => open('login');
 
   const handleItemSelect = (selectedItem: string) => {
-    if (selectedItem === '마이페이지') {
+    if (selectedItem === NAVBAR_DROPDOWN_LABELS[0]) {
       handleMyPageClick();
-    } else if (selectedItem === '로그아웃') {
+    } else if (selectedItem === NAVBAR_DROPDOWN_LABELS[1]) {
       handleLogoutClick();
     }
     setDropdownOpen(false);
@@ -66,9 +70,12 @@ export default function NavBar<T extends readonly string[]>({ items, isLogined }
           스터디 모집하기
         </Button>
 
-        {isLogined ? (
+        {isLoggedIn ? (
           <S.ProfileSection>
-            <ProfileImage size='x_sm' />
+            <ProfileImage
+              src={user.profileImageUrl}
+              size='x_sm'
+            />
             <Icon
               size='sm'
               color='950'
@@ -77,12 +84,17 @@ export default function NavBar<T extends readonly string[]>({ items, isLogined }
               <BsChevronDown />
             </Icon>
             {isDropdownOpen && (
-              <DropdownList
-                items={[...items]}
-                size='md'
-                color='black'
-                onItemSelect={handleItemSelect}
-              />
+              <S.DropdownList>
+                {NAVBAR_DROPDOWN_LABELS.map((item) => (
+                  <DropdownItem
+                    key={item}
+                    item={item}
+                    size='lg'
+                    color='gray'
+                    onClick={() => handleItemSelect(item)}
+                  />
+                ))}
+              </S.DropdownList>
             )}
           </S.ProfileSection>
         ) : (

@@ -1,14 +1,13 @@
 import { http, HttpResponse } from 'msw';
 import { loginErrorResponse, loginResponse, refreshToken } from '@mocks/data/auth';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
+import { LogInData } from '@customTypes/auth';
 
 export const authHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.AUTH.OAUTH_LOGIN}`, async ({ request }) => {
-    const url = new URL(request.url);
-    const provider = url.searchParams.get('provider');
-    const oauthCode = url.searchParams.get('oauthCode');
+    const body = (await request.json()) as LogInData;
 
-    if (!provider || !oauthCode) {
+    if (!body.provider || !body.oauthCode) {
       return new HttpResponse(JSON.stringify(loginErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });

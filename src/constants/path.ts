@@ -20,6 +20,7 @@ export const PATH = {
     FEEDBACK: '/space/:codingSpaceId/feedback',
   },
   MYPAGE: '/mypage/:userId',
+  OAUTH: '/callback/:provider',
 };
 
 export const ROUTES = {

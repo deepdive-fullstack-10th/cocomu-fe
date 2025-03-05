@@ -18,6 +18,7 @@ const MemberList = lazy(() => import('@pages/Study/MemberList'));
 const StudyInfo = lazy(() => import('@pages/Study/StudyInfo'));
 
 const MyPage = lazy(() => import('@pages/MyPage'));
+const OAuthCallback = lazy(() => import('@pages/OAuthCallback'));
 
 const SpaceDetail = lazy(() => import('@pages/Space/SpaceDetail'));
 const SpaceCreate = lazy(() => import('@pages/Space/SpaceCreate'));
@@ -60,6 +61,7 @@ const router = createBrowserRouter(
                 { path: PATH.STUDY.SPACE_LIST, element: <SpaceList /> },
               ],
             },
+            { path: PATH.OAUTH, element: <OAuthCallback /> },
             { path: PATH.SPACE.CREATE, element: <SpaceCreate /> },
           ],
         },

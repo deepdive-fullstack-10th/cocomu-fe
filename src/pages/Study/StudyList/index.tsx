@@ -13,12 +13,13 @@ import S from './style';
 export default function StudyList() {
   const [filters, setFilters] = useState({
     page: 1,
-    status: undefined as string | undefined,
-    languages: [] as string[],
-    workbooks: [] as string[],
+    status: undefined,
+    languages: [],
+    workbooks: [],
     joinable: false,
-    keyword: '',
+    keyword: undefined,
   });
+  const [keyword, setKeyword] = useState(undefined);
 
   const { data, isLoading } = useGetStudyList(filters);
 
@@ -26,7 +27,9 @@ export default function StudyList() {
     <S.Container>
       <FilterTab
         filters={filters}
+        keyword={keyword}
         setFilters={setFilters}
+        setKeyword={setKeyword}
       />
       {isLoading ? (
         <Loading />
