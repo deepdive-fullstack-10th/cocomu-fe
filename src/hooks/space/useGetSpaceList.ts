@@ -24,7 +24,7 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
         lastId: pageParam,
       };
       const response = await spaceApi.getSpaceList(studyId, requestParams);
-      console.log('api 응답: ', response);
+      console.log(response);
       return response;
     },
     initialPageParam: 0,
@@ -32,7 +32,8 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
       if (lastPage.length === 0) return undefined;
       return lastPage[lastPage.length - 1].id + 1;
     },
-    enabled: !!studyId,
+    enabled: !!studyId && !isFetching,
+    staleTime: 1000 * 60,
   });
 
   const nextList = useCallback(async () => {
@@ -46,12 +47,11 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
     } finally {
       setTimeout(() => {
         setIsFetching(false);
-      }, 100);
+      }, 200);
     }
   }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
   const spaces = useMemo(() => data?.pages?.flat() || [], [data]);
-  console.log('목 데이터:', spaces);
 
   return {
     spaces,
