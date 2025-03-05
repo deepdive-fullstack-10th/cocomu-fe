@@ -4,7 +4,7 @@ export const getUserInfoResponse = {
   result: {
     id: 1,
     nickname: '코코무',
-    profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
+    profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/Logo.png',
   },
 };
 
