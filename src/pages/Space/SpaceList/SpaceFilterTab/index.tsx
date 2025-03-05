@@ -20,6 +20,12 @@ export default function SpaceFilterTab({ spaceFilter, setSpaceFilter }: spaceFil
   };
   const debouncedKeyword = useDebounce(spaceFilter.keyword, 300);
 
+  const handleLanguageChange = (values: string[]) => {
+    const valueIds = [];
+    valueIds.push(values);
+    setSpaceFilter((prev) => ({ ...prev, languageIds: valueIds.join(',') }));
+  };
+
   const handleSearch = useCallback(() => {
     console.log(debouncedKeyword);
   }, [debouncedKeyword]);
@@ -36,8 +42,12 @@ export default function SpaceFilterTab({ spaceFilter, setSpaceFilter }: spaceFil
         <SelectDropdown
           description='사용 언어'
           items={[...PROGRAMMING_LANGUAGES]}
-          values={spaceFilter.languageIds ? [String(spaceFilter.languageIds)] : []}
-          onSelect={(values) => handleChangeFilter('languageIds', values)}
+          values={
+            typeof spaceFilter.languageIds === 'string'
+              ? spaceFilter.languageIds.split(',').filter((id) => id !== '')
+              : []
+          }
+          onSelect={handleLanguageChange}
         />
         <ToggleButton
           size='md'

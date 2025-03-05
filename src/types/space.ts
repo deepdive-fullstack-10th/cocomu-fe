@@ -6,11 +6,11 @@ export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export interface SpaceListParams {
   joinedMe?: boolean;
-  languageIds: number | undefined;
+  languageIds: string | undefined;
   status?: string[];
   keyword?: string;
   lastId?: number;
-  CurrentUserCount?: number;
+  currentUserCount?: number;
 }
 
 export interface SpaceData {
