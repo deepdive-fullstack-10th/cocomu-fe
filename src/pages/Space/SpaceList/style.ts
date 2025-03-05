@@ -28,12 +28,6 @@ const TabMenuContainer = styled.div`
   margin-top: 2rem;
 `;
 
-const BodyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 3rem 0;
-`;
-
 const FilteredContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -49,6 +43,12 @@ const ClickFilteredContainer = styled.div`
 
 const SearchFilteredContainer = styled.div`
   display: flex;
+`;
+
+const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 0;
 `;
 
 const SpaceListContainer = styled.div`
