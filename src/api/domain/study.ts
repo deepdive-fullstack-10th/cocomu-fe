@@ -43,6 +43,15 @@ const studyApi = {
     );
     return data.result;
   },
+
+  joinPrivate: async (studyId: string, password: string) => {
+    const { data } = await axiosInstance.post(
+      END_POINTS_V1.STUDY.PRIVATE_JOIN,
+      { studyId, password },
+      { useAuth: false, withCredentials: false },
+    );
+    return data.result;
+  },
 };
 
 export default studyApi;

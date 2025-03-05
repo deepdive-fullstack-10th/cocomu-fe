@@ -9,11 +9,11 @@ interface ConfirmModalProps extends ConfirmProps {
 }
 
 export default function ConfirmModal({ studyId, name, navigateToStudy }: ConfirmModalProps) {
-  const { joinStudyMutate } = useJoinStudy();
+  const { joinPublicStudy } = useJoinStudy();
   const { close } = useModalStore();
 
   const handleConfirm = () => {
-    joinStudyMutate.mutate({
+    joinPublicStudy.mutate({
       studyId: String(studyId),
       onClose: () => {
         close();

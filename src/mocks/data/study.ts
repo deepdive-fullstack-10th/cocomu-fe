@@ -69,7 +69,7 @@ export const getStudyInfoResponse = {
     id: 1,
     joinable: true,
     name: '딥다이브 스터디',
-    status: 'PUBLIC',
+    status: 'PRIVATE',
     languages: ['Python', 'Java'],
     workbooks: ['백준', '프로그래머스'],
     description: '<p>스터디 소개임</p>',
@@ -129,5 +129,15 @@ export const joinPublicStudyResponse = {
 
 export const joinPublicStudyErrorResponse = {
   code: 4200,
-  message: '스터디 참가에 실패했습니다.',
+  message: '공개 스터디 참가에 실패했습니다.',
+};
+
+export const joinPrivateStudyResponse = {
+  code: 1200,
+  message: '비공개 스터디 참가에 성공했습니다.',
+};
+
+export const joinPrivateStudyErrorResponse = {
+  code: 4200,
+  message: '비공개 스터디 참가에 실패했습니다.',
 };
