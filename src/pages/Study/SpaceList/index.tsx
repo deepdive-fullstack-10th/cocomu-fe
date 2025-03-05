@@ -3,7 +3,7 @@ import SpaceCard from '@components/Space/SpaceCard';
 import { useEffect, useRef, useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import SearchInput from '@components/_common/atoms/SearchInput';
-import useSpaceList from '@hooks/useSpaceList';
+import useSpaceList from '@hooks/study/useSpaceList';
 import { useParams } from 'react-router-dom';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import { SpaceStatusData } from '@customTypes/space';

@@ -23,7 +23,7 @@ export default function useSpaceList(studyId: string) {
         lastIndex: pageParam,
       };
       console.log('api 호출 파라미터: ', params);
-      return studyApi.fetchSpaceList(studyId, params);
+      return studyApi.getSpaceList(studyId, params);
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {

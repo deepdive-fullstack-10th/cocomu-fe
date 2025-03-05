@@ -38,7 +38,7 @@ const studyApi = {
     return data.result;
   },
 
-  fetchSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
+  getSpaceList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
     const queryParams = params ? { ...params } : {};
 
     Object.keys(queryParams).forEach((key) => {
