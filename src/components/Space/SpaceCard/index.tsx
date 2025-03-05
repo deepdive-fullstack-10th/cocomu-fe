@@ -21,7 +21,7 @@ export default function SpaceCard({
   const { label, color } = STEP_INFO[status];
 
   const handleCardClick = () => {
-    // id 사용해서 상세페이지로 이동 (joinedSpace 조건)
+    // id 사용해서 상세페이지로 이동 (joinedMe 조건)
   };
 
   return (

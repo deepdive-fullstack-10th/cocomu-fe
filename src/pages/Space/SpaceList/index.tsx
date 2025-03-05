@@ -4,12 +4,13 @@ import useGetSpaceList from '@hooks/space/useGetSpaceList';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
+import { SpaceListParams } from '@customTypes/space';
 import S from './style';
 
 export default function SpaceList() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<SpaceListParams>({
     status: null,
-    languageIds: null,
+    languageIds: '',
     joinedMe: true,
     keyword: '',
     lastId: 0,
