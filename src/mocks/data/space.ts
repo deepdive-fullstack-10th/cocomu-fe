@@ -257,7 +257,7 @@ const sampleData = [
   {
     id: 3,
     joinedSpace: false,
-    nickName: '프로그래머스 구명보트',
+    name: '프로그래머스 구명보트',
     language: 'C',
     totalUserCount: 2,
     createdAt: '2025-01-16T12:20:50.197Z',
