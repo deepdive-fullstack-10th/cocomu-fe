@@ -24,7 +24,6 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
         lastId: pageParam,
       };
       const response = await spaceApi.getSpaceList(studyId, requestParams);
-      console.log(response);
       return response;
     },
     initialPageParam: 0,
