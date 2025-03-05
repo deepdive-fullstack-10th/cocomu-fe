@@ -29,7 +29,7 @@ export interface LoginProps {
 }
 
 export interface TestCaseProps {
-  codingSpaceId: string;
+  codingSpaceId?: string;
   isEditable?: boolean;
   testCases?: TestCaseData[];
   onClose?: () => void;
