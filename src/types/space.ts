@@ -6,7 +6,7 @@ export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export interface SpaceData {
   id: number;
-  joinedSpace: boolean;
+  joinedMe: boolean;
   name: string;
   language: string;
   totalUserCount: number;
