@@ -2,28 +2,30 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { SpaceListParams } from '@customTypes/space';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useDebounce from '@hooks/utils/useDebounce';
-import studyApi from '@api/domain/study';
+import spaceApi from '@api/domain/space';
 
-export default function useSpaceList(studyId: string) {
-  const [filters, setFilters] = useState<Omit<SpaceListParams, 'lastIndex'>>({
-    status: null,
-    language: null,
-    joinedSpace: null,
-    keyword: null,
-  });
+export default function useGetSpaceList(studyId: string, params: SpaceListParams) {
   const queryClient = useQueryClient();
   const [isFetching, setIsFetching] = useState(false);
-  const debouncedFilters = useDebounce(filters, 100);
+  const debouncedFilters = useDebounce(params.keyword, 300);
+
+  const queryParams = useMemo(
+    () => ({
+      ...params,
+      keyword: debouncedFilters,
+    }),
+    [params, debouncedFilters],
+  );
 
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['spaceList', studyId, debouncedFilters],
+    queryKey: ['spaceList', studyId, queryParams],
     queryFn: async ({ pageParam }) => {
-      const params: SpaceListParams = {
-        ...debouncedFilters,
-        lastIndex: pageParam,
+      const requestParams = {
+        ...queryParams,
+        lastId: pageParam,
       };
-      console.log('api 호출 파라미터: ', params);
-      return studyApi.getSpaceList(studyId, params);
+      console.log('api 호출 파라미터: ', requestParams);
+      return spaceApi.getSpaceList(studyId, requestParams);
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
@@ -33,26 +35,11 @@ export default function useSpaceList(studyId: string) {
     enabled: !!studyId,
   });
 
-  const updateFilters = useCallback((newFilters: Partial<SpaceListParams>) => {
-    setFilters((prev) => {
-      const updated = { ...prev, ...newFilters };
-      console.log('쿼리 키 변경:', updated);
-      return updated;
-    });
-  }, []);
-
-  useEffect(() => {
-    queryClient.invalidateQueries({
-      queryKey: ['spaceList', studyId, debouncedFilters],
-    });
-  }, [queryClient, studyId, debouncedFilters]);
-
   const nextList = useCallback(async () => {
     if (isFetching || !hasNextPage || isFetchingNextPage) return;
 
     try {
       setIsFetching(true);
-      console.log('api호출');
       await fetchNextPage();
     } catch (error) {
       console.error('무한 스크롤 에러:', error);
@@ -67,8 +54,6 @@ export default function useSpaceList(studyId: string) {
 
   return {
     spaces,
-    updateFilters,
-    filters,
     hasNextPage,
     nextList,
     isFetchingNextPage,

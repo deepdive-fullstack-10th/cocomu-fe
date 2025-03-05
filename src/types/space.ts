@@ -9,7 +9,7 @@ export interface SpaceListParams {
   languageIds: number | undefined;
   status?: string[];
   keyword?: string;
-  lastIndex?: number;
+  lastId?: number;
 }
 
 export interface SpaceData {
