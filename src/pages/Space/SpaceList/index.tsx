@@ -15,7 +15,7 @@ export default function SpaceList() {
     lastId: 0,
   });
   const { studyId } = useParams<{ studyId: string }>();
-  const { spaces, hasNextPage, isFetchingNextPage, nextList } = useGetSpaceList(studyId, filters);
+  const { spaces, isLoading, hasNextPage, isFetchingNextPage, nextList } = useGetSpaceList(studyId, filters);
   const observerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ export default function SpaceList() {
       />
       <S.SpaceListContainer>
         {spaces &&
+          !isLoading &&
           spaces.map((space) => (
             <SpaceCard
               key={space.id}
