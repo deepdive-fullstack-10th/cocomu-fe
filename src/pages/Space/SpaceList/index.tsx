@@ -1,6 +1,6 @@
 import SpaceCard from '@components/Space/SpaceCard';
 import { useEffect, useRef, useState } from 'react';
-import useSpaceList from '@hooks/study/useSpaceList';
+import useGetSpaceList from '@hooks/space/useGetSpaceList';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
@@ -11,10 +11,11 @@ export default function SpaceList() {
     status: null,
     languageIds: null,
     joinedMe: true,
+    keyword: '',
     lastId: 0,
   });
   const { studyId } = useParams<{ studyId: string }>();
-  const { spaces, hasNextPage, isFetchingNextPage, nextList } = useSpaceList(studyId);
+  const { spaces, hasNextPage, isFetchingNextPage, nextList } = useGetSpaceList(studyId, filters);
   const observerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

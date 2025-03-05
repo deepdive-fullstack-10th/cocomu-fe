@@ -17,7 +17,6 @@ type spaceFilterKey = keyof SpaceListParams;
 export default function SpaceFilterTab({ spaceFilter, setSpaceFilter }: spaceFilterProps) {
   const handleChangeFilter = <K extends spaceFilterKey>(key: K, value: SpaceListParams[K] | string[]) => {
     setSpaceFilter((prev) => ({ ...prev, [key]: value }));
-    console.log(value);
   };
   const debouncedKeyword = useDebounce(spaceFilter.keyword, 300);
 
