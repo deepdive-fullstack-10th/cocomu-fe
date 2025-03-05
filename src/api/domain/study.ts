@@ -8,7 +8,6 @@ const studyApi = {
       useAuth: false,
       withCredentials: false,
     });
-
     return data.result;
   },
 
@@ -18,7 +17,6 @@ const studyApi = {
       useAuth: false,
       withCredentials: false,
     });
-
     return data.result;
   },
 
@@ -37,8 +35,12 @@ const studyApi = {
     return data.result;
   },
 
-  joinPublicStudy: async (studyId: number) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PUBLIC_JOIN, { studyId });
+  joinPublic: async (studyId: string) => {
+    const { data } = await axiosInstance.post(
+      END_POINTS_V1.STUDY.PUBLIC_JOIN,
+      { studyId },
+      { useAuth: false, withCredentials: false },
+    );
     return data.result;
   },
 };

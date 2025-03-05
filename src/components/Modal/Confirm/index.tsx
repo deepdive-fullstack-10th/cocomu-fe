@@ -1,26 +1,23 @@
 import Button from '@components/_common/atoms/Button';
 import { ConfirmProps } from '@customTypes/modal';
-import useJoinPublicStudy from '@hooks/study/useJoinPublicStudy';
+import useJoinStudy from '@hooks/study/useJoinStudy';
 import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
 interface ConfirmModalProps extends ConfirmProps {
-  navigateToStudy?: (studyId: number) => void;
+  navigateToStudy?: (studyId: string) => void;
 }
 
 export default function ConfirmModal({ studyId, name, navigateToStudy }: ConfirmModalProps) {
-  const { joinPublicMutate } = useJoinPublicStudy();
+  const { joinStudyMutate } = useJoinStudy();
   const { close } = useModalStore();
 
   const handleConfirm = () => {
-    console.log(`[ConfirmModal] Joining study with ID: ${studyId}`);
-    joinPublicMutate.mutate({
-      studyId,
+    joinStudyMutate.mutate({
+      studyId: String(studyId),
       onClose: () => {
         close();
-        if (navigateToStudy) {
-          navigateToStudy(studyId);
-        }
+        if (navigateToStudy) navigateToStudy(String(studyId));
       },
     });
   };
