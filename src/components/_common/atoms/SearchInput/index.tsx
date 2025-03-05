@@ -5,7 +5,7 @@ import S from './style';
 interface SearchInputProps {
   placeholder?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   onSearch: () => void;
 }
 
@@ -29,7 +29,7 @@ export default function SearchInput({ placeholder = '', value, onChange, onSearc
       <S.Input
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
       />
     </S.Container>
