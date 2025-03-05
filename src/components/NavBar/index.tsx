@@ -11,6 +11,7 @@ import { UserData } from '@customTypes/user';
 
 import { ROUTES } from '@constants/path';
 import { NAVBAR_DROPDOWN_LABELS } from '@constants/constants';
+import { ACCESS_TOKEN_KEY } from '@constants/api';
 
 import { useModalStore } from '@stores/useModalStore';
 
@@ -36,7 +37,8 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   const handleMyPageClick = () => navigate(ROUTES.MYPAGE({ userId: String(user.id) }));
 
   const handleLogoutClick = () => {
-    console.log('로그아웃 실행');
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    window.location.href = ROUTES.ROOT();
   };
 
   const handleLoginClick = () => open('login');
