@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import UserProfile from '@components/_common/molecules/UserProfile';
@@ -9,23 +10,49 @@ import Loading from '@pages/Loading';
 import { formatDate } from '@utils/formatDate';
 import TagList from '@components/_common/molecules/TagList';
 import TextEditor from '@components/_common/atoms/TextEditor';
+import { ROUTES } from '@constants/path';
+import ConfirmModal from '@components/Modal/Confirm';
+import PasswordInput from '@components/Modal/PasswordInput';
+import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
 export default function StudyParticipation() {
+  const { open } = useModalStore();
   const navigate = useNavigate();
   const { studyId } = useParams<{ studyId: string }>();
   const { data, isLoading } = useGetStudyInfo(studyId);
 
+  // 모달 상태 추가
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+
   if (isLoading) return <Loading />;
 
   /* TODO: 임시로 현재 로그인 한 user id 지정, 추후에 수정하기 */
-  const loginedUserId = 1;
   const { name, status, createdAt, description, languages, workbooks, totalUserCount, leader } = data;
-  const isLeader = loginedUserId === leader.id;
+  const parsedStudyId = studyId ? Number(studyId) : null;
 
   if (!data) {
     return <div>스터디 데이터를 불러오는 중입니다...</div>;
   }
+
+  const handleNavigateToStudyList = () => {
+    navigate(ROUTES.ROOT());
+  };
+
+  // 참여 버튼 클릭 핸들러
+
+  const handleJoinClick = () => {
+    console.log('참여하기 버튼 클릭됨! 상태:', status);
+
+    if (status === 'PUBLIC') {
+      console.log('ConfirmModal을 여는 중...');
+      open('confirm', { studyId: Number(studyId), name });
+    } else if (status === 'PRIVATE') {
+      console.log('PasswordInput을 여는 중...');
+      open('passwordInput', { studyId: Number(studyId) });
+    }
+  };
 
   return (
     <S.Container>
@@ -36,7 +63,7 @@ export default function StudyParticipation() {
             color='white'
             shape='round'
             content='다른 스터디 보러가기'
-            onClick={() => navigate(-1)}
+            onClick={handleNavigateToStudyList}
           >
             <BsArrowLeft />
           </IconButton>
@@ -86,11 +113,32 @@ export default function StudyParticipation() {
           size='sm'
           color='primary'
           shape='default'
-          onClick={() => console.log('참여하기 클릭')}
+          onClick={handleJoinClick}
         >
           참여하기
         </Button>
       </S.FooterContainer>
+      {showConfirmModal && (
+        <>
+          {console.log('ConfirmModal 렌더링됨')}
+          <ConfirmModal
+            studyId={parsedStudyId}
+            codingSpaceId={null}
+            name={name}
+            onClose={() => setShowConfirmModal(false)}
+          />
+        </>
+      )}
+
+      {showPasswordModal && (
+        <>
+          {console.log('PasswordInput 렌더링됨')}
+          <PasswordInput
+            studyId={parsedStudyId}
+            onClose={() => setShowPasswordModal(false)}
+          />
+        </>
+      )}
     </S.Container>
   );
 }
