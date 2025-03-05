@@ -33,12 +33,26 @@ const ProfileSection = styled.div`
   gap: 0.5rem;
 `;
 
+const DropdownList = styled.div`
+  position: absolute;
+  top: 140%;
+  left: -130%;
+  right: 0%;
+  z-index: 1;
+
+  background-color: ${({ theme }) => theme.color.gray[50]};
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 1rem;
+  padding: 1rem 0;
+`;
+
 const S = {
   Container,
   LogoImage,
   NavItems,
   LoginButton,
   ProfileSection,
+  DropdownList,
 };
 
 export default S;

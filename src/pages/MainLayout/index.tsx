@@ -6,8 +6,6 @@ import { useUserStore } from '@stores/useUserStore';
 import NavBar from '@components/NavBar';
 import Loading from '@pages/Loading';
 
-import { NAVBAR_DROPDOWN_LABELS } from '@constants/constants';
-
 import S from './style';
 
 export default function MainLayout() {
@@ -24,7 +22,6 @@ export default function MainLayout() {
   return (
     <S.MainContainer>
       <NavBar
-        items={NAVBAR_DROPDOWN_LABELS}
         isLoggedIn={isLoggedIn}
         user={data}
       />
