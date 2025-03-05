@@ -1,20 +1,26 @@
 import { useState } from 'react';
-import ProfileImage from '@components/_common/atoms/ProfileImage';
+import { useNavigate } from 'react-router-dom';
 import { BsChevronDown } from 'react-icons/bs';
+
+import ProfileImage from '@components/_common/atoms/ProfileImage';
 import Icon from '@components/_common/atoms/Icon';
 import Button from '@components/_common/atoms/Button';
 import DropdownList from '@components/_common/molecules/DropdownList';
-import { useNavigate } from 'react-router-dom';
+
+import { UserData } from '@customTypes/user';
+
 import { ROUTES } from '@constants/path';
 import { useModalStore } from '@stores/useModalStore';
+
 import S from './style';
 
 interface NavbarProps<T extends readonly string[]> {
   items: T;
-  isLogined: boolean;
+  isLoggedIn: boolean;
+  user?: UserData;
 }
 
-export default function NavBar<T extends readonly string[]>({ items, isLogined }: NavbarProps<T>) {
+export default function NavBar<T extends readonly string[]>({ items, isLoggedIn, user }: NavbarProps<T>) {
   const navigate = useNavigate();
   const { open } = useModalStore();
 
@@ -22,25 +28,17 @@ export default function NavBar<T extends readonly string[]>({ items, isLogined }
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
-  const handleLogoClick = () => {
-    navigate(ROUTES.ROOT());
-  };
+  const handleLogoClick = () => navigate(ROUTES.ROOT());
 
-  const handleStudyClick = () => {
-    navigate(ROUTES.STUDY.CREATE());
-  };
+  const handleStudyClick = () => navigate(ROUTES.STUDY.CREATE());
 
-  const handleMyPageClick = () => {
-    // 마이페이지 이동
-  };
+  const handleMyPageClick = () => navigate(ROUTES.MYPAGE({ userId: String(user.id) }));
 
   const handleLogoutClick = () => {
-    // 로그아웃 실행
+    console.log('로그아웃 실행');
   };
 
-  const handleLoginClick = () => {
-    open('login');
-  };
+  const handleLoginClick = () => open('login');
 
   const handleItemSelect = (selectedItem: string) => {
     if (selectedItem === '마이페이지') {
@@ -69,9 +67,12 @@ export default function NavBar<T extends readonly string[]>({ items, isLogined }
           스터디 모집하기
         </Button>
 
-        {isLogined ? (
+        {isLoggedIn ? (
           <S.ProfileSection>
-            <ProfileImage size='x_sm' />
+            <ProfileImage
+              src={user.profileImageUrl}
+              size='x_sm'
+            />
             <Icon
               size='sm'
               color='950'
