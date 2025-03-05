@@ -108,9 +108,8 @@ export const spaceHandlers = [
 
     const response = {
       ...getSpaceListResponse,
-      data: partialSpaceData,
+      result: partialSpaceData,
     };
-
     return new HttpResponse(JSON.stringify(response), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
