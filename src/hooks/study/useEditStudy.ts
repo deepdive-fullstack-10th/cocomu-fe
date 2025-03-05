@@ -1,22 +1,20 @@
-import studyApi from '@api/domain/study';
-import { ROUTES } from '@constants/path';
-import QUERY_KEYS from '@constants/queryKeys';
-import { EditStudyData } from '@customTypes/study';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import studyApi from '@api/domain/study';
+import QUERY_KEYS from '@constants/queryKeys';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ROUTES } from '@constants/path';
 
-export default function useEditStudy() {
+export default function useJoinPublicStudy() {
+  const navigate = useNavigate(); // ✅ 훅 최상단에서 호출
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
-  const editStudyMutate = useMutation({
-    mutationFn: ({ studyId, editStudyData }: { studyId: string; editStudyData: EditStudyData }) =>
-      studyApi.edit(studyId, editStudyData),
-    onSuccess: ({ studyId }) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
-      navigate(ROUTES.STUDY.PARTICIPATION({ studyId }));
+  const joinPublicMutate = useMutation({
+    mutationFn: studyApi.joinPublicStudy,
+    onSuccess: (_, studyId) => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, String(studyId)] });
+      navigate(ROUTES.STUDY.DETAIL({ studyId: String(studyId) })); // ✅ 정상 동작
     },
   });
 
-  return { editStudyMutate };
+  return { joinPublicMutate };
 }

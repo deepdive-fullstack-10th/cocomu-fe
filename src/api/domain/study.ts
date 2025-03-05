@@ -36,6 +36,11 @@ const studyApi = {
     const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.EDIT(studyId), editStudyData);
     return data.result;
   },
+
+  joinPublicStudy: async (studyId: number) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PUBLIC_JOIN, { studyId });
+    return data.result;
+  },
 };
 
 export default studyApi;

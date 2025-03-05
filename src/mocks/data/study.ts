@@ -121,3 +121,13 @@ export const editStudyErrorResponse = {
   code: 4200,
   message: '유효성 검사 실패',
 };
+
+export const joinPublicStudySuccessResponse = {
+  code: 1200,
+  message: '공개 스터디 참가에 성공했습니다.',
+};
+
+export const joinPublicStudyErrorResponse = {
+  code: 4200,
+  message: '스터디 참가에 실패했습니다.',
+};
