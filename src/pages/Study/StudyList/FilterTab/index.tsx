@@ -11,15 +11,16 @@ interface Filters {
   languages: string[];
   workbooks: string[];
   joinable: boolean;
-  keyword: string;
 }
 
 interface FilterTabProps {
   filters: Filters;
+  keyword: string;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  setKeyword: (keyword: string) => void;
 }
 
-export default function FilterTab({ filters, setFilters }: FilterTabProps) {
+export default function FilterTab({ filters, keyword, setFilters, setKeyword }: FilterTabProps) {
   return (
     <S.FilterTabContainer>
       <S.DropdownWrapper>
@@ -56,9 +57,9 @@ export default function FilterTab({ filters, setFilters }: FilterTabProps) {
       </S.DropdownWrapper>
       <SearchInput
         placeholder='제목을 검색해주세요'
-        value={filters.keyword}
-        onChange={(e) => setFilters((prev) => ({ ...prev, keyword: e.target.value }))}
-        onSearch={() => {}}
+        value={keyword}
+        onChange={setKeyword}
+        onSearch={() => setFilters((prev) => ({ ...prev, keyword }))}
       />
     </S.FilterTabContainer>
   );
