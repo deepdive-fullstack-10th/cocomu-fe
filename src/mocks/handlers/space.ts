@@ -101,15 +101,24 @@ export const spaceHandlers = [
     }
 
     const url = new URL(request.url);
-    const startIndex = parseInt(url.searchParams.get('lastId'), 10) || 0;
+    const lastId = parseInt(url.searchParams.get('lastId'), 10) || 0;
     const limit = 20;
     const totalSpaceData = getSpaceListResponse.result;
-    const partialSpaceData = totalSpaceData.slice(startIndex, startIndex + limit);
+
+    let filteredData;
+    if (lastId > 0) {
+      filteredData = totalSpaceData.filter((item) => item.id > lastId);
+    } else {
+      filteredData = totalSpaceData;
+    }
+
+    const partialSpaceData = filteredData.slice(0, limit);
 
     const response = {
       ...getSpaceListResponse,
       result: partialSpaceData,
     };
+
     return new HttpResponse(JSON.stringify(response), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
