@@ -1,7 +1,4 @@
-import IconButton from '@components/_common/atoms/IconButton';
-import { BsPlusLg } from 'react-icons/bs';
-import TabMenu from '@components/_common/molecules/TabMenu';
-import { PROGRAMMING_LANGUAGES, STEP_LABELS, STUDY_LIST } from '@constants/constants';
+import { PROGRAMMING_LANGUAGES, STEP_LABELS } from '@constants/constants';
 import SpaceCard from '@components/Space/SpaceCard';
 import { useEffect, useRef, useState } from 'react';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
@@ -11,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import { SpaceStatusData } from '@customTypes/space';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
-import useDebounce from '@hooks/useDebounce';
+import useDebounce from '@hooks/utils/useDebounce';
 import S from './style';
 
 export default function SpaceList() {
