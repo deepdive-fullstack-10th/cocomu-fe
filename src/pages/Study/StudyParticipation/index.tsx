@@ -21,8 +21,6 @@ export default function StudyParticipation() {
   const navigate = useNavigate();
   const { studyId } = useParams<{ studyId: string }>();
   const { data, isLoading } = useGetStudyInfo(studyId);
-
-  // 모달 상태 추가
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
 
@@ -32,24 +30,14 @@ export default function StudyParticipation() {
   const { name, status, createdAt, description, languages, workbooks, totalUserCount, leader } = data;
   const parsedStudyId = studyId ? Number(studyId) : null;
 
-  if (!data) {
-    return <div>스터디 데이터를 불러오는 중입니다...</div>;
-  }
-
   const handleNavigateToStudyList = () => {
     navigate(ROUTES.ROOT());
   };
 
-  // 참여 버튼 클릭 핸들러
-
   const handleJoinClick = () => {
-    console.log('참여하기 버튼 클릭됨! 상태:', status);
-
     if (status === 'PUBLIC') {
-      console.log('ConfirmModal을 여는 중...');
       open('confirm', { studyId: Number(studyId), name });
     } else if (status === 'PRIVATE') {
-      console.log('PasswordInput을 여는 중...');
       open('passwordInput', { studyId: Number(studyId) });
     }
   };
@@ -119,25 +107,19 @@ export default function StudyParticipation() {
         </Button>
       </S.FooterContainer>
       {showConfirmModal && (
-        <>
-          {console.log('ConfirmModal 렌더링됨')}
-          <ConfirmModal
-            studyId={parsedStudyId}
-            codingSpaceId={null}
-            name={name}
-            onClose={() => setShowConfirmModal(false)}
-          />
-        </>
+        <ConfirmModal
+          studyId={parsedStudyId}
+          codingSpaceId={null}
+          name={name}
+          onClose={() => setShowConfirmModal(false)}
+        />
       )}
 
       {showPasswordModal && (
-        <>
-          {console.log('PasswordInput 렌더링됨')}
-          <PasswordInput
-            studyId={parsedStudyId}
-            onClose={() => setShowPasswordModal(false)}
-          />
-        </>
+        <PasswordInput
+          studyId={parsedStudyId}
+          onClose={() => setShowPasswordModal(false)}
+        />
       )}
     </S.Container>
   );
