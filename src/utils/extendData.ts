@@ -1,26 +1,20 @@
-import { UserData } from '@customTypes/user';
+export const extendData = <T extends { id: number }>(data: T[], targetCount: number): T[] => {
+  const mockingData: T[] = [...data];
+  const needCount = targetCount - data.length;
 
-export const extendData = (data: UserData[]) => {
-  const mockingData = data;
-  const dataLength = mockingData.length;
-  const userIds = new Set();
+  if (needCount < 0) {
+    return mockingData;
+  }
 
-  for (let i = 0; i < 30; i++) {
-    const batchData = mockingData.map((item, index) => {
-      let newId = item.id + (i + 1) * (dataLength * 30) + index;
+  let lastId = Math.max(...mockingData.map((item) => item.id));
 
-      while (userIds.has(newId)) {
-        newId += 5;
-      }
-      userIds.add(newId);
+  for (let i = 0; i < needCount; i += 1) {
+    const template = mockingData[i % mockingData.length];
 
-      return {
-        ...item,
-        id: newId,
-      };
-    });
+    lastId += 1;
+    const newItem = { ...template, id: lastId };
 
-    mockingData.push(...batchData);
+    mockingData.push(newItem);
   }
 
   return mockingData;
