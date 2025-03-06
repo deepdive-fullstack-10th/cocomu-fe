@@ -77,8 +77,11 @@ export const studyHandlers = [
       studyMemberData = responseData.filter((member) => member.id > lastIndexNum);
     }
     const partialMemberData = studyMemberData.slice(0, limit);
-
-    return new HttpResponse(JSON.stringify(partialMemberData), {
+    const partialMemberResponse = {
+      ...getMemberResponse,
+      result: partialMemberData,
+    };
+    return new HttpResponse(JSON.stringify(partialMemberResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
