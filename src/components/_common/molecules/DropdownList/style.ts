@@ -20,7 +20,6 @@ const DropdownList = styled.div<DropdownListStyleProps>`
   width: 100%;
   max-height: 20rem;
   overflow-y: auto;
-  z-index: 9999;
 
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   background-color: ${({ theme }) => theme.color.gray[50]};
