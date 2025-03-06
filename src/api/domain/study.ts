@@ -36,20 +36,12 @@ const studyApi = {
   },
 
   joinPublic: async (studyId: string) => {
-    const { data } = await axiosInstance.post(
-      END_POINTS_V1.STUDY.PUBLIC_JOIN,
-      { studyId },
-      { useAuth: false, withCredentials: false },
-    );
+    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PUBLIC_JOIN, { studyId });
     return data.result;
   },
 
   joinPrivate: async (studyId: string, password: string) => {
-    const { data } = await axiosInstance.post(
-      END_POINTS_V1.STUDY.PRIVATE_JOIN,
-      { studyId, password },
-      { useAuth: false, withCredentials: false },
-    );
+    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PRIVATE_JOIN, { studyId, password });
     return data.result;
   },
 };
