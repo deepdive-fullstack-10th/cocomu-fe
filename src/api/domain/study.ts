@@ -67,6 +67,15 @@ const studyApi = {
     return data.result;
   },
 
+  getMember: async (studyId: string, lastIndex?: number) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.MEMBER_LIST(studyId), {
+      params: {
+        lastId: lastIndex,
+      },
+    });
+    return data.result;
+  },
+
   leave: async (studyId: string) => {
     await axiosInstance.post(END_POINTS_V1.STUDY.LEAVE(studyId));
   },
