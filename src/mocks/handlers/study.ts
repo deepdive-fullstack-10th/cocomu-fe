@@ -58,6 +58,31 @@ export const studyHandlers = [
     });
   }),
 
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.MEMBER_LIST(':studyId')}`, async ({ params, request }) => {
+    const { studyId } = params;
+    const url = new URL(request.url);
+    const lastIndex = url.searchParams.get('lastIndex');
+    const responseData = getMemeberResponse.result;
+    const limit = 20;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(getMemeberErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    let studyMemberData = responseData;
+    if (lastIndex) {
+      const lastIndexNum = parseInt(lastIndex, 10);
+      studyMemberData = responseData.filter((member) => member.id > lastIndexNum);
+    }
+    const partialMemberData = studyMemberData.slice(0, limit);
+
+    return new HttpResponse(JSON.stringify(partialMemberData), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
   http.get(
     `${BASE_URL}${END_POINTS_V1.STUDY.LIST}`,
     async () =>
