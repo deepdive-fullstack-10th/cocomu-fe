@@ -44,6 +44,15 @@ const studyApi = {
     const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PRIVATE_JOIN, { studyId, password });
     return data.result;
   },
+
+  getMember: async (studyId: string, lastIndex?: number) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.MEMBER_LIST(studyId), {
+      params: {
+        lastId: lastIndex,
+      },
+    });
+    return data.result;
+  },
 };
 
 export default studyApi;
