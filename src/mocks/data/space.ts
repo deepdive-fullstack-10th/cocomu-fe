@@ -8,7 +8,7 @@ export const getSpaceResponse = {
       id: 1,
       studyId: 1,
       name: '스페이스 제목입니다.',
-      status: '진행',
+      status: '종료',
       language: 'javascript',
       referenceUrl: 'url',
       description: `
@@ -127,6 +127,51 @@ export const getTabResponse = {
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     },
+  },
+};
+
+export const getAllTabsResponse = {
+  code: 1100,
+  message: '코딩 스페이스 입장에 성공하였습니다.',
+  result: {
+    tabs: [
+      {
+        tabId: 'UUID1',
+        code: '1',
+        user: {
+          id: 1,
+          nickName: '코코1',
+          profileImageUrl: 'https://cdn.domain.com/images/*.png',
+        },
+      },
+      {
+        tabId: 'UUID2',
+        code: '2',
+        user: {
+          id: 2,
+          nickName: '코코2',
+          profileImageUrl: 'https://cdn.domain.com/images/*.png',
+        },
+      },
+      {
+        tabId: 'UUID3',
+        code: '3',
+        user: {
+          id: 3,
+          nickName: '코코3',
+          profileImageUrl: 'https://cdn.domain.com/images/*.png',
+        },
+      },
+      {
+        tabId: 'UUID4',
+        code: '4',
+        user: {
+          id: 4,
+          nickName: '코코4',
+          profileImageUrl: 'https://cdn.domain.com/images/*.png',
+        },
+      },
+    ],
   },
 };
 
@@ -353,4 +398,14 @@ export const getSpaceListResponse = {
 export const getSpaceListErrorResponse = {
   code: 4200,
   message: '코딩 스페이스 조회에 실패했습니다.',
+};
+
+export const completeSpaceResponse = {
+  code: 1200,
+  message: '코딩 스페이스 종료에 성공했습니다.',
+};
+
+export const completeSpaceErrorResponse = {
+  code: 4200,
+  message: '피드백 종료에 실패했습니다.',
 };

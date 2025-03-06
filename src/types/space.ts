@@ -47,11 +47,18 @@ export interface TestCaseData extends SubmitTestCase {
   type?: TestCaseType;
 }
 
+export interface Tab {
+  id: string;
+  code: string;
+}
+
 export interface SpaceOutletProps {
+  status?: string;
   language?: string;
   totalUserCount?: number;
   setTabInfo?: Dispatch<SetStateAction<{ code: string; id: string }>>;
   setInputData?: Dispatch<SetStateAction<string>>;
+  setCompleteTabs?: Dispatch<SetStateAction<Tab[]>>;
 }
 
 export interface CreateSpaceFormData extends Record<string, string | number> {

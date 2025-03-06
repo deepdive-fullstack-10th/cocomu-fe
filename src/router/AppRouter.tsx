@@ -25,7 +25,7 @@ const SpaceCreate = lazy(() => import('@pages/Space/SpaceCreate'));
 const SpaceWaiting = lazy(() => import('@pages/Space/SpaceWaiting'));
 const SpaceRunning = lazy(() => import('@pages/Space/SpaceRunning'));
 const SpaceFeedback = lazy(() => import('@pages/Space/SpaceFeedback'));
-
+const SpaceFinish = lazy(() => import('@pages/Space/SpaceFinish'));
 const router = createBrowserRouter(
   [
     {
@@ -69,7 +69,8 @@ const router = createBrowserRouter(
           path: PATH.SPACE.DETAIL,
           element: <SpaceDetail />,
           children: [
-            { index: true, element: <SpaceWaiting /> },
+            { index: true, element: <SpaceFinish /> },
+            { path: PATH.SPACE.WAITING, element: <SpaceWaiting /> },
             { path: PATH.SPACE.RUNNING, element: <SpaceRunning /> },
             { path: PATH.SPACE.FEEDBACK, element: <SpaceFeedback /> },
           ],

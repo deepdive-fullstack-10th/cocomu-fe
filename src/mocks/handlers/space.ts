@@ -6,12 +6,15 @@ import {
   getSpaceResponse,
   getTabErrorResponse,
   getTabResponse,
+  getAllTabsResponse,
   spaceStartErrorResponse,
   spaceStartResponse,
   updateTestCaseErrorResponse,
   updateTestCaseResponse,
   getSpaceListErrorResponse,
   getSpaceListResponse,
+  completeSpaceResponse,
+  completeSpaceErrorResponse,
 } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
@@ -41,6 +44,20 @@ export const spaceHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(getTabResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.ALL_TABS(':codingSpaceId')}`, async ({ params }) => {
+    const { codingSpaceId } = params;
+
+    if (!codingSpaceId) {
+      return new HttpResponse(JSON.stringify(getTabErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getAllTabsResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
@@ -91,7 +108,6 @@ export const spaceHandlers = [
       });
     },
   ),
-
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.LIST(':studyId')}`, async ({ request, params }) => {
     const { studyId } = params;
     if (!studyId || Number.isNaN(Number(studyId))) {
@@ -120,6 +136,21 @@ export const spaceHandlers = [
     };
 
     return new HttpResponse(JSON.stringify(response), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.COMPLETE(':codingSpaceId')}`, async ({ params, request }) => {
+    const body = await request.json();
+    const { codingSpaceId } = params;
+
+    if (!body || !codingSpaceId) {
+      return new HttpResponse(JSON.stringify(completeSpaceErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(completeSpaceResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),

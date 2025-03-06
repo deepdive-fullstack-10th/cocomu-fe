@@ -1,7 +1,7 @@
 import { BsPlus } from 'react-icons/bs';
 import IconButton from '@components/_common/atoms/IconButton';
 import Button from '@components/_common/atoms/Button';
-import { FOOTER_ACTIONS } from '@constants/space';
+import { FOOTER_ACTIONS, STATUS } from '@constants/space';
 import { TestCaseData } from '@customTypes/space';
 import { useModalStore } from '@stores/useModalStore';
 import S from './style';
@@ -35,7 +35,7 @@ export default function SpaceFooter({ codingSpaceId, status, testCases, onCodeRu
           shape='round'
           onClick={handleOpenTestCase}
         >
-          <BsPlus />
+          {(status === STATUS.RUNNING || status === STATUS.FEEDBACK) && <BsPlus />}
         </IconButton>
       </S.TestCaseButton>
 

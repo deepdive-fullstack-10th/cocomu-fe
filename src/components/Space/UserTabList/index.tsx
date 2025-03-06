@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { UserData } from '@customTypes/user';
 import { UserTabColor } from './UserTab/style';
 import UserTab from './UserTab';
@@ -11,6 +12,13 @@ interface UserTabListProps {
 }
 
 export default function UserTabList({ users, selectUser }: UserTabListProps) {
+  const [selectedUserId, setSelectedUserId] = useState<number>(users[0]?.id);
+
+  const handleUserClick = (userId: number) => {
+    setSelectedUserId(userId);
+    selectUser?.(userId);
+  };
+
   return (
     <S.Container>
       {users.map((user, index) => (
@@ -18,7 +26,8 @@ export default function UserTabList({ users, selectUser }: UserTabListProps) {
           key={user.id}
           color={tabColors[index % tabColors.length]}
           name={user.nickName}
-          onClick={() => selectUser(user.id)}
+          isSelected={user.id === selectedUserId}
+          onClick={() => handleUserClick(user.id)}
         />
       ))}
     </S.Container>

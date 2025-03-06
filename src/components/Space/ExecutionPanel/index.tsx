@@ -28,7 +28,7 @@ export default function ExecutionPanel({ setInput, output, disabled }: Execution
       {selectedTab === 'INPUT' ? (
         <S.Runner
           placeholder='여기에 입력하세요.'
-          onChange={(e) => setInput?.(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
         />
       ) : (
         <S.RunnerResult
