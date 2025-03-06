@@ -133,7 +133,7 @@ export const spaceHandlers = [
     const limit = 20;
     const totalSpaceData = getSpaceListResponse.result;
 
-    let filteredData;
+    let filteredData = totalSpaceData;
     if (lastId) {
       filteredData = totalSpaceData.filter((item) => item.id > lastId);
     }
