@@ -13,22 +13,14 @@ export default function ConfirmModal({ studyId, name, onClose, navigateToStudy }
   const { joinPublicStudy } = useJoinStudy();
 
   const handleConfirm = () => {
-    console.log(`[ConfirmModal] 참가 요청: studyId=${studyId}`);
-
     joinPublicStudy.mutate(
       { studyId },
       {
         onSuccess: () => {
-          console.log(`[ConfirmModal] 참가 성공: studyId=${studyId}`);
           onClose();
           if (navigateToStudy) {
-            console.log(`[ConfirmModal] 상세 페이지 이동 실행: studyId=${studyId}`);
             navigateToStudy(studyId);
-            console.log('[ConfirmModal] navigateToStudy 실행 완료');
           }
-        },
-        onError: (error) => {
-          console.error('[ConfirmModal] 참가 실패:', error);
         },
       },
     );
