@@ -200,7 +200,7 @@ const sampleData = [
 export const getSpaceListResponse = {
   code: 1100,
   message: '코딩 스페이스 목록 조회에 성공하였습니다.',
-  result: extendData(sampleData as [], 100),
+  result: extendData(sampleData, 100),
 };
 
 export const getSpaceListErrorResponse = {
