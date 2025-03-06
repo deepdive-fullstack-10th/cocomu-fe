@@ -1,23 +1,23 @@
 import Button from '@components/_common/atoms/Button';
-import { ConfirmProps } from '@customTypes/modal';
 import useJoinStudy from '@hooks/study/useJoinStudy';
-import { useModalStore } from '@stores/useModalStore';
 import S from './style';
 
-interface ConfirmModalProps extends ConfirmProps {
+interface ConfirmModalProps {
+  studyId: string;
+  name: string;
+  onClose: () => void;
   navigateToStudy?: (studyId: string) => void;
 }
 
-export default function ConfirmModal({ studyId, name, navigateToStudy }: ConfirmModalProps) {
+export default function ConfirmModal({ studyId, name, onClose, navigateToStudy }: ConfirmModalProps) {
   const { joinPublicStudy } = useJoinStudy();
-  const { close } = useModalStore();
 
   const handleConfirm = () => {
     joinPublicStudy.mutate({
-      studyId: String(studyId),
+      studyId,
       onClose: () => {
-        close();
-        if (navigateToStudy) navigateToStudy(String(studyId));
+        onClose();
+        if (navigateToStudy) navigateToStudy(studyId);
       },
     });
   };
@@ -37,7 +37,7 @@ export default function ConfirmModal({ studyId, name, navigateToStudy }: Confirm
         <Button
           color='white'
           size='md'
-          onClick={close}
+          onClick={onClose}
         >
           취소
         </Button>
