@@ -37,7 +37,7 @@ export default function StudyParticipation() {
         onClose: close,
         navigateToStudy,
       });
-    } else {
+    } else if (status === 'PRIVATE') {
       open('passwordInput', {
         studyId: String(studyId),
         onClose: close,
