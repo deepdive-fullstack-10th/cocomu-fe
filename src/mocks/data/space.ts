@@ -1,4 +1,4 @@
-import { SpaceData, SpaceStatusData } from '@customTypes/space';
+import { SpaceStatusData } from '@customTypes/space';
 import { extendData } from '@utils/extendData';
 
 export const getSpaceResponse = {

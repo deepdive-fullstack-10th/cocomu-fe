@@ -169,13 +169,13 @@ const memberData = [
   },
 ];
 
-export const getMemeberResponse = {
+export const getMemberResponse = {
   code: 1100,
   message: '스터디 멤버 목록 조회에 성공하였습니다.',
   result: extendData(memberData, 100),
 };
 
-export const getMemeberErrorResponse = {
+export const getMemberErrorResponse = {
   code: 4200,
   message: '스터디 멤버 목록 조회에 실패했습니다.',
 };

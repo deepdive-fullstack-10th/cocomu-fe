@@ -7,8 +7,8 @@ import {
   createStudyErrorResponse,
   editStudyErrorResponse,
   editStudyResponse,
-  getMemeberErrorResponse,
-  getMemeberResponse,
+  getMemberErrorResponse,
+  getMemberResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
   getStudyListResponse,
@@ -62,11 +62,11 @@ export const studyHandlers = [
     const { studyId } = params;
     const url = new URL(request.url);
     const lastIndex = url.searchParams.get('lastIndex');
-    const responseData = getMemeberResponse.result;
+    const responseData = getMemberResponse.result;
     const limit = 20;
 
     if (!studyId) {
-      return new HttpResponse(JSON.stringify(getMemeberErrorResponse), {
+      return new HttpResponse(JSON.stringify(getMemberErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
@@ -77,8 +77,11 @@ export const studyHandlers = [
       studyMemberData = responseData.filter((member) => member.id > lastIndexNum);
     }
     const partialMemberData = studyMemberData.slice(0, limit);
-
-    return new HttpResponse(JSON.stringify(partialMemberData), {
+    const partialMemberResponse = {
+      ...getMemberResponse,
+      result: partialMemberData,
+    };
+    return new HttpResponse(JSON.stringify(partialMemberResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),

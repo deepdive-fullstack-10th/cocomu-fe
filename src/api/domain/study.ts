@@ -51,6 +51,7 @@ const studyApi = {
         lastId: lastIndex,
       },
     });
+    console.log('api : ', data.result);
     return data.result;
   },
 };
