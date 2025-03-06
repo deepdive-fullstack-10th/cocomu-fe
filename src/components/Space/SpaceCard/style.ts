@@ -33,6 +33,8 @@ const Text = styled.div`
   ${({ theme }) => theme.font.heading[100]};
   color: ${({ theme }) => theme.color.gray[900]};
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Info = styled.div`
