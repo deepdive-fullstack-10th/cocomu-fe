@@ -1,4 +1,5 @@
 import { SpaceData, SpaceStatusData } from '@customTypes/space';
+import { extendData } from '@utils/extendData';
 
 export const getSpaceResponse = {
   code: 1100,
@@ -363,36 +364,10 @@ const sampleData = [
   },
 ];
 
-const extendData = (data: SpaceData[]) => {
-  const extendedData: SpaceData[] = [];
-  const dataLength = data.length;
-  const userIds = new Set();
-
-  for (let i = 0; i < 30; i++) {
-    const batchData = data.map((item, index) => {
-      let newId = item.id + (i + 1) * (dataLength * 30) + index;
-
-      while (userIds.has(newId)) {
-        newId += 5;
-      }
-      userIds.add(newId);
-
-      return {
-        ...item,
-        id: newId,
-      };
-    });
-
-    extendedData.push(...batchData);
-  }
-
-  return extendedData;
-};
-
 export const getSpaceListResponse = {
   code: 1100,
   message: '코딩 스페이스 목록 조회에 성공하였습니다.',
-  result: extendData(sampleData as []),
+  result: extendData(sampleData as [], 100),
 };
 
 export const getSpaceListErrorResponse = {
