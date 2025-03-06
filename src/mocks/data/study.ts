@@ -69,7 +69,7 @@ export const getStudyInfoResponse = {
     id: 1,
     joinable: true,
     name: '딥다이브 스터디',
-    status: 'PRIVATE',
+    status: 'PUBLIC',
     languages: ['Python', 'Java'],
     workbooks: ['백준', '프로그래머스'],
     description: '<p>스터디 소개임</p>',
