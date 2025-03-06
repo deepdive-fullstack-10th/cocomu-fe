@@ -15,22 +15,14 @@ export default function PasswordInput({ studyId, onClose, navigateToStudy }: Pas
   const { joinPrivateStudy } = useJoinStudy();
 
   const handleConfirm = () => {
-    console.log(`[PasswordInput] 참가 요청: studyId=${studyId}, password=${password}`);
-
     joinPrivateStudy.mutate(
       { studyId, password },
       {
         onSuccess: () => {
-          console.log(`[PasswordInput] 참가 성공: studyId=${studyId}`);
           onClose();
           if (navigateToStudy) {
-            console.log(`[PasswordInput] 상세 페이지 이동 실행: studyId=${studyId}`);
             navigateToStudy(studyId);
-            console.log('[PasswordInput] navigateToStudy 실행 완료');
           }
-        },
-        onError: (error) => {
-          console.error('[PasswordInput] 참가 실패:', error);
         },
       },
     );

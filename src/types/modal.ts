@@ -13,14 +13,14 @@ export interface WaitingProps {
 }
 
 export interface ConfirmProps {
-  studyId?: number;
+  studyId?: string;
   codingSpaceId?: number;
   name?: string;
   onClose?: () => void;
 }
 
 export interface PasswordInputProps {
-  studyId?: number;
+  studyId?: string;
   onClose?: () => void;
 }
 
