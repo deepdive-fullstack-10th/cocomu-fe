@@ -23,7 +23,7 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
         ...queryParams,
         lastId: pageParam,
       };
-      const response = await spaceApi.getSpaceList(studyId, requestParams);
+      const response = await spaceApi.getList(studyId, requestParams);
       return response;
     },
     initialPageParam: 0,

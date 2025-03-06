@@ -7,7 +7,7 @@ import {
   getTabErrorResponse,
   getTabResponse,
   spaceStartErrorResponse,
-  spaceStartSuccessResponse,
+  spaceStartResponse,
   updateTestCaseErrorResponse,
   updateTestCaseResponse,
   getSpaceListErrorResponse,
@@ -55,7 +55,7 @@ export const spaceHandlers = [
       });
     }
 
-    return new HttpResponse(JSON.stringify(spaceStartSuccessResponse), {
+    return new HttpResponse(JSON.stringify(spaceStartResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
@@ -92,7 +92,7 @@ export const spaceHandlers = [
     },
   ),
 
-  http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.SPACE_LIST(':studyId')}`, async ({ request, params }) => {
+  http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.LIST(':studyId')}`, async ({ request, params }) => {
     const { studyId } = params;
     if (!studyId || Number.isNaN(Number(studyId))) {
       return new HttpResponse(JSON.stringify(getSpaceListErrorResponse), {
