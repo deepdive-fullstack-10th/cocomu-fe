@@ -33,7 +33,7 @@ const backgroundColorStyles: { [key in UserTabColor]: (theme: Theme) => Serializ
   `,
 };
 
-const UserTab = styled.div`
+const UserTab = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,6 +46,7 @@ const UserTab = styled.div`
   border-right: 1px solid ${({ theme }) => theme.color.gray[600]};
 
   cursor: pointer;
+  border-bottom: ${({ isSelected, theme }) => (isSelected ? `3px solid ${theme.color.analogous[300]}` : 'none')};
 `;
 
 const UserName = styled.span<{ color: UserTabColor }>`

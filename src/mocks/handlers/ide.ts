@@ -5,9 +5,8 @@ import { ideRunResponse, ideSubmitResponse } from '@mocks/data/ide';
 export const ideRunHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.IDE.RUN}`, async ({ request }) => {
     const body = (await request.json()) as { bodyData };
-    const { bodyData } = body;
 
-    if (!bodyData) {
+    if (!body) {
       return new HttpResponse(JSON.stringify({ message: ' Invalid request' }), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
@@ -23,9 +22,8 @@ export const ideSubmitHandler = [
   http.post(`${BASE_URL}${END_POINTS_V1.IDE.SUBMIT(':ideID')}`, async ({ params, request }) => {
     const { ideID } = params;
     const body = (await request.json()) as { bodyData };
-    const { bodyData } = body;
 
-    if (!ideID || !bodyData) {
+    if (!ideID || !body) {
       return new HttpResponse(JSON.stringify({ message: ' Invalid request' }), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });

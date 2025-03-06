@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams, useNavigate } from 'react-router-dom';
 
 import { useDraggable } from '@hooks/utils/useDraggable';
 import useGetSpaceInfo from '@hooks/space/useGetSpaceInfo';
@@ -10,9 +10,11 @@ import SpaceNavbar from '@components/Space/SpaceNavbar';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import ResizablePanel from '@components/Space/ResizablePanel';
+import { Tab } from '@customTypes/space';
 
 import Loading from '@pages/Loading';
 
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 export default function SpaceDetail() {
@@ -22,14 +24,16 @@ export default function SpaceDetail() {
 
   const [tabInfo, setTabInfo] = useState({ id: '', code: '' });
   const [inputData, setInputData] = useState<string>('');
-
+  const [completeTabs, setCompleteTabs] = useState<Tab[]>();
   const { runIDEMutate } = useRunIDE();
   const { submitIDEMutate } = useSubmitIDE();
 
   const { value: width, containerRef, handleMouseDown } = useDraggable({ direction: 'x' });
 
+  const navigate = useNavigate();
+
   const handleRun = () => {
-    runIDEMutate.mutate({ ideId: tabInfo?.id, language: data?.language, inputData, code: tabInfo?.code });
+    runIDEMutate.mutate({ ideId: tabInfo?.id, language: data?.codingSpace?.language, inputData, code: tabInfo?.code });
   };
 
   const handleSubmit = () => {
@@ -42,7 +46,7 @@ export default function SpaceDetail() {
 
     submitIDEMutate.mutate({
       ideId: tabInfo?.id,
-      submitIDEData: { ideId: tabInfo?.id, language: data?.language, code: tabInfo?.code, testCases },
+      submitIDEData: { ideId: tabInfo?.id, language: data?.codingSpace?.language, code: tabInfo?.code, testCases },
     });
   };
 
@@ -53,14 +57,18 @@ export default function SpaceDetail() {
 
     if (status === '대기') {
       setOutletProps({ totalUserCount });
+      navigate(ROUTES.SPACE.WAITING({ codingSpaceId }));
     } else if (status === '진행') {
-      setOutletProps({ language, setTabInfo, setInputData });
+      setOutletProps({ status, language, setTabInfo, setInputData });
+      navigate(ROUTES.SPACE.RUNNING({ codingSpaceId }));
     } else if (status === '피드백') {
-      setOutletProps({ feedbackMode: true });
+      setOutletProps({ status, language, setTabInfo, setInputData, setCompleteTabs });
+      navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId }));
     } else if (status === '종료') {
-      setOutletProps({});
+      setOutletProps({ status, language });
+      navigate(ROUTES.SPACE.DETAIL({ codingSpaceId }));
     }
-  }, [data]);
+  }, [data, codingSpaceId, navigate]);
 
   if (isLoading || outletProps === null) return <Loading />;
 
@@ -73,6 +81,7 @@ export default function SpaceDetail() {
         isLeader={data.codingSpace.hasLeaderRole}
         name={data.codingSpace.name}
         timer={data.codingSpace.codingTime}
+        tabData={completeTabs}
       />
 
       <S.MainContent ref={containerRef}>

@@ -1,6 +1,7 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { CreateSpaceData, SpaceData, SpaceListParams, TestCaseIO } from '@customTypes/space';
+
+import { CreateSpaceData, SpaceData, SpaceListParams, TestCaseIO, Tab } from '@customTypes/space';
 
 const spaceApi = {
   getInfo: async (codingSpaceId: string) => {
@@ -29,6 +30,12 @@ const spaceApi = {
 
   start: async (codingSpaceId: string, studyId: string) => {
     await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), studyId);
+
+    return codingSpaceId;
+  },
+
+  complete: async (codingSpaceId: string, tabData: Tab[]) => {
+    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.COMPLETE(codingSpaceId), tabData);
 
     return codingSpaceId;
   },
