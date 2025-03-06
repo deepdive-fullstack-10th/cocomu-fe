@@ -29,7 +29,7 @@ export const END_POINTS_V1 = {
   CODING_SPACE: {
     CREATE: BASE_PATH_V1.CODING_SPACE,
     JOIN: `${BASE_PATH_V1.CODING_SPACE}/join`,
-    SPACE_LIST: (studyId: string) => `${BASE_PATH_V1.CODING_SPACE}/studies/${studyId}`,
+    LIST: (studyId: string) => `${BASE_PATH_V1.CODING_SPACE}/studies/${studyId}`,
     PAGE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}`,
     TAB: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tab`,
     ALL_TABS: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tabs`,
