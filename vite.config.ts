@@ -7,22 +7,19 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    proxy: {},
   },
   build: {
-    minify: 'esbuild',
+    minify: 'terser',
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     rollupOptions: {
+      external: ['./@emotion/react', './@emotion/styled', './@emotion/use-insertion-effect-with-fallbacks'],
       output: {
-        manualChunks(id) {
-          if (id.includes('react')) {
-            return 'react-vendor';
-          }
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
+        globals: {
+          './@emotion/react': 'emotionReact',
+          './@emotion/styled': 'emotionStyled',
+          './@emotion/use-insertion-effect-with-fallbacks': 'emotionInsertionEffectFallbacks',
         },
       },
     },
@@ -30,8 +27,12 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        evaluate: false,
       },
     },
+  },
+  optimizeDeps: {
+    exclude: ['@emotion/use-insertion-effect-with-fallbacks'],
   },
   plugins: [react(), tsconfigPaths()],
 });
