@@ -62,7 +62,7 @@ export default function SpaceFilterTab({ spaceFilter, setSpaceFilter }: spaceFil
         <SearchInput
           placeholder='제목을 검색해 주세요'
           value={spaceFilter.keyword}
-          onChange={(e) => handleChangeFilter('keyword', e.target.value)}
+          onChange={(value) => handleChangeFilter('keyword', value)}
           onSearch={handleSearch}
         />
       </S.SearchFilteredContainer>
