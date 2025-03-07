@@ -1,10 +1,11 @@
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { DropDownItemStyleProps } from '@components/_common/atoms/DropdownItem/style';
+import { FilterData } from '@customTypes/common';
 import S, { DropdownListStyleProps } from './style';
 
 interface DropdownListProps extends DropDownItemStyleProps, DropdownListStyleProps {
-  items: string[];
-  onItemSelect: (item: string) => void;
+  items: FilterData[];
+  onItemSelect: (id: number) => void;
 }
 
 export default function DropdownList({ items, size, color, shape = 'default', onItemSelect }: DropdownListProps) {
@@ -12,11 +13,11 @@ export default function DropdownList({ items, size, color, shape = 'default', on
     <S.DropdownList shape={shape}>
       {items.map((item) => (
         <DropdownItem
-          key={item}
-          item={item}
+          key={item.id}
+          item={item.name}
           size={size}
           color={color}
-          onClick={() => onItemSelect(item)}
+          onClick={() => onItemSelect(item.id)}
         />
       ))}
     </S.DropdownList>

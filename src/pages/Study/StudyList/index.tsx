@@ -3,29 +3,40 @@ import { useState } from 'react';
 import useGetStudyList from '@hooks/study/useGetStudyList';
 import { StudyData } from '@customTypes/study';
 
+import { ACCESS_STATUS_MAP_ID } from '@constants/constants';
+
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
 import Loading from '@pages/Loading';
-import FilterTab from './FilterTab';
+import StudyFilterTab from './StudyFilterTab';
 
 import S from './style';
 
 export default function StudyList() {
   const [filters, setFilters] = useState({
     page: 1,
-    status: undefined,
+    status: [],
     languages: [],
     workbooks: [],
-    joinable: false,
-    keyword: undefined,
+    joinable: undefined,
+    keyword: '',
   });
-  const [keyword, setKeyword] = useState(undefined);
+  const [keyword, setKeyword] = useState('');
 
-  const { data, isLoading } = useGetStudyList(filters);
+  const getTransformedFilters = () => ({
+    page: filters.page,
+    status: filters.status.length > 0 ? ACCESS_STATUS_MAP_ID[filters.status[0]] : undefined,
+    languages: filters.languages.length > 0 ? filters.languages.join(',') : undefined,
+    workbooks: filters.workbooks.length > 0 ? filters.workbooks.join(',') : undefined,
+    joinable: filters.joinable,
+    keyword: filters.keyword.trim() || undefined,
+  });
+
+  const { data, isLoading } = useGetStudyList(getTransformedFilters());
 
   return (
     <S.Container>
-      <FilterTab
+      <StudyFilterTab
         filters={filters}
         keyword={keyword}
         setFilters={setFilters}

@@ -5,15 +5,32 @@ export const LANGUAGE_IMAGES: Record<string, string> = {
   C: 'https://holaworld.io/images/languages/c.png',
 } as const;
 
-export const PROGRAMMING_LANGUAGES = ['Python', 'JavaScript', 'Java', 'C'] as const;
-
-export const JUDGES = ['백준', '프로그래머스'] as const;
-
 export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
 export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
 
-export const ACCESS_STATUS = ['공개', '비공개'] as const;
+export const ACCESS_STATUS = [
+  {
+    id: 1,
+    name: '공개',
+    imageUrl: '',
+  },
+  {
+    id: 2,
+    name: '비공개',
+    imageUrl: '',
+  },
+] as const;
+
+export const ACCESS_STATUS_MAP_ID = {
+  1: 'PUBLIC',
+  2: 'PRIVATE',
+} as const;
+
+export const ACCESS_STATUS_MAP = {
+  PUBLIC: 1,
+  PRIVATE: 2,
+} as const;
 
 export const SPACE_MEMBER_OPTIONS = ['2명', '3명', '4명'] as const;
 
@@ -37,8 +54,3 @@ export const STEP_INFO = {
 } as const;
 
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
-
-export const ACCESS_STATUS_MAP = {
-  PUBLIC: ACCESS_STATUS[0],
-  PRIVATE: ACCESS_STATUS[1],
-} as const;

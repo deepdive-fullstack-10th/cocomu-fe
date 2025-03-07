@@ -1,46 +1,48 @@
-import { BsChevronDown } from 'react-icons/bs';
 import { useState } from 'react';
-import Icon from '@components/_common/atoms/Icon';
-import S from './style';
-import DropdownList from '../DropdownList';
+import { BsChevronDown } from 'react-icons/bs';
 
-interface SelectDropdownProps<T extends readonly string[]> {
+import Icon from '@components/_common/atoms/Icon';
+import { FilterData } from '@customTypes/common';
+
+import DropdownList from '../DropdownList';
+import S from './style';
+
+interface SelectDropdownProps {
   description?: string;
-  items: T;
-  values?: string[];
+  items: FilterData[];
+  values?: number[];
   isMultiSelect?: boolean;
-  onSelect: (value: string[]) => void;
+  onSelect: (id: number[]) => void;
 }
 
-export default function SelectDropdown<T extends readonly string[]>({
+const DEFAULT_OPTION: FilterData = { id: 0, name: '전체', imageUrl: '' };
+
+export default function SelectDropdown({
   description = '',
   items,
   values = [],
   isMultiSelect = false,
   onSelect,
-}: SelectDropdownProps<T>) {
+}: SelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const selectedNames =
+    values
+      .map((id) => items.find((item) => item.id === id)?.name)
+      .filter(Boolean)
+      .join(', ') || description;
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleAddItem = (newItem: string) => {
+  const handleSelectItem = (id: number) => {
     setIsOpen(false);
 
-    if (newItem === '전체') {
+    if (id === DEFAULT_OPTION.id) {
       onSelect([]);
       return;
     }
 
-    if (!isMultiSelect) {
-      onSelect([newItem]);
-      return;
-    }
-
-    if (values.includes(newItem)) {
-      return;
-    }
-
-    onSelect([...values, newItem]);
+    onSelect(isMultiSelect ? [...new Set([...values, id])] : [id]);
   };
 
   return (
@@ -49,7 +51,7 @@ export default function SelectDropdown<T extends readonly string[]>({
         isOpen={isOpen}
         onClick={toggleDropdown}
       >
-        <S.SelectedText>{values.length > 0 ? values.join(', ') : description}</S.SelectedText>
+        <S.SelectedText>{selectedNames}</S.SelectedText>
         <Icon
           size='sm'
           color='950'
@@ -60,11 +62,11 @@ export default function SelectDropdown<T extends readonly string[]>({
 
       {isOpen && (
         <DropdownList
-          items={['전체', ...items]}
+          items={[DEFAULT_OPTION, ...items]}
           size='lg'
           color='black'
           shape='round'
-          onItemSelect={handleAddItem}
+          onItemSelect={handleSelectItem}
         />
       )}
     </S.Container>

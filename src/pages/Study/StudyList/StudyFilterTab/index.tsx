@@ -1,15 +1,17 @@
-import { ACCESS_STATUS, PROGRAMMING_LANGUAGES, JUDGES } from '@constants/constants';
+import { ACCESS_STATUS } from '@constants/constants';
 
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import SearchInput from '@components/_common/atoms/SearchInput';
 
+import useGetFilterOptions from '@hooks/study/useGetFilterOptions';
+
 import S from './style';
 
 interface Filters {
-  status: string | undefined;
-  languages: string[];
-  workbooks: string[];
+  status: number[];
+  languages: number[];
+  workbooks: number[];
   joinable: boolean;
 }
 
@@ -20,31 +22,33 @@ interface FilterTabProps {
   setKeyword: (keyword: string) => void;
 }
 
-export default function FilterTab({ filters, keyword, setFilters, setKeyword }: FilterTabProps) {
+export default function StudyFilterTab({ filters, keyword, setFilters, setKeyword }: FilterTabProps) {
+  const { data, isLoading } = useGetFilterOptions();
+
+  if (isLoading) return null;
+
   return (
     <S.FilterTabContainer>
       <S.DropdownWrapper>
         <SelectDropdown
           items={[...ACCESS_STATUS]}
           description='전체'
-          values={filters.status ? [filters.status] : []}
-          onSelect={(values) => {
-            const newStatus =
-              values.length === 0 || values[0] === '전체' ? undefined : values[0] === '공개' ? 'PUBLIC' : 'PRIVATE';
-            setFilters((prev) => ({ ...prev, status: newStatus }));
-          }}
+          values={filters.status}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, status: values }))}
         />
         <SelectDropdown
-          items={[...PROGRAMMING_LANGUAGES]}
+          items={data.languages}
           description='사용 언어'
           values={filters.languages}
           onSelect={(values) => setFilters((prev) => ({ ...prev, languages: values }))}
+          isMultiSelect
         />
         <SelectDropdown
-          items={[...JUDGES]}
+          items={data.workbooks}
           description='사용 플랫폼'
           values={filters.workbooks}
           onSelect={(values) => setFilters((prev) => ({ ...prev, workbooks: values }))}
+          isMultiSelect
         />
         <ToggleButton
           size='md'

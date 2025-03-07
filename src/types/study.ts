@@ -1,11 +1,6 @@
-import { JUDGES, PROGRAMMING_LANGUAGES } from '@constants/constants';
 import { UserData } from './user';
 
 export type StudyStatusData = 'PUBLIC' | 'PRIVATE';
-
-export type ProgrammingLanguage = (typeof PROGRAMMING_LANGUAGES)[number];
-
-export type Judges = (typeof JUDGES)[number];
 
 export interface StudyData {
   id: number;
@@ -39,10 +34,9 @@ export interface EditStudyData extends CreateStudyData {
 
 export interface GetListParams {
   page?: number;
-  size?: number;
   status?: string;
-  languages?: string[];
-  workbooks?: string[];
+  languages?: string;
+  workbooks?: string;
   joinable?: boolean;
   keyword?: string;
 }
