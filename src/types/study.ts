@@ -1,3 +1,4 @@
+import { FilterData } from './common';
 import { UserData } from './user';
 
 export type StudyStatusData = 'PUBLIC' | 'PRIVATE';
@@ -7,8 +8,8 @@ export interface StudyData {
   joinable: boolean;
   name: string;
   status: string;
-  languages: string[];
-  workbooks: string[];
+  languages: FilterData[];
+  workbooks: FilterData[];
   description: string;
   currentUserCount: number;
   totalUserCount: number;

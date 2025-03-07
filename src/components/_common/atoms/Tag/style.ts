@@ -14,9 +14,10 @@ const commonStyles = (theme: Theme) => css`
   gap: 0.7rem;
 
   ${theme.font.common.smallAccent}
-  padding: 0.1rem 0.9rem 0.1rem 1.3rem;
+  padding: 0.1rem 0.9rem;
   border-radius: 1.2rem;
   width: fit-content;
+  min-width: 6.5rem;
   height: 2.5rem;
 `;
 
