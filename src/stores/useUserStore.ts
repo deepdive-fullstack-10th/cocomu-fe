@@ -3,9 +3,9 @@ import { create } from 'zustand';
 
 interface UserState {
   isLoggedIn: boolean;
-  userId: string | null;
+  userId: number | null;
   checkAuth: () => void;
-  setUserId: (userId: string | null) => void;
+  setUserId: (userId: number | null) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
