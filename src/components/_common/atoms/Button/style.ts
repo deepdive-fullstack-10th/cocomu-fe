@@ -4,11 +4,13 @@ import styled from '@emotion/styled';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonColor = 'white' | 'primary' | 'secondary' | 'analogous' | 'triadic';
 export type ButtonShape = 'default' | 'round';
+export type ButtonBorderColor = 'primary' | 'triadic';
 
 export interface ButtonStyleProps {
   size: ButtonSize;
   color: ButtonColor;
   shape?: ButtonShape;
+  borderColor?: ButtonBorderColor; // 선택적 속성으로 변경
 }
 
 const commonStyles = (theme: Theme) => css`
@@ -46,11 +48,11 @@ const sizeStyles = {
   `,
 };
 
-const colorStyles: { [key in ButtonColor]: (theme: Theme) => SerializedStyles } = {
-  white: (theme: Theme) => css`
-    color: ${theme.color.primary[300]};
+const colorStyles: { [key in ButtonColor]: (theme: Theme, borderColor?: ButtonBorderColor) => SerializedStyles } = {
+  white: (theme: Theme, borderColor = 'primary') => css`
+    color: ${borderColor === 'triadic' ? theme.color.triadic[400] : theme.color.primary[300]};
     background-color: ${theme.color.gray[50]};
-    border: 1px solid ${theme.color.primary[300]};
+    border: 1px solid ${borderColor === 'triadic' ? theme.color.triadic[400] : theme.color.primary[300]};
   `,
   primary: (theme: Theme) => css`
     color: ${theme.color.gray[50]};
@@ -81,8 +83,8 @@ const shapeStyles = (shape: ButtonShape = 'default') => css`
 const Button = styled.button<ButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)}
   ${({ size, theme }) => sizeStyles[size](theme)}
-  ${({ color, theme }) => colorStyles[color](theme)}
-  ${({ shape }) => shapeStyles(shape)}
+    ${({ color, theme, borderColor }) => colorStyles[color](theme, borderColor ?? 'primary')}
+    ${({ shape }) => shapeStyles(shape)}
 `;
 
 const S = {

@@ -38,6 +38,7 @@ export default function LeaveModal({ studyId, name, onClose, navigateToStudyList
         <Button
           color='white'
           size='md'
+          borderColor='triadic'
           onClick={onClose}
         >
           취소
