@@ -25,7 +25,7 @@ export default function ProfileImage({
       {upload && (
         <S.UploadButton size={size}>
           <Icon
-            size='sm'
+            size='md'
             color='50'
           >
             <BsCamera />
