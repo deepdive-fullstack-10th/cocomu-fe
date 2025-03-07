@@ -2,7 +2,7 @@ import UserProfile from '@components/_common/molecules/UserProfile';
 import ImageTag from '@components/_common/atoms/ImageTag';
 import Tag from '@components/_common/atoms/Tag';
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
-import { STEP_INFO } from '@constants/constants';
+import { STEP_INFO } from '@constants/common';
 import { formatDate } from '@utils/formatDate';
 import { SpaceData } from '@customTypes/space';
 import S from './style';

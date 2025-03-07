@@ -10,7 +10,7 @@ import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { UserData } from '@customTypes/user';
 
 import { ROUTES } from '@constants/path';
-import { NAVBAR_DROPDOWN_LABELS } from '@constants/constants';
+import { NAVBAR_DROPDOWN_LABELS } from '@constants/common';
 import { ACCESS_TOKEN_KEY } from '@constants/api';
 
 import { useModalStore } from '@stores/useModalStore';

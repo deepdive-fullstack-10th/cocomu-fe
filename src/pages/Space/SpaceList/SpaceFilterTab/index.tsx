@@ -1,6 +1,6 @@
 import S from '@pages/Space/SpaceList/style';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
-import { PROGRAMMING_LANGUAGES, STEP_LABELS } from '@constants/constants';
+import { PROGRAMMING_LANGUAGES, STEP_LABELS } from '@constants/common';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import SearchInput from '@components/_common/atoms/SearchInput';
 import { SpaceListParams } from '@customTypes/space';

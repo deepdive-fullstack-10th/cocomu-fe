@@ -1,9 +1,4 @@
-export const LANGUAGE_IMAGES: Record<string, string> = {
-  Python: 'https://holaworld.io/images/languages/python.png',
-  JavaScript: 'https://holaworld.io/images/languages/javascript.png',
-  Java: 'https://holaworld.io/images/languages/java.png',
-  C: 'https://holaworld.io/images/languages/c.png',
-} as const;
+export const STUDY_PAGE_SIZE = 12 as const;
 
 export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
@@ -28,8 +23,8 @@ export const ACCESS_STATUS_MAP_ID = {
 } as const;
 
 export const ACCESS_STATUS_MAP = {
-  PUBLIC: 1,
-  PRIVATE: 2,
+  PUBLIC: '공개',
+  PRIVATE: '비공개',
 } as const;
 
 export const SPACE_MEMBER_OPTIONS = ['2명', '3명', '4명'] as const;

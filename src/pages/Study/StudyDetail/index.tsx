@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import { STUDY_TABS } from '@constants/constants';
+import { STUDY_TABS } from '@constants/common';
 import { ROUTES } from '@constants/path';
 
 import TabMenu from '@components/_common/molecules/TabMenu';
