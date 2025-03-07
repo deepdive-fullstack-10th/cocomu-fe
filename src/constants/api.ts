@@ -13,6 +13,7 @@ const BASE_PATH_V1 = {
 export const END_POINTS_V1 = {
   STUDY: {
     LIST: BASE_PATH_V1.STUDY,
+    FILTER_OPTIONS: `${BASE_PATH_V1.STUDY}/filter-options`,
     PUBLIC_CREATE: `${BASE_PATH_V1.STUDY}/public`,
     PRIVATE_CREATE: `${BASE_PATH_V1.STUDY}/private`,
     PUBLIC_JOIN: `${BASE_PATH_V1.STUDY}/public/join`,
