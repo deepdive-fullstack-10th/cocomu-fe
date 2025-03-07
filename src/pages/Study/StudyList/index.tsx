@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useGetStudyList from '@hooks/study/useGetStudyList';
 import { StudyData } from '@customTypes/study';
 
-import { ACCESS_STATUS_MAP_ID } from '@constants/constants';
+import { ACCESS_STATUS_MAP_ID, STUDY_PAGE_SIZE } from '@constants/common';
 
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
@@ -56,7 +56,7 @@ export default function StudyList() {
           </S.Body>
           <S.Footer>
             <PageButton
-              totalPage={data.totalPage}
+              totalPage={Math.ceil(data.totalStudyCount / STUDY_PAGE_SIZE)}
               currentPage={filters.page}
               setPage={(page) => setFilters((prev) => ({ ...prev, page }))}
             />

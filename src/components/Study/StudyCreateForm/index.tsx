@@ -12,7 +12,7 @@ import {
   validateTotalUserCount,
 } from '@utils/validators/studyValidators';
 
-import { JUDGES, PROGRAMMING_LANGUAGES, ACCESS_STATUS } from '@constants/constants';
+import { JUDGES, PROGRAMMING_LANGUAGES, ACCESS_STATUS } from '@constants/common';
 
 import { StudyFormData } from '@customTypes/study';
 

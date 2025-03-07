@@ -13,7 +13,7 @@ import {
   validateTotalUserCount,
 } from '@utils/validators/spaceValidators';
 
-import { PROGRAMMING_LANGUAGES, SPACE_MEMBER_OPTIONS } from '@constants/constants';
+import { PROGRAMMING_LANGUAGES, SPACE_MEMBER_OPTIONS } from '@constants/common';
 import { SpaceFormData, TestCaseIO } from '@customTypes/space';
 
 import InputField from '@components/_common/molecules/InputField';

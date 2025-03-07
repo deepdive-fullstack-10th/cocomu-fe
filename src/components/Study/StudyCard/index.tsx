@@ -1,7 +1,7 @@
 import { BsPerson } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
-import { ACCESS_STATUS_MAP } from '@constants/constants';
+import { ACCESS_STATUS_MAP } from '@constants/common';
 import { ROUTES } from '@constants/path';
 import { StudyData } from '@customTypes/study';
 
