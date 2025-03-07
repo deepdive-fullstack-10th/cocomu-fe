@@ -19,7 +19,10 @@ export const PATH = {
     RUNNING: '/space/:codingSpaceId/running',
     FEEDBACK: '/space/:codingSpaceId/feedback',
   },
-  MYPAGE: '/mypage/:userId',
+  MYPAGE: {
+    DETAIL: '/mypage/:userId',
+    SPACE: 'space',
+  },
   OAUTH: '/callback/:provider',
 };
 
@@ -44,5 +47,8 @@ export const ROUTES = {
     RUNNING: ({ codingSpaceId }: { codingSpaceId: number }) => generatePath(PATH.SPACE.RUNNING, { codingSpaceId }),
     FEEDBACK: ({ codingSpaceId }: { codingSpaceId: number }) => generatePath(PATH.SPACE.FEEDBACK, { codingSpaceId }),
   },
-  MYPAGE: ({ userId }: { userId: number }) => generatePath(PATH.MYPAGE, { userId }),
+  MYPAGE: {
+    DETAIL: ({ userId }: { userId: string }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
+    SPACE: ({ userId }: { userId: string }) => generatePath(`${PATH.MYPAGE.DETAIL}/${PATH.MYPAGE.SPACE}`, { userId }),
+  },
 };
