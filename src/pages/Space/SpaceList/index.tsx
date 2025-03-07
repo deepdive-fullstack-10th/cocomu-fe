@@ -50,7 +50,7 @@ export default function SpaceList() {
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
   const { spaces, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetSpaceList(studyId, filters);
-  const { observerRef, isFetching } = useScroll({
+  const { observerRef } = useScroll({
     nextPage: hasNextPage,
     fetchingNextPage: isFetchingNextPage,
     fetchNext: fetchNextPage,
