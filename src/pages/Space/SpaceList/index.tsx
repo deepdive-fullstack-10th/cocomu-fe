@@ -6,6 +6,8 @@ import SpaceCard from '@components/Space/SpaceCard';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
 import { SPACE_STATUS_MAP_ID } from '@constants/common';
 import { SpaceData } from '@customTypes/space';
+import { SpaceListParams } from '@customTypes/space';
+import useScroll from '@hooks/utils/useScroll';
 import S from './style';
 
 export default function SpaceList() {
@@ -47,6 +49,12 @@ export default function SpaceList() {
     observer.observe(observerRef.current);
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
+  const { spaces, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetSpaceList(studyId, filters);
+  const { observerRef, isFetching } = useScroll({
+    nextPage: hasNextPage,
+    fetchingNextPage: isFetchingNextPage,
+    fetchNext: fetchNextPage,
+  });
 
   return (
     <S.Container>
