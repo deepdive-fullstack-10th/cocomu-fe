@@ -66,6 +66,11 @@ const studyApi = {
 
     return data.result;
   },
+
+  leave: async (studyId: string) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.LEAVE(studyId));
+    return data;
+  },
 };
 
 export default studyApi;
