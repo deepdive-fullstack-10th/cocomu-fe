@@ -20,6 +20,15 @@ const studyApi = {
     return data.result;
   },
 
+  getFilterOptions: async () => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.FILTER_OPTIONS, {
+      useAuth: false,
+      withCredentials: false,
+    });
+
+    return data.result;
+  },
+
   createPublic: async (createStudyData: CreateStudyData) => {
     const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.PUBLIC_CREATE, createStudyData);
     return data.result;
