@@ -42,7 +42,12 @@ export default function SelectDropdown({
       return;
     }
 
-    onSelect(isMultiSelect ? [...new Set([...values, id])] : [id]);
+    if (!isMultiSelect) {
+      onSelect([id]);
+      return;
+    }
+
+    onSelect([...values, id]);
   };
 
   return (

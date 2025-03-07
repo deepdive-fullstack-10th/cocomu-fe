@@ -1,22 +1,23 @@
 import { useState, useRef } from 'react';
 import Icon from '@components/_common/atoms/Icon';
 import { BsChevronDown } from 'react-icons/bs';
+import { FilterData } from '@customTypes/common';
 import TagList from '../TagList';
 import DropdownList from '../DropdownList';
 import S from './style';
 
-interface InputDropdownProps<T extends readonly string[]> {
+interface InputDropdownProps {
   label?: string;
   description?: string;
-  items: T;
-  values?: string[];
+  items: FilterData[];
+  values?: number[];
   error?: string;
   isMultiSelect?: boolean;
-  onSelect: (value: string[]) => void;
+  onSelect: (value: number[]) => void;
   onBlur: () => void;
 }
 
-export default function InputDropdown<T extends readonly string[]>({
+export default function InputDropdown({
   label = '',
   description = '',
   items,
@@ -25,7 +26,7 @@ export default function InputDropdown<T extends readonly string[]>({
   isMultiSelect = false,
   onSelect,
   onBlur,
-}: InputDropdownProps<T>) {
+}: InputDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,25 +40,29 @@ export default function InputDropdown<T extends readonly string[]>({
     }
   };
 
-  const handleAddItem = (newItem: string) => {
+  const handleAddItem = (id: number) => {
     setIsOpen(false);
     setSearch('');
 
     if (!isMultiSelect) {
-      onSelect([newItem]);
+      onSelect([id]);
       return;
     }
 
-    onSelect([...values, newItem]);
+    if (!values.includes(id)) {
+      onSelect([...values, id]);
+    }
   };
 
-  const handleRemoveTag = (item: string) => {
-    onSelect(values.filter((tag) => tag !== item));
+  const handleRemoveTag = (id: number) => {
+    onSelect(values.filter((selectId) => selectId !== id));
   };
 
   const availableItems = items.filter(
-    (item) => !values.includes(item) && item.toLowerCase().includes(search.toLowerCase()),
+    (item) => !values.includes(item.id) && item.name.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const selectedItems = items.filter((item) => values.includes(item.id));
 
   return (
     <S.Container>
@@ -73,17 +78,17 @@ export default function InputDropdown<T extends readonly string[]>({
           isError={!!error}
           onClick={toggleDropDown}
         >
-          {isMultiSelect && values.length > 0 && (
+          {isMultiSelect && selectedItems.length > 0 && (
             <TagList
-              items={values}
+              items={selectedItems}
               color='primary'
               onRemove={handleRemoveTag}
             />
           )}
           <S.Input
             type='text'
-            placeholder={values.length > 0 ? '' : description}
-            value={isMultiSelect ? search : (values[0] ?? '')}
+            placeholder={selectedItems.length > 0 ? '' : description}
+            value={isMultiSelect ? search : (selectedItems[0]?.name ?? '')}
             onChange={(e) => isMultiSelect && setSearch(e.target.value)}
             disabled={!isMultiSelect}
           />

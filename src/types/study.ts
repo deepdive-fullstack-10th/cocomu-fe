@@ -17,12 +17,12 @@ export interface StudyData {
   leader: UserData;
 }
 
-export interface StudyFormData extends Record<string, string | string[]> {
+export interface StudyFormData extends Record<string, string | number[]> {
   name: string;
   password: string;
   totalUserCount: string;
-  languages: string[];
-  workbooks: string[];
+  languages: number[];
+  workbooks: number[];
 }
 
 export interface CreateStudyData extends StudyFormData {

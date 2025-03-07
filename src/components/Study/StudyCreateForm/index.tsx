@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useToastStore } from '@stores/useToastStore';
 import { useForm } from '@hooks/utils/useForm';
+import useGetFilterOptions from '@hooks/study/useGetFilterOptions';
 
 import {
   validateJudges,
@@ -12,7 +13,7 @@ import {
   validateTotalUserCount,
 } from '@utils/validators/studyValidators';
 
-import { JUDGES, PROGRAMMING_LANGUAGES, ACCESS_STATUS } from '@constants/common';
+import { ACCESS_STATUS } from '@constants/common';
 
 import { StudyFormData } from '@customTypes/study';
 
@@ -23,13 +24,15 @@ import StepHeader from '@components/_common/molecules/StepHeader';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';
 
+import Loading from '@pages/Loading';
+
 import S from './style';
 
 interface StudyCreateFormProps {
   initialValues?: StudyFormData;
   description?: string;
-  selectedStatus: (typeof ACCESS_STATUS)[number];
-  setSelectedStatus: Dispatch<SetStateAction<(typeof ACCESS_STATUS)[number]>>;
+  selectedStatus: (typeof ACCESS_STATUS)[number]['id'];
+  setSelectedStatus: Dispatch<SetStateAction<(typeof ACCESS_STATUS)[number]['id']>>;
   onSubmit: (data: StudyFormData) => void;
 }
 
@@ -42,8 +45,9 @@ export default function StudyCreateForm({
 }: StudyCreateFormProps) {
   const { error } = useToastStore();
   const navigate = useNavigate();
-  const [content, setContent] = useState(description || '');
+  const { data, isLoading } = useGetFilterOptions();
 
+  const [content, setContent] = useState(description || '');
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues || {
       name: '',
@@ -62,6 +66,8 @@ export default function StudyCreateForm({
     onSubmit({ ...formData, description: content });
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <S.Container onSubmit={handleSubmit}>
       <S.Section>
@@ -71,7 +77,7 @@ export default function StudyCreateForm({
         />
         <RadioField
           name='access_status'
-          options={ACCESS_STATUS}
+          options={[...ACCESS_STATUS]}
           selectedValue={selectedStatus}
           onChange={setSelectedStatus}
         />
@@ -79,7 +85,7 @@ export default function StudyCreateForm({
           <InputField
             type='password'
             label='암호'
-            disabled={selectedStatus === ACCESS_STATUS[0]}
+            disabled={selectedStatus === ACCESS_STATUS[0].id}
             {...register('password', { validate: { onBlur: validatePassword.onBlur } })}
           />
           <InputField
@@ -92,14 +98,14 @@ export default function StudyCreateForm({
           <InputDropdown
             label='스터디 사용 언어'
             description='사용 언어'
-            items={PROGRAMMING_LANGUAGES}
+            items={data.languages}
             isMultiSelect
             {...registerSelect('languages', { validate: validateLanguages })}
           />
           <InputDropdown
             label='스터디 사용 플랫폼'
             description='백준, 프로그래머스 ...'
-            items={JUDGES}
+            items={data.workbooks}
             isMultiSelect
             {...registerSelect('workbooks', { validate: validateJudges })}
           />
