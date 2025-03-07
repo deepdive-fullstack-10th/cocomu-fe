@@ -5,13 +5,13 @@ import S from './style';
 
 export default function UserCard({
   id,
-  nickName,
+  nickname,
   profileImageUrl,
   successCount,
   failedCount,
   joinedDate,
 }: UserDetailData) {
-  const user = { id, nickName, profileImageUrl };
+  const user = { id, nickname, profileImageUrl };
 
   const handleUserClick = () => {
     // id 사용해서 마이페이지로 이동

@@ -11,6 +11,7 @@ export default function UserProfile({ user, size = 'md', upload, border }: UserP
     // user.id 사용해서 마이페이지로 이동
   };
 
+  console.log(user);
   return (
     <S.UserProfileContainer onClick={handleUserClick}>
       <ProfileImage
@@ -19,7 +20,7 @@ export default function UserProfile({ user, size = 'md', upload, border }: UserP
         upload={upload}
         border={border}
       />
-      <S.ProfileLabelName size={size}>{user.nickName}</S.ProfileLabelName>
+      <S.ProfileLabelName size={size}>{user.nickname}</S.ProfileLabelName>
     </S.UserProfileContainer>
   );
 }

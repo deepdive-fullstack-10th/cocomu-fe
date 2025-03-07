@@ -12,22 +12,22 @@ import S from './style';
 const User = [
   {
     id: 1,
-    nickName: '코코1',
+    nickname: '코코1',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
   },
   {
     id: 2,
-    nickName: '코코2',
+    nickname: '코코2',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
   },
   {
     id: 3,
-    nickName: '코코3',
+    nickname: '코코3',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
   },
   {
     id: 4,
-    nickName: '코코4',
+    nickname: '코코4',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
   },
 ];
