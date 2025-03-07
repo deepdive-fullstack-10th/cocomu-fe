@@ -1,3 +1,5 @@
+import { extendData } from '@utils/extendData';
+
 export const getStudyListResponse = {
   code: 1100,
   message: '스터디 목록 조회에 성공하였습니다.',
