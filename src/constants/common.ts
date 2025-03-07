@@ -4,6 +4,11 @@ export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 �
 
 export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
 
+export const STUDY_EDIT_DROPDOWN_LABELS = [
+  { label: '스터디 수정하기', color: 'gray' },
+  { label: '스터디 삭제하기', color: 'triadic' },
+] as const;
+
 export const ACCESS_STATUS = [
   {
     id: 1,
