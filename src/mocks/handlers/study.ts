@@ -8,14 +8,13 @@ import {
   editStudyErrorResponse,
   editStudyResponse,
   getFilterOptionsResponse,
-  getStudyInfoErrorResponse,
-  getStudyInfoResponse,
   joinPrivateStudyErrorResponse,
   joinPrivateStudyResponse,
   joinPublicStudyErrorResponse,
   joinPublicStudyResponse,
 } from '@mocks/data/study';
 import { getStudyListResponse } from '@mocks/data/study/getStudyListData';
+import { getStudyInfoErrorResponse, getStudyInfoResponse } from '@mocks/data/study/getStudyInfoData';
 
 export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
