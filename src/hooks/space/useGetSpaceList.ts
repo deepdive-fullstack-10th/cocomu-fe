@@ -31,24 +31,9 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
       if (lastPage.length === 0) return undefined;
       return lastPage[lastPage.length - 1].id + 1;
     },
-    enabled: !!studyId && !isFetching,
+    enabled: !!studyId,
     staleTime: 1000 * 60,
   });
-
-  const nextList = useCallback(async () => {
-    if (isFetching || !hasNextPage || isFetchingNextPage) return;
-
-    try {
-      setIsFetching(true);
-      await fetchNextPage();
-    } catch (error) {
-      console.error('무한 스크롤 에러:', error);
-    } finally {
-      setTimeout(() => {
-        setIsFetching(false);
-      }, 200);
-    }
-  }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
   const spaces = useMemo(() => data?.pages?.flat() || [], [data]);
 
@@ -56,7 +41,7 @@ export default function useGetSpaceList(studyId: string, params: SpaceListParams
     spaces,
     isLoading,
     hasNextPage,
-    nextList,
     isFetchingNextPage,
+    fetchNextPage,
   };
 }

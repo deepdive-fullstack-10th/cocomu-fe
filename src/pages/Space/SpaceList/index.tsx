@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
 import { SpaceListParams } from '@customTypes/space';
+import useScroll from '@hooks/utils/useScroll';
 import S from './style';
 
 export default function SpaceList() {
@@ -17,27 +18,12 @@ export default function SpaceList() {
     currentUserCount: 1,
   });
   const { studyId } = useParams<{ studyId: string }>();
-  const { spaces, isLoading, hasNextPage, isFetchingNextPage, nextList } = useGetSpaceList(studyId, filters);
-  const observerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          nextList().catch((e) => {
-            console.error('스크롤 에러', e);
-          });
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasNextPage, isFetchingNextPage, nextList]);
+  const { spaces, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetSpaceList(studyId, filters);
+  const { observerRef, isFetching } = useScroll({
+    nextPage: hasNextPage,
+    fetchingNextPage: isFetchingNextPage,
+    fetchNext: fetchNextPage,
+  });
 
   return (
     <S.BodyContainer>
