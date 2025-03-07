@@ -2,13 +2,20 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { FetchNextPageOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 
 interface useScrollProps {
-  nextPage?: boolean;
-  fetchingNextPage?: boolean;
-  fetchNext?: (options?: FetchNextPageOptions) => Promise<UseInfiniteQueryResult>;
+  nextPage: boolean;
+  fetchingNextPage: boolean;
+  fetchNext: (options?: FetchNextPageOptions) => Promise<UseInfiniteQueryResult>;
   thresholdRate?: number;
+  delayTime?: number;
 }
 
-export default function useScroll({ nextPage, fetchingNextPage, fetchNext, thresholdRate = 0.1 }: useScrollProps) {
+export default function useScroll({
+  nextPage,
+  fetchingNextPage,
+  fetchNext,
+  thresholdRate = 0.1,
+  delayTime = 500,
+}: useScrollProps) {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const observerRef = useRef<HTMLDivElement>(null);
 
@@ -23,9 +30,9 @@ export default function useScroll({ nextPage, fetchingNextPage, fetchNext, thres
     } finally {
       setTimeout(() => {
         setIsFetching(false);
-      }, 200);
+      }, delayTime);
     }
-  }, [nextPage, isFetching, fetchingNextPage, fetchNext]);
+  }, [nextPage, isFetching, fetchingNextPage, fetchNext, delayTime]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

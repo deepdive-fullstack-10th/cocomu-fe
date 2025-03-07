@@ -1,11 +1,10 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { SpaceListParams } from '@customTypes/space';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import useDebounce from '@hooks/utils/useDebounce';
 import spaceApi from '@api/domain/space';
 
 export default function useGetSpaceList(studyId: string, params: SpaceListParams) {
-  const [isFetching, setIsFetching] = useState(false);
   const debouncedFilters = useDebounce(params.keyword, 300);
 
   const queryParams = useMemo(

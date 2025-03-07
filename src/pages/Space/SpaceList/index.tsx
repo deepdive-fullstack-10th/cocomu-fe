@@ -19,7 +19,7 @@ export default function SpaceList() {
   });
   const { studyId } = useParams<{ studyId: string }>();
   const { spaces, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetSpaceList(studyId, filters);
-  const { observerRef } = useScroll({
+  const { observerRef, isFetching } = useScroll({
     nextPage: hasNextPage,
     fetchingNextPage: isFetchingNextPage,
     fetchNext: fetchNextPage,
@@ -48,7 +48,7 @@ export default function SpaceList() {
               currentUsers={space.currentUsers}
             />
           ))}
-        {hasNextPage && (
+        {(hasNextPage || isFetching) && (
           <div
             ref={observerRef}
             style={{
