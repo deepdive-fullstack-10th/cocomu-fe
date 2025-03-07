@@ -1,8 +1,9 @@
 import ImageTag from '@components/_common/atoms/ImageTag';
+import { FilterData } from '@customTypes/common';
 import S from './style';
 
 interface ImageTagListProps {
-  items: string[];
+  items: FilterData[];
 }
 
 export default function ImageTagList({ items }: ImageTagListProps) {
@@ -10,8 +11,8 @@ export default function ImageTagList({ items }: ImageTagListProps) {
     <S.ListContainer>
       {items.map((item) => (
         <ImageTag
-          key={item}
-          name={item}
+          key={item.id}
+          imageUrl={item.imageUrl}
         />
       ))}
     </S.ListContainer>

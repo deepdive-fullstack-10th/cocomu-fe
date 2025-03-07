@@ -1,11 +1,12 @@
 import Tag from '@components/_common/atoms/Tag';
 import { TagColor } from '@components/_common/atoms/Tag/style';
+import { FilterData } from '@customTypes/common';
 import S from './style';
 
 interface TagListProps {
-  items: string[];
+  items: FilterData[];
   color?: TagColor;
-  onRemove?: (item: string) => void;
+  onRemove?: (id: number) => void;
 }
 
 export default function TagList({ items, color, onRemove }: TagListProps) {
@@ -13,11 +14,11 @@ export default function TagList({ items, color, onRemove }: TagListProps) {
     <S.ListContainer>
       {items.map((item) => (
         <Tag
-          key={item}
+          key={item.id}
           color={color}
-          onRemove={onRemove ? () => onRemove(item) : undefined}
+          onRemove={onRemove ? () => onRemove(item.id) : undefined}
         >
-          {item}
+          {item.name}
         </Tag>
       ))}
     </S.ListContainer>

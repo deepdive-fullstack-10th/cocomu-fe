@@ -1,10 +1,9 @@
-import { LANGUAGE_IMAGES } from '@constants/constants';
 import S from './style';
 
 interface ImageTagProps {
-  name?: string;
+  imageUrl?: string;
 }
 
-export default function ImageTag({ name = 'Python' }: ImageTagProps) {
-  return <S.ImageTag src={LANGUAGE_IMAGES[name]} />;
+export default function ImageTag({ imageUrl = 'https://cdn.cocomu.co.kr/images/languages/java.png' }: ImageTagProps) {
+  return <S.ImageTag src={imageUrl} />;
 }
