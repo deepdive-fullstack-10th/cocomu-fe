@@ -12,7 +12,7 @@ export default function useCreateStudy() {
     mutationFn: studyApi.createPublic,
     onSuccess: ({ studyId }) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
-      navigate(ROUTES.STUDY.PARTICIPATION({ studyId }));
+      navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
   });
 
@@ -20,7 +20,7 @@ export default function useCreateStudy() {
     mutationFn: studyApi.createPrivate,
     onSuccess: ({ studyId }) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
-      navigate(ROUTES.STUDY.PARTICIPATION({ studyId }));
+      navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
   });
 
