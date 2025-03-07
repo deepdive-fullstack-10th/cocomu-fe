@@ -12,6 +12,12 @@ export const STUDY_EDIT_DROPDOWN_LABELS = [
   { label: '스터디 삭제하기', color: 'triadic' },
 ] as const;
 
+export const IMAGEURLS = [
+  'https://cdn.cocomu.co.kr/images/Banner/Banner1.png',
+  'https://cdn.cocomu.co.kr/images/Banner/Banner2.png',
+  'https://cdn.cocomu.co.kr/images/Banner/Banner3.png',
+];
+
 export const ACCESS_STATUS = [
   {
     id: 1,
