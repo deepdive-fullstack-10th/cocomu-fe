@@ -121,11 +121,9 @@ export const spaceHandlers = [
     const limit = 20;
     const totalSpaceData = getSpaceListResponse.result;
 
-    let filteredData;
-    if (lastId > 0) {
+    let filteredData = totalSpaceData;
+    if (lastId) {
       filteredData = totalSpaceData.filter((item) => item.id > lastId);
-    } else {
-      filteredData = totalSpaceData;
     }
 
     const partialSpaceData = filteredData.slice(0, limit);

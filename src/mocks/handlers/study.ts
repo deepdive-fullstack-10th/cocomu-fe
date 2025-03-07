@@ -7,6 +7,8 @@ import {
   createStudyErrorResponse,
   editStudyErrorResponse,
   editStudyResponse,
+  getMemberErrorResponse,
+  getMemberResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
   getStudyListResponse,
@@ -52,6 +54,36 @@ export const studyHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(getStudyInfoResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.MEMBER_LIST(':studyId')}`, async ({ params, request }) => {
+    const { studyId } = params;
+    const url = new URL(request.url);
+    const lastIndex = parseInt(url.searchParams.get('lastIndex'), 10) || undefined;
+    const responseData = getMemberResponse.result;
+    const limit = 20;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(getMemberErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+    const sortedData = [...responseData].sort((a, b) => a.id - b.id);
+
+    let filteredData = sortedData;
+    if (lastIndex > 0) {
+      filteredData = sortedData.filter((member) => member.id > lastIndex);
+    }
+
+    const partialMemberData = filteredData.slice(0, limit);
+
+    const partialMemberResponse = {
+      ...getMemberResponse,
+      result: partialMemberData,
+    };
+    return new HttpResponse(JSON.stringify(partialMemberResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
