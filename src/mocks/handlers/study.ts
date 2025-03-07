@@ -1,20 +1,22 @@
 import { http, HttpResponse } from 'msw';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateStudyData, EditStudyData } from '@customTypes/study';
+
+import { getStudyListResponse } from '@mocks/data/study/getStudyListData';
+import { getStudyInfoErrorResponse, getStudyInfoResponse } from '@mocks/data/study/getStudyInfoData';
+import { getFilterOptionsResponse } from '@mocks/data/study/getFilterOptionsData';
 import {
-  createPrivateResponse,
-  createPublicResponse,
+  createPrivateStudyResponse,
+  createPublicStudyResponse,
   createStudyErrorResponse,
-  editStudyErrorResponse,
-  editStudyResponse,
-  getFilterOptionsResponse,
+} from '@mocks/data/study/createStudyData';
+import { editStudyErrorResponse, editStudyResponse } from '@mocks/data/study/editStudyData';
+import {
   joinPrivateStudyErrorResponse,
   joinPrivateStudyResponse,
   joinPublicStudyErrorResponse,
   joinPublicStudyResponse,
-} from '@mocks/data/study';
-import { getStudyListResponse } from '@mocks/data/study/getStudyListData';
-import { getStudyInfoErrorResponse, getStudyInfoResponse } from '@mocks/data/study/getStudyInfoData';
+} from '@mocks/data/study/joinStudyData';
 
 export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
@@ -56,7 +58,7 @@ export const studyHandlers = [
       });
     }
 
-    return new HttpResponse(JSON.stringify(createPublicResponse), {
+    return new HttpResponse(JSON.stringify(createPublicStudyResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
@@ -76,7 +78,7 @@ export const studyHandlers = [
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
-    return new HttpResponse(JSON.stringify(createPrivateResponse), {
+    return new HttpResponse(JSON.stringify(createPrivateStudyResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
