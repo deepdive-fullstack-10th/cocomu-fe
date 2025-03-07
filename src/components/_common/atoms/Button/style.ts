@@ -10,7 +10,7 @@ export interface ButtonStyleProps {
   size: ButtonSize;
   color: ButtonColor;
   shape?: ButtonShape;
-  borderColor?: ButtonBorderColor; // 선택적 속성으로 변경
+  borderColor?: ButtonBorderColor;
 }
 
 const commonStyles = (theme: Theme) => css`
@@ -83,8 +83,8 @@ const shapeStyles = (shape: ButtonShape = 'default') => css`
 const Button = styled.button<ButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)}
   ${({ size, theme }) => sizeStyles[size](theme)}
-    ${({ color, theme, borderColor }) => colorStyles[color](theme, borderColor ?? 'primary')}
-    ${({ shape }) => shapeStyles(shape)}
+  ${({ color, theme, borderColor }) => colorStyles[color](theme, borderColor ?? 'primary')}
+  ${({ shape }) => shapeStyles(shape)}
 `;
 
 const S = {
