@@ -67,13 +67,13 @@ const studyApi = {
     return data.result;
   },
 
-  getMember: async (studyId: string, lastIndex?: number) => {
+  getMember: async (studyId: string, lastId = null) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.MEMBER_LIST(studyId), {
       params: {
-        lastId: lastIndex,
+        lastIndex: lastId,
       },
     });
-    console.log('api : ', data.result);
+
     return data.result;
   },
 
