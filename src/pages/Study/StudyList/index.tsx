@@ -1,10 +1,7 @@
 import { useState } from 'react';
-
 import useGetStudyList from '@hooks/study/useGetStudyList';
 import { StudyData } from '@customTypes/study';
-
 import { ACCESS_STATUS_MAP_ID, STUDY_PAGE_SIZE, IMAGEURLS } from '@constants/common';
-
 import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
 import Loading from '@pages/Loading';
