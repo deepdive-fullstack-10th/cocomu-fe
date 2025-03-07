@@ -7,6 +7,7 @@ import {
   createStudyErrorResponse,
   editStudyErrorResponse,
   editStudyResponse,
+  getFilterOptionsResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
   getStudyListResponse,
@@ -17,6 +18,20 @@ import {
 } from '@mocks/data/study';
 
 export const studyHandlers = [
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(getStudyInfoErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getStudyInfoResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, async ({ request }) => {
     const url = new URL(request.url);
     const page = Number(url.searchParams.get('page')) || 1;
@@ -42,19 +57,13 @@ export const studyHandlers = [
     });
   }),
 
-  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
-    const { studyId } = params;
-
-    if (!studyId) {
-      return new HttpResponse(JSON.stringify(getStudyInfoErrorResponse), {
-        status: HTTP_STATUS_CODE.BAD_REQUEST,
-      });
-    }
-
-    return new HttpResponse(JSON.stringify(getStudyInfoResponse), {
-      status: HTTP_STATUS_CODE.SUCCESS,
-    });
-  }),
+  http.get(
+    `${BASE_URL}${END_POINTS_V1.STUDY.FILTER_OPTIONS}`,
+    async () =>
+      new HttpResponse(JSON.stringify(getFilterOptionsResponse), {
+        status: HTTP_STATUS_CODE.SUCCESS,
+      }),
+  ),
 
   http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PUBLIC_CREATE}`, async ({ request }) => {
     const body = (await request.json()) as Omit<CreateStudyData, 'password'>;
