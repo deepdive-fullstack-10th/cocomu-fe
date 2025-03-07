@@ -2,7 +2,7 @@ import { useState, ComponentProps, FormEventHandler, ChangeEvent, FocusEvent } f
 import { useError } from '@hooks/utils/useError';
 import ValidationError from '@utils/errors/ValidationError';
 
-interface UseFormProps<T extends Record<string, string | string[]>> {
+interface UseFormProps<T extends Record<string, string | number[]>> {
   initialValues: T;
 }
 
@@ -13,7 +13,7 @@ interface RegisterOptions<T> extends ComponentProps<'input'> {
   };
 }
 
-export function useForm<TFieldData extends Record<string, string | string[]>>({
+export function useForm<TFieldData extends Record<string, string | number[]>>({
   initialValues,
 }: UseFormProps<TFieldData>) {
   const [formData, setFormData] = useState<TFieldData>(initialValues);
@@ -92,9 +92,9 @@ export function useForm<TFieldData extends Record<string, string | string[]>>({
     options: { validate?: (data: TFieldData[T]) => void } = {},
   ) => ({
     name: inputName,
-    values: formData[inputName] as string[],
+    values: formData[inputName] as number[],
     error: errors[inputName],
-    onSelect: (newValues: string[]) => {
+    onSelect: (newValues: number[]) => {
       updateFormData(inputName, newValues as TFieldData[T]);
       if (options.validate) {
         validateAndSetErrors({
