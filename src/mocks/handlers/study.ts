@@ -61,7 +61,7 @@ export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.MEMBER_LIST(':studyId')}`, async ({ params, request }) => {
     const { studyId } = params;
     const url = new URL(request.url);
-    const lastIndex = url.searchParams.get('lastIndex');
+    const lastIndex = parseInt(url.searchParams.get('lastIndex'), 10) || undefined;
     const responseData = getMemberResponse.result;
     const limit = 20;
 
@@ -70,13 +70,15 @@ export const studyHandlers = [
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
+    const sortedData = [...responseData].sort((a, b) => a.id - b.id);
 
-    let studyMemberData = responseData;
-    if (lastIndex) {
-      const lastIndexNum = parseInt(lastIndex, 10);
-      studyMemberData = responseData.filter((member) => member.id > lastIndexNum);
+    let filteredData = sortedData;
+    if (lastIndex > 0) {
+      filteredData = sortedData.filter((member) => member.id > lastIndex);
     }
-    const partialMemberData = studyMemberData.slice(0, limit);
+
+    const partialMemberData = filteredData.slice(0, limit);
+
     const partialMemberResponse = {
       ...getMemberResponse,
       result: partialMemberData,
