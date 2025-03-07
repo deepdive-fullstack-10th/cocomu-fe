@@ -10,12 +10,12 @@ import {
   getFilterOptionsResponse,
   getStudyInfoErrorResponse,
   getStudyInfoResponse,
-  getStudyListResponse,
   joinPrivateStudyErrorResponse,
   joinPrivateStudyResponse,
   joinPublicStudyErrorResponse,
   joinPublicStudyResponse,
 } from '@mocks/data/study';
+import { getStudyListResponse } from '@mocks/data/study/getStudyListData';
 
 export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
@@ -32,30 +32,13 @@ export const studyHandlers = [
     });
   }),
 
-  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.LIST}`, async ({ request }) => {
-    const url = new URL(request.url);
-    const page = Number(url.searchParams.get('page')) || 1;
-    const size = 12;
-
-    const startIndex = (page - 1) * size;
-    const endIndex = startIndex + size;
-
-    const totalPage = Math.ceil(getStudyListResponse.result.studies.length / size);
-    const paginatedStudies = getStudyListResponse.result.studies.slice(startIndex, endIndex);
-
-    const response = {
-      ...getStudyListResponse,
-      result: {
-        ...getStudyListResponse.result,
-        studies: paginatedStudies,
-        totalPage,
-      },
-    };
-
-    return new HttpResponse(JSON.stringify(response), {
-      status: HTTP_STATUS_CODE.SUCCESS,
-    });
-  }),
+  http.get(
+    `${BASE_URL}${END_POINTS_V1.STUDY.LIST}`,
+    async () =>
+      new HttpResponse(JSON.stringify(getStudyListResponse), {
+        status: HTTP_STATUS_CODE.SUCCESS,
+      }),
+  ),
 
   http.get(
     `${BASE_URL}${END_POINTS_V1.STUDY.FILTER_OPTIONS}`,
