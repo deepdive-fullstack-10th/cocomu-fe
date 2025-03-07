@@ -1,5 +1,5 @@
 import SpaceCard from '@components/Space/SpaceCard';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import useGetSpaceList from '@hooks/space/useGetSpaceList';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
@@ -19,7 +19,7 @@ export default function SpaceList() {
   });
   const { studyId } = useParams<{ studyId: string }>();
   const { spaces, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetSpaceList(studyId, filters);
-  const { observerRef, isFetching } = useScroll({
+  const { observerRef } = useScroll({
     nextPage: hasNextPage,
     fetchingNextPage: isFetchingNextPage,
     fetchNext: fetchNextPage,
