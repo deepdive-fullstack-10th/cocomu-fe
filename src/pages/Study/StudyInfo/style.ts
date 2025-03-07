@@ -29,7 +29,7 @@ const BodyContainer = styled.div`
   flex-direction: column;
 `;
 
-export const StudyTitle = styled.h1`
+const StudyTitle = styled.h1`
   ${theme.font.heading[600]};
 `;
 
