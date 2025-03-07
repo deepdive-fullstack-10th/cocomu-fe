@@ -1,3 +1,10 @@
+import Header from '@pages/MyPage/Header';
+
 export default function MyPage() {
-  return <div>MyPage</div>;
+  return (
+    <>
+      <Header />
+      <div>mypagebody</div>
+    </>
+  );
 }
