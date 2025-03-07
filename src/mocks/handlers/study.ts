@@ -148,4 +148,18 @@ export const studyHandlers = [
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.LEAVE(':studyId')}`, async ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(leaveStudyErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(leaveStudyResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
 ];
