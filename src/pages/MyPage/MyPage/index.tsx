@@ -2,18 +2,43 @@ import UserProfile from '@components/_common/molecules/UserProfile';
 import { UserData } from '@customTypes/user';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { MYPAGE_TAB } from '@constants/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@components/_common/atoms/Button';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 const user: UserData = {
   id: 1,
-  nickName: '김서현',
+  nickName: '홍길동',
   profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
 };
 
-export default function Header() {
-  const [selectedTab, setSelectedTab] = useState<string>('');
+const user2: UserData = {
+  id: 2,
+  nickName: '새싹이',
+  profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+};
+
+export default function MyPage() {
+  const [selectedTab, setSelectedTab] = useState<(typeof MYPAGE_TAB)[number]>(MYPAGE_TAB[0]);
+  const { userId } = useParams<{ userId: string }>();
+  const navigate = useNavigate();
+
+  const handleNavigation = (tab: (typeof MYPAGE_TAB)[number]) => {
+    if (!userId) return;
+
+    if (tab === MYPAGE_TAB[0]) {
+      navigate(ROUTES.MYPAGE.DETAIL({ userId }));
+    }
+    if (tab === MYPAGE_TAB[1]) {
+      navigate(ROUTES.MYPAGE.SPACE({ userId }));
+    }
+  };
+
+  useEffect(() => {
+    handleNavigation(selectedTab);
+  }, [selectedTab]);
 
   return (
     <>
@@ -47,6 +72,7 @@ export default function Header() {
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
       />
+      <Outlet />
     </>
   );
 }
