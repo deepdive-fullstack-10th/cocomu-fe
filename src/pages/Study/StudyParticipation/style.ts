@@ -14,9 +14,15 @@ const ButtonWrapper = styled.div`
   width: 25.5rem;
 `;
 
+const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const S = {
   Container,
   ButtonWrapper,
+  Footer,
 };
 
 export default S;
