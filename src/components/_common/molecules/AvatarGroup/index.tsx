@@ -21,7 +21,7 @@ export default function AvatarGroup({ users, size = 'sm' }: AvatarGroupProps) {
             border
             size={size}
           />
-          <S.Nickname>{user.nickName}</S.Nickname>
+          <S.Nickname>{user.nickname}</S.Nickname>
         </S.ProfileWrapper>
       ))}
     </S.AvatarGroupContainer>

@@ -123,7 +123,7 @@ export const getTabResponse = {
       code: '',
       user: {
         id: '1',
-        nickName: '코코',
+        nickname: '코코',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     },
@@ -242,28 +242,28 @@ const sampleData = [
     status: 'WAITING' as SpaceStatusData,
     leader: {
       id: 2,
-      nickName: '새싹이',
+      nickname: '새싹이',
       profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     },
     currentUsers: [
       {
         id: 3,
-        nickName: '드래곤',
+        nickname: '드래곤',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 27,
-        nickName: '코코',
+        nickname: '코코',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 31,
-        nickName: '미니',
+        nickname: '미니',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 32,
-        nickName: '상남이',
+        nickname: '상남이',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     ],
@@ -278,23 +278,23 @@ const sampleData = [
     status: 'FEEDBACK' as SpaceStatusData,
     leader: {
       id: 1,
-      nickName: '으뜸이',
+      nickname: '으뜸이',
       profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     },
     currentUsers: [
       {
         id: 5,
-        nickName: '새싹이',
+        nickname: '새싹이',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 9,
-        nickName: '코코몽',
+        nickname: '코코몽',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 12,
-        nickName: '몽몽이',
+        nickname: '몽몽이',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     ],
@@ -309,18 +309,18 @@ const sampleData = [
     status: 'WAITING' as SpaceStatusData,
     leader: {
       id: 4,
-      nickName: '사사',
+      nickname: '사사',
       profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     },
     currentUsers: [
       {
         id: 13,
-        nickName: '새벽이',
+        nickname: '새벽이',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 25,
-        nickName: '이지은',
+        nickname: '이지은',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     ],
@@ -335,28 +335,28 @@ const sampleData = [
     status: 'COMPLETED' as SpaceStatusData,
     leader: {
       id: 22,
-      nickName: '밀웜',
+      nickname: '밀웜',
       profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     },
     currentUsers: [
       {
         id: 31,
-        nickName: '강혜원',
+        nickname: '강혜원',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 15,
-        nickName: '오혜원',
+        nickname: '오혜원',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 18,
-        nickName: '허각',
+        nickname: '허각',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
       {
         id: 20,
-        nickName: '망치',
+        nickname: '망치',
         profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
       },
     ],

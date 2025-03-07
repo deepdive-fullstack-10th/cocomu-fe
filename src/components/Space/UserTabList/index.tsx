@@ -25,7 +25,7 @@ export default function UserTabList({ users, selectUser }: UserTabListProps) {
         <UserTab
           key={user.id}
           color={tabColors[index % tabColors.length]}
-          name={user.nickName}
+          name={user.nickname}
           isSelected={user.id === selectedUserId}
           onClick={() => handleUserClick(user.id)}
         />
