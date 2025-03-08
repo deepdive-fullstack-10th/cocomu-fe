@@ -105,10 +105,10 @@ export const studyHandlers = [
     });
   }),
 
-  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PUBLIC_JOIN}`, async ({ request }) => {
-    const body = (await request.json()) as { studyId?: string };
+  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PUBLIC_JOIN(':studyId')}`, async ({ params }) => {
+    const { studyId } = params;
 
-    if (!body.studyId) {
+    if (!studyId) {
       return new HttpResponse(JSON.stringify(joinPublicStudyErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
@@ -119,10 +119,11 @@ export const studyHandlers = [
     });
   }),
 
-  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PRIVATE_JOIN}`, async ({ request }) => {
-    const body = (await request.json()) as { studyId: string; password: string };
+  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.PRIVATE_JOIN(':studyId')}`, async ({ request, params }) => {
+    const { studyId } = params;
+    const body = (await request.json()) as { password: string };
 
-    if (!body.studyId || !body.password) {
+    if (!studyId || !body.password) {
       return new HttpResponse(JSON.stringify(joinPrivateStudyErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
