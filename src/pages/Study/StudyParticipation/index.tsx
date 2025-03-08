@@ -27,10 +27,12 @@ export default function StudyParticipation() {
       open('confirm', {
         studyId,
         name: data.name,
+        navigate: (id: number) => navigate(ROUTES.STUDY.DETAIL({ studyId: id })),
       });
     } else if (data.status === 'PRIVATE') {
       open('passwordInput', {
         studyId,
+        navigate: (id: number) => navigate(ROUTES.STUDY.DETAIL({ studyId: id })),
       });
     }
   };
