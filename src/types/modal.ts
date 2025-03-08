@@ -17,11 +17,13 @@ export interface ConfirmProps {
   studyId?: string;
   codingSpaceId?: string;
   name?: string;
+  navigate?: (id: number) => void;
   onClose?: () => void;
 }
 
 export interface PasswordInputProps {
   studyId?: string;
+  navigate?: (id: number) => void;
   onClose?: () => void;
 }
 

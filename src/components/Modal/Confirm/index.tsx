@@ -4,19 +4,20 @@ import useJoinSpace from '@hooks/space/useJoinSpace';
 import { ConfirmProps } from '@customTypes/modal';
 import S from './style';
 
-export default function ConfirmModal({ isSpace, studyId, codingSpaceId, name, onClose }: ConfirmProps) {
-  const { joinPublicStudyMutate } = useJoinStudy();
-  const { joinSpaceMutate } = useJoinSpace();
+export default function ConfirmModal({ isSpace, studyId, codingSpaceId, name, navigate, onClose }: ConfirmProps) {
+  const { joinPublicStudyMutate } = useJoinStudy({ navigate });
+  const { joinSpaceMutate } = useJoinSpace({ navigate });
 
   const handleConfirm = () => {
-    onClose();
-
     if (isSpace) {
       joinSpaceMutate.mutate(codingSpaceId);
+      onClose();
+
       return;
     }
 
     joinPublicStudyMutate.mutate(studyId);
+    onClose();
   };
 
   return (
