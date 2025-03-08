@@ -10,6 +10,14 @@ const spaceApi = {
     return data.result;
   },
 
+  getList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.LIST(studyId), {
+      params,
+    });
+
+    return data.result;
+  },
+
   getTab: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.TAB(codingSpaceId));
 
@@ -28,6 +36,12 @@ const spaceApi = {
     return data.result;
   },
 
+  join: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.JOIN(codingSpaceId));
+
+    return data.result;
+  },
+
   start: async (codingSpaceId: string, studyId: string) => {
     await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), studyId);
 
@@ -42,14 +56,6 @@ const spaceApi = {
 
   updateTestCase: async (codingSpaceId: string, testCases: TestCaseIO[]) => {
     const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.TEST_CASE_UPDATE(codingSpaceId), testCases);
-
-    return data.result;
-  },
-
-  getList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
-    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.LIST(studyId), {
-      params,
-    });
 
     return data.result;
   },
