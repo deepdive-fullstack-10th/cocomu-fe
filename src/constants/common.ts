@@ -30,6 +30,11 @@ export const ACCESS_STATUS_MAP_ID = {
   2: 'PRIVATE',
 } as const;
 
+export const ACCESS_STATUS_MAP_REVERSE = {
+  PUBLIC: 1,
+  PRIVATE: 2,
+} as const;
+
 export const ACCESS_STATUS_MAP = {
   PUBLIC: '공개',
   PRIVATE: '비공개',
