@@ -10,7 +10,7 @@ const Container = styled.div`
   padding: 60px 16px;
 `;
 
-const ButtonWrapper = styled.div`
+const Header = styled.div`
   width: 25.5rem;
 `;
 
@@ -21,7 +21,7 @@ const Footer = styled.div`
 
 const S = {
   Container,
-  ButtonWrapper,
+  Header,
   Footer,
 };
 
