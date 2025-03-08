@@ -13,7 +13,7 @@ export default function useEditStudy() {
     mutationFn: ({ studyId, editStudyData }: { studyId: string; editStudyData: EditStudyData }) =>
       studyApi.edit(studyId, editStudyData),
     onSuccess: ({ studyId }) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_INFO, studyId] });
       navigate(ROUTES.STUDY.PARTICIPATION({ studyId }));
     },
   });
