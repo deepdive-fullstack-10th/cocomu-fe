@@ -1,29 +1,22 @@
 import Button from '@components/_common/atoms/Button';
 import useJoinStudy from '@hooks/study/useJoinStudy';
+import useJoinSpace from '@hooks/space/useJoinSpace';
+import { ConfirmProps } from '@customTypes/modal';
 import S from './style';
 
-interface ConfirmModalProps {
-  studyId: string;
-  name: string;
-  onClose: () => void;
-  navigateToStudy?: (studyId: string) => void;
-}
-
-export default function ConfirmModal({ studyId, name, onClose, navigateToStudy }: ConfirmModalProps) {
-  const { joinPublicStudy } = useJoinStudy();
+export default function ConfirmModal({ isSpace, studyId, codingSpaceId, name, onClose }: ConfirmProps) {
+  const { joinPublicStudyMutate } = useJoinStudy();
+  const { joinSpaceMutate } = useJoinSpace();
 
   const handleConfirm = () => {
-    joinPublicStudy.mutate(
-      { studyId },
-      {
-        onSuccess: () => {
-          onClose();
-          if (navigateToStudy) {
-            navigateToStudy(studyId);
-          }
-        },
-      },
-    );
+    onClose();
+
+    if (isSpace) {
+      joinSpaceMutate.mutate(codingSpaceId);
+      return;
+    }
+
+    joinPublicStudyMutate.mutate(studyId);
   };
 
   return (
