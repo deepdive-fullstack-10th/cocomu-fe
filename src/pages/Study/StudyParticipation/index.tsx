@@ -39,14 +39,14 @@ export default function StudyParticipation() {
 
   return (
     <S.Container>
-      <S.ButtonWrapper>
+      <S.Header>
         <IconButton
           content='다른 스터디 보러가기'
           onClick={() => navigate(ROUTES.ROOT())}
         >
           <BsArrowLeft />
         </IconButton>
-      </S.ButtonWrapper>
+      </S.Header>
 
       <StudyDescription
         id={data.id}
