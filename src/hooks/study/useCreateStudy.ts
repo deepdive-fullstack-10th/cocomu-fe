@@ -8,21 +8,21 @@ export default function useCreateStudy() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const createPublicMutate = useMutation({
+  const createPublicStudyMutate = useMutation({
     mutationFn: studyApi.createPublic,
     onSuccess: ({ studyId }) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_INFO, studyId] });
       navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
   });
 
-  const createPrivateMutate = useMutation({
+  const createPrivateStudyMutate = useMutation({
     mutationFn: studyApi.createPrivate,
     onSuccess: ({ studyId }) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_INFO, studyId] });
       navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
   });
 
-  return { createPublicMutate, createPrivateMutate };
+  return { createPublicStudyMutate, createPrivateStudyMutate };
 }
