@@ -2,7 +2,10 @@ export const STUDY_PAGE_SIZE = 12 as const;
 
 export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
-export const NAVBAR_DROPDOWN_LABELS = ['마이페이지', '로그아웃'] as const;
+export const NAVBAR_DROPDOWN_LABELS = [
+  { label: '마이페이지', color: 'gray' },
+  { label: '로그아웃', color: 'gray' },
+] as const;
 
 export const STUDY_EDIT_DROPDOWN_LABELS = [
   { label: '스터디 수정하기', color: 'gray' },
