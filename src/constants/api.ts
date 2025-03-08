@@ -16,8 +16,8 @@ export const END_POINTS_V1 = {
     FILTER_OPTIONS: `${BASE_PATH_V1.STUDY}/filter-options`,
     PUBLIC_CREATE: `${BASE_PATH_V1.STUDY}/public`,
     PRIVATE_CREATE: `${BASE_PATH_V1.STUDY}/private`,
-    PUBLIC_JOIN: `${BASE_PATH_V1.STUDY}/public/join`,
-    PRIVATE_JOIN: `${BASE_PATH_V1.STUDY}/private/join`,
+    PUBLIC_JOIN: (studyId: string) => `${BASE_PATH_V1.STUDY}/public/${studyId}/join`,
+    PRIVATE_JOIN: (studyId: string) => `${BASE_PATH_V1.STUDY}/private/${studyId}/join`,
     EDIT: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/edit`,
     LEAVE: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/leave`,
     DELETE: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/remove`,
@@ -29,9 +29,9 @@ export const END_POINTS_V1 = {
 
   CODING_SPACE: {
     CREATE: BASE_PATH_V1.CODING_SPACE,
-    JOIN: `${BASE_PATH_V1.CODING_SPACE}/join`,
+    JOIN: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}`,
     LIST: (studyId: string) => `${BASE_PATH_V1.CODING_SPACE}/studies/${studyId}`,
-    PAGE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}`,
+    PAGE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}`, // TODO: 제거
     TAB: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tab`,
     ALL_TABS: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tabs`,
     START: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/start`,
