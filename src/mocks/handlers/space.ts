@@ -18,6 +18,7 @@ import {
 } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
+import { joinSpaceErrorResponse, joinSpaceResponse } from '@mocks/data/space/joinSpaceData';
 
 export const spaceHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.CREATE}`, async ({ request }) => {
@@ -151,6 +152,20 @@ export const spaceHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(completeSpaceResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.JOIN(':codingSpaceId')}`, async ({ params }) => {
+    const { codingSpaceId } = params;
+
+    if (!codingSpaceId) {
+      return new HttpResponse(JSON.stringify(joinSpaceErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(joinSpaceResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
