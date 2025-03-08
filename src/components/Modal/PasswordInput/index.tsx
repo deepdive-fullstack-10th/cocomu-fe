@@ -1,31 +1,17 @@
 import { useState } from 'react';
 import InputField from '@components/_common/molecules/InputField';
 import Button from '@components/_common/atoms/Button';
+import { PasswordInputProps } from '@customTypes/modal';
 import useJoinStudy from '@hooks/study/useJoinStudy';
 import S from './style';
 
-interface PasswordInputProps {
-  studyId: string;
-  onClose: () => void;
-  navigateToStudy?: (studyId: string) => void;
-}
-
-export default function PasswordInput({ studyId, onClose, navigateToStudy }: PasswordInputProps) {
+export default function PasswordInput({ studyId, navigate, onClose }: PasswordInputProps) {
   const [password, setPassword] = useState('');
-  const { joinPrivateStudy } = useJoinStudy();
+  const { joinPrivateStudyMutate } = useJoinStudy({ navigate });
 
   const handleConfirm = () => {
-    joinPrivateStudy.mutate(
-      { studyId, password },
-      {
-        onSuccess: () => {
-          onClose();
-          if (navigateToStudy) {
-            navigateToStudy(studyId);
-          }
-        },
-      },
-    );
+    joinPrivateStudyMutate.mutate({ studyId, password });
+    onClose();
   };
 
   return (
