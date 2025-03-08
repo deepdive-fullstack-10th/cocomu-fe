@@ -30,24 +30,12 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
-  const handleLogoClick = () => navigate(ROUTES.ROOT());
-
-  const handleStudyClick = () => navigate(ROUTES.STUDY.CREATE());
-
-  const handleMyPageClick = () => navigate(ROUTES.MYPAGE({ userId: String(user.id) }));
-
-  const handleLogoutClick = () => {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
-    window.location.href = ROUTES.ROOT();
-  };
-
-  const handleLoginClick = () => open('login');
-
   const handleItemSelect = (selectedItem: string) => {
-    if (selectedItem === NAVBAR_DROPDOWN_LABELS[0]) {
-      handleMyPageClick();
-    } else if (selectedItem === NAVBAR_DROPDOWN_LABELS[1]) {
-      handleLogoutClick();
+    if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
+      navigate(ROUTES.MYPAGE({ userId: user.id }));
+    } else if (selectedItem === NAVBAR_DROPDOWN_LABELS[1].label) {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      window.location.href = ROUTES.ROOT();
     }
     setDropdownOpen(false);
   };
@@ -57,12 +45,12 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
       <S.LogoImage
         src='https://cdn.cocomu.co.kr/images/default/Logo.png'
         alt='Logo'
-        onClick={handleLogoClick}
+        onClick={() => navigate(ROUTES.ROOT())}
       />
 
       <S.NavItems>
         <Button
-          onClick={handleStudyClick}
+          onClick={() => navigate(ROUTES.STUDY.CREATE())}
           color='primary'
           size='lg'
           shape='round'
@@ -85,20 +73,20 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
             </Icon>
             {isDropdownOpen && (
               <S.DropdownList>
-                {NAVBAR_DROPDOWN_LABELS.map((item) => (
+                {NAVBAR_DROPDOWN_LABELS.map(({ label, color }) => (
                   <DropdownItem
-                    key={item}
-                    item={item}
+                    key={label}
+                    item={label}
                     size='lg'
-                    color='gray'
-                    onClick={() => handleItemSelect(item)}
+                    color={color}
+                    onClick={() => handleItemSelect(label)}
                   />
                 ))}
               </S.DropdownList>
             )}
           </S.ProfileSection>
         ) : (
-          <S.LoginButton onClick={handleLoginClick}>로그인</S.LoginButton>
+          <S.LoginButton onClick={() => open('login')}>로그인</S.LoginButton>
         )}
       </S.NavItems>
     </S.Container>

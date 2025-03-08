@@ -26,6 +26,7 @@ const SpaceWaiting = lazy(() => import('@pages/Space/SpaceWaiting'));
 const SpaceRunning = lazy(() => import('@pages/Space/SpaceRunning'));
 const SpaceFeedback = lazy(() => import('@pages/Space/SpaceFeedback'));
 const SpaceFinish = lazy(() => import('@pages/Space/SpaceFinish'));
+
 const router = createBrowserRouter(
   [
     {
