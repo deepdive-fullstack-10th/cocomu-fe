@@ -4,8 +4,10 @@ import { END_POINTS_V1 } from '@constants/api';
 import { CreateSpaceData, SpaceData, SpaceListParams, TestCaseIO, Tab } from '@customTypes/space';
 
 const spaceApi = {
-  getInfo: async (codingSpaceId: string) => {
-    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.PAGE(codingSpaceId));
+  getStudyInfo: async (studyId: number) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.INFO, {
+      params: { studyId },
+    });
 
     return data.result;
   },
