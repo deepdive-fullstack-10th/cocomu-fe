@@ -3,7 +3,7 @@ const QUERY_KEYS = {
   STUDY_INFO: 'study_info',
   STUDY_LIST: 'study_list',
   STUDY_FILTER: 'study_filter',
-  SPACE_DETAIL: 'space_detail',
+  SPACE_STUDY_INFO: 'space_study_info',
   SPACE_TAB: 'space_tab',
   SPACE_ALL_TAB: 'space_all_tab',
   STUDY_PARTICIPATION: 'study_participation',
