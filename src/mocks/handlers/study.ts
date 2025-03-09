@@ -17,8 +17,23 @@ import {
   joinPublicStudyErrorResponse,
   joinPublicStudyResponse,
 } from '@mocks/data/study/joinStudyData';
+import { getStudyDetailErrorResponse, getStudyDetailResponse } from '@mocks/data/study/getStudyDetailData';
 
 export const studyHandlers = [
+  http.get(`${BASE_URL}${END_POINTS_V1.STUDY.DETAIL(':studyId')}`, async ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(getStudyDetailErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getStudyDetailResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.INFO(':studyId')}`, async ({ params }) => {
     const { studyId } = params;
 
