@@ -5,7 +5,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 4.5rem;
 
-  padding: 60px 16px;
+  padding: 60px 16px 0 16px;
 `;
 
 const Header = styled.div`
