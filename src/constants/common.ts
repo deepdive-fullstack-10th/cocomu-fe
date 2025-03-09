@@ -52,12 +52,12 @@ export const SPACE_STATUS = [
     imageUrl: '',
   },
   {
-    id: 2,
+    id: 3,
     name: '피드백',
     imageUrl: '',
   },
   {
-    id: 2,
+    id: 4,
     name: '종료',
     imageUrl: '',
   },
