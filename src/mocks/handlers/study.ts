@@ -20,6 +20,14 @@ import {
 import { getStudyDetailErrorResponse, getStudyDetailResponse } from '@mocks/data/study/getStudyDetailData';
 
 export const studyHandlers = [
+  http.get(
+    `${BASE_URL}${END_POINTS_V1.STUDY.FILTER_OPTIONS}`,
+    async () =>
+      new HttpResponse(JSON.stringify(getFilterOptionsResponse), {
+        status: HTTP_STATUS_CODE.SUCCESS,
+      }),
+  ),
+
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.DETAIL(':studyId')}`, async ({ params }) => {
     const { studyId } = params;
 
@@ -52,14 +60,6 @@ export const studyHandlers = [
     `${BASE_URL}${END_POINTS_V1.STUDY.LIST}`,
     async () =>
       new HttpResponse(JSON.stringify(getStudyListResponse), {
-        status: HTTP_STATUS_CODE.SUCCESS,
-      }),
-  ),
-
-  http.get(
-    `${BASE_URL}${END_POINTS_V1.STUDY.FILTER_OPTIONS}`,
-    async () =>
-      new HttpResponse(JSON.stringify(getFilterOptionsResponse), {
         status: HTTP_STATUS_CODE.SUCCESS,
       }),
   ),
