@@ -12,7 +12,7 @@ export default function useEditStudy() {
   const editStudyMutate = useMutation({
     mutationFn: ({ studyId, editStudyData }: { studyId: string; editStudyData: EditStudyData }) =>
       studyApi.edit(studyId, editStudyData),
-    onSuccess: ({ studyId }) => {
+    onSuccess: (studyId) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
       navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },

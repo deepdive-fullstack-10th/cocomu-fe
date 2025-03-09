@@ -10,7 +10,7 @@ export default function useCreateStudy() {
 
   const createPublicStudyMutate = useMutation({
     mutationFn: studyApi.createPublic,
-    onSuccess: ({ studyId }) => {
+    onSuccess: (studyId) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
       navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
@@ -18,7 +18,7 @@ export default function useCreateStudy() {
 
   const createPrivateStudyMutate = useMutation({
     mutationFn: studyApi.createPrivate,
-    onSuccess: ({ studyId }) => {
+    onSuccess: (studyId) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
       navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
