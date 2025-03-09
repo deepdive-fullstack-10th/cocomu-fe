@@ -4,6 +4,8 @@ import { Outlet, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { STUDY_TABS } from '@constants/common';
 import { ROUTES } from '@constants/path';
 
+import useGetStudyDetail from '@hooks/study/useGetStudyDetail';
+
 import TabMenu from '@components/_common/molecules/TabMenu';
 import IconButton from '@components/_common/atoms/IconButton';
 import { BsPlusLg } from 'react-icons/bs';
@@ -15,9 +17,10 @@ import S from './style';
 export default function StudyDetail() {
   const navigate = useNavigate();
   const location = useLocation();
-  const studyId = Number(useParams<{ studyId: string }>().studyId) || null;
-
+  const { studyId } = useParams<{ studyId: string }>();
   const { data, isLoading } = useGetStudyDetail(studyId);
+
+  const [outletProps, setOutletProps] = useState(null);
 
   const getTabFromPath = () => {
     if (location.pathname.includes('/members')) return STUDY_TABS[1];
@@ -33,11 +36,14 @@ export default function StudyDetail() {
 
   const handleTabNavigation = (tab: (typeof STUDY_TABS)[number]) => {
     if (tab === STUDY_TABS[0]) {
-      navigate(ROUTES.STUDY.DETAIL({ studyId }));
+      setOutletProps({ languages: data.languages });
+      navigate(ROUTES.STUDY.DETAIL({ studyId: data.id }));
     } else if (tab === STUDY_TABS[1]) {
-      navigate(ROUTES.STUDY.MEMBERS({ studyId }));
+      setOutletProps({});
+      navigate(ROUTES.STUDY.MEMBERS({ studyId: data.id }));
     } else if (tab === STUDY_TABS[2]) {
-      navigate(ROUTES.STUDY.INFO({ studyId }));
+      setOutletProps({});
+      navigate(ROUTES.STUDY.INFO({ studyId: data.id }));
     }
   };
 
@@ -51,7 +57,7 @@ export default function StudyDetail() {
           <IconButton
             shape='round'
             content='스페이스 생성하기'
-            onClick={() => navigate(ROUTES.SPACE.CREATE({ studyId }))}
+            onClick={() => navigate(ROUTES.SPACE.CREATE({ studyId: data.id }))}
           >
             <BsPlusLg />
           </IconButton>
@@ -62,7 +68,7 @@ export default function StudyDetail() {
         selectedTab={selectedTab}
         onTabChange={handleTabNavigation}
       />
-      <Outlet />
+      <Outlet context={outletProps} />
     </S.Container>
   );
 }
