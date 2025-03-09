@@ -75,7 +75,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
       name: formData.name,
       timerTime: selectedTime.format('HH:mm'),
       workbookUrl: formData.workbookUrl,
-      totalUserCount: formData.totalUserCount,
+      totalUserCount: formData.totalUserCount[0],
       languageId: formData.languageId,
       description: content,
     };

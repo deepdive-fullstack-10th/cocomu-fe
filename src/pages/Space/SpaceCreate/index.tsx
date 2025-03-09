@@ -11,12 +11,14 @@ export default function SpaceCreate() {
   const handleSubmit = (spaceFormData: SpaceFormData, testCases: TestCaseIO[]) => {
     const createSpaceData: CreateSpaceData = {
       studyId: Number(studyId),
-      totalUserCount: spaceFormData.totalUserCount[0],
-      timerTime: convertTimeToMinutes(spaceFormData.timerTime),
-      workbookUrl: spaceFormData.workbookUrl,
-      name: spaceFormData.name,
-      languageId: spaceFormData.languageId[0],
-      description: spaceFormData.description,
+      codingSpace: {
+        totalUserCount: spaceFormData.totalUserCount[0],
+        timerTime: convertTimeToMinutes(spaceFormData.timerTime),
+        workbookUrl: spaceFormData.workbookUrl,
+        name: spaceFormData.name,
+        languageId: spaceFormData.languageId[0],
+        description: spaceFormData.description,
+      },
       testCases,
     };
 

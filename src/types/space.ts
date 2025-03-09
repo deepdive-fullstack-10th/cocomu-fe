@@ -72,11 +72,6 @@ export interface CreateSpaceFormData extends Record<string, string | number> {
 
 export interface CreateSpaceData {
   studyId: number;
-  name: string;
-  timerTime: number;
-  workbookUrl: string;
-  totalUserCount: number;
-  languageId: number;
-  description: string;
+  codingSpace: CreateSpaceFormData;
   testCases: TestCaseIO[];
 }
