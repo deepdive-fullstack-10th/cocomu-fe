@@ -1,10 +1,10 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
 
-import { CreateSpaceData, SpaceData, SpaceListParams, TestCaseIO } from '@customTypes/space';
+import { CreateSpaceData, SpaceListData, TestCaseIO } from '@customTypes/space';
 
 const spaceApi = {
-  getList: async (studyId: string, params?: SpaceListParams): Promise<SpaceData[]> => {
+  getList: async (studyId: string, params: SpaceListData) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.LIST(studyId), {
       params,
     });

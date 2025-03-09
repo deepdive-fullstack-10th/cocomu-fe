@@ -1,28 +1,28 @@
 import { Dispatch, SetStateAction } from 'react';
-import { UserData } from './user';
+import { UserRoleData } from './user';
+import { FilterData } from './common';
 
 export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETED';
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
-export interface SpaceListParams {
-  joinedMe?: boolean;
-  languageIds: string | undefined;
-  status?: string[];
+export interface SpaceListData {
+  status?: string;
+  languageIds?: string;
+  joinable?: boolean;
   keyword?: string;
   lastId?: number;
-  currentUserCount?: number;
 }
 
 export interface SpaceData {
   id: number;
   joinedMe: boolean;
   name: string;
-  language: string;
+  language: FilterData;
+  currentUserCount: number;
   totalUserCount: number;
   createdAt: string;
   status: string;
-  leader: UserData;
-  currentUsers: UserData[];
+  currentUsers: UserRoleData[];
 }
 
 export interface SpaceFormData extends Record<string, string | string[]> {
