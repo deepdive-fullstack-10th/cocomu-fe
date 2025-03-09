@@ -1,71 +1,58 @@
-import S from '@pages/Space/SpaceList/style';
 import SelectDropdown from '@components/_common/molecules/SelectDropdown';
-import { PROGRAMMING_LANGUAGES, STEP_LABELS } from '@constants/common';
 import ToggleButton from '@components/_common/atoms/ToggleButton';
 import SearchInput from '@components/_common/atoms/SearchInput';
-import { SpaceListParams } from '@customTypes/space';
-import useDebounce from '@hooks/utils/useDebounce';
-import { useCallback } from 'react';
+import useGetStudyDetail from '@hooks/study/useGetStudyDetail';
+import { SPACE_STATUS } from '@constants/common';
+import S from './style';
 
-interface spaceFilterProps {
-  spaceFilter: SpaceListParams;
-  setSpaceFilter: React.Dispatch<React.SetStateAction<SpaceListParams>>;
+interface Filters {
+  status: number[];
+  languageIds: number[];
+  joinable: boolean;
 }
 
-type spaceFilterKey = keyof SpaceListParams;
+interface FilterTabProps {
+  studyId: string;
+  filters: Filters;
+  keyword: string;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  setKeyword: (keyword: string) => void;
+}
 
-export default function SpaceFilterTab({ spaceFilter, setSpaceFilter }: spaceFilterProps) {
-  const handleChangeFilter = <K extends spaceFilterKey>(key: K, value: SpaceListParams[K] | string[]) => {
-    setSpaceFilter((prev) => ({ ...prev, [key]: value }));
-  };
-  const debouncedKeyword = useDebounce(spaceFilter.keyword, 300);
-
-  const handleLanguageChange = (values: string[]) => {
-    const valueIds = [];
-    valueIds.push(values);
-    setSpaceFilter((prev) => ({ ...prev, languageIds: valueIds.join(',') }));
-  };
-
-  const handleSearch = useCallback(() => {
-    console.log(debouncedKeyword);
-  }, [debouncedKeyword]);
+export default function SpaceFilterTab({ studyId, filters, keyword, setFilters, setKeyword }: FilterTabProps) {
+  const { data } = useGetStudyDetail(studyId);
 
   return (
-    <S.FilteredContainer>
-      <S.ClickFilteredContainer>
+    <S.FilterTabContainer>
+      <S.DropdownWrapper>
         <SelectDropdown
+          items={[...SPACE_STATUS]}
           description='전체'
-          items={[...STEP_LABELS]}
-          values={spaceFilter.status ? spaceFilter.status : []}
-          onSelect={(values) => handleChangeFilter('status', values)}
+          values={filters.status}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, status: values }))}
         />
         <SelectDropdown
+          items={data.languages}
           description='사용 언어'
-          items={[...PROGRAMMING_LANGUAGES]}
-          values={
-            typeof spaceFilter.languageIds === 'string'
-              ? spaceFilter.languageIds.split(',').filter((id) => id !== '')
-              : []
-          }
-          onSelect={handleLanguageChange}
+          values={filters.languageIds}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, languages: values }))}
+          isMultiSelect
         />
         <ToggleButton
           size='md'
           shape='round'
-          isActive={spaceFilter.joinedMe}
-          onToggle={(values) => handleChangeFilter('joinedMe', values)}
+          isActive={filters.joinable}
+          onToggle={(value) => setFilters((prev) => ({ ...prev, joinable: value }))}
         >
-          내가 참여한 스페이스 보기
+          참여 가능한 스터디 보기
         </ToggleButton>
-      </S.ClickFilteredContainer>
-      <S.SearchFilteredContainer>
-        <SearchInput
-          placeholder='제목을 검색해 주세요'
-          value={spaceFilter.keyword}
-          onChange={(value) => handleChangeFilter('keyword', value)}
-          onSearch={handleSearch}
-        />
-      </S.SearchFilteredContainer>
-    </S.FilteredContainer>
+      </S.DropdownWrapper>
+      <SearchInput
+        placeholder='제목을 검색해주세요'
+        value={keyword}
+        onChange={setKeyword}
+        onSearch={() => setFilters((prev) => ({ ...prev, keyword }))}
+      />
+    </S.FilterTabContainer>
   );
 }

@@ -40,6 +40,29 @@ export const ACCESS_STATUS_MAP = {
   PRIVATE: '비공개',
 } as const;
 
+export const SPACE_STATUS = [
+  {
+    id: 1,
+    name: '대기',
+    imageUrl: '',
+  },
+  {
+    id: 2,
+    name: '진행',
+    imageUrl: '',
+  },
+  {
+    id: 2,
+    name: '피드백',
+    imageUrl: '',
+  },
+  {
+    id: 2,
+    name: '종료',
+    imageUrl: '',
+  },
+] as const;
+
 export const SPACE_MEMBER_OPTIONS = ['2명', '3명', '4명'] as const;
 
 export const STEP_INFO = {

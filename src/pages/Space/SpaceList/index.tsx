@@ -1,80 +1,54 @@
 import SpaceCard from '@components/Space/SpaceCard';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import useGetSpaceList from '@hooks/space/useGetSpaceList';
 import { useParams } from 'react-router-dom';
-import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
-import { SpaceListParams } from '@customTypes/space';
+import { ACCESS_STATUS_MAP_ID } from '@constants/common';
+import { SpaceData } from '@customTypes/space';
+import Loading from '@pages/Loading';
 import S from './style';
 
 export default function SpaceList() {
-  const [filters, setFilters] = useState<SpaceListParams>({
-    status: null,
-    languageIds: '',
-    joinedMe: true,
+  const [filters, setFilters] = useState({
+    status: [],
+    languageIds: [],
+    joinable: undefined,
     keyword: '',
-    lastId: 0,
-    currentUserCount: 1,
+    lastId: 10,
   });
+  const [keyword, setKeyword] = useState('');
+
   const { studyId } = useParams<{ studyId: string }>();
-  const { spaces, isLoading, hasNextPage, isFetchingNextPage, nextList } = useGetSpaceList(studyId, filters);
-  const observerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          nextList().catch((e) => {
-            console.error('스크롤 에러', e);
-          });
-        }
-      },
-      { threshold: 0.1 },
-    );
+  const getTransformedFilters = () => ({
+    status: filters.status.length > 0 ? ACCESS_STATUS_MAP_ID[filters.status[0]] : undefined,
+    languages: filters.languageIds.length > 0 ? filters.languageIds.join(',') : undefined,
+    joinable: filters.joinable,
+    keyword: filters.keyword.trim() || undefined,
+    lastId: filters.lastId,
+  });
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasNextPage, isFetchingNextPage, nextList]);
+  const { data, isLoading } = useGetSpaceList(studyId, getTransformedFilters());
 
   return (
     <S.BodyContainer>
       <SpaceFilterTab
-        spaceFilter={filters}
-        setSpaceFilter={setFilters}
+        studyId={studyId}
+        filters={filters}
+        keyword={keyword}
+        setFilters={setFilters}
+        setKeyword={setKeyword}
       />
       <S.SpaceListContainer>
-        {spaces &&
-          !isLoading &&
-          spaces.map((space) => (
+        {isLoading ? (
+          <Loading />
+        ) : (
+          data.codingSpaces.map((space: SpaceData) => (
             <SpaceCard
               key={space.id}
-              id={space.id}
-              joinedMe={space.joinedMe}
-              name={space.name}
-              language={space.language}
-              totalUserCount={space.totalUserCount}
-              createdAt={space.createdAt}
-              status={space.status}
-              leader={space.leader}
-              currentUsers={space.currentUsers}
+              {...space}
             />
-          ))}
-        {hasNextPage && (
-          <div
-            ref={observerRef}
-            style={{
-              height: '0.2rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingBottom: '4rem',
-            }}
-          >
-            <LoadingSpinner />
-          </div>
+          ))
         )}
       </S.SpaceListContainer>
     </S.BodyContainer>
