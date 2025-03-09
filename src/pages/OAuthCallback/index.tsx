@@ -13,7 +13,7 @@ export default function OAuthCallback() {
   useEffect(() => {
     if (!code || !provider) return;
 
-    logInMutate.mutate({ provider, oauthCode: code });
+    logInMutate.mutate({ provider: provider.toUpperCase(), oauthCode: code });
   }, []);
 
   return <Loading />;
