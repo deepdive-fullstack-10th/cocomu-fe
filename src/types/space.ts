@@ -25,12 +25,12 @@ export interface SpaceData {
   currentUsers: UserRoleData[];
 }
 
-export interface SpaceFormData extends Record<string, string | string[]> {
+export interface SpaceFormData extends Record<string, string | number[]> {
+  totalUserCount: number[];
+  timerTime: string;
+  workbookUrl: string;
   name: string;
-  codingTime: string;
-  referenceUrl: string;
-  totalUserCount: string[];
-  language: string[];
+  languageId: number[];
   description: string;
 }
 
@@ -63,10 +63,10 @@ export interface SpaceOutletProps {
 
 export interface CreateSpaceFormData extends Record<string, string | number> {
   name: string;
-  codingTime: number;
-  referenceUrl: string;
+  timerTime: number;
+  workbookUrl: string;
   totalUserCount: number;
-  language: string;
+  languageId: number;
   description: string;
 }
 

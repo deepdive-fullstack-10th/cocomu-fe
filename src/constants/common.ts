@@ -70,7 +70,23 @@ export const SPACE_STATUS_MAP_ID = {
   4: 'FINISH',
 } as const;
 
-export const SPACE_MEMBER_OPTIONS = ['2명', '3명', '4명'] as const;
+export const SPACE_MEMBER_OPTIONS = [
+  {
+    id: 2,
+    name: '2명',
+    imageUrl: '',
+  },
+  {
+    id: 3,
+    name: '3명',
+    imageUrl: '',
+  },
+  {
+    id: 4,
+    name: '4명',
+    imageUrl: '',
+  },
+] as const;
 
 export const STEP_INFO = {
   WAITING: {

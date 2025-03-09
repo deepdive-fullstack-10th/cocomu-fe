@@ -12,11 +12,11 @@ export default function SpaceCreate() {
     const createSpaceData: CreateSpaceData = {
       studyId: Number(studyId),
       codingSpace: {
+        totalUserCount: spaceFormData.totalUserCount[0],
+        timerTime: convertTimeToMinutes(spaceFormData.timerTime),
+        workbookUrl: spaceFormData.workbookUrl,
         name: spaceFormData.name,
-        codingTime: convertTimeToMinutes(spaceFormData.codingTime),
-        referenceUrl: spaceFormData.referenceUrl,
-        totalUserCount: Number(spaceFormData.totalUserCount[0]),
-        language: spaceFormData.language[0],
+        languageId: spaceFormData.languageId[0],
         description: spaceFormData.description,
       },
       testCases,
@@ -25,5 +25,10 @@ export default function SpaceCreate() {
     createSpaceMutate.mutate(createSpaceData);
   };
 
-  return <SpaceCreateForm onSubmit={handleSubmit} />;
+  return (
+    <SpaceCreateForm
+      studyId={studyId}
+      onSubmit={handleSubmit}
+    />
+  );
 }
