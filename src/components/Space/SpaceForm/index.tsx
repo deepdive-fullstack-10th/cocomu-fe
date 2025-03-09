@@ -29,14 +29,14 @@ import Loading from '@pages/Loading';
 
 import S from './style';
 
-interface SpaceCreateFormProps {
+interface SpaceFormProps {
   studyId: string;
   initialValues?: SpaceFormData;
   description?: string;
   onSubmit: (spaceFormData: SpaceFormData, testCases: TestCaseIO[]) => void;
 }
 
-export default function SpaceCreateForm({ studyId, initialValues, description, onSubmit }: SpaceCreateFormProps) {
+export default function SpaceForm({ studyId, initialValues, description, onSubmit }: SpaceFormProps) {
   const { error } = useToastStore();
   const navigate = useNavigate();
   const { data, isLoading } = useGetStudyDetail(studyId);

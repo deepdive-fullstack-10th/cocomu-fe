@@ -5,7 +5,7 @@ import { CreateStudyData } from '@customTypes/study';
 
 import useCreateStudy from '@hooks/study/useCreateStudy';
 
-import StudyCreateForm from '@components/Study/StudyCreateForm';
+import StudyForm from '@components/Study/StudyForm';
 
 export default function StudyCreate() {
   const [selectedStatus, setSelectedStatus] = useState<(typeof ACCESS_STATUS)[number]['id']>(ACCESS_STATUS[0].id);
@@ -20,7 +20,7 @@ export default function StudyCreate() {
   };
 
   return (
-    <StudyCreateForm
+    <StudyForm
       selectedStatus={selectedStatus}
       setSelectedStatus={setSelectedStatus}
       onSubmit={handleSubmit}

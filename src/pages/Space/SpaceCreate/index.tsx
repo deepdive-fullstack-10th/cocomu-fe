@@ -1,4 +1,4 @@
-import SpaceCreateForm from '@components/Space/SpaceCreateForm';
+import SpaceForm from '@components/Space/SpaceForm';
 import { CreateSpaceData, SpaceFormData, TestCaseIO } from '@customTypes/space';
 import useCreateSpace from '@hooks/space/useCreateSpace';
 import { convertTimeToMinutes } from '@utils/convertTime';
@@ -26,7 +26,7 @@ export default function SpaceCreate() {
   };
 
   return (
-    <SpaceCreateForm
+    <SpaceForm
       studyId={studyId}
       onSubmit={handleSubmit}
     />
