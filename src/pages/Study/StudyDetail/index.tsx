@@ -4,8 +4,6 @@ import { Outlet, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { STUDY_TABS } from '@constants/common';
 import { ROUTES } from '@constants/path';
 
-import useGetSpaceStudyInfo from '@hooks/space/useGetSpaceStudyInfo';
-
 import TabMenu from '@components/_common/molecules/TabMenu';
 import IconButton from '@components/_common/atoms/IconButton';
 import { BsPlusLg } from 'react-icons/bs';
@@ -19,7 +17,7 @@ export default function StudyDetail() {
   const location = useLocation();
   const studyId = Number(useParams<{ studyId: string }>().studyId) || null;
 
-  const { data, isLoading } = useGetSpaceStudyInfo(studyId);
+  const { data, isLoading } = useGetStudyDetail(studyId);
 
   const getTabFromPath = () => {
     if (location.pathname.includes('/members')) return STUDY_TABS[1];
