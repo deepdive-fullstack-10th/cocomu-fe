@@ -1,8 +1,14 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
-import { CreateStudyData, EditStudyData, GetListParams } from '@customTypes/study';
+import { CreateStudyData, EditStudyData, GetListData } from '@customTypes/study';
 
 const studyApi = {
+  getDetail: async (studyId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.DETAIL(studyId));
+
+    return data.result;
+  },
+
   getInfo: async (studyId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.INFO(studyId), {
       useAuth: false,
@@ -12,7 +18,7 @@ const studyApi = {
     return data.result;
   },
 
-  getList: async (params: GetListParams) => {
+  getList: async (params: GetListData) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.LIST, {
       params,
       useAuth: false,
