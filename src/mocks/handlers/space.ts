@@ -30,7 +30,7 @@ export const spaceHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.CREATE}`, async ({ request }) => {
     const body = (await request.json()) as CreateSpaceData;
 
-    if (!body.studyId || !body.codingSpace || !body.testCases) {
+    if (!body.studyId || !body.testCases) {
       return new HttpResponse(JSON.stringify(createErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
