@@ -7,5 +7,6 @@ export default function useGetFilterOptions() {
   return useQuery({
     queryKey: [QUERY_KEYS.STUDY_FILTER],
     queryFn: () => studyApi.getFilterOptions(),
+    staleTime: 1000 * 60 * 5,
   });
 }
