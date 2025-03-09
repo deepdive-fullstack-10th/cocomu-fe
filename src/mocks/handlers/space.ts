@@ -8,30 +8,12 @@ import {
   updateTestCaseResponse,
   getSpaceListErrorResponse,
   getSpaceListResponse,
-  completeSpaceResponse,
-  completeSpaceErrorResponse,
 } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
 import { joinSpaceErrorResponse, joinSpaceResponse } from '@mocks/data/space/joinSpaceData';
-import { getSpaceStudyInfoErrorResponse, getSpaceStudyInfoResponse } from '@mocks/data/space/getSpaceStudyInfoData';
 
 export const spaceHandlers = [
-  http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.INFO}`, async ({ request }) => {
-    const url = new URL(request.url);
-    const studyId = url.searchParams.get('studyId');
-
-    if (!studyId) {
-      return new HttpResponse(JSON.stringify(getSpaceStudyInfoErrorResponse), {
-        status: HTTP_STATUS_CODE.BAD_REQUEST,
-      });
-    }
-
-    return new HttpResponse(JSON.stringify(getSpaceStudyInfoResponse), {
-      status: HTTP_STATUS_CODE.SUCCESS,
-    });
-  }),
-
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.LIST(':studyId')}`, async ({ request, params }) => {
     const { studyId } = params;
     if (!studyId || Number.isNaN(Number(studyId))) {
@@ -124,19 +106,4 @@ export const spaceHandlers = [
       });
     },
   ),
-
-  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.COMPLETE(':codingSpaceId')}`, async ({ params, request }) => {
-    const body = await request.json();
-    const { codingSpaceId } = params;
-
-    if (!body || !codingSpaceId) {
-      return new HttpResponse(JSON.stringify(completeSpaceErrorResponse), {
-        status: HTTP_STATUS_CODE.BAD_REQUEST,
-      });
-    }
-
-    return new HttpResponse(JSON.stringify(completeSpaceResponse), {
-      status: HTTP_STATUS_CODE.SUCCESS,
-    });
-  }),
 ];
