@@ -9,7 +9,8 @@ export default function useCreateSpace() {
   const createSpaceMutate = useMutation({
     mutationFn: spaceApi.create,
     onSuccess: ({ codingSpaceId }) => {
-      navigate(ROUTES.SPACE.DETAIL({ codingSpaceId }));
+      // navigate(ROUTES.SPACE.DETAIL({ codingSpaceId }));
+      navigate(ROUTES.ROOT());
     },
   });
 
