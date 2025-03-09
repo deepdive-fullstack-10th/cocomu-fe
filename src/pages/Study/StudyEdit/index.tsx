@@ -7,7 +7,7 @@ import { CreateStudyData, StudyFormData } from '@customTypes/study';
 import useEditStudy from '@hooks/study/useEditStudy';
 import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 
-import StudyCreateForm from '@components/Study/StudyCreateForm';
+import StudyForm from '@components/Study/StudyForm';
 import Loading from '@pages/Loading';
 import { FilterData } from '@customTypes/common';
 
@@ -46,7 +46,7 @@ export default function StudyEdit() {
   if (isLoading || !initialValues) return <Loading />;
 
   return (
-    <StudyCreateForm
+    <StudyForm
       initialValues={initialValues}
       description={description}
       selectedStatus={selectedStatus}

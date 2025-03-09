@@ -28,7 +28,7 @@ import Loading from '@pages/Loading';
 
 import S from './style';
 
-interface StudyCreateFormProps {
+interface StudyFormProps {
   initialValues?: StudyFormData;
   description?: string;
   selectedStatus: (typeof ACCESS_STATUS)[number]['id'];
@@ -36,13 +36,13 @@ interface StudyCreateFormProps {
   onSubmit: (data: StudyFormData) => void;
 }
 
-export default function StudyCreateForm({
+export default function StudyForm({
   initialValues,
   description,
   selectedStatus,
   setSelectedStatus,
   onSubmit,
-}: StudyCreateFormProps) {
+}: StudyFormProps) {
   const { error } = useToastStore();
   const navigate = useNavigate();
   const { data, isLoading } = useGetFilterOptions();
