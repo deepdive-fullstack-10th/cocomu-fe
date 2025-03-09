@@ -2,66 +2,8 @@ export const getStudyListResponse = {
   code: 3000,
   message: '전체 스터디 조회에 성공했습니다.',
   result: {
-    totalStudyCount: 9,
+    totalStudyCount: 7,
     studies: [
-      {
-        id: 9,
-        joinable: false,
-        name: '매일 열심히하는 스터디',
-        status: 'PUBLIC',
-        languages: [
-          {
-            id: 1,
-            name: 'JAVA',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
-          },
-        ],
-        workbooks: [
-          {
-            id: 1,
-            name: 'BOJ',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
-          },
-        ],
-        description: '우리 스터디는 ~ ',
-        currentUserCount: 1,
-        totalUserCount: 80,
-        createdAt: '2025-03-07T12:56:07.712412',
-        leader: {
-          id: 1,
-          nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-        },
-      },
-      {
-        id: 8,
-        joinable: false,
-        name: '매일 열심히하는 스터디',
-        status: 'PUBLIC',
-        languages: [
-          {
-            id: 1,
-            name: 'JAVA',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
-          },
-        ],
-        workbooks: [
-          {
-            id: 1,
-            name: 'BOJ',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
-          },
-        ],
-        description: '우리 스터디는 ~ ',
-        currentUserCount: 1,
-        totalUserCount: 80,
-        createdAt: '2025-03-07T12:56:06.908022',
-        leader: {
-          id: 1,
-          nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-        },
-      },
       {
         id: 7,
         joinable: false,
@@ -70,54 +12,59 @@ export const getStudyListResponse = {
         languages: [
           {
             id: 1,
-            name: 'JAVA',
+            name: 'java',
             imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
+          },
+          {
+            id: 2,
+            name: 'python',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/python.png',
           },
         ],
         workbooks: [
           {
             id: 1,
-            name: 'BOJ',
+            name: '백준',
             imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
           },
         ],
         description: '우리 스터디는 ~ ',
         currentUserCount: 1,
         totalUserCount: 80,
-        createdAt: '2025-03-07T12:55:59.557575',
+        createdAt: '2025-03-09T02:42:27.805484',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
       {
         id: 6,
         joinable: false,
-        name: 'test',
+        name: '매일 열심히하는 스터디',
         status: 'PUBLIC',
         languages: [
           {
-            id: 1,
-            name: 'JAVA',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
+            id: 2,
+            name: 'python',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/python.png',
           },
         ],
         workbooks: [
           {
             id: 1,
-            name: 'BOJ',
+            name: '백준',
             imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
           },
         ],
         description: '우리 스터디는 ~ ',
-        currentUserCount: 2,
+        currentUserCount: 1,
         totalUserCount: 80,
-        createdAt: '2025-03-07T01:25:26.658281',
+        createdAt: '2025-03-09T02:42:23.607152',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
       {
@@ -127,26 +74,26 @@ export const getStudyListResponse = {
         status: 'PUBLIC',
         languages: [
           {
-            id: 1,
-            name: 'JAVA',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
+            id: 2,
+            name: 'python',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/python.png',
           },
         ],
         workbooks: [
           {
-            id: 1,
-            name: 'BOJ',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
+            id: 2,
+            name: '프로그래머스',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/programmers.png',
           },
         ],
         description: '우리 스터디는 ~ ',
         currentUserCount: 1,
         totalUserCount: 80,
-        createdAt: '2025-03-06T08:05:52.194693',
+        createdAt: '2025-03-09T02:42:21.194582',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
       {
@@ -157,25 +104,25 @@ export const getStudyListResponse = {
         languages: [
           {
             id: 1,
-            name: 'JAVA',
+            name: 'java',
             imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
           },
         ],
         workbooks: [
           {
-            id: 1,
-            name: 'BOJ',
-            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
+            id: 2,
+            name: '프로그래머스',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/programmers.png',
           },
         ],
         description: '우리 스터디는 ~ ',
         currentUserCount: 1,
         totalUserCount: 80,
-        createdAt: '2025-03-06T08:05:48.753118',
+        createdAt: '2025-03-09T02:42:17.491941',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
       {
@@ -186,25 +133,30 @@ export const getStudyListResponse = {
         languages: [
           {
             id: 1,
-            name: 'JAVA',
+            name: 'java',
             imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
           },
         ],
         workbooks: [
           {
             id: 1,
-            name: 'BOJ',
+            name: '백준',
             imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
+          },
+          {
+            id: 2,
+            name: '프로그래머스',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/programmers.png',
           },
         ],
         description: '우리 스터디는 ~ ',
         currentUserCount: 1,
         totalUserCount: 80,
-        createdAt: '2025-03-06T07:24:11.997948',
+        createdAt: '2025-03-09T02:42:11.443648',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
       {
@@ -215,55 +167,74 @@ export const getStudyListResponse = {
         languages: [
           {
             id: 1,
-            name: 'JAVA',
+            name: 'java',
             imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
+          },
+          {
+            id: 2,
+            name: 'python',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/python.png',
           },
         ],
         workbooks: [
           {
             id: 1,
-            name: 'BOJ',
+            name: '백준',
             imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
+          },
+          {
+            id: 2,
+            name: '프로그래머스',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/programmers.png',
           },
         ],
         description: '우리 스터디는 ~ ',
         currentUserCount: 1,
         totalUserCount: 80,
-        createdAt: '2025-03-05T17:45:02.580523',
+        createdAt: '2025-03-09T02:38:16.885078',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
       {
         id: 1,
         joinable: false,
-        name: '네이버 코딩테스트 돌파하기',
+        name: '매일 열심히하는 스터디',
         status: 'PUBLIC',
         languages: [
           {
             id: 1,
-            name: 'JAVA',
+            name: 'java',
             imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
+          },
+          {
+            id: 2,
+            name: 'python',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/languages/python.png',
           },
         ],
         workbooks: [
           {
             id: 1,
-            name: 'BOJ',
+            name: '백준',
             imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
           },
+          {
+            id: 2,
+            name: '프로그래머스',
+            imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/programmers.png',
+          },
         ],
-        description:
-          '우리 스터디는 네이버 백엔드 개발자가 되기 위해 자바 언어로 문제를 해결해 나가려고 합니다. 주로 백준 플랫폼을 활용할 것으로 예상됩니다.',
-        currentUserCount: 2,
-        totalUserCount: 50,
-        createdAt: '2025-03-02T20:32:21.962372',
+        description: '우리 스터디는 ~ ',
+        currentUserCount: 1,
+        totalUserCount: 80,
+        createdAt: '2025-03-09T01:47:29.912522',
         leader: {
           id: 1,
           nickname: '코코무',
-          profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+          profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
         },
       },
     ],

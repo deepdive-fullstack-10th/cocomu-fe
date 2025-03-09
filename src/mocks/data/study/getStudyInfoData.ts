@@ -4,31 +4,40 @@ export const getStudyInfoResponse = {
   result: {
     id: 1,
     joinable: false,
-    name: '네이버 코딩테스트 돌파하기',
+    name: '매일 열심히하는 스터디',
     status: 'PUBLIC',
     languages: [
       {
         id: 1,
-        name: 'JAVA',
+        name: 'java',
         imageUrl: 'https://cdn.cocomu.co.kr/images/languages/java.png',
+      },
+      {
+        id: 2,
+        name: 'python',
+        imageUrl: 'https://cdn.cocomu.co.kr/images/languages/python.png',
       },
     ],
     workbooks: [
       {
         id: 1,
-        name: 'BOJ',
+        name: '백준',
         imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/boj.png',
       },
+      {
+        id: 2,
+        name: '프로그래머스',
+        imageUrl: 'https://cdn.cocomu.co.kr/images/workbooks/programmers.png',
+      },
     ],
-    description:
-      '우리 스터디는 네이버 백엔드 개발자가 되기 위해 자바 언어로 문제를 해결해 나가려고 합니다. 주로 백준 플랫폼을 활용할 것으로 예상됩니다.',
-    currentUserCount: 2,
-    totalUserCount: 50,
-    createdAt: '2025-03-02T20:32:21.962372',
+    description: '우리 스터디는 ~ ',
+    currentUserCount: 1,
+    totalUserCount: 80,
+    createdAt: '2025-03-09T02:38:16.885078',
     leader: {
       id: 1,
       nickname: '코코무',
-      profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+      profileImageUrl: 'https://cdn.cocomu.co.kr/images/profile.png',
     },
   },
 };
