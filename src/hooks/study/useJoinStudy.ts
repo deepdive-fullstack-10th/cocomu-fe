@@ -8,7 +8,7 @@ export default function useJoinStudy({ navigate }: { navigate?: (id: number) => 
   const joinPublicStudyMutate = useMutation({
     mutationFn: studyApi.joinPublic,
     onSuccess: (studyId) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_INFO, studyId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
       navigate(studyId);
     },
   });
@@ -17,7 +17,7 @@ export default function useJoinStudy({ navigate }: { navigate?: (id: number) => 
     mutationFn: ({ studyId, password }: { studyId: string; password: string }) =>
       studyApi.joinPrivate(studyId, password!),
     onSuccess: (studyId) => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_INFO, studyId] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
       navigate(studyId);
     },
   });
