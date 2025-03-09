@@ -4,7 +4,7 @@ const API_V1 = import.meta.env.VITE_API_V1;
 const BASE_PATH_V1 = {
   STUDY: `${API_V1}/studies`,
   CODING_SPACE: `${API_V1}/coding-spaces`,
-  IDE: `${API_V1}/ide`,
+  EXECUTOR: `${API_V1}/executor`,
   USER: `${API_V1}/users`,
   AUTH: `${API_V1}/auth`,
   FILES: `${API_V1}/files`,
@@ -23,27 +23,25 @@ export const END_POINTS_V1 = {
     DELETE: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/remove`,
     DETAIL: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}`,
     MEMBER_LIST: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/members`,
-    INFO: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/studyInfo`,
+    INFO: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/study-information`,
     PARTICIPATED_STUDIES: (userId: string) => `${BASE_PATH_V1.STUDY}/me/${userId}`,
   },
 
   CODING_SPACE: {
     CREATE: BASE_PATH_V1.CODING_SPACE,
-    INFO: `${BASE_PATH_V1.CODING_SPACE}/study-info`,
     JOIN: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}`,
     LIST: (studyId: string) => `${BASE_PATH_V1.CODING_SPACE}/studies/${studyId}`,
-    TAB: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tab`,
-    ALL_TABS: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/tabs`,
     START: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/start`,
-    TIMER: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/timer`,
-    COMPLETE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/complete`,
+    SAVE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/save`,
+    FINISH: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/finish`,
+    FEEDBACK: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/feedback`,
+    ENTER: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/enter`,
     TEST_CASE_UPDATE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/test-case`,
-    PARTICIPATED_CODING_SPACES: (userId: string) => `${BASE_PATH_V1.CODING_SPACE}/me/${userId}`,
   },
 
-  IDE: {
-    RUN: '/run',
-    SUBMIT: (ideID: string) => `${BASE_PATH_V1.IDE}/${ideID}/submit`,
+  EXECUTOR: {
+    EXECUTION: `${BASE_PATH_V1.EXECUTOR}/execution`,
+    RESULT: `${BASE_PATH_V1.EXECUTOR}/result`,
   },
 
   USER: {
