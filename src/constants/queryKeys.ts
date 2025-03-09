@@ -5,6 +5,7 @@ const QUERY_KEYS = {
   STUDY_LIST: 'study_list',
   STUDY_FILTER: 'study_filter',
   STUDY_PARTICIPATION: 'study_participation',
+  SPACE_LIST: 'space_list',
 } as const;
 
 export default QUERY_KEYS;
