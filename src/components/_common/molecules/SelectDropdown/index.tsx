@@ -47,6 +47,8 @@ export default function SelectDropdown({
       return;
     }
 
+    if (values.includes(id)) return;
+
     onSelect([...values, id]);
   };
 
