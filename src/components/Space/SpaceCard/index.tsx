@@ -15,7 +15,6 @@ export default function SpaceCard({
   totalUserCount,
   createdAt,
   status,
-  leader,
   currentUsers,
 }: SpaceData) {
   const { label, color } = STEP_INFO[status];
@@ -23,6 +22,14 @@ export default function SpaceCard({
   const handleCardClick = () => {
     // id 사용해서 상세페이지로 이동 (joinedMe 조건)
   };
+
+  const leader = currentUsers
+    .filter((user) => user.role === 'HOST')
+    .map(({ id: leaderId, nickname, profileImageUrl }) => ({
+      id: leaderId,
+      nickname,
+      profileImageUrl,
+    }))[0];
 
   return (
     <S.CardContainer onClick={handleCardClick}>
@@ -36,7 +43,7 @@ export default function SpaceCard({
       <S.Body>
         <S.Text>{name}</S.Text>
         <S.Info>
-          <ImageTag name={language} />
+          <ImageTag imageUrl={language.imageUrl} />
           <S.Text>{`최대 인원 : ${totalUserCount}명`}</S.Text>
           <S.Text>{`생성 일자 : ${formatDate(createdAt)}`}</S.Text>
           <AvatarGroup

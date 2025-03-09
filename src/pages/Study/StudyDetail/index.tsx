@@ -20,8 +20,6 @@ export default function StudyDetail() {
   const { studyId } = useParams<{ studyId: string }>();
   const { data, isLoading } = useGetStudyDetail(studyId);
 
-  const [outletProps, setOutletProps] = useState(null);
-
   const getTabFromPath = () => {
     if (location.pathname.includes('/members')) return STUDY_TABS[1];
     if (location.pathname.includes('/info')) return STUDY_TABS[2];
@@ -36,13 +34,10 @@ export default function StudyDetail() {
 
   const handleTabNavigation = (tab: (typeof STUDY_TABS)[number]) => {
     if (tab === STUDY_TABS[0]) {
-      setOutletProps({ languages: data.languages });
       navigate(ROUTES.STUDY.DETAIL({ studyId: data.id }));
     } else if (tab === STUDY_TABS[1]) {
-      setOutletProps({});
       navigate(ROUTES.STUDY.MEMBERS({ studyId: data.id }));
     } else if (tab === STUDY_TABS[2]) {
-      setOutletProps({});
       navigate(ROUTES.STUDY.INFO({ studyId: data.id }));
     }
   };
@@ -68,7 +63,7 @@ export default function StudyDetail() {
         selectedTab={selectedTab}
         onTabChange={handleTabNavigation}
       />
-      <Outlet context={outletProps} />
+      <Outlet />
     </S.Container>
   );
 }

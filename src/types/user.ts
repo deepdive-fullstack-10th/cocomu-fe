@@ -4,6 +4,10 @@ export interface UserData {
   profileImageUrl: string;
 }
 
+export interface UserRoleData extends UserData {
+  role: string;
+}
+
 export interface UserDetailData extends UserData {
   successCount: number;
   failedCount: number;
