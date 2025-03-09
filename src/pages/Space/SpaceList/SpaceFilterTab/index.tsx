@@ -35,7 +35,7 @@ export default function SpaceFilterTab({ studyId, filters, keyword, setFilters, 
           items={data.languages}
           description='사용 언어'
           values={filters.languageIds}
-          onSelect={(values) => setFilters((prev) => ({ ...prev, languages: values }))}
+          onSelect={(values) => setFilters((prev) => ({ ...prev, languageIds: values }))}
           isMultiSelect
         />
         <ToggleButton

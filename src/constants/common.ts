@@ -63,6 +63,13 @@ export const SPACE_STATUS = [
   },
 ] as const;
 
+export const SPACE_STATUS_MAP_ID = {
+  1: 'WAITING',
+  2: 'RUNNING',
+  3: 'FEEDBACK',
+  4: 'FINISH',
+} as const;
+
 export const SPACE_MEMBER_OPTIONS = ['2명', '3명', '4명'] as const;
 
 export const STEP_INFO = {

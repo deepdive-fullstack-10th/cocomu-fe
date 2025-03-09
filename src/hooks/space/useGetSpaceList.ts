@@ -1,13 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
-
+import { useInfiniteQuery } from '@tanstack/react-query';
 import spaceApi from '@api/domain/space';
 import QUERY_KEYS from '@constants/queryKeys';
 import { SpaceListData } from '@customTypes/space';
 
-export default function useGetSpaceList(studyId: string, params: SpaceListData) {
-  return useQuery({
+interface UseGetSpaceListProps {
+  studyId: string;
+  params: Omit<SpaceListData, 'lastId'>;
+}
+
+export default function useGetSpaceList({ studyId, params }: UseGetSpaceListProps) {
+  return useInfiniteQuery({
     queryKey: [QUERY_KEYS.SPACE_LIST, studyId, params],
-    queryFn: () => spaceApi.getList(studyId, params),
-    enabled: !!studyId,
+    queryFn: ({ pageParam = null }) => spaceApi.getList(studyId, { ...params, lastId: pageParam }),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage?.codingSpaces.length) return null;
+      return lastPage.lastId ?? null;
+    },
   });
 }
