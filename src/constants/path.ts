@@ -3,7 +3,6 @@ import { generatePath } from 'react-router-dom';
 export const PATH = {
   ROOT: '/',
   STUDY: {
-    LIST: '/',
     CREATE: '/study/create',
     EDIT: '/study/:studyId/edit',
     PARTICIPATION: '/study/:studyId/participation',
@@ -26,7 +25,6 @@ export const PATH = {
 export const ROUTES = {
   ROOT: () => generatePath(PATH.ROOT),
   STUDY: {
-    LIST: () => generatePath(PATH.STUDY.LIST),
     CREATE: () => generatePath(PATH.STUDY.CREATE),
     EDIT: ({ studyId }: { studyId: number }) => generatePath(PATH.STUDY.EDIT, { studyId }),
     PARTICIPATION: ({ studyId }: { studyId: number }) => generatePath(PATH.STUDY.PARTICIPATION, { studyId }),

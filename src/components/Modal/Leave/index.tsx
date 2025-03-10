@@ -4,10 +4,10 @@ import { LeaveProps } from '@customTypes/modal';
 import S from './style';
 
 export default function LeaveModal({ studyId, name, onClose, navigate }: LeaveProps) {
-  const leaveStudy = useLeaveStudy({ navigate });
+  const { leaveStudyMutate } = useLeaveStudy({ navigate });
 
   const handleConfirm = () => {
-    leaveStudy.mutate(studyId);
+    leaveStudyMutate.mutate(studyId);
     onClose();
   };
 
