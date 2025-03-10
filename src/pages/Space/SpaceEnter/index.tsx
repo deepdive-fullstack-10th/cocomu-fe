@@ -5,8 +5,8 @@ import Loading from '@pages/Loading';
 import useEnterSpace from '@hooks/space/useEnterSpace';
 
 export default function SpaceEnter() {
-  const { codingSpaceId } = useParams();
-  const { enterSpaceMutate, isLoading } = useEnterSpace(Number(codingSpaceId));
+  const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
+  const { enterSpaceMutate, isLoading } = useEnterSpace(Number(studyId), Number(codingSpaceId));
 
   useEffect(() => {
     enterSpaceMutate(codingSpaceId);

@@ -33,11 +33,12 @@ export default function SpaceCard({
 }: SpaceCardProps) {
   const navigate = useNavigate();
   const { open } = useModalStore();
+
   const { label, color } = STEP_INFO[status];
 
   const handleCardClick = () => {
     if (joinedMe) {
-      navigate(ROUTES.SPACE.ENTER({ codingSpaceId: id }));
+      navigate(ROUTES.SPACE.ENTER({ studyId, codingSpaceId: id }));
       return;
     }
 
@@ -46,7 +47,7 @@ export default function SpaceCard({
       studyId,
       codingSpaceId: id,
       name,
-      navigate: (codingSpaceId: number) => navigate(ROUTES.SPACE.ENTER({ codingSpaceId })),
+      navigate: (codingSpaceId: number) => navigate(ROUTES.SPACE.ENTER({ studyId, codingSpaceId })),
     });
   };
 
