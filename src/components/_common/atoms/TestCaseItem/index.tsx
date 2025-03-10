@@ -23,7 +23,7 @@ export default function TestCaseItem({
           <Icon
             size='md'
             color='950'
-            onClick={() => handleRemoveTestCase(testCase.id)}
+            onClick={() => handleRemoveTestCase(testCase.testCaseId)}
           >
             <BsDash />
           </Icon>
@@ -31,13 +31,13 @@ export default function TestCaseItem({
       )}
       <S.Input
         value={testCase.input}
-        onChange={(e) => handleInputChange(testCase.id, 'input', e.target.value)}
+        onChange={(e) => handleInputChange(testCase.testCaseId, 'input', e.target.value)}
         disabled={!isEditable}
         remove={isEditable}
       />
       <S.Output
         value={testCase.output}
-        onChange={(e) => handleInputChange(testCase.id, 'output', e.target.value)}
+        onChange={(e) => handleInputChange(testCase.testCaseId, 'output', e.target.value)}
         disabled={!isEditable}
       />
     </S.TestCaseItem>

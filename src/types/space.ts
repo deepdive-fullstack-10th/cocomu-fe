@@ -72,7 +72,7 @@ export interface CreateSpaceFormData {
 
 export interface CreateSpaceData extends CreateSpaceFormData {
   studyId: number;
-  testCases: TestCaseIO[];
+  testcases: TestCaseIO[];
 }
 
 export interface ActiveTab {

@@ -8,7 +8,7 @@ export default function SpaceCreate() {
   const { studyId } = useParams<{ studyId: string }>();
   const { createSpaceMutate } = useCreateSpace(Number(studyId));
 
-  const handleSubmit = (spaceFormData: SpaceFormData, testCases: TestCaseIO[]) => {
+  const handleSubmit = (spaceFormData: SpaceFormData, testcases: TestCaseIO[]) => {
     const createSpaceData: CreateSpaceData = {
       studyId: Number(studyId),
       totalUserCount: spaceFormData.totalUserCount[0],
@@ -17,7 +17,7 @@ export default function SpaceCreate() {
       name: spaceFormData.name,
       languageId: spaceFormData.languageId[0],
       description: spaceFormData.description,
-      testCases,
+      testcases,
     };
 
     createSpaceMutate.mutate(createSpaceData);
