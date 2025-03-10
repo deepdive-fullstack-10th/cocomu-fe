@@ -54,10 +54,8 @@ const spaceApi = {
     return data.result;
   },
 
-  start: async (codingSpaceId: string, studyId: string) => {
-    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), studyId);
-
-    return codingSpaceId;
+  start: async (codingSpaceId: string) => {
+    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId));
   },
 
   updateTestCase: async (codingSpaceId: string, testCases: TestCaseIO[]) => {
