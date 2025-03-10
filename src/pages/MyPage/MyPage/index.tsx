@@ -1,7 +1,6 @@
 import UserProfile from '@components/_common/molecules/UserProfile';
 import { UserData } from '@customTypes/user';
 import TabMenu from '@components/_common/molecules/TabMenu';
-import { MYPAGE_TAB } from '@constants/constants';
 import { useEffect, useState } from 'react';
 import Button from '@components/_common/atoms/Button';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
@@ -10,18 +9,21 @@ import S from './style';
 
 const user: UserData = {
   id: 1,
-  nickName: '홍길동',
+  nickname: '홍길동',
   profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
 };
 
 const user2: UserData = {
   id: 2,
-  nickName: '새싹이',
+  nickname: '새싹이',
   profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
 };
 
 export default function MyPage() {
+  const MYPAGE_TAB = ['참여한 스터디 보기', '참여한 코딩 스페이스 보기'] as const;
+
   const [selectedTab, setSelectedTab] = useState<(typeof MYPAGE_TAB)[number]>(MYPAGE_TAB[0]);
+  const [visibleCancel, setVisibleCancel] = useState<boolean>(false);
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
 
@@ -34,6 +36,15 @@ export default function MyPage() {
     if (tab === MYPAGE_TAB[1]) {
       navigate(ROUTES.MYPAGE.SPACE({ userId }));
     }
+  };
+
+  const handleMyPageEdit = () => {
+    setVisibleCancel(true);
+    /* todo: 수정 버튼 클릭시 */
+  };
+
+  const handleCancelEdit = () => {
+    /* todo: onChange -> '' 변경 */
   };
 
   useEffect(() => {
@@ -49,19 +60,23 @@ export default function MyPage() {
           upload
         />
         <S.MyPageButtonGroup>
-          <Button
-            type='reset'
-            size='md'
-            color='white'
-            shape='default'
-          >
-            취소
-          </Button>
+          {visibleCancel && (
+            <Button
+              type='reset'
+              size='md'
+              color='white'
+              shape='default'
+              onClick={handleCancelEdit}
+            >
+              취소
+            </Button>
+          )}
           <Button
             type='submit'
             size='md'
             color='primary'
             shape='default'
+            onClick={handleMyPageEdit}
           >
             수정
           </Button>
