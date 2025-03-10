@@ -20,6 +20,7 @@ export default function StudyInfo() {
       totalUserCount={data.totalUserCount}
       createdAt={data.createdAt}
       leader={data.leader}
+      isStudy
     />
   );
 }

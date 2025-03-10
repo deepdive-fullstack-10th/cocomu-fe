@@ -6,7 +6,7 @@ export const getStudyListResponse = {
     studies: [
       {
         id: 7,
-        joinable: false,
+        joinable: true,
         name: '매일 열심히하는 스터디',
         status: 'PUBLIC',
         languages: [
