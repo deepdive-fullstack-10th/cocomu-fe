@@ -12,6 +12,7 @@ import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
 import { joinSpaceErrorResponse, joinSpaceResponse } from '@mocks/data/space/joinSpaceData';
 import { getSpaceListErrorResponse, getSpaceListResponse } from '@mocks/data/space/getSpaceListData';
 import { enterSpaceErrorResponse, enterSpaceResponse } from '@mocks/data/space/enterSpaceData';
+import { getWaitingPageErrorResponse, getWaitingPageResponse } from '@mocks/data/space/getWaitingPageData';
 
 export const spaceHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.LIST(':studyId')}`, async ({ params }) => {
@@ -39,7 +40,7 @@ export const spaceHandlers = [
       !body.totalUserCount ||
       !body.languageId ||
       !body.description ||
-      !body.testCases
+      !body.testcases
     ) {
       return new HttpResponse(JSON.stringify(createErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
@@ -75,6 +76,20 @@ export const spaceHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(enterSpaceResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.WAITING_PAGE(':codingSpaceId')}`, async ({ params }) => {
+    const { codingSpaceId } = params;
+
+    if (!codingSpaceId) {
+      return new HttpResponse(JSON.stringify(getWaitingPageErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getWaitingPageResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
