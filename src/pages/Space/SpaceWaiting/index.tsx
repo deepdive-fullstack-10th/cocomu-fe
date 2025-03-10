@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import useGetWaitingPage from '@hooks/space/useGetWaitingPage';
+import useStartSpace from '@hooks/space/useStartSpace';
 
 import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
@@ -13,8 +14,11 @@ import S from './style';
 export default function SpaceWaiting() {
   const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
   const { data, isLoading } = useGetWaitingPage(codingSpaceId);
+  const { startSpaceMutate } = useStartSpace(Number(studyId), Number(codingSpaceId));
 
-  const handleStart = () => {};
+  const handleStart = () => {
+    startSpaceMutate.mutate(codingSpaceId);
+  };
 
   if (isLoading) return <Loading />;
 
