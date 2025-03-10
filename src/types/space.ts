@@ -74,3 +74,12 @@ export interface CreateSpaceData extends CreateSpaceFormData {
   studyId: number;
   testCases: TestCaseIO[];
 }
+
+export interface ActiveTab {
+  tabId: number;
+  documentKey: string;
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+  role: 'HOST' | 'GUEST';
+}
