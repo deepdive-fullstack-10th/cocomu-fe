@@ -3,6 +3,7 @@ const QUERY_KEYS = {
   STUDY_DETAIL: 'study_detail',
   STUDY_INFO: 'study_info',
   STUDY_LIST: 'study_list',
+  MEMBER_LIST: 'member-list',
   STUDY_FILTER: 'study_filter',
   STUDY_PARTICIPATION: 'study_participation',
   SPACE_LIST: 'space_list',
