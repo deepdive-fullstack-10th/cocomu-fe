@@ -11,6 +11,7 @@ import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
 import { joinSpaceErrorResponse, joinSpaceResponse } from '@mocks/data/space/joinSpaceData';
 import { getSpaceListErrorResponse, getSpaceListResponse } from '@mocks/data/space/getSpaceListData';
+import { enterSpaceErrorResponse, enterSpaceResponse } from '@mocks/data/space/enterSpaceData';
 
 export const spaceHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.LIST(':studyId')}`, async ({ params }) => {
@@ -30,7 +31,16 @@ export const spaceHandlers = [
   http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.CREATE}`, async ({ request }) => {
     const body = (await request.json()) as CreateSpaceData;
 
-    if (!body.studyId || !body.codingSpace || !body.testCases) {
+    if (
+      !body.studyId ||
+      !body.name ||
+      !body.timerTime ||
+      !body.workbookUrl ||
+      !body.totalUserCount ||
+      !body.languageId ||
+      !body.description ||
+      !body.testCases
+    ) {
       return new HttpResponse(JSON.stringify(createErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
@@ -51,6 +61,20 @@ export const spaceHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(joinSpaceResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.ENTER(':codingSpaceId')}`, async ({ params }) => {
+    const { codingSpaceId } = params;
+
+    if (!codingSpaceId) {
+      return new HttpResponse(JSON.stringify(enterSpaceErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(enterSpaceResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
