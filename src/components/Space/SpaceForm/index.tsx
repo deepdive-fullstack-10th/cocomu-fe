@@ -20,7 +20,7 @@ import { SpaceFormData, TestCaseIO } from '@customTypes/space';
 import InputField from '@components/_common/molecules/InputField';
 import InputDropdown from '@components/_common/molecules/InputDropdown';
 import TimeInputField from '@components/_common/molecules/TimeInputField';
-import TestCase from '@components/_common/molecules/TestCase';
+import TestCase from '@components/_common/molecules/TestCaseList';
 import StepHeader from '@components/_common/molecules/StepHeader';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';

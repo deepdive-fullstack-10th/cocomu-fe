@@ -40,7 +40,7 @@ export interface TestCaseIO {
 }
 
 export interface SubmitTestCase extends TestCaseIO {
-  id?: number | string;
+  testCaseId?: number | string;
 }
 
 export interface TestCaseData extends SubmitTestCase {
