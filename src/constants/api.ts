@@ -25,6 +25,7 @@ export const END_POINTS_V1 = {
     MEMBER_LIST: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/members`,
     INFO: (studyId: string) => `${BASE_PATH_V1.STUDY}/${studyId}/study-information`,
     PARTICIPATED_STUDIES: (userId: string) => `${BASE_PATH_V1.STUDY}/me/${userId}`,
+    JOINED: (userId: string) => `${BASE_PATH_V1.STUDY}/me/${userId}`,
   },
 
   CODING_SPACE: {
