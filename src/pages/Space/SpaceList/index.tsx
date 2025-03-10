@@ -64,6 +64,7 @@ export default function SpaceList() {
             <SpaceCard
               key={space.id}
               {...space}
+              studyId={Number(studyId)}
             />
           )),
         )}
