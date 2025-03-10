@@ -10,6 +10,7 @@ import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { STUDY_EDIT_DROPDOWN_LABELS } from '@constants/common';
 import { ROUTES } from '@constants/path';
 import { UserData } from '@customTypes/user';
+import { useModalStore } from '@stores/useModalStore';
 
 import S from './style';
 
@@ -23,6 +24,7 @@ interface DescriptionHeaderProps {
 export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }: DescriptionHeaderProps) {
   const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const { open, close } = useModalStore();
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
@@ -35,7 +37,14 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }
     setDropdownOpen(false);
   };
 
-  const handleLeave = () => {};
+  const handleLeaveClick = () => {
+    open('leave', {
+      studyId: String(studyId),
+      name: leader.nickname,
+      onClose: close,
+      navigateToStudyList: () => navigate(ROUTES.STUDY.LIST()),
+    });
+  };
 
   return (
     <S.Header>
@@ -72,7 +81,7 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }
           <Button
             color='triadic'
             size='md'
-            onClick={handleLeave}
+            onClick={handleLeaveClick}
           >
             스터디 나가기
           </Button>

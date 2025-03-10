@@ -18,6 +18,7 @@ import {
   joinPublicStudyResponse,
 } from '@mocks/data/study/joinStudyData';
 import { getStudyDetailErrorResponse, getStudyDetailResponse } from '@mocks/data/study/getStudyDetailData';
+import { leaveStudyErrorResponse, leaveStudyResponse } from '@mocks/data/study/leaveStudyData';
 
 export const studyHandlers = [
   http.get(
