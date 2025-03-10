@@ -1,29 +1,3 @@
-export const spaceStartResponse = {
-  code: 1200,
-  message: '스페이스 시작에 성공했습니다.',
-  result: {
-    codingSpaceId: '1',
-  },
-};
-
-export const spaceStartErrorResponse = {
-  code: 4200,
-  message: '스페이스 시작에 실패했습니다. studyId가 필요합니다.',
-};
-
-export const createResponse = {
-  code: 1200,
-  message: '코딩 스페이스 생성에 성공했습니다.',
-  result: {
-    codingSpaceId: 1,
-  },
-};
-
-export const createErrorResponse = {
-  code: 4200,
-  message: '유효성 검사 실패',
-};
-
 export const updateTestCaseResponse = {
   code: 1200,
   message: '테스트 케이스 수정됨',
