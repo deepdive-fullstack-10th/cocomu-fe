@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { UserRoleData } from './user';
 import { FilterData } from './common';
 
-export type SpaceStatusData = 'WAITING' | 'IN_PROGRESS' | 'FEEDBACK' | 'COMPLETED';
+export type SpaceStatusData = 'WAITING' | 'RUNNING' | 'FEEDBACK' | 'FINISH';
 export type TestCaseType = 'BASE' | 'CUSTOM';
 
 export interface SpaceListData {
