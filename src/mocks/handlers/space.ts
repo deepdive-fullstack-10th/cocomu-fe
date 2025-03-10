@@ -1,18 +1,13 @@
 import { http, HttpResponse } from 'msw';
-import {
-  createErrorResponse,
-  createResponse,
-  spaceStartErrorResponse,
-  spaceStartResponse,
-  updateTestCaseErrorResponse,
-  updateTestCaseResponse,
-} from '@mocks/data/space';
+import { updateTestCaseErrorResponse, updateTestCaseResponse } from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
 import { joinSpaceErrorResponse, joinSpaceResponse } from '@mocks/data/space/joinSpaceData';
 import { getSpaceListErrorResponse, getSpaceListResponse } from '@mocks/data/space/getSpaceListData';
 import { enterSpaceErrorResponse, enterSpaceResponse } from '@mocks/data/space/enterSpaceData';
 import { getWaitingPageErrorResponse, getWaitingPageResponse } from '@mocks/data/space/getWaitingPageData';
+import { createSpaceErrorResponse, createSpaceResponse } from '@mocks/data/space/createSpaceData';
+import { startSpaceErrorResponse, startSpaceResponse } from '@mocks/data/space/startSpaceData';
 
 export const spaceHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.LIST(':studyId')}`, async ({ params }) => {
@@ -42,12 +37,12 @@ export const spaceHandlers = [
       !body.description ||
       !body.testcases
     ) {
-      return new HttpResponse(JSON.stringify(createErrorResponse), {
+      return new HttpResponse(JSON.stringify(createSpaceErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(createResponse), {
+    return new HttpResponse(JSON.stringify(createSpaceResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
@@ -94,17 +89,16 @@ export const spaceHandlers = [
     });
   }),
 
-  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.START(':codingSpaceId')}`, async ({ params, request }) => {
-    const body = await request.json();
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.START(':codingSpaceId')}`, async ({ params }) => {
     const { codingSpaceId } = params;
 
-    if (!body || !codingSpaceId) {
-      return new HttpResponse(JSON.stringify(spaceStartErrorResponse), {
+    if (!codingSpaceId) {
+      return new HttpResponse(JSON.stringify(startSpaceErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(spaceStartResponse), {
+    return new HttpResponse(JSON.stringify(startSpaceResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
