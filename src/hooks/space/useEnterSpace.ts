@@ -8,16 +8,16 @@ interface EnterSpaceResponse {
   status: SpaceStatusData;
 }
 
-export default function useEnterSpace(codingSpaceId: number) {
+export default function useEnterSpace(studyId: number, codingSpaceId: number) {
   const navigate = useNavigate();
 
   const mutation: UseMutationResult<EnterSpaceResponse, unknown, string> = useMutation({
     mutationFn: spaceApi.enter,
     onSuccess: ({ status }) => {
-      navigate(ROUTES.SPACE[status]({ codingSpaceId }), { replace: true });
+      navigate(ROUTES.SPACE[status]({ studyId, codingSpaceId }), { replace: true });
     },
     onError: () => {
-      navigate(-1);
+      navigate(ROUTES.STUDY.DETAIL({ studyId }));
     },
   });
 

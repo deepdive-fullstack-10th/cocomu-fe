@@ -13,7 +13,7 @@ export const PATH = {
   },
   SPACE: {
     CREATE: '/space/:studyId/create',
-    ENTER: '/space/:codingSpaceId',
+    ENTER: '/space/:studyId/:codingSpaceId',
     WAITING: 'wait',
     RUNNING: 'running',
     FEEDBACK: 'feedback',
@@ -41,15 +41,16 @@ export const ROUTES = {
   },
   SPACE: {
     CREATE: ({ studyId }: { studyId: number }) => generatePath(PATH.SPACE.CREATE, { studyId }),
-    ENTER: ({ codingSpaceId }: { codingSpaceId: number }) => generatePath(PATH.SPACE.ENTER, { codingSpaceId }),
-    WAITING: ({ codingSpaceId }: { codingSpaceId: number }) =>
-      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.WAITING}`, { codingSpaceId }),
-    RUNNING: ({ codingSpaceId }: { codingSpaceId: number }) =>
-      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.RUNNING}`, { codingSpaceId }),
-    FEEDBACK: ({ codingSpaceId }: { codingSpaceId: number }) =>
-      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FEEDBACK}`, { codingSpaceId }),
-    FINISH: ({ codingSpaceId }: { codingSpaceId: number }) =>
-      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FINISH}`, { codingSpaceId }),
+    ENTER: ({ studyId, codingSpaceId }: { studyId: number; codingSpaceId: number }) =>
+      generatePath(PATH.SPACE.ENTER, { studyId, codingSpaceId }),
+    WAITING: ({ studyId, codingSpaceId }: { studyId: number; codingSpaceId: number }) =>
+      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.WAITING}`, { studyId, codingSpaceId }),
+    RUNNING: ({ studyId, codingSpaceId }: { studyId: number; codingSpaceId: number }) =>
+      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.RUNNING}`, { studyId, codingSpaceId }),
+    FEEDBACK: ({ studyId, codingSpaceId }: { studyId: number; codingSpaceId: number }) =>
+      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FEEDBACK}`, { studyId, codingSpaceId }),
+    FINISH: ({ studyId, codingSpaceId }: { studyId: number; codingSpaceId: number }) =>
+      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FINISH}`, { studyId, codingSpaceId }),
   },
   MYPAGE: {
     DETAIL: ({ userId }: { userId: string }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
