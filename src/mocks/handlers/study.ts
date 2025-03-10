@@ -62,7 +62,7 @@ export const studyHandlers = [
   http.get(`${BASE_URL}${END_POINTS_V1.STUDY.MEMBER_LIST(':studyId')}`, async ({ params, request }) => {
     const { studyId } = params;
     const url = new URL(request.url);
-    const lastIndex = url.searchParams.get('lastIndex');
+    const lastNickname = url.searchParams.get('lastNickname');
     const responseData = getMemberResponse.result;
     const limit = 20;
 
@@ -73,11 +73,15 @@ export const studyHandlers = [
     }
 
     let studyMemberData = responseData;
-    if (lastIndex) {
-      const lastIndexNum = parseInt(lastIndex, 10);
-      studyMemberData = responseData.filter((member) => member.id > lastIndexNum);
+    if (lastNickname) {
+      studyMemberData = responseData.filter((member) => member.nickname.localeCompare(lastNickname) > 0);
+      studyMemberData = studyMemberData.sort((a, b) => a.nickname.localeCompare(b.nickname));
+    } else {
+      studyMemberData = studyMemberData.sort((a, b) => a.nickname.localeCompare(b.nickname));
     }
+
     const partialMemberData = studyMemberData.slice(0, limit);
+    console.log('데이터: ', partialMemberData);
     const partialMemberResponse = {
       ...getMemberResponse,
       result: partialMemberData,
