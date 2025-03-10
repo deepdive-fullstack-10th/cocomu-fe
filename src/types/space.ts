@@ -25,7 +25,7 @@ export interface SpaceData {
   currentUsers: UserRoleData[];
 }
 
-export interface SpaceFormData {
+export interface SpaceFormData extends Record<string, string | number[]> {
   totalUserCount: number[];
   timerTime: string;
   workbookUrl: string;
