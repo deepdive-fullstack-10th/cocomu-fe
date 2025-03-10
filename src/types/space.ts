@@ -25,7 +25,7 @@ export interface SpaceData {
   currentUsers: UserRoleData[];
 }
 
-export interface SpaceFormData extends Record<string, string | number[]> {
+export interface SpaceFormData {
   totalUserCount: number[];
   timerTime: string;
   workbookUrl: string;
@@ -61,7 +61,7 @@ export interface SpaceOutletProps {
   setCompleteTabs?: Dispatch<SetStateAction<Tab[]>>;
 }
 
-export interface CreateSpaceFormData extends Record<string, string | number> {
+export interface CreateSpaceFormData {
   name: string;
   timerTime: number;
   workbookUrl: string;
@@ -70,8 +70,7 @@ export interface CreateSpaceFormData extends Record<string, string | number> {
   description: string;
 }
 
-export interface CreateSpaceData {
+export interface CreateSpaceData extends CreateSpaceFormData {
   studyId: number;
-  codingSpace: CreateSpaceFormData;
   testCases: TestCaseIO[];
 }
