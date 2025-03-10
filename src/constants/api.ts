@@ -44,6 +44,7 @@ export const END_POINTS_V1 = {
     FEEDBACK: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/feedback`,
 
     TEST_CASE_UPDATE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/test-case`,
+    JOINED: (userId: string) => `${BASE_PATH_V1.CODING_SPACE}/me/${userId}`,
   },
 
   EXECUTOR: {
