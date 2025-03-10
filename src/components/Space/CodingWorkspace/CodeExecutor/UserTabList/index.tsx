@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UserData } from '@customTypes/user';
+import { ActiveTab } from '@customTypes/space';
 import { UserTabColor } from './UserTab/style';
 import UserTab from './UserTab';
 import S from './style';
@@ -7,12 +7,12 @@ import S from './style';
 const tabColors: UserTabColor[] = ['primary', 'secondary', 'analogous', 'triadic'];
 
 interface UserTabListProps {
-  users: UserData[];
+  tabs: ActiveTab[];
   selectUser?: (userId: number) => void;
 }
 
-export default function UserTabList({ users, selectUser }: UserTabListProps) {
-  const [selectedUserId, setSelectedUserId] = useState<number>(users[0]?.id);
+export default function UserTabList({ tabs, selectUser }: UserTabListProps) {
+  const [selectedUserId, setSelectedUserId] = useState<number>(tabs[0]?.userId);
 
   const handleUserClick = (userId: number) => {
     setSelectedUserId(userId);
@@ -21,13 +21,13 @@ export default function UserTabList({ users, selectUser }: UserTabListProps) {
 
   return (
     <S.Container>
-      {users.map((user, index) => (
+      {tabs.map((tab, index) => (
         <UserTab
-          key={user.id}
+          key={tab.tabId}
           color={tabColors[index % tabColors.length]}
-          name={user.nickname}
-          isSelected={user.id === selectedUserId}
-          onClick={() => handleUserClick(user.id)}
+          name={tab.nickname}
+          isSelected={tab.userId === selectedUserId}
+          onClick={() => handleUserClick(tab.userId)}
         />
       ))}
     </S.Container>
