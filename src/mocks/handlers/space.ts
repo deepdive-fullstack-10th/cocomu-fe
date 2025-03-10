@@ -1,5 +1,10 @@
 import { http, HttpResponse } from 'msw';
-import { updateTestCaseErrorResponse, updateTestCaseResponse } from '@mocks/data/space';
+import {
+  completeSpaceErrorResponse,
+  completeSpaceResponse,
+  updateTestCaseErrorResponse,
+  updateTestCaseResponse,
+} from '@mocks/data/space';
 import { BASE_URL, END_POINTS_V1, HTTP_STATUS_CODE } from '@constants/api';
 import { CreateSpaceData, TestCaseIO } from '@customTypes/space';
 import { joinSpaceErrorResponse, joinSpaceResponse } from '@mocks/data/space/joinSpaceData';
@@ -131,7 +136,7 @@ export const spaceHandlers = [
     const url = new URL(request.url);
     const lastId = parseInt(url.searchParams.get('lastId'), 10) || 0;
     const limit = 20;
-    const totalSpaceData = getSpaceListResponse.result;
+    const totalSpaceData = getSpaceListResponse.result.codingSpaces;
 
     let filteredData = totalSpaceData;
     if (lastId) {
@@ -150,7 +155,7 @@ export const spaceHandlers = [
     });
   }),
 
-  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.COMPLETE(':codingSpaceId')}`, async ({ params, request }) => {
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.FINISH(':codingSpaceId')}`, async ({ params, request }) => {
     const body = await request.json();
     const { codingSpaceId } = params;
 
