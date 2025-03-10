@@ -53,7 +53,7 @@ export const ROUTES = {
       generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FINISH}`, { studyId, codingSpaceId }),
   },
   MYPAGE: {
-    DETAIL: ({ userId }: { userId: string }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
-    SPACE: ({ userId }: { userId: string }) => generatePath(`${PATH.MYPAGE.DETAIL}/${PATH.MYPAGE.SPACE}`, { userId }),
+    DETAIL: ({ userId }: { userId: number }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
+    SPACE: ({ userId }: { userId: number }) => generatePath(`${PATH.MYPAGE.DETAIL}/${PATH.MYPAGE.SPACE}`, { userId }),
   },
 };

@@ -32,7 +32,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
 
   const handleItemSelect = (selectedItem: string) => {
     if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
-      navigate(ROUTES.MYPAGE({ userId: user.id }));
+      navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
     } else if (selectedItem === NAVBAR_DROPDOWN_LABELS[1].label) {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
       window.location.href = ROUTES.ROOT();
