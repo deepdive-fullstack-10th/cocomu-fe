@@ -4,12 +4,12 @@ const SliderWrapper = styled.div`
   position: relative;
 
   width: 100%;
+
   text-align: center;
 `;
 
 const Slides = styled.div`
   width: 100%;
-
   display: flex;
   transition: transform 0.2s ease;
 
