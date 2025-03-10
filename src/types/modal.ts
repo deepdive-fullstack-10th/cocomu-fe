@@ -4,6 +4,7 @@ import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
 import TestCase from '@components/Modal/TestCase';
 import LeaveModal from '@components/Modal/Leave';
+import DeleteModal from '@components/Modal/Delete';
 import { TestCaseData } from './space';
 
 export interface WaitingProps {
@@ -46,6 +47,13 @@ export interface LeaveProps {
   onClose?: () => void;
 }
 
+export interface DeleteProps {
+  studyId?: string;
+  name?: string;
+  navigate?: () => void;
+  onClose?: () => void;
+}
+
 interface ModalConfig<T> {
   Component: React.FC<T>;
   disableOutsideClick?: boolean;
@@ -58,6 +66,7 @@ export const MODAL_COMPONENTS: {
   testCase: ModalConfig<TestCaseProps>;
   login: ModalConfig<LoginProps>;
   leave: ModalConfig<LeaveProps>;
+  delete: ModalConfig<DeleteProps>;
 } = {
   waiting: { Component: Waiting, disableOutsideClick: true },
   confirm: { Component: ConfirmModal },
@@ -65,4 +74,5 @@ export const MODAL_COMPONENTS: {
   testCase: { Component: TestCase },
   login: { Component: Login },
   leave: { Component: LeaveModal },
+  delete: { Component: DeleteModal },
 };

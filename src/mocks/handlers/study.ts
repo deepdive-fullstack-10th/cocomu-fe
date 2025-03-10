@@ -19,6 +19,7 @@ import {
 } from '@mocks/data/study/joinStudyData';
 import { getStudyDetailErrorResponse, getStudyDetailResponse } from '@mocks/data/study/getStudyDetailData';
 import { leaveStudyErrorResponse, leaveStudyResponse } from '@mocks/data/study/leaveStudyData';
+import { deleteStudyErrorResponse, deleteStudyResponse } from '@mocks/data/study/deleteStudyData';
 
 export const studyHandlers = [
   http.get(
@@ -160,6 +161,20 @@ export const studyHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(leaveStudyResponse), {
+      status: HTTP_STATUS_CODE.SUCCESS,
+    });
+  }),
+
+  http.delete(`${BASE_URL}${END_POINTS_V1.STUDY.DELETE(':studyId')}`, async ({ params }) => {
+    const { studyId } = params;
+
+    if (!studyId) {
+      return new HttpResponse(JSON.stringify(deleteStudyErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(deleteStudyResponse), {
       status: HTTP_STATUS_CODE.SUCCESS,
     });
   }),
