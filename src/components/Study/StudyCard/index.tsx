@@ -31,10 +31,10 @@ export default function StudyCard({
 
   const handleCardClick = () => {
     if (joinable) {
-      navigate(ROUTES.STUDY.DETAIL({ studyId: id }));
-    } else {
       navigate(ROUTES.STUDY.PARTICIPATION({ studyId: id }));
+      return;
     }
+    navigate(ROUTES.STUDY.DETAIL({ studyId: id }));
   };
 
   return (
