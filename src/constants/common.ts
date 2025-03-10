@@ -99,7 +99,7 @@ export const STEP_INFO = {
     label: '대기',
     color: 'secondary',
   },
-  IN_PROGRESS: {
+  RUNNING: {
     label: '진행',
     color: 'analogous',
   },
@@ -107,7 +107,7 @@ export const STEP_INFO = {
     label: '피드백',
     color: 'primary',
   },
-  COMPLETED: {
+  FINISH: {
     label: '종료',
     color: 'triadic',
   },
