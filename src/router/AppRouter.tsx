@@ -23,8 +23,8 @@ const MySpace = lazy(() => import('@pages/MyPage/MySpace'));
 
 const OAuthCallback = lazy(() => import('@pages/OAuthCallback'));
 
-const SpaceDetail = lazy(() => import('@pages/Space/SpaceDetail'));
 const SpaceCreate = lazy(() => import('@pages/Space/SpaceCreate'));
+const SpaceEnter = lazy(() => import('@pages/Space/SpaceEnter'));
 const SpaceWaiting = lazy(() => import('@pages/Space/SpaceWaiting'));
 const SpaceRunning = lazy(() => import('@pages/Space/SpaceRunning'));
 const SpaceFeedback = lazy(() => import('@pages/Space/SpaceFeedback'));
@@ -67,16 +67,17 @@ const router = createBrowserRouter(
             },
             { path: PATH.OAUTH, element: <OAuthCallback /> },
             { path: PATH.SPACE.CREATE, element: <SpaceCreate /> },
+            { path: PATH.SPACE.ENTER, element: <SpaceEnter /> },
           ],
         },
         {
-          path: PATH.SPACE.DETAIL,
-          element: <SpaceDetail />,
+          path: PATH.SPACE.ENTER,
+          element: <SpaceEnter />,
           children: [
-            { index: true, element: <SpaceFinish /> },
             { path: PATH.SPACE.WAITING, element: <SpaceWaiting /> },
             { path: PATH.SPACE.RUNNING, element: <SpaceRunning /> },
             { path: PATH.SPACE.FEEDBACK, element: <SpaceFeedback /> },
+            { path: PATH.SPACE.FINISH, element: <SpaceFinish /> },
           ],
         },
       ],
