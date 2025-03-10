@@ -42,6 +42,7 @@ export interface TestCaseProps {
 export interface LeaveProps {
   studyId?: string;
   name?: string;
+  navigate?: () => void;
   onClose?: () => void;
 }
 
