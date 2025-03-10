@@ -25,7 +25,7 @@ export default function MemberList() {
           successCount={user.successCount}
           failedCount={user.failedCount}
           joinedDate={user.joinedDate}
-          nickName={user.nickName}
+          nickname={user.nickname}
           profileImageUrl={user.profileImageUrl}
         />
       ))}
