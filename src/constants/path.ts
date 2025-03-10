@@ -21,7 +21,6 @@ export const PATH = {
   },
   MYPAGE: {
     DETAIL: '/mypage/:userId',
-    STUDY: '',
     SPACE: 'space',
   },
   OAUTH: '/callback/:provider',
@@ -50,7 +49,6 @@ export const ROUTES = {
   },
   MYPAGE: {
     DETAIL: ({ userId }: { userId: string }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
-    STUDY: ({ userId }: { userId: string }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
     SPACE: ({ userId }: { userId: string }) => generatePath(`${PATH.MYPAGE.DETAIL}/${PATH.MYPAGE.SPACE}`, { userId }),
   },
 };
