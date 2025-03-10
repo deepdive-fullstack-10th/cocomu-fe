@@ -24,7 +24,7 @@ interface DescriptionHeaderProps {
 export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }: DescriptionHeaderProps) {
   const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const { open, close } = useModalStore();
+  const { open } = useModalStore();
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
@@ -41,8 +41,7 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }
     open('leave', {
       studyId: String(studyId),
       name: leader.nickname,
-      onClose: close,
-      navigateToStudyList: () => navigate(ROUTES.STUDY.LIST()),
+      navigate: () => navigate(ROUTES.STUDY.LIST()),
     });
   };
 
