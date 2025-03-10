@@ -1,5 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import {
+  completeSpaceErrorResponse,
+  completeSpaceResponse,
   createErrorResponse,
   createResponse,
   spaceStartErrorResponse,
@@ -98,7 +100,7 @@ export const spaceHandlers = [
     const url = new URL(request.url);
     const lastId = parseInt(url.searchParams.get('lastId'), 10) || 0;
     const limit = 20;
-    const totalSpaceData = getSpaceListResponse.result;
+    const totalSpaceData = getSpaceListResponse.result.codingSpaces;
 
     let filteredData = totalSpaceData;
     if (lastId) {
@@ -117,7 +119,7 @@ export const spaceHandlers = [
     });
   }),
 
-  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.COMPLETE(':codingSpaceId')}`, async ({ params, request }) => {
+  http.post(`${BASE_URL}${END_POINTS_V1.CODING_SPACE.FINISH(':codingSpaceId')}`, async ({ params, request }) => {
     const body = await request.json();
     const { codingSpaceId } = params;
 

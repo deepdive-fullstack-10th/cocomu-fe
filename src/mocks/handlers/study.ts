@@ -18,6 +18,7 @@ import {
   joinPublicStudyResponse,
 } from '@mocks/data/study/joinStudyData';
 import { getStudyDetailErrorResponse, getStudyDetailResponse } from '@mocks/data/study/getStudyDetailData';
+import { getMemberErrorResponse, getMemberResponse } from '@mocks/data/study/getStudyMemberListData';
 
 export const studyHandlers = [
   http.get(
@@ -60,11 +61,11 @@ export const studyHandlers = [
     const { studyId } = params;
     const url = new URL(request.url);
     const lastIndex = url.searchParams.get('lastIndex');
-    const responseData = getMemeberResponse.result;
+    const responseData = getMemberResponse.result;
     const limit = 20;
 
     if (!studyId) {
-      return new HttpResponse(JSON.stringify(getMemeberErrorResponse), {
+      return new HttpResponse(JSON.stringify(getMemberErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
