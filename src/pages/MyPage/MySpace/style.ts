@@ -21,9 +21,15 @@ const SpaceListContainer = styled.div`
   }
 `;
 
+const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const S = {
   Container,
   SpaceListContainer,
+  Footer,
 };
 
 export default S;
