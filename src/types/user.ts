@@ -9,7 +9,8 @@ export interface UserRoleData extends UserData {
 }
 
 export interface UserDetailData extends UserData {
-  successCount: number;
-  failedCount: number;
+  /* successCount: number;
+  failedCount: number; */
+  role: string;
   joinedDate: string;
 }

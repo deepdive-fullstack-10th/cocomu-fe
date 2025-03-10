@@ -3,27 +3,24 @@ import { extendData } from '@utils/extendData';
 const memberData = [
   {
     id: 1,
-    nickName: '으뜸이',
+    nickname: '코코무',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-    successCount: '32',
-    failedCount: '3',
-    JoinedDate: '2025-02-01T13:20:50.197Z',
+    role: 'LEADER',
+    joinedDate: '2025-03-10T10:33:25.488Z',
   },
   {
     id: 2,
-    nickName: '새싹이',
+    nickname: '김호씨',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-    successCount: '32',
-    failedCount: '3',
-    JoinedDate: '2025-02-01T13:20:50.197Z',
+    role: 'LEADER',
+    joinedDate: '2025-03-10T10:33:25.488Z',
   },
   {
     id: 3,
-    nickName: '몽몽이',
+    nickname: '무코코',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-    successCount: '32',
-    failedCount: '3',
-    JoinedDate: '2025-02-01T13:20:50.197Z',
+    role: 'LEADER',
+    joinedDate: '2025-03-10T10:33:25.488Z',
   },
 ];
 

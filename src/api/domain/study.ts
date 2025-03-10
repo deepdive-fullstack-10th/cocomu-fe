@@ -1,6 +1,7 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
 import { CreateStudyData, EditStudyData, GetListData } from '@customTypes/study';
+import { UserDetailData } from '@customTypes/user';
 
 const studyApi = {
   getDetail: async (studyId: string) => {
@@ -67,11 +68,13 @@ const studyApi = {
     return data.result;
   },
 
-  getMember: async (studyId: string, lastId = null) => {
+  getMember: async (studyId: string, lastNickname: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.MEMBER_LIST(studyId), {
       params: {
-        lastIndex: lastId,
+        lastNickname,
       },
+      useAuth: false,
+      withCredentials: false,
     });
 
     return data.result;
