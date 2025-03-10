@@ -10,7 +10,7 @@ const memberData = [
   },
   {
     id: 2,
-    nickname: '김호씨',
+    nickname: '김범조',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     role: 'LEADER',
     joinedDate: '2025-03-10T10:33:25.488Z',

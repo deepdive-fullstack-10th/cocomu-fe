@@ -13,7 +13,7 @@ export default function useGetMemberList({ studyId }: useGetMemberListProps) {
     initialPageParam: null,
     getNextPageParam: (lastPage) => {
       if (!lastPage.length) return null;
-      return lastPage[lastPage.length - 1].id + 1;
+      return lastPage[lastPage.length - 1].nickname;
     },
     staleTime: 1000 * 60 * 3,
   });

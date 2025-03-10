@@ -78,7 +78,9 @@ export const studyHandlers = [
       studyMemberData = studyMemberData.sort((a, b) => a.nickname.localeCompare(b.nickname));
     }
 
-    const partialMemberData = studyMemberData.slice(0, limit);
+    const startIndex = 0;
+    const partialMemberData = studyMemberData.slice(startIndex, limit);
+
     console.log('데이터: ', partialMemberData);
     const partialMemberResponse = {
       ...getMemberResponse,
