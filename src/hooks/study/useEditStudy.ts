@@ -14,7 +14,7 @@ export default function useEditStudy() {
       studyApi.edit(studyId, editStudyData),
     onSuccess: (studyId) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId] });
-      navigate(ROUTES.STUDY.DETAIL({ studyId }));
+      navigate(ROUTES.STUDY.DETAIL({ studyId }), { replace: true });
     },
   });
 
