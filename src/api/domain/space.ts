@@ -12,6 +12,30 @@ const spaceApi = {
     return data.result;
   },
 
+  getWaitingPage: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.WAITING_PAGE(codingSpaceId));
+
+    return data.result;
+  },
+
+  getStartingPage: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.STARTING_PAGE(codingSpaceId));
+
+    return data.result;
+  },
+
+  getFinishPage: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.FINISH_PAGE(codingSpaceId));
+
+    return data.result;
+  },
+
+  getFeedbackPage: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.FEEDBACK_PAGE(codingSpaceId));
+
+    return data.result;
+  },
+
   create: async (createSpaceData: CreateSpaceData) => {
     const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.CREATE, createSpaceData);
 
