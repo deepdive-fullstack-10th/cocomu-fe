@@ -11,9 +11,9 @@ import S from './style';
 
 interface SpaceFooterProps {
   codingSpaceId: string;
-  isEditable: boolean;
+  isEditable?: boolean;
   testCases: TestCaseData;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export default function SpaceFooter({ codingSpaceId, isEditable, testCases, children }: SpaceFooterProps) {
