@@ -1,33 +1,20 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import studyApi from '@api/domain/study';
-import { useMemo } from 'react';
+import QUERY_KEYS from '@constants/queryKeys';
 
-export default function useGetMemberList(studyId: string) {
-  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['memberList', studyId],
-    queryFn: async ({ pageParam }) => {
-      const response = await studyApi.getMember(studyId, pageParam);
-      return response;
-    },
+interface useGetMemberListProps {
+  studyId: string;
+}
+
+export default function useGetMemberList({ studyId }: useGetMemberListProps) {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.MEMBER_LIST, studyId],
+    queryFn: ({ pageParam = null }) => studyApi.getMember(studyId, pageParam),
     initialPageParam: null,
     getNextPageParam: (lastPage) => {
-      if (lastPage.length === 0) return undefined;
+      if (!lastPage.length) return null;
       return lastPage[lastPage.length - 1].id + 1;
     },
-    enabled: !!studyId,
-    staleTime: 1000 * 60,
+    staleTime: 1000 * 60 * 3,
   });
-
-  const userList = useMemo(() => {
-    if (!data?.pages) return [];
-    return data.pages.flat();
-  }, [data]);
-
-  return {
-    userList,
-    isLoading,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  };
 }
