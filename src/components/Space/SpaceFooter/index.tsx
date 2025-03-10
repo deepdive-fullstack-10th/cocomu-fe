@@ -1,27 +1,28 @@
+import { ReactNode } from 'react';
 import { BsPlus } from 'react-icons/bs';
-import IconButton from '@components/_common/atoms/IconButton';
-import Button from '@components/_common/atoms/Button';
-import { FOOTER_ACTIONS, STATUS } from '@constants/space';
+
 import { TestCaseData } from '@customTypes/space';
+
 import { useModalStore } from '@stores/useModalStore';
+
+import IconButton from '@components/_common/atoms/IconButton';
+
 import S from './style';
 
 interface SpaceFooterProps {
   codingSpaceId: string;
-  status: keyof typeof FOOTER_ACTIONS;
+  isEditable: boolean;
   testCases: TestCaseData;
-  onCodeRun?: () => void;
-  onCodeSubmit?: () => void;
+  children: ReactNode;
 }
 
-export default function SpaceFooter({ codingSpaceId, status, testCases, onCodeRun, onCodeSubmit }: SpaceFooterProps) {
+export default function SpaceFooter({ codingSpaceId, isEditable, testCases, children }: SpaceFooterProps) {
   const { open } = useModalStore();
-  const { testCaseLabel, isTestCaseEditable, showRun, showSubmit } = FOOTER_ACTIONS[status];
 
   const handleOpenTestCase = () => {
     open('testCase', {
       codingSpaceId,
-      isEditable: isTestCaseEditable,
+      isEditable,
       testCases,
     });
   };
@@ -30,35 +31,16 @@ export default function SpaceFooter({ codingSpaceId, status, testCases, onCodeRu
     <S.Container>
       <S.TestCaseButton>
         <IconButton
-          content={testCaseLabel}
+          content={isEditable ? '테스트 케이스 추가하기' : '테스트 케이스 확인하기'}
           align='center'
           shape='round'
           onClick={handleOpenTestCase}
         >
-          {(status === STATUS.RUNNING || status === STATUS.FEEDBACK) && <BsPlus />}
+          {isEditable && <BsPlus />}
         </IconButton>
       </S.TestCaseButton>
 
-      {showRun && (
-        <S.ButtonWrapper>
-          <Button
-            size='md'
-            color='analogous'
-            onClick={onCodeRun}
-          >
-            코드 실행
-          </Button>
-          {showSubmit && (
-            <Button
-              size='md'
-              color='primary'
-              onClick={onCodeSubmit}
-            >
-              제출하기
-            </Button>
-          )}
-        </S.ButtonWrapper>
-      )}
+      {children}
     </S.Container>
   );
 }
