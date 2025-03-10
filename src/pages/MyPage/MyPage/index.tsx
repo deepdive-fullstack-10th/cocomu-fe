@@ -2,7 +2,7 @@ import UserProfile from '@components/_common/molecules/UserProfile';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { useEffect, useState } from 'react';
 import Button from '@components/_common/atoms/Button';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '@constants/path';
 import { MYPAGE_TAB } from '@constants/common';
 import { UserData } from '@customTypes/user';
@@ -13,16 +13,23 @@ export default function MyPage() {
     id: 1,
     nickname: '코코무',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-  };
+  }; // 더미 데이터
 
-  const [selectedTab, setSelectedTab] = useState<(typeof MYPAGE_TAB)[number]>(MYPAGE_TAB[0]);
-  const [visibleCancel, setVisibleCancel] = useState<boolean>(false);
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const getTabFromPath = () => {
+    if (location.pathname.includes('/space')) return MYPAGE_TAB[1];
+    return MYPAGE_TAB[0];
+  };
+  const [selectedTab, setSelectedTab] = useState<(typeof MYPAGE_TAB)[number]>(getTabFromPath());
+  const [visibleCancel, setVisibleCancel] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSelectedTab(getTabFromPath());
+  }, [location.pathname]);
 
   const handleNavigation = (tab: (typeof MYPAGE_TAB)[number]) => {
-    if (!userId) return;
-
     if (tab === MYPAGE_TAB[0]) {
       navigate(ROUTES.MYPAGE.DETAIL({ userId }));
     }
@@ -39,10 +46,6 @@ export default function MyPage() {
   const handleCancelEdit = () => {
     /* todo: 입력된 데이터 -> '' 변경 */
   };
-
-  useEffect(() => {
-    handleNavigation(selectedTab);
-  }, [selectedTab]);
 
   return (
     <>
@@ -78,7 +81,7 @@ export default function MyPage() {
       <TabMenu
         tabs={MYPAGE_TAB}
         selectedTab={selectedTab}
-        onTabChange={setSelectedTab}
+        onTabChange={handleNavigation}
       />
       <Outlet />
     </>
