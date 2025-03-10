@@ -15,6 +15,5 @@ export default function useGetSpaceList({ userId }: UseGetSpaceListProps) {
       if (!lastPage?.codingSpaces.length) return null;
       return lastPage.lastId ?? null;
     },
-    staleTime: 1000 * 60 * 3,
   });
 }
