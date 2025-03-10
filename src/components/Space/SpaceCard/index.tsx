@@ -1,11 +1,24 @@
+import { useNavigate } from 'react-router-dom';
+
+import { useModalStore } from '@stores/useModalStore';
+
+import { STEP_INFO } from '@constants/common';
+import { ROUTES } from '@constants/path';
+
+import { formatDate } from '@utils/formatDate';
+
+import { SpaceData } from '@customTypes/space';
+
 import UserProfile from '@components/_common/molecules/UserProfile';
+import AvatarGroup from '@components/_common/molecules/AvatarGroup';
 import ImageTag from '@components/_common/atoms/ImageTag';
 import Tag from '@components/_common/atoms/Tag';
-import AvatarGroup from '@components/_common/molecules/AvatarGroup';
-import { STEP_INFO } from '@constants/common';
-import { formatDate } from '@utils/formatDate';
-import { SpaceData } from '@customTypes/space';
+
 import S from './style';
+
+interface SpaceCardProps extends SpaceData {
+  studyId: number;
+}
 
 export default function SpaceCard({
   id,
@@ -16,11 +29,25 @@ export default function SpaceCard({
   createdAt,
   status,
   currentUsers,
-}: SpaceData) {
+  studyId,
+}: SpaceCardProps) {
+  const navigate = useNavigate();
+  const { open } = useModalStore();
   const { label, color } = STEP_INFO[status];
 
   const handleCardClick = () => {
-    // id 사용해서 상세페이지로 이동 (joinedMe 조건)
+    if (joinedMe) {
+      navigate(ROUTES.SPACE.ENTER({ codingSpaceId: id }));
+      return;
+    }
+
+    open('confirm', {
+      isSpace: true,
+      studyId,
+      codingSpaceId: id,
+      name,
+      navigate: (codingSpaceId: number) => navigate(ROUTES.SPACE.ENTER({ codingSpaceId })),
+    });
   };
 
   const leader = currentUsers
