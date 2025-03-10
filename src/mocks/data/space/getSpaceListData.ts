@@ -59,7 +59,7 @@ export const getSpaceListResponse = {
         currentUserCount: 1,
         totalUserCount: 4,
         createdAt: '2025-03-09T03:04:54.654631',
-        status: 'WAITING',
+        status: 'FEEDBACK',
         currentUsers: [
           {
             id: 3,
