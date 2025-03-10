@@ -20,7 +20,7 @@ import { SpaceFormData, TestCaseIO } from '@customTypes/space';
 import InputField from '@components/_common/molecules/InputField';
 import InputDropdown from '@components/_common/molecules/InputDropdown';
 import TimeInputField from '@components/_common/molecules/TimeInputField';
-import TestCase from '@components/_common/molecules/TestCaseList';
+import TestCaseList from '@components/_common/molecules/TestCaseList';
 import StepHeader from '@components/_common/molecules/StepHeader';
 import TextEditor from '@components/_common/atoms/TextEditor';
 import Button from '@components/_common/atoms/Button';
@@ -54,15 +54,17 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
   });
 
   const handleAddTestCase = () => {
-    setLocalTestCases((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
+    setLocalTestCases((prevList) => [...prevList, { testCaseId: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
   };
 
   const handleRemoveTestCase = (id: string | number) => {
-    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.id !== id));
+    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
   };
 
   const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
-    setLocalTestCases((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
+    setLocalTestCases((prevList) =>
+      prevList.map((item) => (item.testCaseId === id ? { ...item, [field]: value } : item)),
+    );
   };
 
   const handleSubmit: React.FormEventHandler = (e) => {
@@ -136,7 +138,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
         />
       </S.Section>
 
-      <TestCase
+      <TestCaseList
         testCases={localTestCases}
         handleInputChange={handleInputChange}
         handleRemoveTestCase={handleRemoveTestCase}
