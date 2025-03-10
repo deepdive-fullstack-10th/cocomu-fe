@@ -3,13 +3,13 @@ import { ROUTES } from '@constants/path';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-export default function useCreateSpace() {
+export default function useCreateSpace(studyId: number) {
   const navigate = useNavigate();
 
   const createSpaceMutate = useMutation({
     mutationFn: spaceApi.create,
-    onSuccess: ({ codingSpaceId }) => {
-      navigate(ROUTES.SPACE.DETAIL({ codingSpaceId }));
+    onSuccess: () => {
+      navigate(ROUTES.STUDY.DETAIL({ studyId }), { replace: true });
     },
   });
 

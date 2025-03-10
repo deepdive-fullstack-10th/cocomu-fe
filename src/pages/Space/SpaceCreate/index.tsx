@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 export default function SpaceCreate() {
   const { studyId } = useParams<{ studyId: string }>();
-  const { createSpaceMutate } = useCreateSpace();
+  const { createSpaceMutate } = useCreateSpace(Number(studyId));
 
   const handleSubmit = (spaceFormData: SpaceFormData, testCases: TestCaseIO[]) => {
     const createSpaceData: CreateSpaceData = {
