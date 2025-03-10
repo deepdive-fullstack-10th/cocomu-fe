@@ -13,6 +13,10 @@ export default function ProfileImage({
   upload = false,
   border = false,
 }: ProfileImageProps) {
+  const handleUploadClick = () => {
+    /* todo: 업로드 버튼 클릭 시 이벤트 함수 */
+  };
+
   return (
     <S.ProfileImageContainer
       size={size}
@@ -23,7 +27,10 @@ export default function ProfileImage({
         alt='유저 프로필 이미지'
       />
       {upload && (
-        <S.UploadButton size={size}>
+        <S.UploadButton
+          size={size}
+          onClick={handleUploadClick}
+        >
           <Icon
             size='md'
             color='50'
