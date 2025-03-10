@@ -4,7 +4,8 @@ const SliderWrapper = styled.div`
   position: relative;
 
   width: 100%;
-
+  border-radius: 3rem;
+  overflow: hidden;
   text-align: center;
 `;
 
@@ -20,8 +21,7 @@ const Slides = styled.div`
 
 const SlideImage = styled.img`
   width: 100%;
-  height: auto;
-
+  aspect-ratio: 4/1.1;
   border-radius: 3rem;
 
   object-fit: cover;
