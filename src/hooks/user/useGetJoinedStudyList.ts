@@ -15,6 +15,5 @@ export default function useGetStudyList({ userId }: UseGetSpaceListProps) {
       if (!lastPage?.studies.length) return null;
       return lastPage.lastId ?? null;
     },
-    staleTime: 1000 * 60 * 3,
   });
 }

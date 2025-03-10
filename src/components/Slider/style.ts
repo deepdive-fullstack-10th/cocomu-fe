@@ -21,7 +21,6 @@ const Slides = styled.div`
 
 const SlideImage = styled.img`
   width: 100%;
-  aspect-ratio: 4/1.1;
   border-radius: 3rem;
 
   object-fit: cover;
