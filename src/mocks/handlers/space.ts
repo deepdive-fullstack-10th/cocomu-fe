@@ -142,7 +142,7 @@ export const spaceHandlers = [
     if (lastId) {
       filteredData = totalSpaceData.filter((item) => item.id > lastId);
     }
-
+    console.log('핸들러 데이터: ', filteredData);
     const partialSpaceData = filteredData.slice(0, limit);
 
     const response = {
