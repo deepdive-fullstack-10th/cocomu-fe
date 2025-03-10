@@ -8,11 +8,11 @@ export const extendData = <T extends { id: number }>(data: T[], targetCount: num
 
   let lastId = Math.max(...mockingData.map((item) => item.id));
 
-  for (let i = 0; i < needCount; i += 1) {
+  for (let i = 1; i < needCount; i += 1) {
     const template = mockingData[i % mockingData.length];
 
     lastId += 1;
-    const newItem = { ...template, id: lastId };
+    const newItem = { ...template, id: lastId, nickname: `유저${lastId}`, role: '스터디원' };
 
     mockingData.push(newItem);
   }
