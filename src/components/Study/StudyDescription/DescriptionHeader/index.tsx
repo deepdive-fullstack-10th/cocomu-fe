@@ -41,7 +41,7 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }
     open('leave', {
       studyId: String(studyId),
       name: leader.nickname,
-      navigate: () => navigate(ROUTES.STUDY.LIST()),
+      navigate: () => navigate(ROUTES.ROOT()),
     });
   };
 
