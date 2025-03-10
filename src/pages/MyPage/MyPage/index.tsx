@@ -1,26 +1,19 @@
 import UserProfile from '@components/_common/molecules/UserProfile';
-import { UserData } from '@customTypes/user';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { useEffect, useState } from 'react';
 import Button from '@components/_common/atoms/Button';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '@constants/path';
+import { MYPAGE_TAB } from '@constants/common';
+import { UserData } from '@customTypes/user';
 import S from './style';
 
-const user: UserData = {
-  id: 1,
-  nickname: '홍길동',
-  profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-};
-
-const user2: UserData = {
-  id: 2,
-  nickname: '새싹이',
-  profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-};
-
 export default function MyPage() {
-  const MYPAGE_TAB = ['참여한 스터디 보기', '참여한 코딩 스페이스 보기'] as const;
+  const tempUser: UserData = {
+    id: 1,
+    nickname: '코코무',
+    profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
+  };
 
   const [selectedTab, setSelectedTab] = useState<(typeof MYPAGE_TAB)[number]>(MYPAGE_TAB[0]);
   const [visibleCancel, setVisibleCancel] = useState<boolean>(false);
@@ -44,7 +37,7 @@ export default function MyPage() {
   };
 
   const handleCancelEdit = () => {
-    /* todo: onChange -> '' 변경 */
+    /* todo: 입력된 데이터 -> '' 변경 */
   };
 
   useEffect(() => {
@@ -55,7 +48,7 @@ export default function MyPage() {
     <>
       <S.HeaderContainer>
         <UserProfile
-          user={user}
+          user={tempUser}
           size='lg'
           upload
         />
