@@ -15,6 +15,14 @@ const userApi = {
 
     return data.result;
   },
+
+  getStudyList: async (userId: string, lastId: string | null) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.STUDY.JOINED(userId), {
+      params: { lastId },
+    });
+
+    return data.result;
+  },
 };
 
 export default userApi;

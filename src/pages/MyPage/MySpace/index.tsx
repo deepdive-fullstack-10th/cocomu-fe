@@ -51,7 +51,11 @@ export default function MySpace() {
         />
       )}
 
-      {isFetchingNextPage && <LoadingSpinner />}
+      {isFetchingNextPage && (
+        <S.Footer>
+          <LoadingSpinner />
+        </S.Footer>
+      )}
     </S.Container>
   );
 }

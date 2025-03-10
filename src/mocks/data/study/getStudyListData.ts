@@ -238,5 +238,11 @@ export const getStudyListResponse = {
         },
       },
     ],
+    lastId: 1,
   },
+};
+
+export const getStudyListErrorResponse = {
+  code: 4200,
+  message: '코딩 스페이스 목록 조회에 실패했습니다.',
 };
