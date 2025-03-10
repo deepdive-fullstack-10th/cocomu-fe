@@ -4,11 +4,11 @@ import { TestCaseProps } from '@customTypes/modal';
 import Button from '@components/_common/atoms/Button';
 import { BsX } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
-import TestCase from '@components/_common/molecules/TestCase';
+import TestCaseList from '@components/_common/molecules/TestCaseList';
 import useUpdateTestCase from '@hooks/space/useUpdateTestCase';
 import S from './style';
 
-export default function TestCaseModal({ codingSpaceId, isEditable, testCases, onClose }: TestCaseProps) {
+export default function TestCase({ codingSpaceId, isEditable, testCases, onClose }: TestCaseProps) {
   const [localTestCases, setLocalTestCases] = useState(testCases);
   const { updateTestCaseMutate } = useUpdateTestCase();
 
@@ -17,11 +17,13 @@ export default function TestCaseModal({ codingSpaceId, isEditable, testCases, on
   };
 
   const handleRemoveTestCase = (id: string | number) => {
-    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.id !== id));
+    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
   };
 
   const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
-    setLocalTestCases((prevList) => prevList.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
+    setLocalTestCases((prevList) =>
+      prevList.map((item) => (item.testCaseId === id ? { ...item, [field]: value } : item)),
+    );
   };
 
   const handleUpdate = () => {
@@ -44,7 +46,7 @@ export default function TestCaseModal({ codingSpaceId, isEditable, testCases, on
       </S.Header>
 
       <S.Body>
-        <TestCase
+        <TestCaseList
           testCases={localTestCases}
           handleInputChange={handleInputChange}
           handleRemoveTestCase={handleRemoveTestCase}

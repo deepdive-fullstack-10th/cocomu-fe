@@ -2,7 +2,7 @@ import ConfirmModal from '@components/Modal/Confirm';
 import Login from '@components/Modal/Login';
 import PasswordInput from '@components/Modal/PasswordInput';
 import Waiting from '@components/Modal/Waiting';
-import TestCaseModal from '@components/Modal/TestCase';
+import TestCase from '@components/Modal/TestCase';
 import LeaveModal from '@components/Modal/Leave';
 import { TestCaseData } from './space';
 
@@ -62,7 +62,7 @@ export const MODAL_COMPONENTS: {
   waiting: { Component: Waiting, disableOutsideClick: true },
   confirm: { Component: ConfirmModal },
   passwordInput: { Component: PasswordInput },
-  testCase: { Component: TestCaseModal },
+  testCase: { Component: TestCase },
   login: { Component: Login },
   leave: { Component: LeaveModal },
 };

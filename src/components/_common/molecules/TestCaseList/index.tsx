@@ -4,7 +4,7 @@ import TestCaseItem from '@components/_common/atoms/TestCaseItem';
 import { TestCaseData } from '@customTypes/space';
 import S from './style';
 
-interface TestCaseProps {
+interface TestCaseListProps {
   testCases: TestCaseData[];
   isEditable: boolean;
   handleInputChange: (id: number | string, field: 'input' | 'output', value: string) => void;
@@ -12,20 +12,20 @@ interface TestCaseProps {
   handleAddTestCase: () => void;
 }
 
-export default function TestCase({
+export default function TestCaseList({
   testCases,
   isEditable,
   handleInputChange,
   handleRemoveTestCase,
   handleAddTestCase,
-}: TestCaseProps) {
+}: TestCaseListProps) {
   return (
     <S.Container>
       <S.Description>테스트 케이스</S.Description>
       <S.ItemWrapper>
         {testCases.map((testCase) => (
           <TestCaseItem
-            key={testCase.id}
+            key={testCase.testCaseId}
             testCase={testCase}
             isEditable={isEditable && testCase.type === 'CUSTOM'}
             handleInputChange={handleInputChange}

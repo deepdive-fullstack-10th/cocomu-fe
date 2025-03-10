@@ -58,7 +58,6 @@ export default function SpaceList() {
         setKeyword={setKeyword}
       />
       <S.SpaceListContainer>
-        {/* eslint-disable function-paren-newline */}
         {data?.pages.map((page) =>
           page.codingSpaces.map((space: SpaceData) => (
             <SpaceCard
@@ -68,7 +67,6 @@ export default function SpaceList() {
             />
           )),
         )}
-        {/* eslint-enable function-paren-newline */}
       </S.SpaceListContainer>
 
       {hasNextPage && (
