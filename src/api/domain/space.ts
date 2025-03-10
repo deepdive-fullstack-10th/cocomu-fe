@@ -24,6 +24,12 @@ const spaceApi = {
     return data.result;
   },
 
+  enter: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.ENTER(codingSpaceId));
+
+    return data.result;
+  },
+
   start: async (codingSpaceId: string, studyId: string) => {
     await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId), studyId);
 
