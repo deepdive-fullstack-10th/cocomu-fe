@@ -6,6 +6,7 @@ import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
 import Loading from '@pages/Loading';
 import Slider from '@components/Slider';
+import EmptyResult from '@components/_common/atoms/EmptyResult';
 
 import StudyFilterTab from './StudyFilterTab';
 
@@ -46,21 +47,29 @@ export default function StudyList() {
         <Loading />
       ) : (
         <>
+          {data?.studies.length === 0 && (
+            <S.EmptyContainer>
+              <EmptyResult isStudy />
+            </S.EmptyContainer>
+          )}
           <S.Body>
-            {data.studies.map((study: StudyData) => (
-              <StudyCard
-                key={study.id}
-                {...study}
-              />
-            ))}
+            {data?.studies.length > 0 &&
+              data.studies.map((study: StudyData) => (
+                <StudyCard
+                  key={study.id}
+                  {...study}
+                />
+              ))}
           </S.Body>
-          <S.Footer>
-            <PageButton
-              totalPage={Math.ceil(data.totalStudyCount / STUDY_PAGE_SIZE)}
-              currentPage={filters.page}
-              setPage={(page) => setFilters((prev) => ({ ...prev, page }))}
-            />
-          </S.Footer>
+          {data?.studies.length > 0 && (
+            <S.Footer>
+              <PageButton
+                totalPage={Math.ceil(data.totalStudyCount / STUDY_PAGE_SIZE)}
+                currentPage={filters.page}
+                setPage={(page) => setFilters((prev) => ({ ...prev, page }))}
+              />
+            </S.Footer>
+          )}
         </>
       )}
     </S.Container>

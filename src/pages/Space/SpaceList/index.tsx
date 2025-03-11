@@ -7,6 +7,7 @@ import SpaceCard from '@components/Space/SpaceCard';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
 import { SPACE_STATUS_MAP_ID } from '@constants/common';
 import { SpaceData } from '@customTypes/space';
+import EmptyResult from '@components/_common/atoms/EmptyResult';
 import S from './style';
 
 export default function SpaceList() {
@@ -48,6 +49,12 @@ export default function SpaceList() {
         setFilters={setFilters}
         setKeyword={setKeyword}
       />
+
+      {data?.pages.every((page) => page.codingSpaces.length === 0) && (
+        <S.EmptyContainer>
+          <EmptyResult isStudy={false} />
+        </S.EmptyContainer>
+      )}
 
       <S.SpaceListContainer>
         {data?.pages.flatMap((page) =>

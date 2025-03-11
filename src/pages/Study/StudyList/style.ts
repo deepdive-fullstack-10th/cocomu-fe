@@ -8,6 +8,12 @@ const Container = styled.div`
   padding: 60px 16px;
 `;
 
+const EmptyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Body = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -21,6 +27,7 @@ const Footer = styled.div`
 
 const S = {
   Container,
+  EmptyContainer,
   Body,
   Footer,
 };

@@ -6,6 +6,12 @@ const Container = styled.div`
   gap: 4rem;
 `;
 
+const EmptyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SpaceListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,6 +24,9 @@ const SpaceListContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  justify-content: center;
+  align-items: center;
 `;
 
 const Sentinel = styled.div`
@@ -31,6 +40,7 @@ const Sentinel = styled.div`
 
 const S = {
   Container,
+  EmptyContainer,
   SpaceListContainer,
   Sentinel,
 };
