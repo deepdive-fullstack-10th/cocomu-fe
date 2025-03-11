@@ -12,12 +12,16 @@ export interface ErrorResponseData {
 }
 
 export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
-  if (!config.useAuth || !config.headers || config.headers.Authorization) return config;
+  if (!config.useAuth) {
+    // eslint-disable-next-line
+    delete config.headers.Authorization;
+    return config;
+  }
 
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 
   if (!accessToken) {
-    throw new Error('로그인을 해주세요.');
+    return config;
   }
 
   // eslint-disable-next-line
