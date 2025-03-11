@@ -18,14 +18,13 @@ export default function SearchInput({ placeholder = '', value, onChange, onSearc
 
   return (
     <S.Container>
-      <S.SearchIcon onClick={onSearch}>
-        <Icon
-          size='md'
-          color='700'
-        >
-          <BsSearch />
-        </Icon>
-      </S.SearchIcon>
+      <Icon
+        size='md'
+        color='700'
+        onClick={onSearch}
+      >
+        <BsSearch />
+      </Icon>
       <S.Input
         placeholder={placeholder}
         value={value}
