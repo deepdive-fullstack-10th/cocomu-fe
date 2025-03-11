@@ -42,7 +42,7 @@ export const handleResponse = async (response: AxiosResponse) => {
   const { status, data, config } = response;
 
   if (status >= 400) {
-    if (status === HTTP_STATUS_CODE.BAD_REQUEST && data.code === ERROR_CODE.EXPIRED_ACCESS_TOKEN) {
+    if (status === HTTP_STATUS_CODE.BAD_REQUEST && data.code === ERROR_CODE.EXPIRED_TOKEN) {
       try {
         const { accessToken } = await authApi.reIssue();
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -57,13 +57,11 @@ export const handleResponse = async (response: AxiosResponse) => {
 
     if (
       status === HTTP_STATUS_CODE.BAD_REQUEST &&
-      (data.code === ERROR_CODE.INVALID_ACCESS_TOKEN ||
-        data.code === ERROR_CODE.INVALID_REFRESH_TOKEN ||
-        data.code === ERROR_CODE.EXPIRED_REFRESH_TOKEN ||
-        data.code === ERROR_CODE.INVALID_TOKEN_VALIDATE ||
-        data.code === ERROR_CODE.NULL_REFRESH_TOKEN ||
-        data.code === ERROR_CODE.UNEXPECTED_TOKEN_ERROR ||
-        data.code === ERROR_CODE.UNAUTHORIZED)
+      (data.code === ERROR_CODE.INVALID_SIGNATURE ||
+        data.code === ERROR_CODE.UNSUPPORTED_TOKEN ||
+        data.code === ERROR_CODE.INVALID_TOKEN ||
+        data.code === ERROR_CODE.TOKEN_ERROR ||
+        data.code === ERROR_CODE.EXTRACTING_ERROR)
     ) {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
       throw new HTTPError(status, data?.message, data?.code);
