@@ -42,7 +42,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
   const { data, isLoading } = useGetStudyDetail(studyId);
 
   const [content, setContent] = useState(description || '');
-  const [selectedTime, setSelectedTime] = useState<Dayjs>(dayjs().set('hour', 1).set('minute', 0));
+  const [selectedTime, setSelectedTime] = useState<Dayjs>(dayjs().set('hour', 1).set('minute', 0).set('second', 0));
   const [localTestCases, setLocalTestCases] = useState([]);
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues ?? {

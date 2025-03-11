@@ -19,6 +19,9 @@ export default function TimeInputField({ label, value, onChange }: TimeInputFiel
           value={value}
           onChange={onChange}
           ampm={false}
+          views={['hours', 'minutes', 'seconds']}
+          format='HH:mm:ss'
+          timeSteps={{ seconds: 60 }}
           slotProps={{ textField: { fullWidth: true } }}
         />
       </S.Container>
