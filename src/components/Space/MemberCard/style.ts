@@ -27,17 +27,15 @@ const Info = styled.div`
   display: flex;
   align-items: center;
   gap: 9rem;
-  width: 50%;
 `;
 
 const Text = styled.span`
   ${({ theme }) => theme.font.heading[100]};
   color: ${(props) => (props.role === 'LEADER' ? props.theme.color.primary[900] : props.theme.color.gray[900])};
   display: flex;
-  width: 18rem;
-
-  justify-content: flex-start;
   align-items: center;
+
+  width: fit-content;
   white-space: nowrap;
 `;
 

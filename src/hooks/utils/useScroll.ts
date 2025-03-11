@@ -1,62 +1,33 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { FetchNextPageOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
-import { useToastStore } from '@stores/useToastStore';
+import { useEffect, useRef } from 'react';
+import { FetchNextPageOptions } from '@tanstack/react-query';
 
-interface useScrollProps {
+interface UseScrollProps {
   nextPage: boolean;
   fetchingNextPage: boolean;
-  fetchNext: (options?: FetchNextPageOptions) => Promise<UseInfiniteQueryResult>;
+  fetchNext: (options?: FetchNextPageOptions) => Promise<unknown>;
   thresholdRate?: number;
-  delayTime?: number;
 }
 
-export default function useScroll({
-  nextPage,
-  fetchingNextPage,
-  fetchNext,
-  thresholdRate = 0.1,
-  delayTime = 500,
-}: useScrollProps) {
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+export default function useScroll({ nextPage, fetchingNextPage, fetchNext, thresholdRate = 0.1 }: UseScrollProps) {
   const observerRef = useRef<HTMLDivElement>(null);
-  const { error } = useToastStore();
-
-  const nextList = useCallback(async () => {
-    if (isFetching || !nextPage || fetchingNextPage) return;
-
-    try {
-      setIsFetching(true);
-      await fetchNext();
-    } catch (e) {
-      error(e);
-    } finally {
-      setTimeout(() => {
-        setIsFetching(false);
-      }, delayTime);
-    }
-  }, [nextPage, isFetching, fetchingNextPage, fetchNext, delayTime, error]);
 
   useEffect(() => {
+    if (!observerRef.current || !nextPage || fetchingNextPage) return;
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && nextPage && !fetchingNextPage) {
-          nextList().catch((e) => {
-            error(e);
-          });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          fetchNext();
         }
       },
-      { threshold: thresholdRate },
+      { rootMargin: `${thresholdRate * 100}%` },
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
+    const currentElement = observerRef.current;
+    observer.observe(currentElement);
 
-    return () => observer.disconnect();
-  }, [nextPage, fetchingNextPage, nextList, thresholdRate, error]);
+    return () => observer.unobserve(currentElement);
+  }, [nextPage, fetchingNextPage, fetchNext, thresholdRate]);
 
-  return {
-    observerRef,
-    isFetching,
-  };
+  return { observerRef };
 }
