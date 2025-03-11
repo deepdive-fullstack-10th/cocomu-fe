@@ -4,7 +4,8 @@ export const EmptyResultContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30rem;
+  width: 25rem;
+  user-select: none;
 
   img {
     max-width: 100%;

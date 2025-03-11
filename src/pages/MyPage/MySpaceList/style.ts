@@ -7,13 +7,18 @@ const Container = styled.div`
   margin-top: 3rem;
 `;
 
+const EmptyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SpaceListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
   min-height: 70rem;
-
   overflow-y: auto;
 
   ::-webkit-scrollbar {
@@ -28,6 +33,7 @@ const Footer = styled.div`
 
 const S = {
   Container,
+  EmptyContainer,
   SpaceListContainer,
   Footer,
 };
