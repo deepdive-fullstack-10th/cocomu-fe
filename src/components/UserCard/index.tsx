@@ -17,7 +17,7 @@ export default function UserCard({
   const navigate = useNavigate();
 
   const handleUserClick = () => {
-    navigate(ROUTES.MYPAGE({ userId: user.id }));
+    navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
   };
 
   return (
