@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsChevronDown } from 'react-icons/bs';
 
@@ -27,8 +27,15 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   const { open } = useModalStore();
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
+
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      setDropdownOpen(false);
+    }
+  };
 
   const handleItemSelect = (selectedItem: string) => {
     if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
@@ -59,7 +66,12 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
         </Button>
 
         {isLoggedIn ? (
-          <S.ProfileSection onClick={handleDropdownToggle}>
+          <S.ProfileSection
+            ref={containerRef}
+            onBlur={handleBlur}
+            tabIndex={-1}
+            onClick={handleDropdownToggle}
+          >
             <ProfileImage
               src={user.profileImageUrl}
               size='x_sm'
