@@ -29,7 +29,7 @@ export default function StudyCard({
   leader,
 }: StudyData) {
   const navigate = useNavigate();
-
+  console.log(joinable);
   const handleCardClick = () => {
     if (joinable) {
       navigate(ROUTES.STUDY.PARTICIPATION({ studyId: id }));

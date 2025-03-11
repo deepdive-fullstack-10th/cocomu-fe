@@ -4,21 +4,21 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useToastStore } from '@stores/useToastStore';
 import ToastList from '@components/_common/molecules/ToastList';
-import { worker } from '@mocks/browser';
+// import { worker } from '@mocks/browser';
 import BaseModal from '@components/Modal/BaseModal';
 import AppRouter from '@router/AppRouter';
 
 import globalStyles from './styles/globalStyles';
 import { theme } from './styles/theme';
 
-if (import.meta.env.MODE === 'development') {
-  await worker.start({
-    serviceWorker: {
-      url: '/mockServiceWorker.js',
-    },
-    onUnhandledRequest: 'bypass',
-  });
-}
+// if (import.meta.env.MODE === 'development') {
+//   await worker.start({
+//     serviceWorker: {
+//       url: '/mockServiceWorker.js',
+//     },
+//     onUnhandledRequest: 'bypass',
+//   });
+// }
 
 const queryClient = new QueryClient({
   defaultOptions: {
