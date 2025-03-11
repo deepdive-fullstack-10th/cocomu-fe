@@ -13,16 +13,21 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
   const { updateTestCaseMutate } = useUpdateTestCase();
 
   const handleAddTestCase = () => {
-    setLocalTestCases((prevList) => [...prevList, { id: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
+    setLocalTestCases((prevList) => [
+      ...prevList,
+      { testCaseId: uuidv4(), type: 'CUSTOM', input: '', output: '' }, // ✅ testCaseId 유지
+    ]);
   };
 
   const handleRemoveTestCase = (id: string | number) => {
-    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
+    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id)); // ✅ testCaseId 사용
   };
 
   const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
     setLocalTestCases((prevList) =>
-      prevList.map((item) => (item.testCaseId === id ? { ...item, [field]: value } : item)),
+      prevList.map(
+        (item) => (item.testCaseId === id ? { ...item, [field]: value } : item), // ✅ testCaseId 사용
+      ),
     );
   };
 

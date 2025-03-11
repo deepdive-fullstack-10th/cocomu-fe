@@ -12,13 +12,22 @@ import S from './style';
 interface SpaceNavbarProps {
   studyId?: number;
   name: string;
+  startTime?: string;
   timer?: number;
   isLeader?: boolean;
   buttonLabel?: string;
   onClick?: () => void;
 }
 
-export default function SpaceNavbar({ studyId, name, timer, isLeader, buttonLabel, onClick }: SpaceNavbarProps) {
+export default function SpaceNavbar({
+  studyId,
+  name,
+  timer,
+  isLeader,
+  buttonLabel,
+  onClick,
+  startTime,
+}: SpaceNavbarProps) {
   const navigate = useNavigate();
 
   return (
@@ -37,7 +46,12 @@ export default function SpaceNavbar({ studyId, name, timer, isLeader, buttonLabe
         <S.Name>{name}</S.Name>
       </S.LeftSection>
       <S.RightSection>
-        {timer && <Timer timer={timer} />}
+        {timer && (
+          <Timer
+            timer={timer}
+            startTime={startTime}
+          />
+        )}
         {isLeader && (
           <Button
             size='md'

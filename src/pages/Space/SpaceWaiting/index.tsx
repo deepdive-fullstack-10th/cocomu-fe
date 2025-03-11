@@ -32,7 +32,6 @@ export default function SpaceWaiting() {
 
   const messages = useStompClient({
     codingSpaceId,
-    token: localStorage.getItem('ACCESS_TOKEN'),
   });
 
   useEffect(() => {

@@ -5,10 +5,9 @@ import { STOMP_ENDPOINTS } from '@constants/api';
 
 interface UseStompClientProps {
   codingSpaceId: string;
-  token?: string;
 }
 
-export default function useStompClient({ codingSpaceId, token }: UseStompClientProps) {
+export default function useStompClient({ codingSpaceId }: UseStompClientProps) {
   const [messages, setMessages] = useState<string>();
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export default function useStompClient({ codingSpaceId, token }: UseStompClientP
     const client = new Client({
       webSocketFactory: () => socket,
 
-      connectHeaders: token ? { Authorization: `Bearer ${token}` } : {},
+      connectHeaders: { Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
@@ -37,7 +36,7 @@ export default function useStompClient({ codingSpaceId, token }: UseStompClientP
         client.deactivate();
       }
     };
-  }, [token, codingSpaceId]);
+  }, [codingSpaceId]);
 
   return messages;
 }
