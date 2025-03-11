@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useGetSpaceList from '@hooks/space/useGetSpaceList';
+import useScroll from '@hooks/utils/useScroll';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import SpaceCard from '@components/Space/SpaceCard';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
 import { SPACE_STATUS_MAP_ID } from '@constants/common';
 import { SpaceData } from '@customTypes/space';
-import useScroll from '@hooks/utils/useScroll';
 import S from './style';
 
 export default function SpaceList() {
@@ -26,7 +26,7 @@ export default function SpaceList() {
     keyword: filters.keyword.trim() || undefined,
   });
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetSpaceList({
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetSpaceList({
     studyId,
     params: getTransformedFilters(),
   });
@@ -37,21 +37,7 @@ export default function SpaceList() {
     fetchNext: fetchNextPage,
   });
 
-  useEffect(() => {
-    if (!observerRef.current || !hasNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1.0 },
-    );
-
-    observer.observe(observerRef.current);
-    return () => observer.disconnect();
-  }, [fetchNextPage, hasNextPage]);
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <S.Container>
@@ -62,8 +48,9 @@ export default function SpaceList() {
         setFilters={setFilters}
         setKeyword={setKeyword}
       />
+
       <S.SpaceListContainer>
-        {data?.pages.map((page) =>
+        {data?.pages.flatMap((page) =>
           page.codingSpaces.map((space: SpaceData) => (
             <SpaceCard
               key={space.id}
@@ -74,14 +61,7 @@ export default function SpaceList() {
         )}
       </S.SpaceListContainer>
 
-      {hasNextPage && (
-        <div
-          ref={observerRef}
-          style={{ height: '10px' }}
-        />
-      )}
-
-      {isFetchingNextPage && <LoadingSpinner />}
+      {hasNextPage && <S.Sentinel ref={observerRef}>{isFetchingNextPage && <LoadingSpinner />}</S.Sentinel>}
     </S.Container>
   );
 }

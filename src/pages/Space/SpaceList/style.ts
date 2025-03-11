@@ -20,9 +20,19 @@ const SpaceListContainer = styled.div`
   }
 `;
 
+const Sentinel = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 2px;
+  padding-bottom: 4rem;
+`;
+
 const S = {
   Container,
   SpaceListContainer,
+  Sentinel,
 };
 
 export default S;
