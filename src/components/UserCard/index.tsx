@@ -3,7 +3,14 @@ import { formatDate } from '@utils/formatDate';
 import { UserDetailData } from '@customTypes/user';
 import S from './style';
 
-export default function UserCard({ id, nickname, profileImageUrl, role, joinedDate }: UserDetailData) {
+export default function UserCard({
+  id,
+  nickname,
+  profileImageUrl,
+  role,
+  joinedSpaceCount,
+  joinedDate,
+}: UserDetailData) {
   const user = { id, nickname, profileImageUrl };
 
   const handleUserClick = () => {
@@ -11,13 +18,17 @@ export default function UserCard({ id, nickname, profileImageUrl, role, joinedDa
   };
 
   return (
-    <S.CardContainer onClick={handleUserClick}>
+    <S.CardContainer
+      onClick={handleUserClick}
+      role={role}
+    >
       <UserProfile
         user={user}
         size='md'
       />
       <S.Info>
-        <S.Text>{role}</S.Text>
+        <S.Text role={role}>{role}</S.Text>
+        <S.Text>{`참여한 스페이스 수 : ${joinedSpaceCount}`}</S.Text>
         <S.Text>{`가입일 : ${formatDate(joinedDate)}`}</S.Text>
       </S.Info>
     </S.CardContainer>

@@ -5,8 +5,9 @@ const memberData = [
     id: 1,
     nickname: '코코무',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-    role: 'LEADER',
+    role: 'MEMBER',
     joinedDate: '2025-03-10T10:33:25.488Z',
+    joinedSpaceCount: 10,
   },
   {
     id: 2,
@@ -14,13 +15,15 @@ const memberData = [
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
     role: 'LEADER',
     joinedDate: '2025-03-10T10:33:25.488Z',
+    joinedSpaceCount: 4,
   },
   {
     id: 3,
     nickname: '무코코',
     profileImageUrl: 'https://cdn.cocomu.co.kr/images/default/profile.png',
-    role: 'LEADER',
+    role: 'MEMBER',
     joinedDate: '2025-03-10T10:33:25.488Z',
+    joinedSpaceCount: 2,
   },
 ];
 
