@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import ProfileImage, { ProfileImageProps } from '@components/_common/atoms/ProfileImage';
 import { UserData } from '@customTypes/user';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 interface UserProfileProps extends ProfileImageProps {
@@ -7,8 +9,11 @@ interface UserProfileProps extends ProfileImageProps {
 }
 
 export default function UserProfile({ user, size = 'md', upload, border }: UserProfileProps) {
-  const handleUserClick = () => {
-    // user.id 사용해서 마이페이지로 이동
+  const navigate = useNavigate();
+
+  const handleUserClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
   };
 
   return (
