@@ -1,4 +1,4 @@
-import UserCard from '@components/UserCard';
+import UserCard from '@components/Space/MemberCard';
 import useGetMemberList from '@hooks/study/useGetMemberList';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';

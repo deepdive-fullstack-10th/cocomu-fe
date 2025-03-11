@@ -8,6 +8,6 @@ export default function useGetStudyDetail(studyId: string) {
     queryKey: [QUERY_KEYS.STUDY_DETAIL, studyId],
     queryFn: () => studyApi.getDetail(studyId),
     enabled: !!studyId,
-    staleTime: 1000 * 60 * 3,
+    staleTime: 1000 * 10,
   });
 }

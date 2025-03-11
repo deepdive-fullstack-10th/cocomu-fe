@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsChevronDown } from 'react-icons/bs';
+
+import useCheckAuth from '@hooks/utils/useCheckAuth';
 
 import ProfileImage from '@components/_common/atoms/ProfileImage';
 import Icon from '@components/_common/atoms/Icon';
@@ -25,19 +27,33 @@ interface NavbarProps {
 export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   const navigate = useNavigate();
   const { open } = useModalStore();
+  const { checkAuth } = useCheckAuth();
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  const handleStudyCreate = () => {
+    checkAuth(() => navigate(ROUTES.STUDY.CREATE()));
+  };
+
   const handleItemSelect = (selectedItem: string) => {
+    setDropdownOpen(false);
+
     if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
       navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
-    } else if (selectedItem === NAVBAR_DROPDOWN_LABELS[1].label) {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      window.location.href = ROUTES.ROOT();
+      return;
     }
-    setDropdownOpen(false);
+
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    window.location.href = ROUTES.ROOT();
   };
 
   return (
@@ -50,7 +66,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
 
       <S.NavItems>
         <Button
-          onClick={() => navigate(ROUTES.STUDY.CREATE())}
+          onClick={handleStudyCreate}
           color='primary'
           size='lg'
           shape='round'
@@ -59,7 +75,12 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
         </Button>
 
         {isLoggedIn ? (
-          <S.ProfileSection>
+          <S.ProfileSection
+            ref={containerRef}
+            onBlur={handleBlur}
+            tabIndex={-1}
+            onClick={handleDropdownToggle}
+          >
             <ProfileImage
               src={user.profileImageUrl}
               size='x_sm'
@@ -67,7 +88,6 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
             <Icon
               size='sm'
               color='950'
-              onClick={handleDropdownToggle}
             >
               <BsChevronDown />
             </Icon>

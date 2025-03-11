@@ -6,6 +6,7 @@ import { ROUTES } from '@constants/path';
 
 import { useModalStore } from '@stores/useModalStore';
 
+import useCheckAuth from '@hooks/utils/useCheckAuth';
 import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
 
 import IconButton from '@components/_common/atoms/IconButton';
@@ -20,6 +21,7 @@ export default function StudyParticipation() {
   const navigate = useNavigate();
   const { open } = useModalStore();
   const { studyId } = useParams<{ studyId: string }>();
+  const { checkAuth } = useCheckAuth();
   const { data, isLoading } = useGetStudyInfo(studyId);
 
   const handleJoinClick = () => {
@@ -67,7 +69,7 @@ export default function StudyParticipation() {
           size='lg'
           color='primary'
           shape='default'
-          onClick={handleJoinClick}
+          onClick={() => checkAuth(handleJoinClick)}
         >
           참여하기
         </Button>

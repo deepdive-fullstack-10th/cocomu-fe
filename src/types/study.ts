@@ -29,8 +29,14 @@ export interface CreateStudyData extends StudyFormData {
   description: string;
 }
 
-export interface EditStudyData extends CreateStudyData {
-  status: string;
+export interface EditStudyData extends Record<string, string | number[] | boolean> {
+  name: string;
+  password: string;
+  totalUserCount: string;
+  languages: number[];
+  workbooks: number[];
+  description: string;
+  publicStudy: boolean;
 }
 
 export interface GetListData {
