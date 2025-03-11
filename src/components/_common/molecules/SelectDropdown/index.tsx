@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { BsChevronDown } from 'react-icons/bs';
 
 import Icon from '@components/_common/atoms/Icon';
@@ -25,6 +25,7 @@ export default function SelectDropdown({
   onSelect,
 }: SelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedNames =
     values
@@ -33,6 +34,12 @@ export default function SelectDropdown({
       .join(', ') || description;
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
+
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      setIsOpen(false);
+    }
+  };
 
   const handleSelectItem = (id: number) => {
     setIsOpen(false);
@@ -56,7 +63,11 @@ export default function SelectDropdown({
   };
 
   return (
-    <S.Container>
+    <S.Container
+      ref={containerRef}
+      onBlur={handleBlur}
+      tabIndex={-1}
+    >
       <S.Header
         isOpen={isOpen}
         onClick={toggleDropdown}
