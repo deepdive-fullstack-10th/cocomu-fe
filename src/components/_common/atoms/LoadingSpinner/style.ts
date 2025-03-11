@@ -18,7 +18,8 @@ const LoadingSpinner = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  width: fit-content;
+
+  width: 100%;
 `;
 
 const colorStyles = {
