@@ -22,7 +22,7 @@ export default function TimeInputField({ label, value, onChange }: TimeInputFiel
           views={['hours', 'minutes', 'seconds']}
           format='HH:mm:ss'
           timeSteps={{ seconds: 60 }}
-          slotProps={{ textField: { fullWidth: true } }}
+          slotProps={{ textField: { fullWidth: true, placeholder: 'HH:MM:SS' } }}
         />
       </S.Container>
     </LocalizationProvider>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useToastStore } from '@stores/useToastStore';
@@ -42,7 +42,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
   const { data, isLoading } = useGetStudyDetail(studyId);
 
   const [content, setContent] = useState(description || '');
-  const [selectedTime, setSelectedTime] = useState<Dayjs>(dayjs().set('hour', 1).set('minute', 0).set('second', 0));
+  const [selectedTime, setSelectedTime] = useState<Dayjs>(null);
   const [localTestCases, setLocalTestCases] = useState([]);
   const { formData, register, registerSelect, hasErrors } = useForm({
     initialValues: initialValues ?? {
