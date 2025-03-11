@@ -9,6 +9,7 @@ const CardContainer = styled.div`
   border-radius: 2.5rem;
   background: ${({ theme }) => theme.color.gray[50]};
   padding: 2.5rem 6rem;
+  cursor: pointer;
 
   ${(props) =>
     props.role === 'LEADER' &&

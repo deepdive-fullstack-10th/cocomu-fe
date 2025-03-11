@@ -1,6 +1,8 @@
 import UserProfile from '@components/_common/molecules/UserProfile';
 import { formatDate } from '@utils/formatDate';
 import { UserDetailData } from '@customTypes/user';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@constants/path';
 import S from './style';
 
 export default function UserCard({
@@ -12,9 +14,10 @@ export default function UserCard({
   joinedDate,
 }: UserDetailData) {
   const user = { id, nickname, profileImageUrl };
+  const navigate = useNavigate();
 
   const handleUserClick = () => {
-    // id 사용해서 마이페이지로 이동
+    navigate(ROUTES.MYPAGE({ userId: user.id }));
   };
 
   return (
