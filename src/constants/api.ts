@@ -62,7 +62,7 @@ export const END_POINTS_V1 = {
   },
 
   AUTH: {
-    OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login`,
+    OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login-dev`,
     REFRESH_TOKEN: `${BASE_PATH_V1.AUTH}/re-issue`,
   },
 } as const;

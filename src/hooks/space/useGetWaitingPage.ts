@@ -8,6 +8,5 @@ export default function useGetWaitingPage(codingSpaceId: string) {
     queryKey: [QUERY_KEYS.SPACE_PAGE, codingSpaceId],
     queryFn: () => spaceApi.getWaitingPage(codingSpaceId),
     enabled: !!codingSpaceId,
-    staleTime: 1000 * 60 * 3,
   });
 }
