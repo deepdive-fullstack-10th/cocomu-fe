@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@constants/path';
 import S from './style';
 
-export default function UserCard({
+export default function MemberCard({
   id,
   nickname,
   profileImageUrl,
