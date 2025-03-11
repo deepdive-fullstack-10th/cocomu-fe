@@ -12,7 +12,13 @@ export const extendData = <T extends { id: number }>(data: T[], targetCount: num
     const template = mockingData[i % mockingData.length];
 
     lastId += 1;
-    const newItem = { ...template, id: lastId, nickname: `유저${lastId}`, role: '스터디원' };
+    const newItem = {
+      ...template,
+      id: lastId,
+      nickname: `유저${lastId}`,
+      role: 'MEMBER',
+      joinedSpaceCount: lastId + 2,
+    };
 
     mockingData.push(newItem);
   }

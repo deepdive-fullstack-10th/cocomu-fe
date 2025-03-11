@@ -3,12 +3,12 @@ import useGetMemberList from '@hooks/study/useGetMemberList';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import useScroll from '@hooks/utils/useScroll';
+import { UserDetailData } from '@customTypes/user';
 import S from './style';
 
 export default function MemberList() {
   const { studyId } = useParams<{ studyId: string }>();
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetMemberList({ studyId });
-
   const { observerRef, isFetching } = useScroll({
     nextPage: hasNextPage,
     fetchingNextPage: isFetchingNextPage,
@@ -23,14 +23,15 @@ export default function MemberList() {
   return (
     <S.UserCardContainer>
       {data?.pages?.flatMap((page) =>
-        page.map((user) => (
+        page.map((member: UserDetailData) => (
           <UserCard
-            key={`user-${user.id}`}
-            id={user.id}
-            nickname={user.nickname}
-            profileImageUrl={user.profileImageUrl}
-            role={user.role}
-            joinedDate={user.joinedDate}
+            key={`user-${member.id}`}
+            id={member.id}
+            nickname={member.nickname}
+            profileImageUrl={member.profileImageUrl}
+            role={member.role}
+            joinedDate={member.joinedDate}
+            joinedSpaceCount={member.joinedSpaceCount}
           />
         )),
       )}

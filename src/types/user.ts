@@ -13,4 +13,5 @@ export interface UserDetailData extends UserData {
   failedCount: number; */
   role: string;
   joinedDate: string;
+  joinedSpaceCount: number;
 }
