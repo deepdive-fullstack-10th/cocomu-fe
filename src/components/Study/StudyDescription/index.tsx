@@ -33,6 +33,7 @@ export default function StudyDescription({
         isStudy={isStudy}
         leader={leader}
         studyId={id}
+        name={name}
       />
 
       <S.Body>

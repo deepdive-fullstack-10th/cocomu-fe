@@ -19,9 +19,10 @@ interface DescriptionHeaderProps {
   isStudy: boolean;
   leader: UserData;
   studyId: number;
+  name: string;
 }
 
-export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }: DescriptionHeaderProps) {
+export default function DescriptionHeader({ isLeader, isStudy, leader, studyId, name }: DescriptionHeaderProps) {
   const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { open } = useModalStore();
@@ -32,7 +33,11 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }
     if (selectedItem === STUDY_EDIT_DROPDOWN_LABELS[0].label) {
       navigate(ROUTES.STUDY.EDIT({ studyId }));
     } else if (selectedItem === STUDY_EDIT_DROPDOWN_LABELS[1].label) {
-      // TODO: 스터디 삭제 API 호출
+      open('delete', {
+        studyId: String(studyId),
+        name,
+        navigate: () => navigate(ROUTES.ROOT()),
+      });
     }
     setDropdownOpen(false);
   };
@@ -40,7 +45,7 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId }
   const handleLeaveClick = () => {
     open('leave', {
       studyId: String(studyId),
-      name: leader.nickname,
+      name,
       navigate: () => navigate(ROUTES.ROOT()),
     });
   };

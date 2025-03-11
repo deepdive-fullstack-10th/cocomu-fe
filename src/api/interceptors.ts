@@ -3,7 +3,6 @@ import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axio
 import { HTTPError } from '@api/HTTPError';
 import { axiosInstance } from '@api/axiosInstance';
 
-import { PATH } from '@constants/path';
 import { ACCESS_TOKEN_KEY, ERROR_CODE, HTTP_STATUS_CODE } from '@constants/api';
 import authApi from './domain/auth';
 
@@ -18,8 +17,7 @@ export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 
   if (!accessToken) {
-    window.location.href = PATH.ROOT;
-    throw new Error('토큰이 유효하지 않습니다');
+    throw new Error('로그인을 해주세요.');
   }
 
   // eslint-disable-next-line

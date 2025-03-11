@@ -68,8 +68,11 @@ const studyApi = {
   },
 
   leave: async (studyId: string) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.STUDY.LEAVE(studyId));
-    return data;
+    await axiosInstance.post(END_POINTS_V1.STUDY.LEAVE(studyId));
+  },
+
+  delete: async (studyId: string) => {
+    await axiosInstance.delete(END_POINTS_V1.STUDY.DELETE(studyId));
   },
 };
 
