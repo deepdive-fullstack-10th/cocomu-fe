@@ -59,7 +59,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
         </Button>
 
         {isLoggedIn ? (
-          <S.ProfileSection>
+          <S.ProfileSection onClick={handleDropdownToggle}>
             <ProfileImage
               src={user.profileImageUrl}
               size='x_sm'
@@ -67,7 +67,6 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
             <Icon
               size='sm'
               color='950'
-              onClick={handleDropdownToggle}
             >
               <BsChevronDown />
             </Icon>
