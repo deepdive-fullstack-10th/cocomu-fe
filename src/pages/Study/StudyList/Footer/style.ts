@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 const BackgroundContainer = styled.div`
   background-color: ${({ theme }) => theme.color.gray[300]};
   width: 100vw;
+
   margin-left: calc(-50vw + 50%);
   margin-right: 0;
   padding: 0;
@@ -15,7 +16,7 @@ const FooterContainer = styled.div`
 
   align-items: center;
   justify-content: center;
-  padding: 4rem 0 2rem 0;
+  padding: 5rem 0;
 `;
 
 const LeftContainer = styled.div`
@@ -26,7 +27,7 @@ const LeftContainer = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 8rem;
+  width: 12rem;
   object-fit: contain;
 `;
 
