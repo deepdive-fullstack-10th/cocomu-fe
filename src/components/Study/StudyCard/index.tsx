@@ -6,6 +6,7 @@ import { ROUTES } from '@constants/path';
 import { StudyData } from '@customTypes/study';
 
 import { formatDate } from '@utils/formatDate';
+import { stripHtmlTags } from '@utils/textParser';
 
 import Tag from '@components/_common/atoms/Tag';
 import UserProfile from '@components/_common/molecules/UserProfile';
@@ -46,7 +47,7 @@ export default function StudyCard({
 
       <S.Body>
         <S.Title>{name}</S.Title>
-        <S.Description>{description}</S.Description>
+        <S.Description>{stripHtmlTags(description)}</S.Description>
         <TagList
           items={workbooks}
           color='gray'
