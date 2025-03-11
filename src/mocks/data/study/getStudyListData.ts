@@ -244,5 +244,5 @@ export const getStudyListResponse = {
 
 export const getStudyListErrorResponse = {
   code: 4200,
-  message: '코딩 스페이스 목록 조회에 실패했습니다.',
+  message: '스터디 목록 조회에 실패했습니다.',
 };
