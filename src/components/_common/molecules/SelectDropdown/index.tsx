@@ -43,11 +43,14 @@ export default function SelectDropdown({
     }
 
     if (!isMultiSelect) {
-      onSelect([id]);
+      onSelect(values.includes(id) ? [] : [id]);
       return;
     }
 
-    if (values.includes(id)) return;
+    if (values.includes(id)) {
+      onSelect(values.filter((selectId) => selectId !== id));
+      return;
+    }
 
     onSelect([...values, id]);
   };
@@ -70,6 +73,7 @@ export default function SelectDropdown({
       {isOpen && (
         <DropdownList
           items={[DEFAULT_OPTION, ...items]}
+          values={values}
           size='lg'
           color='black'
           shape='round'

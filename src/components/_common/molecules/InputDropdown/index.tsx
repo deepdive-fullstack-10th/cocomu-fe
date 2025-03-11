@@ -103,6 +103,7 @@ export default function InputDropdown({
         {isOpen && (
           <DropdownList
             items={availableItems}
+            values={values}
             size='md'
             color='black'
             onItemSelect={handleAddItem}
