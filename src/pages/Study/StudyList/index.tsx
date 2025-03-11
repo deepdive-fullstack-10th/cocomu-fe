@@ -8,6 +8,7 @@ import Loading from '@pages/Loading';
 import Slider from '@components/Slider';
 import EmptyResult from '@components/_common/atoms/EmptyResult';
 
+import Footer from '@pages/Study/StudyList/Footer';
 import StudyFilterTab from './StudyFilterTab';
 
 import S from './style';
@@ -66,6 +67,7 @@ export default function StudyList() {
               />
             </S.Footer>
           )}
+          <Footer />
         </>
       )}
     </S.Container>
