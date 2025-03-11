@@ -17,7 +17,7 @@ export interface StudyData {
   leader: UserData;
 }
 
-export interface StudyFormData extends Record<string, string | number[] | boolean> {
+export interface StudyFormData extends Record<string, string | number[]> {
   name: string;
   password: string;
   totalUserCount: string;
@@ -29,7 +29,13 @@ export interface CreateStudyData extends StudyFormData {
   description: string;
 }
 
-export interface EditStudyData extends CreateStudyData {
+export interface EditStudyData extends Record<string, string | number[] | boolean> {
+  name: string;
+  password: string;
+  totalUserCount: string;
+  languages: number[];
+  workbooks: number[];
+  description: string;
   publicStudy: boolean;
 }
 
