@@ -17,9 +17,9 @@ const SpaceList = lazy(() => import('@pages/Space/SpaceList'));
 const MemberList = lazy(() => import('@pages/Study/MemberList'));
 const StudyInfo = lazy(() => import('@pages/Study/StudyInfo'));
 
-const MyPage = lazy(() => import('@pages/MyPage/MyPage'));
-const MyStudy = lazy(() => import('@pages/MyPage/MyStudy'));
-const MySpace = lazy(() => import('@pages/MyPage/MySpace'));
+const MyPage = lazy(() => import('@pages/MyPage'));
+const MyStudyList = lazy(() => import('@pages/MyPage/MyStudyList'));
+const MySpaceList = lazy(() => import('@pages/MyPage/MySpaceList'));
 
 const OAuthCallback = lazy(() => import('@pages/OAuthCallback'));
 
@@ -61,8 +61,8 @@ const router = createBrowserRouter(
               path: PATH.MYPAGE.DETAIL,
               element: <MyPage />,
               children: [
-                { index: true, element: <MyStudy /> },
-                { path: PATH.MYPAGE.SPACE, element: <MySpace /> },
+                { index: true, element: <MyStudyList /> },
+                { path: PATH.MYPAGE.SPACE, element: <MySpaceList /> },
               ],
             },
             { path: PATH.OAUTH, element: <OAuthCallback /> },
