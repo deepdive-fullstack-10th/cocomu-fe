@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { STOMP_ENDPOINTS } from '@constants/api';
 
 interface UseStompClientProps {
-  wsUrl: string;
-  subscribeUrl: string;
+  codingSpaceId: string;
   token?: string;
 }
 
-export default function useStompClient({ wsUrl, subscribeUrl, token }: UseStompClientProps) {
+export default function useStompClient({ codingSpaceId, token }: UseStompClientProps) {
   const [messages, setMessages] = useState<string>();
 
   useEffect(() => {
-    const socket = new SockJS(wsUrl);
+    const socket = new SockJS(STOMP_ENDPOINTS.CONNECT);
     const client = new Client({
       webSocketFactory: () => socket,
 
@@ -21,7 +21,7 @@ export default function useStompClient({ wsUrl, subscribeUrl, token }: UseStompC
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       onConnect: () => {
-        client.subscribe(subscribeUrl, (message) => {
+        client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (message) => {
           setMessages(message.body);
         });
       },
@@ -37,7 +37,7 @@ export default function useStompClient({ wsUrl, subscribeUrl, token }: UseStompC
         client.deactivate();
       }
     };
-  }, [wsUrl, token, subscribeUrl]);
+  }, [token, codingSpaceId]);
 
   return messages;
 }

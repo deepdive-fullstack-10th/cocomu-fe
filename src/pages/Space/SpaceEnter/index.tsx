@@ -10,7 +10,7 @@ export default function SpaceEnter() {
 
   useEffect(() => {
     enterSpaceMutate(codingSpaceId);
-  }, []);
+  }, [codingSpaceId, enterSpaceMutate]);
 
   if (isLoading) return <Loading />;
 

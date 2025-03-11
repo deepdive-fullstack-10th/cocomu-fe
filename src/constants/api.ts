@@ -68,10 +68,8 @@ export const END_POINTS_V1 = {
 } as const;
 
 export const STOMP_ENDPOINTS = {
-  SPACE_ALARM_SUBSCRIBE: (codingSpaceId: string) => `/sub/stomp/coding-space/${codingSpaceId}`,
-  TEST_CASE_SUBSCRIBE: (codingSpaceId: string) => `/sub/stomp/coding-spaces/${codingSpaceId}/test-case`,
-  EXECUTION_SUBSCRIBE: (ideId: string) => `/sub/stomp/ide-execution/${ideId}`,
-  RESULT_SUBSCRIBE: (ideId: string) => `/sub/stomp/ide-result/${ideId}`,
+  CONNECT: `${BASE_URL}/stomp`,
+  SPACE_SUBSCRIBE: (codingSpaceId: string) => `/sub/v1/coding-spaces/${codingSpaceId}`,
 } as const;
 
 export const HTTP_STATUS_CODE = {
