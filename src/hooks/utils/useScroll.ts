@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FetchNextPageOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
+import { useToastStore } from '@stores/useToastStore';
 
 interface useScrollProps {
   nextPage: boolean;
@@ -18,6 +19,7 @@ export default function useScroll({
 }: useScrollProps) {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const observerRef = useRef<HTMLDivElement>(null);
+  const { error } = useToastStore();
 
   const nextList = useCallback(async () => {
     if (isFetching || !nextPage || fetchingNextPage) return;
@@ -25,21 +27,21 @@ export default function useScroll({
     try {
       setIsFetching(true);
       await fetchNext();
-    } catch (error) {
-      console.error('무한 스크롤 에러:', error);
+    } catch (e) {
+      error(e);
     } finally {
       setTimeout(() => {
         setIsFetching(false);
       }, delayTime);
     }
-  }, [nextPage, isFetching, fetchingNextPage, fetchNext, delayTime]);
+  }, [nextPage, isFetching, fetchingNextPage, fetchNext, delayTime, error]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && nextPage && !fetchingNextPage) {
           nextList().catch((e) => {
-            console.error('스크롤 에러', e);
+            error(e);
           });
         }
       },
@@ -51,7 +53,7 @@ export default function useScroll({
     }
 
     return () => observer.disconnect();
-  }, [nextPage, fetchingNextPage, nextList]);
+  }, [nextPage, fetchingNextPage, nextList, thresholdRate, error]);
 
   return {
     observerRef,
