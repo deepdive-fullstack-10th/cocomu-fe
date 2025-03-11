@@ -48,13 +48,13 @@ export default function CodeExecutor({
         </S.DisabledSection>
       ) : (
         <S.ActiveSection height={height}>
-          <UserTabList tabs={activeTabs} />
+          {/* <UserTabList tabs={activeTabs} />
 
           <CodeEditor
             language={language.languageName}
             code={code}
             onChange={onCodeChange}
-          />
+          /> */}
         </S.ActiveSection>
       )}
 

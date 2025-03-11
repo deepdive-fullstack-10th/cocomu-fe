@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
+// import useYorkie from '@hooks/utils/useYorkie';
 import useGetStartingPage from '@hooks/space/useGetStartingPage';
 import useEnterSpace from '@hooks/space/useEnterSpace';
 
@@ -20,41 +20,51 @@ export default function SpaceRunning() {
 
   const messages = useStompClient({
     codingSpaceId,
-    token: localStorage.getItem('ACCESS_TOKEN'),
   });
+
+  // const { content, updateContent } = useYorkie(data?.documentKey);
 
   useEffect(() => {
     enterSpaceMutate(codingSpaceId);
   }, [codingSpaceId, enterSpaceMutate]);
 
-  console.log(data);
+  useEffect(() => {
+    console.log(data);
+    if (messages) {
+      const object = JSON.parse(messages);
+      console.log(object);
+    }
+  }, [data, messages]);
+
   const handleStart = () => {};
 
-  if (isLoading) return <Loading />;
+  if (isLoading || !data) return <Loading />;
 
   return (
     <S.Container>
-      {/* <SpaceNavbar
-        studyId={Number(studyId)}
-
-        name={data.name}
-        timer={data.codingMinutes}
-        isLeader={data.hostMe}
+      <SpaceNavbar
+        name={data?.name}
+        startTime={data?.startTime}
+        timer={data?.codingMinutes}
+        isLeader={data?.hostMe}
         buttonLabel='피드백 시작'
         onClick={handleStart}
-      /> */}
+      />
 
-      {/* <CodingWorkspace
-        description={data.description}
-        workbookUrl={data.workbookUrl}
-        language={data.language}
+      <CodingWorkspace
+        description={data?.description}
+        workbookUrl={data?.workbookUrl}
+        language={data?.language}
         disabled={false}
       />
 
       <SpaceFooter
         codingSpaceId={codingSpaceId}
         testCases={data.testCases}
-      /> */}
+        isEditable
+      >
+        <div>123</div>
+      </SpaceFooter>
     </S.Container>
   );
 }
