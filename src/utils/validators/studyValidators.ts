@@ -9,6 +9,13 @@ export const validateName = {
     if (isEmptyString(name)) {
       throw new ValidationError({ inputName: 'name', message: '스터디 이름을 입력해주세요.' });
     }
+
+    if (name.length < 2 || name.length > 100) {
+      throw new ValidationError({
+        inputName: 'name',
+        message: '스터디 이름은 최소 2자 이상 최대 100자 이하여야 합니다.',
+      });
+    }
   },
 };
 
