@@ -11,7 +11,6 @@ const Container = styled.div`
 const EmptyContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
 const Body = styled.div`
