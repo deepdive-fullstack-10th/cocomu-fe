@@ -34,7 +34,7 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId, 
       navigate(ROUTES.STUDY.EDIT({ studyId }));
     } else if (selectedItem === STUDY_EDIT_DROPDOWN_LABELS[1].label) {
       open('delete', {
-        studyId,
+        studyId: String(studyId),
         name,
         navigate: () => navigate(ROUTES.ROOT()),
       });
@@ -44,7 +44,7 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId, 
 
   const handleLeaveClick = () => {
     open('leave', {
-      studyId,
+      studyId: String(studyId),
       name,
       navigate: () => navigate(ROUTES.ROOT()),
     });
