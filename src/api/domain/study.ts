@@ -73,8 +73,6 @@ const studyApi = {
       params: {
         lastNickname,
       },
-      useAuth: false,
-      withCredentials: false,
     });
 
     return data.result;
