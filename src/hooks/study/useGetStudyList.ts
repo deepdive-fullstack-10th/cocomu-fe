@@ -8,6 +8,5 @@ export default function useGetStudyList(params: GetListData) {
   return useQuery({
     queryKey: [QUERY_KEYS.STUDY_LIST, params],
     queryFn: () => studyApi.getList(params),
-    staleTime: 1000 * 60 * 1,
   });
 }

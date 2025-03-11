@@ -17,6 +17,5 @@ export default function useGetSpaceList({ studyId, params }: UseGetSpaceListProp
       if (!lastPage?.codingSpaces.length) return null;
       return lastPage.lastId ?? null;
     },
-    staleTime: 1000 * 60 * 3,
   });
 }
