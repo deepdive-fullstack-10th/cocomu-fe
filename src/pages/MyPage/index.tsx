@@ -23,10 +23,10 @@ export default function MyPage() {
 
   const handleNavigation = (tab: (typeof MYPAGE_TAB)[number]) => {
     if (tab === MYPAGE_TAB[0]) {
-      navigate(ROUTES.MYPAGE.DETAIL({ userId: Number(userId) }));
+      navigate(ROUTES.MYPAGE.ROOT({ userId: Number(userId) }));
     }
     if (tab === MYPAGE_TAB[1]) {
-      navigate(ROUTES.MYPAGE.SPACE({ userId: Number(userId) }));
+      navigate(ROUTES.MYPAGE.SPACE_LIST({ userId: Number(userId) }));
     }
   };
 

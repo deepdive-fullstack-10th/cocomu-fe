@@ -13,7 +13,7 @@ export default function UserProfile({ user, size = 'md', upload, border }: UserP
 
   const handleUserClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
+    navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
   };
 
   return (
