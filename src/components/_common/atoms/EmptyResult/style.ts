@@ -1,6 +1,13 @@
 import styled from '@emotion/styled';
 
-export const EmptyResultContainer = styled.div`
+const EmptyWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const EmptyContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,3 +19,10 @@ export const EmptyResultContainer = styled.div`
     height: auto;
   }
 `;
+
+const S = {
+  EmptyWrapper,
+  EmptyContent,
+};
+
+export default S;

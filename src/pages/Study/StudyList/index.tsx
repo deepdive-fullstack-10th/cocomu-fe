@@ -47,11 +47,7 @@ export default function StudyList() {
         <Loading />
       ) : (
         <>
-          {data?.studies.length === 0 && (
-            <S.EmptyContainer>
-              <EmptyResult isStudy />
-            </S.EmptyContainer>
-          )}
+          {data?.studies.length === 0 && <EmptyResult isStudy />}
           <S.Body>
             {data?.studies.length > 0 &&
               data.studies.map((study: StudyData) => (
