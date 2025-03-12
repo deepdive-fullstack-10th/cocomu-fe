@@ -50,7 +50,7 @@ export default function SpaceList() {
         setKeyword={setKeyword}
       />
 
-      {!data?.pages.some((page) => page.codingSpaces.length > 0) && <EmptyResult isStudy={false} />}
+      {!data?.pages.some((page) => page.codingSpaces.length > 0) && <EmptyResult />}
       <S.SpaceListContainer>
         {data?.pages.flatMap((page) =>
           page.codingSpaces.map((space: SpaceData) => (

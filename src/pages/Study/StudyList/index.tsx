@@ -49,13 +49,12 @@ export default function StudyList() {
         <>
           {data?.studies.length === 0 && <EmptyResult isStudy />}
           <S.Body>
-            {data?.studies.length > 0 &&
-              data.studies.map((study: StudyData) => (
-                <StudyCard
-                  key={study.id}
-                  {...study}
-                />
-              ))}
+            {data.studies.map((study: StudyData) => (
+              <StudyCard
+                key={study.id}
+                {...study}
+              />
+            ))}
           </S.Body>
           {data?.studies.length > 0 && (
             <S.Footer>
