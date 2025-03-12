@@ -17,12 +17,13 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     rollupOptions: {
-      external: ['./@emotion/react', './@emotion/styled', './@emotion/use-insertion-effect-with-fallbacks'],
+      external: ['./@emotion/react', './@emotion/styled', './@emotion/use-insertion-effect-with-fallbacks', 'yorkie'],
       output: {
         globals: {
           './@emotion/react': 'emotionReact',
           './@emotion/styled': 'emotionStyled',
           './@emotion/use-insertion-effect-with-fallbacks': 'emotionInsertionEffectFallbacks',
+          yorkie: 'Yorkie',
         },
       },
     },
@@ -35,7 +36,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['@emotion/use-insertion-effect-with-fallbacks'],
+    exclude: ['@emotion/use-insertion-effect-with-fallbacks', 'yorkie'],
   },
   plugins: [react(), tsconfigPaths()],
 });

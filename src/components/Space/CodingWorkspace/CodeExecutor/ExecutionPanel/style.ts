@@ -51,7 +51,7 @@ const Runner = styled.textarea`
   }
 `;
 
-const RunnerResult = styled.textarea`
+const RunnerResult = styled.div`
   flex: 1;
 
   ${({ theme }) => theme.font.common.default};

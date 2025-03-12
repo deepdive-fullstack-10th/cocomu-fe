@@ -17,6 +17,7 @@ interface SpaceNavbarProps {
   isLeader?: boolean;
   buttonLabel?: string;
   onClick?: () => void;
+  onTimeout?: () => void;
 }
 
 export default function SpaceNavbar({
@@ -27,6 +28,7 @@ export default function SpaceNavbar({
   buttonLabel,
   onClick,
   startTime,
+  onTimeout,
 }: SpaceNavbarProps) {
   const navigate = useNavigate();
 
@@ -50,6 +52,7 @@ export default function SpaceNavbar({
           <Timer
             timer={timer}
             startTime={startTime}
+            onTimeout={onTimeout}
           />
         )}
         {isLeader && (

@@ -15,11 +15,11 @@ export interface CodeExecutorProps {
   activeTabs?: ActiveTab[];
   language?: { languageId: number; languageName: string; languageImageUrl: string };
   code?: string;
-  onCodeChange?: () => void;
+  onCodeChange?: (newText: string) => void;
   disabled?: boolean;
   activeUsers?: UserRoleData[];
   totalUserCount?: number;
-  setInput?: () => void;
+  setInput?: React.Dispatch<React.SetStateAction<string>>;
   output?: string;
 }
 
@@ -48,13 +48,13 @@ export default function CodeExecutor({
         </S.DisabledSection>
       ) : (
         <S.ActiveSection height={height}>
-          {/* <UserTabList tabs={activeTabs} />
+          <UserTabList tabs={activeTabs} />
 
           <CodeEditor
             language={language.languageName}
             code={code}
             onChange={onCodeChange}
-          /> */}
+          />
         </S.ActiveSection>
       )}
 

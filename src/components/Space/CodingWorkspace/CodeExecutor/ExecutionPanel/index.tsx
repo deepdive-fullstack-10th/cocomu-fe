@@ -31,12 +31,7 @@ export default function ExecutionPanel({ setInput, output, disabled }: Execution
           onChange={(e) => setInput(e.target.value)}
         />
       ) : (
-        <S.RunnerResult
-          placeholder='실행 결과가 여기에 표시됩니다.'
-          disabled
-        >
-          {output}
-        </S.RunnerResult>
+        <S.RunnerResult>{output}</S.RunnerResult>
       )}
     </S.Container>
   );

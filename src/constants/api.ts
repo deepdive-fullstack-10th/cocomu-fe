@@ -70,6 +70,7 @@ export const END_POINTS_V1 = {
 export const STOMP_ENDPOINTS = {
   CONNECT: `${BASE_URL}/stomp`,
   SPACE_SUBSCRIBE: (codingSpaceId: string) => `/sub/v1/coding-spaces/${codingSpaceId}`,
+  TAB_SUBSCRIBE: (codingSpaceTabId: string) => `/sub/executor/${codingSpaceTabId}`,
 } as const;
 
 export const HTTP_STATUS_CODE = {

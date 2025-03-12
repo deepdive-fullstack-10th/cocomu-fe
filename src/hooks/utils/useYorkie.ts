@@ -1,49 +1,66 @@
 import { useEffect, useRef, useState } from 'react';
-import * as yorkie from 'yorkie';
-import { BASE_URL } from '@constants/api';
+import * as yorkie from 'yorkie-js-sdk';
 
 export default function useYorkie(documentKey: string) {
-  const [doc, setDoc] = useState<yorkie.Document | null>(null);
+  const [doc, setDoc] = useState<yorkie.Document<{ content: yorkie.Text }> | null>(null);
   const [content, setContent] = useState('');
-  const clientRef = useRef<yorkie.Client | null>(null); // ✅ useRef로 client 관리
+  const clientRef = useRef<yorkie.Client | null>(null);
 
   useEffect(() => {
     async function initYorkie() {
-      const newClient = new yorkie.Client(BASE_URL);
-      await newClient.activate();
+      try {
+        if (!documentKey || documentKey.length < 4 || documentKey.length > 120) {
+          return;
+        }
 
-      const newDoc = new yorkie.Document(documentKey);
-      await newClient.attach(newDoc);
+        const client = new yorkie.Client('https://api.yorkie.dev', {
+          reconnectStreamDelay: 2000,
+          syncLoopDuration: 5000,
+        });
 
-      newDoc.update((root) => {
-        // eslint-disable-next-line no-param-reassign
-        if (!root.content) root.content = '';
-      });
+        await client.activate().catch(() => {});
+        clientRef.current = client;
 
-      setDoc(newDoc);
-      clientRef.current = newClient; // ✅ client를 useRef에 저장
+        const newDoc = new yorkie.Document<{ content: yorkie.Text }>(documentKey);
+        await client.attach(newDoc).catch(() => {});
 
-      newDoc.subscribe(() => {
-        setContent(newDoc.getRoot().content);
-      });
+        newDoc.update((root) => {
+          if (!root.content) {
+            // eslint-disable-next-line no-param-reassign
+            root.content = new yorkie.Text();
+          }
+        });
 
-      newClient.sync();
+        setDoc(newDoc);
+
+        newDoc.subscribe(() => {
+          setContent(newDoc.getRoot().content.toString());
+        });
+
+        client.sync();
+      } catch (error) {
+        // 🔇 모든 에러 무시
+      }
     }
 
     initYorkie();
 
     return () => {
-      clientRef.current?.deactivate(); // ✅ useRef에서 최신 client 가져와 정리
+      clientRef.current?.deactivate();
     };
   }, [documentKey]);
 
   const updateContent = (newText: string) => {
     if (doc) {
-      doc.update((root) => {
-        // eslint-disable-next-line no-param-reassign
-        root.content = newText;
-      });
-      clientRef.current?.sync();
+      try {
+        doc.update((root) => {
+          const textContent = root.content as yorkie.Text;
+          textContent.edit(0, textContent.length, newText);
+        });
+        clientRef.current?.sync();
+      } catch (error) {
+        // 🔇 에러 무시
+      }
     }
   };
 
