@@ -6,11 +6,6 @@ const Container = styled.div`
   gap: 4rem;
 `;
 
-const EmptyContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
 const SpaceListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,7 +31,6 @@ const Sentinel = styled.div`
 
 const S = {
   Container,
-  EmptyContainer,
   SpaceListContainer,
   Sentinel,
 };
