@@ -1,25 +1,57 @@
 import styled from '@emotion/styled';
 
-const HeaderContainer = styled.div`
+const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4.3rem;
 
-  padding-bottom: 3rem;
+  padding: 60px 16px;
 `;
 
-const MyPageButtonGroup = styled.div`
+const Header = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 
+  margin-bottom: 1.2rem;
+`;
+
+const UserWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  gap: 4rem;
+`;
+
+const UserName = styled.input`
+  ${({ theme }) => theme.font.heading[600]};
+  color: ${({ theme }) => theme.color.gray[950]};
+
+  border: 1px solid ${({ theme }) => theme.color.gray[400]};
+  border-radius: 10px;
+  outline: none;
+
+  padding: 1.3rem;
+
+  &:disabled {
+    border: none;
+    background-color: ${({ theme }) => theme.color.gray[50]};
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
   gap: 1rem;
-  padding: 4rem;
+
+  height: 4.2rem;
 `;
 
 const S = {
-  HeaderContainer,
-  MyPageButtonGroup,
+  Container,
+  Header,
+  UserWrapper,
+  UserName,
+  ButtonWrapper,
 };
 
 export default S;
