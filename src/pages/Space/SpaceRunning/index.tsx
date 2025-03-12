@@ -13,7 +13,7 @@ import SpaceNavbar from '@components/Space/SpaceNavbar';
 import { ActiveTab } from '@customTypes/space';
 import Loading from '@pages/Loading';
 import { STOMP_ENDPOINTS } from '@constants/api';
-
+import { useToastStore } from '@stores/useToastStore';
 import { ROUTES } from '@constants/path';
 
 import S from './style';
@@ -24,10 +24,11 @@ interface OutletContextType {
 
 export default function SpaceRunning() {
   const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
-  const { data, isLoading } = useGetStartingPage(codingSpaceId);
+
   const { client } = useOutletContext<OutletContextType>();
 
   const navigate = useNavigate();
+  const { alert } = useToastStore();
 
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
@@ -36,13 +37,15 @@ export default function SpaceRunning() {
   const [spaceMessage, setSpaceMessage] = useState<string | null>(null);
 
   const { excutionMutate } = useExcution();
+
   const { feedBackSpaceMutate } = useFeedBackSpace(Number(codingSpaceId));
+
+  const { data, isLoading, refetch } = useGetStartingPage(codingSpaceId);
 
   const { content, updateContent } = useYorkie(data?.documentKey);
 
   useEffect(() => {
     if (!data || !client || !client.connected) return;
-    console.log('📌 Starting Page Data:', data);
 
     const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(data.tabId), (msg) => {
       setTabMessage(msg.body);
@@ -67,7 +70,7 @@ export default function SpaceRunning() {
   useEffect(() => {
     if (!tabMessage) return;
     const object = JSON.parse(tabMessage);
-    console.log(object);
+
     if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
       setOutput(object.data.output);
     }
@@ -76,14 +79,23 @@ export default function SpaceRunning() {
   useEffect(() => {
     if (!spaceMessage) return;
     const object = JSON.parse(spaceMessage);
-    console.log(object);
 
     if (object.type === 'STUDY_FEEDBACK') {
       if (!data.hostMe) {
         navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId: Number(codingSpaceId) }));
       }
     }
-  }, [spaceMessage, codingSpaceId, data?.hostMe, navigate]);
+
+    if (object.type === 'DELETE_TEST_CASE') {
+      refetch();
+      alert('테스트 케이스가 삭제되었습니다.');
+    }
+
+    if (object.type === 'ADD_TEST_CASE') {
+      refetch();
+      alert('테스트 케이스가 추가되었습니다.');
+    }
+  }, [spaceMessage, codingSpaceId, data?.hostMe, navigate, alert, refetch]);
 
   const handleStart = useCallback(() => {
     feedBackSpaceMutate.mutate(codingSpaceId);
@@ -100,7 +112,7 @@ export default function SpaceRunning() {
   }, [excutionMutate, data, content, input]);
 
   const handleSubmit = () => {
-    console.log('✅ 코드 제출');
+    // 코드제출
   };
 
   if (isLoading || !data) return <Loading />;

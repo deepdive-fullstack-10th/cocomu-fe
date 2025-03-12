@@ -1,6 +1,9 @@
 export const BASE_URL = import.meta.env.VITE_API_URL;
 const API_V1 = import.meta.env.VITE_API_V1;
 
+export const YORKIE_URL = import.meta.env.VITE_YORKIE_URL;
+export const YORKIE_API_KEY = import.meta.env.VITE_YORJIE_API_KEY;
+
 const BASE_PATH_V1 = {
   STUDY: `${API_V1}/studies`,
   CODING_SPACE: `${API_V1}/coding-spaces`,

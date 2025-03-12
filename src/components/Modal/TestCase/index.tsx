@@ -11,15 +11,27 @@ import S from './style';
 
 export default function TestCase({ codingSpaceId, isEditable, testCases, onClose }: TestCaseProps) {
   const [localTestCases, setLocalTestCases] = useState(testCases);
+  const [hasPendingTestCase, setHasPendingTestCase] = useState(false);
   const { updateTestCaseMutate } = useUpdateTestCase();
   const { deleteTestCaseMutate } = useDeleteTestCase();
+
   const handleAddTestCase = () => {
+    if (hasPendingTestCase) return;
+
     setLocalTestCases((prevList) => [...prevList, { testCaseId: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
+    setHasPendingTestCase(true);
   };
 
   const handleRemoveTestCase = (id: string) => {
+    const testCaseToRemove = localTestCases.find((testCase) => testCase.testCaseId === id);
+
     setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
-    deleteTestCaseMutate.mutate({ codingSpaceId, testCasesId: id });
+
+    if (testCaseToRemove && testCaseToRemove.input.trim() && testCaseToRemove.output.trim()) {
+      deleteTestCaseMutate.mutate({ codingSpaceId, testCasesId: id });
+    }
+
+    setHasPendingTestCase(false);
   };
 
   const handleInputChange = (id: string, field: 'input' | 'output', value: string) => {
@@ -33,6 +45,7 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
     const newTestCase = localTestCases.find(({ testCaseId }) => !testCases.some((tc) => tc.testCaseId === testCaseId));
 
     if (!newTestCase || !newTestCase.input.trim() || !newTestCase.output.trim()) {
+      onClose();
       return;
     }
 
@@ -43,9 +56,10 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
 
     updateTestCaseMutate.mutate({ codingSpaceId, testCases: formattedTestCase });
 
+    setHasPendingTestCase(false);
     onClose();
   };
-  console.log(testCases);
+
   return (
     <S.Container>
       <S.Header>
