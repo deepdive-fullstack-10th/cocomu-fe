@@ -47,7 +47,7 @@
       }
     ],
     "import/no-unresolved": "off",
-    "function-paren-newline": "warn",
+    "function-paren-newline": "off",
     "max-len": ["error", { "code": 120 }],
     "react/jsx-props-no-spreading": 0,
     "object-curly-newline": 0,
