@@ -35,8 +35,11 @@ export default function SpaceWaiting() {
   });
 
   useEffect(() => {
-    enterSpaceMutate(codingSpaceId);
-    setIsEntered(true);
+    enterSpaceMutate(codingSpaceId, {
+      onSuccess: () => {
+        setIsEntered(true);
+      },
+    });
   }, [codingSpaceId, enterSpaceMutate]);
 
   useEffect(() => {

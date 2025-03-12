@@ -31,7 +31,7 @@ export default function ExecutionPanel({ setInput, output, disabled }: Execution
           onChange={(e) => setInput(e.target.value)}
         />
       ) : (
-        <S.RunnerResult>{output}</S.RunnerResult>
+        <S.RunnerResult>{output || '실행 결과가 여기에 표시됩니다.'}</S.RunnerResult>
       )}
     </S.Container>
   );
