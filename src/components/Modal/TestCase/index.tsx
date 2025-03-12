@@ -27,12 +27,18 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
   };
 
   const handleUpdate = () => {
-    const formattedTestCases = localTestCases.map(({ input, output }) => ({
-      input,
-      output,
-    }));
+    const newTestCase = localTestCases.find(({ testCaseId }) => !testCases.some((tc) => tc.testCaseId === testCaseId));
 
-    updateTestCaseMutate.mutate({ codingSpaceId, testCases: formattedTestCases });
+    if (!newTestCase || !newTestCase.input.trim() || !newTestCase.output.trim()) {
+      return;
+    }
+
+    const formattedTestCase = {
+      input: newTestCase.input,
+      output: newTestCase.output,
+    };
+
+    updateTestCaseMutate.mutate({ codingSpaceId, testCases: formattedTestCase });
 
     onClose();
   };

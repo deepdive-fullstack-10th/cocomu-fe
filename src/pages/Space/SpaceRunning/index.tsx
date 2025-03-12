@@ -27,13 +27,20 @@ export default function SpaceRunning() {
   const navigate = useNavigate();
   const { open } = useModalStore();
 
-  const [users, setUsers] = useState<ActiveTab[]>();
+  const { feedBackSpaceMutate } = useFeedBackSpace(Number(codingSpaceId));
+
+  const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>();
-
   const { excutionMutate } = useExcution();
 
-  const { feedBackSpaceMutate } = useFeedBackSpace(Number(codingSpaceId));
+  useEffect(() => {
+    enterSpaceMutate(codingSpaceId, {
+      onSuccess: () => {
+        console.log('✅ 코딩 스페이스 입장 완료');
+      },
+    });
+  }, [codingSpaceId, enterSpaceMutate]);
 
   const messages = useStompClient({
     codingSpaceId,
@@ -43,33 +50,38 @@ export default function SpaceRunning() {
   const { content, updateContent } = useYorkie(data?.documentKey);
 
   useEffect(() => {
-    enterSpaceMutate(codingSpaceId);
-  }, [codingSpaceId, enterSpaceMutate]);
+    if (data) {
+      console.log('📌 Starting Page Data:', data);
+    }
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(data);
     if (data?.activeUsers) {
       const activeUser = data.activeUsers.find((user) => user.myTab === true);
-
-      setUsers([activeUser]);
+      setUsers(activeUser ? [activeUser] : []);
     }
+  }, [data]);
+
+  useEffect(() => {
     if (messages) {
       const object = JSON.parse(messages);
-      // eslint-disable-next-line no-console
-      console.log(object);
+      console.log('📩 WebSocket 메시지:', object);
+
       if (object?.type === 'STUDY_FEEDBACK') {
         open('wating', {
           label: WAITING_INFO.feedback.label,
           description: WAITING_INFO.feedback.description,
-          navigate: navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId: Number(codingSpaceId) })),
+
+          navigate: navigate(
+            ROUTES.SPACE.FEEDBACK({
+              codingSpaceId: Number(codingSpaceId),
+            }),
+          ),
         });
       }
-      if (object?.type === 'SUCCESS') {
+      if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object?.type)) {
         setOutput(object?.data?.output);
       }
     }
-  }, [data, messages, codingSpaceId, navigate, open]);
+  }, [messages, codingSpaceId, navigate, open]);
 
   const handleStart = () => {
     feedBackSpaceMutate.mutate(codingSpaceId);
@@ -82,6 +94,10 @@ export default function SpaceRunning() {
       code: content,
       input,
     });
+  };
+
+  const handleSubmit = async () => {
+    console.log('✅ 코드 제출');
   };
 
   if (isLoading || !data) return <Loading />;
@@ -127,6 +143,7 @@ export default function SpaceRunning() {
           <Button
             size='md'
             color='primary'
+            onClick={handleSubmit}
           >
             제출하기
           </Button>
