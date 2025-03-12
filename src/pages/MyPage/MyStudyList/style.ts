@@ -3,26 +3,30 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 4rem;
 
-  padding: 60px 16px;
+  margin-top: 3rem;
 `;
 
-const Body = styled.div`
+const StudyList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3.4rem;
 `;
 
-const Footer = styled.div`
+const Sentinel = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+
+  height: 2px;
+  padding-bottom: 4rem;
 `;
 
 const S = {
   Container,
-  Body,
-  Footer,
+  StudyList,
+  Sentinel,
 };
 
 export default S;
