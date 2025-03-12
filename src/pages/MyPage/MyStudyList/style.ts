@@ -4,8 +4,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
-
-  margin-top: 3rem;
 `;
 
 const StudyList = styled.div`
