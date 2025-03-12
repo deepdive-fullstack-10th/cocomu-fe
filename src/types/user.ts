@@ -15,3 +15,8 @@ export interface UserDetailData extends UserData {
   joinedDate: string;
   joinedSpaceCount: number;
 }
+
+export interface EditUserData {
+  nickname: string;
+  profileImageUrl: string;
+}
