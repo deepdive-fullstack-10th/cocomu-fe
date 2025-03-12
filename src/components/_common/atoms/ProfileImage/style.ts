@@ -46,7 +46,7 @@ const uploadButtonSizeStyles = {
 };
 
 const uploadProfileImgeContainer = (theme: Theme) => css`
-  padding: 0.3rem;
+  padding: 0.1rem;
 
   background: ${theme.color.gray[50]};
   border: 1px solid ${theme.color.gray[500]};
@@ -73,6 +73,7 @@ const ProfileImage = styled.img`
   border-radius: 50%;
 
   object-fit: cover;
+  object-position: center;
 `;
 
 const UploadButton = styled.button<ProfileImageStyleProps>`
