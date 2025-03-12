@@ -1,3 +1,4 @@
+import useMyPageTab from '@hooks/utils/useMyPageTab';
 import TabMenu from '@components/_common/molecules/TabMenu';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -9,25 +10,10 @@ export default function MyPage() {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { selectedTab, handleNavigation } = useMyPageTab(userId!);
 
-  const getTabFromPath = () => {
-    if (location.pathname.includes('/space')) return MYPAGE_TAB[1];
-    return MYPAGE_TAB[0];
-  };
 
-  const [selectedTab, setSelectedTab] = useState<(typeof MYPAGE_TAB)[number]>(getTabFromPath());
 
-  useEffect(() => {
-    setSelectedTab(getTabFromPath());
-  }, [location.pathname]);
-
-  const handleNavigation = (tab: (typeof MYPAGE_TAB)[number]) => {
-    if (tab === MYPAGE_TAB[0]) {
-      navigate(ROUTES.MYPAGE.ROOT({ userId: Number(userId) }));
-    }
-    if (tab === MYPAGE_TAB[1]) {
-      navigate(ROUTES.MYPAGE.SPACE_LIST({ userId: Number(userId) }));
-    }
   };
 
   return (
