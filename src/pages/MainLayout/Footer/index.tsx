@@ -28,7 +28,6 @@ export default function Footer() {
           <S.MenuText>{menuItem}</S.MenuText>
         ))}
       </S.MenuSection>
-      <MoveTopButton />
     </S.Container>
   );
 }

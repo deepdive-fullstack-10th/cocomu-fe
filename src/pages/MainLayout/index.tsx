@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import useGetUserInfo from '@hooks/user/useGetUserInfo';
 import { useUserStore } from '@stores/useUserStore';
@@ -13,6 +13,9 @@ export default function MainLayout() {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
   const setUserId = useUserStore((state) => state.setUserId);
   const { data, isLoading } = useGetUserInfo({ enabled: isLoggedIn });
+
+  const location = useLocation();
+  const isMain = location.pathname === '/';
 
   if (isLoading) return <Loading />;
 
@@ -29,7 +32,7 @@ export default function MainLayout() {
       <S.Container>
         <Outlet />
       </S.Container>
-      <Footer />
+      {isMain && <Footer />}
     </S.MainContainer>
   );
 }

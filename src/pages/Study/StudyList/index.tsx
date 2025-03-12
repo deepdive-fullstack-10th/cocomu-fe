@@ -6,6 +6,7 @@ import PageButton from 'src/components/_common/molecules/PageButton';
 import StudyCard from 'src/components/Study/StudyCard';
 import Loading from '@pages/Loading';
 import Slider from '@components/Slider';
+import MoveTopButton from '@components/_common/atoms/MoveTopButton';
 import EmptyResult from '@components/_common/atoms/EmptyResult';
 
 import Footer from '@pages/Study/StudyList/Footer';
@@ -70,6 +71,7 @@ export default function StudyList() {
           <Footer />
         </>
       )}
+      <MoveTopButton />
     </S.Container>
   );
 }
