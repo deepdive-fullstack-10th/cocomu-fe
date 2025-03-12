@@ -13,26 +13,25 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
   const { updateTestCaseMutate } = useUpdateTestCase();
 
   const handleAddTestCase = () => {
-    setLocalTestCases((prevList) => [
-      ...prevList,
-      { testCaseId: uuidv4(), type: 'CUSTOM', input: '', output: '' }, // ✅ testCaseId 유지
-    ]);
+    setLocalTestCases((prevList) => [...prevList, { testCaseId: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
   };
 
   const handleRemoveTestCase = (id: string | number) => {
-    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id)); // ✅ testCaseId 사용
+    setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
   };
 
   const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
     setLocalTestCases((prevList) =>
-      prevList.map(
-        (item) => (item.testCaseId === id ? { ...item, [field]: value } : item), // ✅ testCaseId 사용
-      ),
+      prevList.map((item) => (item.testCaseId === id ? { ...item, [field]: value } : item)),
     );
   };
 
   const handleUpdate = () => {
-    const formattedTestCases = localTestCases.map(({ input, output }) => ({ input, output }));
+    const formattedTestCases = localTestCases.map(({ input, output }) => ({
+      input,
+      output,
+    }));
+
     updateTestCaseMutate.mutate({ codingSpaceId, testCases: formattedTestCases });
 
     onClose();

@@ -6,6 +6,7 @@ export interface UserData {
 
 export interface UserRoleData extends UserData {
   role: string;
+  myTab?: boolean;
 }
 
 export interface UserDetailData {

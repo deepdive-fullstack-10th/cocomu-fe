@@ -4,10 +4,11 @@ import SockJS from 'sockjs-client';
 import { STOMP_ENDPOINTS } from '@constants/api';
 
 interface UseStompClientProps {
-  codingSpaceId: string;
+  codingSpaceId?: string;
+  tabId?: string;
 }
 
-export default function useStompClient({ codingSpaceId }: UseStompClientProps) {
+export default function useStompClient({ codingSpaceId, tabId }: UseStompClientProps) {
   const [messages, setMessages] = useState<string>();
 
   useEffect(() => {
@@ -20,12 +21,16 @@ export default function useStompClient({ codingSpaceId }: UseStompClientProps) {
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       onConnect: () => {
-        client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (message) => {
-          setMessages(message.body);
-        });
-      },
-      onStompError: (frame) => {
-        console.error('⚠️ STOMP 오류 발생:', frame); // eslint-disable-line no-console
+        if (codingSpaceId) {
+          client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (message) => {
+            setMessages(message.body);
+          });
+        }
+        if (tabId) {
+          client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(tabId), (message) => {
+            setMessages(message.body);
+          });
+        }
       },
     });
 
@@ -36,7 +41,7 @@ export default function useStompClient({ codingSpaceId }: UseStompClientProps) {
         client.deactivate();
       }
     };
-  }, [codingSpaceId]);
+  }, [codingSpaceId, tabId]);
 
   return messages;
 }

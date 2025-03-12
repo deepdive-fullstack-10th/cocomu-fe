@@ -4,7 +4,7 @@ import S from './style';
 interface CodeEditorProps {
   language: string;
   code: string;
-  onChange: () => void;
+  onChange: (newText: string) => void;
 }
 
 export default function CodeEditor({ language, code, onChange }: CodeEditorProps) {

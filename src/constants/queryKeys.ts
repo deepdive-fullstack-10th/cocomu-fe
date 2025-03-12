@@ -10,7 +10,8 @@ const QUERY_KEYS = {
   STUDY_FILTER: 'study_filter',
   STUDY_PARTICIPATION: 'study_participation',
   SPACE_LIST: 'space_list',
-  SPACE_PAGE: 'space_page',
+  SPACE_WATING_PAGE: 'space_wating_page',
+  SPACE_START_PAGE: 'space_start_page',
 } as const;
 
 export default QUERY_KEYS;
