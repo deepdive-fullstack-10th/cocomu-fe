@@ -18,12 +18,6 @@ export const ScrollButton = styled.button`
   }
 `;
 
-export const ButtonGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
 export const IconContainer = styled.div`
   display: flex;
   align-items: center;
@@ -37,7 +31,6 @@ export const ButtonText = styled.span`
 
 const S = {
   ScrollButton,
-  ButtonGroup,
   IconContainer,
   ButtonText,
 };

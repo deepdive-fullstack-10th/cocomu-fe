@@ -6,6 +6,8 @@ import { useUserStore } from '@stores/useUserStore';
 import NavBar from '@components/NavBar';
 import Loading from '@pages/Loading';
 
+import Footer from '@pages/MainLayout/Footer';
+import { ScrollButton } from '@components/_common/atoms/MoveTopButton/style';
 import S from './style';
 
 export default function MainLayout() {
@@ -28,6 +30,7 @@ export default function MainLayout() {
       <S.Container>
         <Outlet />
       </S.Container>
+      <Footer />
     </S.MainContainer>
   );
 }
