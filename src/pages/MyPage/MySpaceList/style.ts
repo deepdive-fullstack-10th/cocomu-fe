@@ -13,7 +13,6 @@ const SpaceList = styled.div`
   flex-direction: column;
   gap: 2rem;
 
-  min-height: 70rem;
   overflow-y: auto;
 
   ::-webkit-scrollbar {
