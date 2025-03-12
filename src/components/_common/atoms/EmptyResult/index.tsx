@@ -1,4 +1,5 @@
 import React from 'react';
+import { EMPTY_RESULT_IMAGES } from '@constants/common';
 import { EmptyResultContainer } from './style';
 
 interface EmptyResultProps {
@@ -6,13 +7,10 @@ interface EmptyResultProps {
 }
 
 export default function EmptyResult({ isStudy }: EmptyResultProps) {
-  const EMPTY_RESULT_IMAGE_STUDY = 'https://cdn.cocomu.co.kr/images/default/empty_study.png';
-  const EMPTY_RESULT_IMAGE_SPACE = 'https://cdn.cocomu.co.kr/images/default/empty_space.png';
-
   return (
     <EmptyResultContainer>
       <img
-        src={isStudy ? EMPTY_RESULT_IMAGE_STUDY : EMPTY_RESULT_IMAGE_SPACE}
+        src={isStudy ? EMPTY_RESULT_IMAGES[0] : EMPTY_RESULT_IMAGES[1]}
         alt='Empty results found'
       />
     </EmptyResultContainer>
