@@ -20,8 +20,8 @@ export const PATH = {
     FINISH: 'finish',
   },
   MYPAGE: {
-    DETAIL: '/mypage/:userId',
-    SPACE: 'space',
+    ROOT: '/mypage/:userId',
+    SPACE_LIST: 'spaces',
   },
   OAUTH: '/callback/:provider',
 };
@@ -53,7 +53,8 @@ export const ROUTES = {
       generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FINISH}`, { studyId, codingSpaceId }),
   },
   MYPAGE: {
-    DETAIL: ({ userId }: { userId: number }) => generatePath(PATH.MYPAGE.DETAIL, { userId }),
-    SPACE: ({ userId }: { userId: number }) => generatePath(`${PATH.MYPAGE.DETAIL}/${PATH.MYPAGE.SPACE}`, { userId }),
+    ROOT: ({ userId }: { userId: number }) => generatePath(PATH.MYPAGE.ROOT, { userId }),
+    SPACE_LIST: ({ userId }: { userId: number }) =>
+      generatePath(`${PATH.MYPAGE.ROOT}/${PATH.MYPAGE.SPACE_LIST}`, { userId }),
   },
 };

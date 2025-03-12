@@ -48,7 +48,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
     setDropdownOpen(false);
 
     if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
-      navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
+      navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
       return;
     }
 

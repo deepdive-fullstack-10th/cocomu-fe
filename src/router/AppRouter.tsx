@@ -58,11 +58,11 @@ const router = createBrowserRouter(
               ],
             },
             {
-              path: PATH.MYPAGE.DETAIL,
+              path: PATH.MYPAGE.ROOT,
               element: <MyPage />,
               children: [
                 { index: true, element: <MyStudyList /> },
-                { path: PATH.MYPAGE.SPACE, element: <MySpaceList /> },
+                { path: PATH.MYPAGE.SPACE_LIST, element: <MySpaceList /> },
               ],
             },
             { path: PATH.OAUTH, element: <OAuthCallback /> },

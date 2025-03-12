@@ -17,7 +17,7 @@ export default function MemberCard({
   const navigate = useNavigate();
 
   const handleUserClick = () => {
-    navigate(ROUTES.MYPAGE.DETAIL({ userId: user.id }));
+    navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
   };
 
   return (
