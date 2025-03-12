@@ -12,7 +12,7 @@ import S from './style';
 
 // SpaceRunning쪽에서 필요한 핸들러, useState 같은건 여기서 만드시면 됩니다!
 export default function SpaceRunning() {
-  const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
+  const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
   const { data, isLoading } = useGetStartingPage(codingSpaceId);
 
   const handleStart = () => {};
@@ -22,7 +22,6 @@ export default function SpaceRunning() {
   return (
     <S.Container>
       <SpaceNavbar
-        studyId={Number(studyId)}
         name={data.name}
         timer={data.codingMinutes}
         isLeader={data.hostMe}

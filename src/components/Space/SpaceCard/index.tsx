@@ -16,10 +16,6 @@ import Tag from '@components/_common/atoms/Tag';
 
 import S from './style';
 
-interface SpaceCardProps extends SpaceData {
-  studyId: number;
-}
-
 export default function SpaceCard({
   id,
   joinedMe,
@@ -29,8 +25,7 @@ export default function SpaceCard({
   createdAt,
   status,
   currentUsers,
-  studyId,
-}: SpaceCardProps) {
+}: SpaceData) {
   const navigate = useNavigate();
   const { open } = useModalStore();
 
@@ -38,16 +33,15 @@ export default function SpaceCard({
 
   const handleCardClick = () => {
     if (joinedMe) {
-      navigate(ROUTES.SPACE.ENTER({ studyId, codingSpaceId: id }));
+      navigate(ROUTES.SPACE.ENTER({ codingSpaceId: id }));
       return;
     }
 
     open('confirm', {
       isSpace: true,
-      studyId,
       codingSpaceId: id,
       name,
-      navigate: (codingSpaceId: number) => navigate(ROUTES.SPACE.ENTER({ studyId, codingSpaceId })),
+      navigate: (codingSpaceId: number) => navigate(ROUTES.SPACE.ENTER({ codingSpaceId })),
     });
   };
 
