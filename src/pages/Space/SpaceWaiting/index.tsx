@@ -12,9 +12,9 @@ import Loading from '@pages/Loading';
 import S from './style';
 
 export default function SpaceWaiting() {
-  const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
+  const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
   const { data, isLoading } = useGetWaitingPage(codingSpaceId);
-  const { startSpaceMutate } = useStartSpace(Number(studyId), Number(codingSpaceId));
+  const { startSpaceMutate } = useStartSpace(Number(codingSpaceId));
 
   const handleStart = () => {
     startSpaceMutate.mutate(codingSpaceId);
@@ -25,7 +25,6 @@ export default function SpaceWaiting() {
   return (
     <S.Container>
       <SpaceNavbar
-        studyId={Number(studyId)}
         name={data.name}
         timer={data.codingMinutes}
         isLeader={data.hostMe}

@@ -10,7 +10,7 @@ import Button from '@components/_common/atoms/Button';
 import S from './style';
 
 interface SpaceNavbarProps {
-  studyId: number;
+  studyId?: number;
   name: string;
   timer?: number;
   isLeader?: boolean;
@@ -24,14 +24,16 @@ export default function SpaceNavbar({ studyId, name, timer, isLeader, buttonLabe
   return (
     <S.Container>
       <S.LeftSection>
-        <IconButton
-          content='나가기'
-          align='center'
-          color='none'
-          onClick={() => navigate(ROUTES.STUDY.DETAIL({ studyId }))}
-        >
-          <BsArrowLeft />
-        </IconButton>
+        {studyId && (
+          <IconButton
+            content='나가기'
+            align='center'
+            color='none'
+            onClick={() => navigate(ROUTES.STUDY.DETAIL({ studyId }))}
+          >
+            <BsArrowLeft />
+          </IconButton>
+        )}
         <S.Name>{name}</S.Name>
       </S.LeftSection>
       <S.RightSection>
