@@ -50,7 +50,7 @@ export default function SpaceList() {
         setKeyword={setKeyword}
       />
 
-      {data?.pages.every((page) => page.codingSpaces.length === 0) && (
+      {!data?.pages.some((page) => page.codingSpaces.length > 0) && (
         <S.EmptyContainer>
           <EmptyResult isStudy={false} />
         </S.EmptyContainer>
