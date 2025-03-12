@@ -7,7 +7,6 @@ const BASE_PATH_V1 = {
   EXECUTOR: `${API_V1}/executor`,
   USER: `${API_V1}/users`,
   AUTH: `${API_V1}/auth`,
-  FILES: `${API_V1}/files`,
 };
 
 export const END_POINTS_V1 = {
@@ -45,7 +44,6 @@ export const END_POINTS_V1 = {
     FEEDBACK: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/feedback`,
 
     TEST_CASE_UPDATE: (codingSpaceId: string) => `${BASE_PATH_V1.CODING_SPACE}/${codingSpaceId}/test-case`,
-    JOINED: (userId: string) => `${BASE_PATH_V1.CODING_SPACE}/me/${userId}`,
   },
 
   EXECUTOR: {
@@ -54,18 +52,17 @@ export const END_POINTS_V1 = {
   },
 
   USER: {
-    UPDATE_PROFILE: BASE_PATH_V1.USER,
-    INFO: `${BASE_PATH_V1.USER}/me`,
-    MY_PAGE: (userId: string) => `${BASE_PATH_V1.USER}/me/${userId}`,
+    MY_INFO: `${BASE_PATH_V1.USER}/me`,
+    EDIT: `${BASE_PATH_V1.USER}/me`,
+    IMAGE_UPLOAD: `${BASE_PATH_V1.USER}/me/profile-image`,
+    INFO: (userId: string) => `${BASE_PATH_V1.USER}/${userId}`,
+    MY_STUDY_LIST: (userId: string) => `${BASE_PATH_V1.USER}/${userId}/studies`,
+    MY_SPACE_LIST: (userId: string) => `${BASE_PATH_V1.USER}/${userId}/coding-spaces`,
   },
 
   AUTH: {
     OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login`,
     REFRESH_TOKEN: `${BASE_PATH_V1.AUTH}/re-issue`,
-  },
-
-  FILES: {
-    UPLOAD_PROFILE_IMAGE: `${BASE_PATH_V1.FILES}/profile-image`,
   },
 } as const;
 
