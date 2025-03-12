@@ -116,3 +116,8 @@ export const STEP_INFO = {
 export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
 export const MYPAGE_TAB = ['참여한 스터디 보기', '참여한 코딩 스페이스 보기'] as const;
+
+export const EMPTY_RESULT_IMAGES = [
+  'https://cdn.cocomu.co.kr/images/default/empty_study.png',
+  'https://cdn.cocomu.co.kr/images/default/empty_space.png',
+] as const;
