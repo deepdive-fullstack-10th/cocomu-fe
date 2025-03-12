@@ -12,6 +12,7 @@ import { BsPlusLg } from 'react-icons/bs';
 
 import Loading from '@pages/Loading';
 
+import MoveTopButton from '@components/_common/atoms/MoveTopButton';
 import S from './style';
 
 export default function StudyDetail() {
@@ -64,6 +65,7 @@ export default function StudyDetail() {
         onTabChange={handleTabNavigation}
       />
       <Outlet />
+      <MoveTopButton />
     </S.Container>
   );
 }
