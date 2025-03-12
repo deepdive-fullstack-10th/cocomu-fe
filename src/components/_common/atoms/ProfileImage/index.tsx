@@ -1,10 +1,13 @@
+import { useRef, useState } from 'react';
 import { BsCamera } from 'react-icons/bs';
-import S, { ProfileImageStyleProps } from './style';
+import useUploadUserImage from '@hooks/user/useUploadUserImage';
 import Icon from '../Icon';
+import S, { ProfileImageStyleProps } from './style';
 
 export interface ProfileImageProps extends ProfileImageStyleProps {
   src?: string;
   upload?: boolean;
+  onChange?: (imageUrl: string) => void;
 }
 
 export default function ProfileImage({
@@ -12,9 +15,26 @@ export default function ProfileImage({
   size = 'md',
   upload = false,
   border = false,
+  onChange,
 }: ProfileImageProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { uploadUserImageMutate, isLoading } = useUploadUserImage();
+  const [imageSrc, setImageSrc] = useState(src);
+
   const handleUploadClick = () => {
-    /* todo: 업로드 버튼 클릭 시 이벤트 함수 */
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    uploadUserImageMutate(file, {
+      onSuccess: (uploadedImageUrl) => {
+        setImageSrc(uploadedImageUrl);
+        if (onChange) onChange(uploadedImageUrl);
+      },
+    });
   };
 
   return (
@@ -23,21 +43,31 @@ export default function ProfileImage({
       border={border}
     >
       <S.ProfileImage
-        src={src}
+        src={imageSrc}
         alt='유저 프로필 이미지'
       />
       {upload && (
-        <S.UploadButton
-          size={size}
-          onClick={handleUploadClick}
-        >
-          <Icon
-            size='md'
-            color='50'
+        <>
+          <S.UploadButton
+            size={size}
+            onClick={handleUploadClick}
+            disabled={isLoading}
           >
-            <BsCamera />
-          </Icon>
-        </S.UploadButton>
+            <Icon
+              size='md'
+              color='50'
+            >
+              <BsCamera />
+            </Icon>
+          </S.UploadButton>
+          <input
+            type='file'
+            accept='image/*'
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+        </>
       )}
     </S.ProfileImageContainer>
   );
