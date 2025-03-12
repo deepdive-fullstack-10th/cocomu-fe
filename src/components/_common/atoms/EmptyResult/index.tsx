@@ -1,9 +1,8 @@
-import React from 'react';
 import { EMPTY_RESULT_IMAGES } from '@constants/common';
 import S from './style';
 
 interface EmptyResultProps {
-  isStudy: boolean;
+  isStudy?: boolean;
 }
 
 export default function EmptyResult({ isStudy }: EmptyResultProps) {
