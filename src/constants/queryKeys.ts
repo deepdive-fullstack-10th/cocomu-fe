@@ -1,5 +1,8 @@
 const QUERY_KEYS = {
-  USER_DETAIL: 'user_detail',
+  MY_INFO: 'my_info',
+  USER_INFO: 'user_info',
+  USER_STUDY_LIST: 'user_study_list',
+  USER_SPACE_LIST: 'user_space_list',
   STUDY_DETAIL: 'study_detail',
   STUDY_INFO: 'study_info',
   STUDY_LIST: 'study_list',
