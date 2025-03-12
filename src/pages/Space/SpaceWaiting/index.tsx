@@ -1,59 +1,52 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import { Client } from '@stomp/stompjs';
 
 import useGetWaitingPage from '@hooks/space/useGetWaitingPage';
-import useEnterSpace from '@hooks/space/useEnterSpace';
 import useStartSpace from '@hooks/space/useStartSpace';
-import useStompClient from '@hooks/utils/useSoket';
 import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import SpaceNavbar from '@components/Space/SpaceNavbar';
 import { UserRoleData } from '@customTypes/user';
 import { ROUTES } from '@constants/path';
 import { useModalStore } from '@stores/useModalStore';
-import { WAITING_INFO } from '@constants/modal';
 import Loading from '@pages/Loading';
+import { STOMP_ENDPOINTS } from '@constants/api';
 
 import S from './style';
 
+interface OutletContextType {
+  client: Client | null;
+}
+
 export default function SpaceWaiting() {
   const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
+
+  const { client } = useOutletContext<OutletContextType>();
 
   const navigate = useNavigate();
   const { open } = useModalStore();
 
   const [users, setUsers] = useState<UserRoleData[]>([]);
-  const [isEntered, setIsEntered] = useState(false);
 
-  const { enterSpaceMutate } = useEnterSpace(Number(codingSpaceId));
   const { startSpaceMutate } = useStartSpace(Number(codingSpaceId));
-
-  const { data, isLoading } = useGetWaitingPage(isEntered ? codingSpaceId : null);
-
-  const messages = useStompClient({
-    codingSpaceId,
-  });
+  const [message, setMessage] = useState<string | null>(null);
+  const { data, isLoading } = useGetWaitingPage(codingSpaceId);
 
   useEffect(() => {
-    enterSpaceMutate(codingSpaceId, {
-      onSuccess: () => {
-        setIsEntered(true);
-      },
+    const subscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
+      setMessage(msg.body);
     });
-  }, [codingSpaceId, enterSpaceMutate]);
 
-  useEffect(() => {
     if (data?.activeUsers) {
       setUsers(data.activeUsers);
     }
-    if (messages) {
-      const object = JSON.parse(messages);
+    if (message) {
+      const object = JSON.parse(message);
       if (object.type === 'STUDY_START') {
-        open('wating', {
-          label: WAITING_INFO.running.label,
-          description: WAITING_INFO.running.description,
-          navigate: navigate(ROUTES.SPACE.RUNNING({ codingSpaceId: Number(codingSpaceId) })),
-        });
+        if (!data.hostMe) {
+          navigate(ROUTES.SPACE.RUNNING({ codingSpaceId: Number(codingSpaceId) }));
+        }
       }
       setUsers((prev) => {
         if (object.type === 'USER_ENTER') {
@@ -68,13 +61,17 @@ export default function SpaceWaiting() {
         return prev;
       });
     }
-  }, [data, messages, navigate, codingSpaceId, open]);
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [data, message, navigate, codingSpaceId, open, client]);
 
   const handleStart = () => {
     startSpaceMutate.mutate(codingSpaceId);
   };
 
-  if (!isEntered || isLoading) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <S.Container>

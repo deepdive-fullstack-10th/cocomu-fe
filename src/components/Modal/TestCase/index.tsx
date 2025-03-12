@@ -6,23 +6,26 @@ import { BsX } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
 import TestCaseList from '@components/_common/molecules/TestCaseList';
 import useUpdateTestCase from '@hooks/space/useUpdateTestCase';
+import useDeleteTestCase from '@hooks/space/useDeleteTestCase';
 import S from './style';
 
 export default function TestCase({ codingSpaceId, isEditable, testCases, onClose }: TestCaseProps) {
   const [localTestCases, setLocalTestCases] = useState(testCases);
   const { updateTestCaseMutate } = useUpdateTestCase();
-
+  const { deleteTestCaseMutate } = useDeleteTestCase();
   const handleAddTestCase = () => {
     setLocalTestCases((prevList) => [...prevList, { testCaseId: uuidv4(), type: 'CUSTOM', input: '', output: '' }]);
   };
 
-  const handleRemoveTestCase = (id: string | number) => {
+  const handleRemoveTestCase = (id: string) => {
     setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
+    deleteTestCaseMutate.mutate({ codingSpaceId, testCasesId: id });
   };
 
-  const handleInputChange = (id: string | number, field: 'input' | 'output', value: string) => {
-    setLocalTestCases((prevList) =>
-      prevList.map((item) => (item.testCaseId === id ? { ...item, [field]: value } : item)),
+  const handleInputChange = (id: string, field: 'input' | 'output', value: string) => {
+    setLocalTestCases(
+      (prevList) => prevList.map((item) => (item.testCaseId === id ? { ...item, [field]: value } : item)),
+      // eslint-disable-next-line function-paren-newline
     );
   };
 
@@ -42,7 +45,7 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
 
     onClose();
   };
-
+  console.log(testCases);
   return (
     <S.Container>
       <S.Header>

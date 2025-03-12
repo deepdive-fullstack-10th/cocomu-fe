@@ -18,6 +18,7 @@ interface SpaceNavbarProps {
   buttonLabel?: string;
   onClick?: () => void;
   onTimeout?: () => void;
+  hostMe?: boolean;
 }
 
 export default function SpaceNavbar({
@@ -29,6 +30,7 @@ export default function SpaceNavbar({
   onClick,
   startTime,
   onTimeout,
+  hostMe,
 }: SpaceNavbarProps) {
   const navigate = useNavigate();
 
@@ -53,6 +55,7 @@ export default function SpaceNavbar({
             timer={timer}
             startTime={startTime}
             onTimeout={onTimeout}
+            hostMe={hostMe}
           />
         )}
         {isLeader && (
