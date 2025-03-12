@@ -5,10 +5,11 @@ import S from './style';
 interface TimerProps {
   timer: number;
   startTime?: string;
+  hostMe: boolean;
   onTimeout?: () => void;
 }
 
-export default function Timer({ timer, startTime, onTimeout }: TimerProps) {
+export default function Timer({ timer, startTime, onTimeout, hostMe }: TimerProps) {
   const [timeLeft, setTimeLeft] = useState<number>(timer * 60);
   const timeoutCalledRef = useRef(false);
 
@@ -25,7 +26,9 @@ export default function Timer({ timer, startTime, onTimeout }: TimerProps) {
 
       if (remainingSeconds === 0 && onTimeout && !timeoutCalledRef.current) {
         timeoutCalledRef.current = true;
-        onTimeout();
+        if (hostMe) {
+          onTimeout();
+        }
       }
     };
 

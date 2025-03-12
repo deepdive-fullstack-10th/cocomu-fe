@@ -1,102 +1,105 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import useYorkie from '@hooks/utils/useYorkie';
+import { Client } from '@stomp/stompjs';
+
 import useGetStartingPage from '@hooks/space/useGetStartingPage';
 import useFeedBackSpace from '@hooks/space/useRunningSpace';
-import useEnterSpace from '@hooks/space/useEnterSpace';
 import useExcution from '@hooks/space/useExcution';
 import Button from '@components/_common/atoms/Button';
 import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import SpaceNavbar from '@components/Space/SpaceNavbar';
-import useStompClient from '@hooks/utils/useSoket';
 import { ActiveTab } from '@customTypes/space';
-import { ROUTES } from '@constants/path';
-import { useModalStore } from '@stores/useModalStore';
-import { WAITING_INFO } from '@constants/modal';
 import Loading from '@pages/Loading';
+import { STOMP_ENDPOINTS } from '@constants/api';
+
+import { ROUTES } from '@constants/path';
 
 import S from './style';
+
+interface OutletContextType {
+  client: Client | null;
+}
 
 export default function SpaceRunning() {
   const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
   const { data, isLoading } = useGetStartingPage(codingSpaceId);
-
-  const { enterSpaceMutate } = useEnterSpace(Number(codingSpaceId));
+  const { client } = useOutletContext<OutletContextType>();
 
   const navigate = useNavigate();
-  const { open } = useModalStore();
-
-  const { feedBackSpaceMutate } = useFeedBackSpace(Number(codingSpaceId));
 
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>();
+  const [tabMessage, setTabMessage] = useState<string | null>(null);
+  const [spaceMessage, setSpaceMessage] = useState<string | null>(null);
+
   const { excutionMutate } = useExcution();
-
-  useEffect(() => {
-    enterSpaceMutate(codingSpaceId, {
-      onSuccess: () => {
-        console.log('✅ 코딩 스페이스 입장 완료');
-      },
-    });
-  }, [codingSpaceId, enterSpaceMutate]);
-
-  const messages = useStompClient({
-    codingSpaceId,
-    tabId: data?.tabId,
-  });
+  const { feedBackSpaceMutate } = useFeedBackSpace(Number(codingSpaceId));
 
   const { content, updateContent } = useYorkie(data?.documentKey);
 
   useEffect(() => {
-    if (data) {
-      console.log('📌 Starting Page Data:', data);
-    }
+    if (!data || !client || !client.connected) return;
+    console.log('📌 Starting Page Data:', data);
 
-    if (data?.activeUsers) {
-      const activeUser = data.activeUsers.find((user) => user.myTab === true);
-      setUsers(activeUser ? [activeUser] : []);
-    }
+    const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(data.tabId), (msg) => {
+      setTabMessage(msg.body);
+    });
+
+    const spaceSubscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
+      setSpaceMessage(msg.body);
+    });
+
+    return () => {
+      tabSubscription.unsubscribe();
+      spaceSubscription.unsubscribe();
+    };
+  }, [data, client, codingSpaceId]);
+
+  useEffect(() => {
+    if (!data?.activeUsers) return;
+    const activeUser = data.activeUsers.find((user) => user.myTab === true);
+    setUsers(activeUser ? [activeUser] : []);
   }, [data]);
 
   useEffect(() => {
-    if (messages) {
-      const object = JSON.parse(messages);
-      console.log('📩 WebSocket 메시지:', object);
+    if (!tabMessage) return;
+    const object = JSON.parse(tabMessage);
+    console.log(object);
+    if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
+      setOutput(object.data.output);
+    }
+  }, [tabMessage]);
 
-      if (object?.type === 'STUDY_FEEDBACK') {
-        open('wating', {
-          label: WAITING_INFO.feedback.label,
-          description: WAITING_INFO.feedback.description,
+  useEffect(() => {
+    if (!spaceMessage) return;
+    const object = JSON.parse(spaceMessage);
+    console.log(object);
 
-          navigate: navigate(
-            ROUTES.SPACE.FEEDBACK({
-              codingSpaceId: Number(codingSpaceId),
-            }),
-          ),
-        });
-      }
-      if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object?.type)) {
-        setOutput(object?.data?.output);
+    if (object.type === 'STUDY_FEEDBACK') {
+      if (!data.hostMe) {
+        navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId: Number(codingSpaceId) }));
       }
     }
-  }, [messages, codingSpaceId, navigate, open]);
+  }, [spaceMessage, codingSpaceId, data?.hostMe, navigate]);
 
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     feedBackSpaceMutate.mutate(codingSpaceId);
-  };
+  }, [feedBackSpaceMutate, codingSpaceId]);
 
-  const handleCodeExecution = () => {
+  const handleCodeExecution = useCallback(() => {
+    if (!data) return;
     excutionMutate.mutate({
-      codingSpaceTabId: data?.tabId,
-      language: data?.language?.languageName,
+      codingSpaceTabId: data.tabId,
+      language: data.language?.languageName,
       code: content,
       input,
     });
-  };
+  }, [excutionMutate, data, content, input]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     console.log('✅ 코드 제출');
   };
 
@@ -112,6 +115,7 @@ export default function SpaceRunning() {
         buttonLabel='피드백 시작'
         onClick={handleStart}
         onTimeout={handleStart}
+        hostMe={data.hostMe}
       />
 
       <CodingWorkspace

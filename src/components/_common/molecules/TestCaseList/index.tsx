@@ -7,8 +7,8 @@ import S from './style';
 interface TestCaseListProps {
   testCases: TestCaseData[];
   isEditable: boolean;
-  handleInputChange: (id: number | string, field: 'input' | 'output', value: string) => void;
-  handleRemoveTestCase: (id: number | string) => void;
+  handleInputChange: (id: string, field: 'input' | 'output', value: string) => void;
+  handleRemoveTestCase: (id: string) => void;
   handleAddTestCase: () => void;
 }
 

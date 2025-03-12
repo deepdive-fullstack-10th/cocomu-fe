@@ -14,12 +14,9 @@ export default function useEnterSpace(codingSpaceId: number, onSuccessCallback?:
   const mutation: UseMutationResult<EnterSpaceResponse, unknown, string> = useMutation({
     mutationFn: spaceApi.enter,
     onSuccess: ({ status }) => {
-      console.log(3);
       if (onSuccessCallback) {
         onSuccessCallback();
       }
-
-      // ✅ 성공 후 페이지 이동
       navigate(ROUTES.SPACE[status]({ codingSpaceId }), { replace: true });
     },
     onError: () => {

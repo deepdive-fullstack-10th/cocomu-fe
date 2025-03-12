@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-
 import Loading from '@pages/Loading';
 import useEnterSpace from '@hooks/space/useEnterSpace';
 import useStompClient from '@hooks/utils/useSoket';
@@ -9,16 +8,27 @@ export default function SpaceEnter() {
   const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
   const { enterSpaceMutate, isLoading } = useEnterSpace(Number(codingSpaceId));
 
-  const messages = useStompClient({});
+  const client = useStompClient();
+  const [isConnected, setIsConnected] = useState(false);
 
-  console.log(messages);
   useEffect(() => {
-    console.log(1);
     enterSpaceMutate(codingSpaceId);
-    console.log(2);
   }, [codingSpaceId, enterSpaceMutate]);
 
-  if (isLoading) return <Loading />;
+  useEffect(() => {
+    if (!client) return;
 
-  return <Outlet />;
+    const checkConnection = setInterval(() => {
+      if (client.connected) {
+        setIsConnected(true);
+        clearInterval(checkConnection);
+      }
+    }, 100);
+
+    return () => clearInterval(checkConnection);
+  }, [client]);
+
+  if (isLoading || !client || !isConnected) return <Loading />;
+
+  return <Outlet context={{ client }} />;
 }
