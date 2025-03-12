@@ -39,11 +39,13 @@ const userApi = {
     const formData = new FormData();
     formData.append('image', file);
 
-    await axiosInstance.post(END_POINTS_V1.USER.IMAGE_UPLOAD, formData, {
+    const { data } = await axiosInstance.post(END_POINTS_V1.USER.IMAGE_UPLOAD, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+
+    return data.result;
   },
 };
 
