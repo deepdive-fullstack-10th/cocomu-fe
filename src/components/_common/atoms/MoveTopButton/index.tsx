@@ -11,15 +11,13 @@ export default function MoveTopButton() {
 
   return (
     <S.ScrollButton onClick={scrollToTop}>
-      <S.ButtonGroup>
-        <S.IconContainer>
-          <BsFillCaretUpFill
-            size={30}
-            color='slateBlue'
-          />
-        </S.IconContainer>
-        <S.ButtonText>TOP</S.ButtonText>
-      </S.ButtonGroup>
+      <S.IconContainer>
+        <BsFillCaretUpFill
+          size={30}
+          color='slateBlue'
+        />
+      </S.IconContainer>
+      <S.ButtonText>TOP</S.ButtonText>
     </S.ScrollButton>
   );
 }

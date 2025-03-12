@@ -1,3 +1,4 @@
+import MoveTopButton from '@components/_common/atoms/MoveTopButton';
 import S from './style';
 
 export default function Footer() {
@@ -27,6 +28,7 @@ export default function Footer() {
           <S.MenuText>서비스 소개</S.MenuText>
           <S.MenuText>IT 기업 채용공고</S.MenuText>
         </S.RightContainer>
+        <MoveTopButton />
       </S.FooterContainer>
     </S.BackgroundContainer>
   );
