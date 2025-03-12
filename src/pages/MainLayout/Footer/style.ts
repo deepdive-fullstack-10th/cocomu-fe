@@ -1,25 +1,20 @@
 import styled from '@emotion/styled';
 
-const BackgroundContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.gray[300]};
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
   width: 100vw;
+  background-color: ${({ theme }) => theme.color.gray[300]};
 
   margin-left: calc(-50vw + 50%);
   margin-right: 0;
-  padding: 0;
-`;
-
-const FooterContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
 
   align-items: center;
   justify-content: center;
   padding: 5rem 0;
 `;
 
-const LeftContainer = styled.div`
+const InfoSection = styled.div`
   display: flex;
   flex-direction: row;
   width: 30%;
@@ -39,22 +34,7 @@ const LabelContainer = styled.div`
   gap: 1rem;
 `;
 
-const Label = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const LabelText = styled.div`
-  ${({ theme }) => theme.font.heading[100]};
-  color: ${({ theme }) => theme.color.gray[800]};
-`;
-
-const SmallLabelText = styled.p`
-  ${({ theme }) => theme.font.common.small};
-  color: ${({ theme }) => theme.color.gray[800]};
-`;
-
-const RightContainer = styled.div`
+const MenuSection = styled.div`
   display: flex;
   flex-direction: row;
   width: 30%;
@@ -71,15 +51,11 @@ const MenuText = styled.div`
 `;
 
 const S = {
-  BackgroundContainer,
-  FooterContainer,
-  LeftContainer,
+  Container,
+  InfoSection,
   LogoImg,
   LabelContainer,
-  Label,
-  LabelText,
-  SmallLabelText,
-  RightContainer,
+  MenuSection,
   MenuText,
 };
 
