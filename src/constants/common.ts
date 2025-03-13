@@ -117,7 +117,7 @@ export const STEP_LABELS = Object.values(STEP_INFO).map((item) => item.label);
 
 export const MYPAGE_TAB = ['참여한 스터디 보기', '참여한 코딩 스페이스 보기'] as const;
 
-export const MENU_LIST = ['이용약관', '개인정보처리방침', '문의하기', 'IT 기업 채용 공고'] as const;
+export const MENU_LIST = ['이용약관', '개인정보처리방침', '서비스 소개', '문의하기'] as const;
 
 export const EMPTY_RESULT_IMAGES = [
   'https://cdn.cocomu.co.kr/images/default/empty_study.png',
