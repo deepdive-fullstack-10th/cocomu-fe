@@ -55,8 +55,8 @@ const typeStyles: { [key in ButtonType]: (theme: Theme) => SerializedStyles } = 
     color: ${theme.color.gray[50]};
   `,
   kakao: (theme: Theme) => css`
-    border: 1px solid ${theme.color.secondary[500]};
-    background-color: ${theme.color.secondary[500]};
+    border: 1px solid ${theme.color.secondary[400]};
+    background-color: ${theme.color.secondary[400]};
     color: ${theme.color.gray[950]};
   `,
 };
@@ -77,8 +77,8 @@ const LoginButton = styled.button<{ buttonType: ButtonType }>`
 `;
 
 const ButtonIcon = styled.img`
-  width: 2rem;
-  height: 2rem;
+  width: 32px;
+  height: 32px;
 `;
 
 const ButtonLabel = styled.div`
