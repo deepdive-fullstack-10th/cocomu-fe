@@ -5,18 +5,17 @@ import { Client } from '@stomp/stompjs';
 
 import useGetFeedbackPage from '@hooks/space/useGetFeedbackPage';
 import useExcution from '@hooks/space/useExcution';
-import useFinishSpace from '@hooks/space/useFinishSpace';
-import useSaveTabCode from '@hooks/space/useCodesave';
-import { useToastStore } from '@stores/useToastStore';
-
 import Button from '@components/_common/atoms/Button';
 import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import SpaceNavbar from '@components/Space/SpaceNavbar';
-import Loading from '@pages/Loading';
 import { ActiveTab } from '@customTypes/space';
+import Loading from '@pages/Loading';
 import { STOMP_ENDPOINTS } from '@constants/api';
+import { useToastStore } from '@stores/useToastStore';
 import { ROUTES } from '@constants/path';
+import useFinishSpace from '@hooks/space/useFinishSpace';
+import useSaveTabCode from '@hooks/space/useCodesave';
 
 import S from './style';
 
@@ -28,8 +27,8 @@ export default function SpaceFeedBack() {
   const { client } = useOutletContext<OutletContextType>();
   const navigate = useNavigate();
   const { alert } = useToastStore();
-  const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
 
+  const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>();
@@ -47,20 +46,22 @@ export default function SpaceFeedBack() {
   const hasRequested = useRef(false);
   const finishRef = useRef(false);
 
-  /** ✅ 피드백 종료 (호스트 & 일반 사용자) */
   const handleFinish = useCallback(() => {
     if (!data || !data.activeTabs) return;
-    const activeMyTabs = data.activeTabs.filter((tab) => tab.myTab);
 
-    if (activeMyTabs.length === 0) return;
+    const activeMyTabs = data.activeTabs.filter((tab) => tab.myTab === true);
 
-    setSelectTab(activeMyTabs[0]);
+    if (activeMyTabs.length === 0) {
+      return;
+    }
+
+    const selectedTab = activeMyTabs[0];
+    setSelectTab(selectedTab);
     setFinishClick(true);
   }, [data]);
 
-  /** ✅ 코드 저장 후 종료 API 호출 or 페이지 이동 */
-  const saveAndFinish = useCallback(
-    (updatedContent: string) => {
+  const additionalFunction = useCallback(
+    (updatedContent) => {
       if (!finishClick || hasRequested.current) return;
 
       hasRequested.current = true;
@@ -75,12 +76,7 @@ export default function SpaceFeedBack() {
             if (data?.hostMe) {
               finishRef.current = true;
             } else {
-              navigate(
-                ROUTES.SPACE.FINISH({
-                  studyId: Number(studyId),
-                  codingSpaceId: Number(codingSpaceId),
-                }),
-              );
+              navigate(ROUTES.SPACE.FINISH({ studyId: Number(studyId), codingSpaceId: Number(codingSpaceId) }));
             }
           },
         },
@@ -89,10 +85,19 @@ export default function SpaceFeedBack() {
     [finishClick, saveTabCodeMutate, codingSpaceId, data?.hostMe, navigate, studyId],
   );
 
-  /** ✅ WebSocket 메시지 구독 (함수 없이 직접 실행) */
+  useEffect(() => {
+    if (!selectTab?.documentKey) return;
+    if (finishRef.current) {
+      finishRef.current = false;
+      finishSpaceMutate.mutate(codingSpaceId);
+    }
+    additionalFunction(content);
+  }, [selectTab, content, additionalFunction, codingSpaceId, finishSpaceMutate]);
+
   useEffect(() => {
     if (!data || !client || !client.connected || !selectTab) return;
-    console.log(data);
+    console.log('📌 데이터 업데이트:', data);
+
     const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(selectTab.tabId), (msg) => {
       setTabMessage(msg.body);
     });
@@ -107,7 +112,51 @@ export default function SpaceFeedBack() {
     };
   }, [data, client, codingSpaceId, selectTab]);
 
-  /** ✅ 코드 실행 */
+  useEffect(() => {
+    if (!data?.activeTabs) return;
+    setUsers(data.activeTabs);
+    setSelectTab(data.activeTabs[0]);
+  }, [data]);
+
+  useEffect(() => {
+    if (!tabMessage) return;
+    const object = JSON.parse(tabMessage);
+    console.log('📢 WebSocket Message:', object);
+    if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
+      setOutput(object.data.output);
+    }
+  }, [tabMessage]);
+
+  useEffect(() => {
+    if (!spaceMessage) return;
+    const object = JSON.parse(spaceMessage);
+    console.log('📢 WebSocket Message:', object);
+
+    if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
+      refetch();
+    }
+
+    if (object.type === 'STUDY_FINISH') {
+      if (!data?.hostMe) {
+        handleFinish();
+      }
+    }
+
+    if (object.type === 'DELETE_TEST_CASE') {
+      refetch();
+      alert('테스트 케이스가 삭제되었습니다.');
+    }
+
+    if (object.type === 'ADD_TEST_CASE') {
+      refetch();
+      alert('테스트 케이스가 추가되었습니다.');
+    }
+  }, [spaceMessage, codingSpaceId, data?.hostMe, studyId, navigate, alert, refetch]);
+
+  const selectUser = (tab: ActiveTab) => {
+    setSelectTab(tab);
+  };
+
   const handleCodeExecution = useCallback(() => {
     if (!data || !selectTab) return;
     excutionMutate.mutate({
@@ -118,52 +167,6 @@ export default function SpaceFeedBack() {
     });
   }, [excutionMutate, data, selectTab, content, input]);
 
-  /** ✅ WebSocket 메시지 처리 */
-  useEffect(() => {
-    if (!spaceMessage) return;
-    const object = JSON.parse(spaceMessage);
-    console.log(object);
-    if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
-      refetch();
-    }
-
-    if (object.type === 'STUDY_FINISH' && !data?.hostMe) {
-      handleFinish();
-    }
-
-    if (object.type === 'DELETE_TEST_CASE' || object.type === 'ADD_TEST_CASE') {
-      refetch();
-      alert(object.type === 'DELETE_TEST_CASE' ? '테스트 케이스가 삭제되었습니다.' : '테스트 케이스가 추가되었습니다.');
-    }
-  }, [spaceMessage, data?.hostMe, handleFinish, refetch, alert]);
-
-  /** ✅ 피드백 페이지 데이터 갱신 */
-  useEffect(() => {
-    if (!data?.activeTabs) return;
-    setUsers(data.activeTabs);
-    setSelectTab(data.activeTabs[0]);
-  }, [data]);
-
-  /** ✅ 탭 메시지 처리 */
-  useEffect(() => {
-    if (!tabMessage) return;
-    const object = JSON.parse(tabMessage);
-    console.log(object);
-    if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
-      setOutput(object.data.output);
-    }
-  }, [tabMessage]);
-
-  /** ✅ 종료 로직 실행 */
-  useEffect(() => {
-    if (!selectTab?.documentKey) return;
-    if (finishRef.current) {
-      finishRef.current = false;
-      finishSpaceMutate.mutate(codingSpaceId);
-    }
-    saveAndFinish(content);
-  }, [selectTab, content, saveAndFinish, codingSpaceId, finishSpaceMutate]);
-
   if (isLoading || !data) return <Loading />;
 
   return (
@@ -171,11 +174,13 @@ export default function SpaceFeedBack() {
       <SpaceNavbar
         studyId={Number(studyId)}
         name={data?.name}
+        startTime={data?.startTime}
         isLeader={data?.hostMe}
         buttonLabel='피드백 종료'
         onClick={handleFinish}
         hostMe={data.hostMe}
       />
+
       <CodingWorkspace
         description={data?.description}
         workbookUrl={data?.workbookUrl}
@@ -186,7 +191,9 @@ export default function SpaceFeedBack() {
         code={content}
         disabled={false}
         output={output}
+        selectUser={selectUser}
       />
+
       <SpaceFooter
         codingSpaceId={codingSpaceId}
         testCases={data.testCases}
