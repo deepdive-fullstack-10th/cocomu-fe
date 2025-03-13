@@ -4,7 +4,10 @@ import { LogInData } from '@customTypes/auth';
 
 const authApi = {
   login: async (logInData: LogInData) => {
-    const { data } = await axiosInstance.post(END_POINTS_V1.AUTH.OAUTH_LOGIN, logInData, { useAuth: false });
+    const { data } = await axiosInstance.post(END_POINTS_V1.AUTH.OAUTH_LOGIN, logInData, {
+      useAuth: false,
+      withCredentials: false,
+    });
 
     return data.result;
   },
