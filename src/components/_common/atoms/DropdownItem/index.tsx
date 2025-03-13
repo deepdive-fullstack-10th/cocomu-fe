@@ -2,7 +2,7 @@ import S, { DropDownItemStyleProps } from './style';
 
 type DropdownItemProps = {
   item: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent) => void;
 } & DropDownItemStyleProps;
 
 export default function DropdownItem({
