@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ProfileImage, { ProfileImageProps } from '@components/_common/atoms/ProfileImage';
+import useCheckAuth from '@hooks/utils/useCheckAuth';
 import { UserData } from '@customTypes/user';
 import { ROUTES } from '@constants/path';
 import S from './style';
@@ -10,10 +11,11 @@ interface UserProfileProps extends ProfileImageProps {
 
 export default function UserProfile({ user, size = 'md', upload, border }: UserProfileProps) {
   const navigate = useNavigate();
+  const { checkAuth } = useCheckAuth();
 
   const handleUserClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
+    checkAuth(() => navigate(ROUTES.MYPAGE.ROOT({ userId: user.id })));
   };
 
   return (
