@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+
+import { useDropdown } from '@hooks/utils/useDropdown';
 
 import UserProfile from '@components/_common/molecules/UserProfile';
 import Icon from '@components/_common/atoms/Icon';
@@ -24,22 +25,21 @@ interface DescriptionHeaderProps {
 
 export default function DescriptionHeader({ isLeader, isStudy, leader, studyId, name }: DescriptionHeaderProps) {
   const navigate = useNavigate();
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const { open } = useModalStore();
-
-  const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
+  const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
 
   const handleItemSelect = (selectedItem: string) => {
+    toggle();
+
     if (selectedItem === STUDY_EDIT_DROPDOWN_LABELS[0].label) {
-      navigate(ROUTES.STUDY.EDIT({ studyId }));
-    } else if (selectedItem === STUDY_EDIT_DROPDOWN_LABELS[1].label) {
-      open('delete', {
-        studyId: String(studyId),
-        name,
-        navigate: () => navigate(ROUTES.ROOT()),
-      });
+      return navigate(ROUTES.STUDY.EDIT({ studyId }));
     }
-    setDropdownOpen(false);
+
+    open('delete', {
+      studyId: String(studyId),
+      name,
+      navigate: () => navigate(ROUTES.ROOT()),
+    });
   };
 
   const handleLeaveClick = () => {
@@ -58,15 +58,20 @@ export default function DescriptionHeader({ isLeader, isStudy, leader, studyId, 
       />
 
       {isLeader ? (
-        <S.IconWrapper>
+        <S.IconWrapper
+          ref={dropdownRef}
+          onBlur={handleBlur}
+          tabIndex={-1}
+        >
           <Icon
             size='md'
             color='950'
-            onClick={handleDropdownToggle}
+            onClick={toggle}
           >
             <BsThreeDotsVertical />
           </Icon>
-          {isDropdownOpen && (
+
+          {isOpen && (
             <S.DropdownList>
               {STUDY_EDIT_DROPDOWN_LABELS.map(({ label, color }) => (
                 <DropdownItem

@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 import { useModalStore } from '@stores/useModalStore';
 import { useUserStore } from '@stores/useUserStore';
-
 import useDeleteSpace from '@hooks/space/useDeleteSpace';
+
+import { useDropdown } from '@hooks/utils/useDropdown';
 
 import { SPACE_EDIT_DROPDOWN_LABELS, STEP_INFO } from '@constants/common';
 import { ROUTES } from '@constants/path';
@@ -37,11 +37,9 @@ export default function SpaceCard({
   const { open } = useModalStore();
   const userId = useUserStore((state) => state.userId);
   const { deleteStudyMutate } = useDeleteSpace();
+  const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
 
   const { label: statusLabel, color: statusColor } = STEP_INFO[status];
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
 
   const handleCardClick = () => {
     if (joinedMe) {
@@ -59,17 +57,11 @@ export default function SpaceCard({
 
   const handleRemove = (event: React.MouseEvent) => {
     event.stopPropagation();
-    setDropdownOpen(false);
+    toggle();
     deleteStudyMutate.mutate(String(id));
   };
 
-  const leader = currentUsers
-    .filter((user) => user.role === 'HOST')
-    .map(({ id: leaderId, nickname, profileImageUrl }) => ({
-      id: leaderId,
-      nickname,
-      profileImageUrl,
-    }))[0];
+  const leader = currentUsers.find((user) => user.role === 'HOST');
 
   return (
     <S.CardContainer onClick={handleCardClick}>
@@ -79,31 +71,38 @@ export default function SpaceCard({
           size='x_sm'
         />
 
-        <S.HeaderRight>
+        <S.RightSection>
           <Tag color={statusColor}>{statusLabel}</Tag>
-          {leader.id === userId && (
-            <Icon
-              size='md'
-              color='950'
-              onClick={handleDropdownToggle}
+
+          {leader?.id === userId && (
+            <S.DropdownContainer
+              ref={dropdownRef}
+              onBlur={handleBlur}
             >
-              <BsThreeDotsVertical />
-            </Icon>
+              <Icon
+                size='md'
+                color='950'
+                onClick={toggle}
+              >
+                <BsThreeDotsVertical />
+              </Icon>
+
+              {isOpen && (
+                <S.DropdownList>
+                  {SPACE_EDIT_DROPDOWN_LABELS.map(({ label, color }) => (
+                    <DropdownItem
+                      key={label}
+                      item={label}
+                      size='lg'
+                      color={color}
+                      onClick={handleRemove}
+                    />
+                  ))}
+                </S.DropdownList>
+              )}
+            </S.DropdownContainer>
           )}
-          {isDropdownOpen && (
-            <S.DropdownList>
-              {SPACE_EDIT_DROPDOWN_LABELS.map(({ label, color }) => (
-                <DropdownItem
-                  key={label}
-                  item={label}
-                  size='lg'
-                  color={color}
-                  onClick={handleRemove}
-                />
-              ))}
-            </S.DropdownList>
-          )}
-        </S.HeaderRight>
+        </S.RightSection>
       </S.Header>
 
       <S.Body>

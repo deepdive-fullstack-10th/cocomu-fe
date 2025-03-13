@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsChevronDown } from 'react-icons/bs';
 
 import useCheckAuth from '@hooks/utils/useCheckAuth';
+import { useDropdown } from '@hooks/utils/useDropdown';
 
 import ProfileImage from '@components/_common/atoms/ProfileImage';
 import Icon from '@components/_common/atoms/Icon';
@@ -28,17 +28,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   const navigate = useNavigate();
   const { open } = useModalStore();
   const { checkAuth } = useCheckAuth();
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleDropdownToggle = () => setIsDropdownOpen((prev) => !prev);
-
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    if (!containerRef.current?.contains(event.relatedTarget)) {
-      setIsDropdownOpen(false);
-    }
-  };
+  const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
 
   const handleStudyCreate = () => {
     checkAuth(() => navigate(ROUTES.STUDY.CREATE()));
@@ -46,11 +36,10 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
 
   const handleItemSelect = (event: React.MouseEvent, selectedItem: string) => {
     event.stopPropagation();
-    setIsDropdownOpen(false);
+    toggle();
 
     if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
-      navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
-      return;
+      return navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
     }
 
     localStorage.removeItem(ACCESS_TOKEN_KEY);
@@ -77,10 +66,10 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
 
         {isLoggedIn ? (
           <S.ProfileSection
-            ref={containerRef}
+            ref={dropdownRef}
             onBlur={handleBlur}
             tabIndex={-1}
-            onClick={handleDropdownToggle}
+            onClick={toggle}
           >
             <ProfileImage
               src={user.profileImageUrl}
@@ -92,7 +81,8 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
             >
               <BsChevronDown />
             </Icon>
-            {isDropdownOpen && (
+
+            {isOpen && (
               <S.DropdownList>
                 {NAVBAR_DROPDOWN_LABELS.map(({ label, color }) => (
                   <DropdownItem
