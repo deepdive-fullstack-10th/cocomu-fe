@@ -17,7 +17,7 @@ export const PATH = {
     WAITING: 'wait',
     RUNNING: 'running',
     FEEDBACK: 'feedback',
-    FINISH: 'finish',
+    FINISH: '/space/:codingSpaceId/finish',
   },
   MYPAGE: {
     ROOT: '/mypage/:userId',
@@ -48,8 +48,7 @@ export const ROUTES = {
       generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.RUNNING}`, { codingSpaceId }),
     FEEDBACK: ({ codingSpaceId }: { codingSpaceId: number }) =>
       generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FEEDBACK}`, { codingSpaceId }),
-    FINISH: ({ codingSpaceId }: { codingSpaceId: number }) =>
-      generatePath(`${PATH.SPACE.ENTER}/${PATH.SPACE.FINISH}`, { codingSpaceId }),
+    FINISH: ({ codingSpaceId }: { codingSpaceId: number }) => generatePath(`${PATH.SPACE.FINISH}`, { codingSpaceId }),
   },
   MYPAGE: {
     ROOT: ({ userId }: { userId: number }) => generatePath(PATH.MYPAGE.ROOT, { userId }),

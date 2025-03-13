@@ -32,6 +32,10 @@ export default function SpaceCard({
   const { open } = useModalStore();
 
   const handleCardClick = () => {
+    if (status === 'FINISHED') {
+      navigate(ROUTES.SPACE.FINISH({ codingSpaceId: id }));
+      return;
+    }
     if (joinedMe) {
       navigate(ROUTES.SPACE.ENTER({ codingSpaceId: id }));
       return;

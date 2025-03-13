@@ -77,8 +77,11 @@ const router = createBrowserRouter(
             { path: PATH.SPACE.WAITING, element: <SpaceWaiting /> },
             { path: PATH.SPACE.RUNNING, element: <SpaceRunning /> },
             { path: PATH.SPACE.FEEDBACK, element: <SpaceFeedback /> },
-            { path: PATH.SPACE.FINISH, element: <SpaceFinish /> },
           ],
+        },
+        {
+          path: PATH.SPACE.FINISH,
+          element: <SpaceFinish />,
         },
       ],
     },

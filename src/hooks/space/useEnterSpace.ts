@@ -20,7 +20,7 @@ export default function useEnterSpace(codingSpaceId: number, onSuccessCallback?:
       navigate(ROUTES.SPACE[status]({ codingSpaceId }), { replace: true });
     },
     onError: () => {
-      navigate(ROUTES.SPACE.FINISH({ codingSpaceId }));
+      navigate(-1);
     },
   });
 
