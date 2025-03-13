@@ -18,17 +18,13 @@ export default function useYorkie(documentKey: string) {
           apiKey: YORKIE_API_KEY,
         });
 
-        await client.activate().catch((err) => {
-          error(`Yorkie 활성화 실패: ${err.message}`);
-        });
+        await client.activate();
 
         clientRef.current = client;
 
         const doc = new yorkie.Document<{ content: yorkie.Text }>(documentKey);
 
-        await client.attach(doc).catch((err) => {
-          error(`문서 첨부 실패: ${err.message}`);
-        });
+        await client.attach(doc);
 
         docRef.current = doc;
 
@@ -38,11 +34,9 @@ export default function useYorkie(documentKey: string) {
           setContent(doc.getRoot().content.toString());
         });
 
-        await client.sync().catch((err) => {
-          error(`Yorkie 동기화 실패: ${err.message}`);
-        });
+        await client.sync();
       } catch (err) {
-        error(`Yorkie 연결 실패: ${err}`);
+        error('Yorkie 연결 실패');
       }
     }
 
@@ -83,7 +77,7 @@ export default function useYorkie(documentKey: string) {
 
       clientRef.current?.sync().catch(() => {});
     } catch (err) {
-      error(`Yorkie 업데이트 실패: ${err}`);
+      error('Yorkie 업데이트 실패');
     }
   };
 

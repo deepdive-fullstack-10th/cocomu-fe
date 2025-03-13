@@ -17,7 +17,7 @@ export default function useEnterSpace(codingSpaceId: number, onSuccessCallback?:
       if (onSuccessCallback) {
         onSuccessCallback();
       }
-      navigate(ROUTES.SPACE[status]({ codingSpaceId }), { replace: true });
+      navigate(ROUTES.SPACE[status]({ codingSpaceId }));
     },
     onError: () => {
       navigate(-1);
