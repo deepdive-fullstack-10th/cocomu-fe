@@ -14,10 +14,30 @@ const CardContainer = styled.div`
 `;
 
 const Header = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+const HeaderRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+`;
+
+const DropdownList = styled.div`
+  position: absolute;
+  top: 140%;
+  z-index: 1;
+
+  background-color: ${({ theme }) => theme.color.gray[50]};
+  border: 1px solid ${({ theme }) => theme.color.gray[600]};
+  border-radius: 0.6rem;
+  padding: 0.5rem 0;
 `;
 
 const Body = styled.div`
@@ -46,6 +66,8 @@ const Info = styled.div`
 const S = {
   CardContainer,
   Header,
+  HeaderRight,
+  DropdownList,
   Body,
   Text,
   Info,

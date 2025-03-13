@@ -63,6 +63,10 @@ const spaceApi = {
 
     return data.result;
   },
+
+  delete: async (codingSpaceId: string) => {
+    await axiosInstance.delete(END_POINTS_V1.CODING_SPACE.DELETE(codingSpaceId));
+  },
 };
 
 export default spaceApi;
