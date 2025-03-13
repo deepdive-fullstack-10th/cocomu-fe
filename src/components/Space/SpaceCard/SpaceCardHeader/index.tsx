@@ -19,9 +19,10 @@ interface SpaceCardHeaderProps {
   id: number;
   leader?: UserData;
   status: string;
+  onRemove: (id: number) => void;
 }
 
-export default function SpaceCardHeader({ id, leader, status }: SpaceCardHeaderProps) {
+export default function SpaceCardHeader({ id, leader, status, onRemove }: SpaceCardHeaderProps) {
   const userId = useUserStore((state) => state.userId);
   const { deleteStudyMutate } = useDeleteSpace();
   const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
@@ -31,6 +32,7 @@ export default function SpaceCardHeader({ id, leader, status }: SpaceCardHeaderP
   const handleRemove = (event: React.MouseEvent) => {
     event.stopPropagation();
     toggle();
+    onRemove(id);
     deleteStudyMutate.mutate(String(id));
   };
 
