@@ -7,6 +7,12 @@ export const ScrollButton = styled.button`
   right: 5%;
   bottom: 5%;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+
   border-radius: 100rem;
   border: 2px solid ${({ theme }) => theme.color.primary[600]};
   background-color: ${({ theme }) => theme.color.gray[100]};
@@ -20,13 +26,16 @@ export const ScrollButton = styled.button`
 
 export const IconContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin-top: -0.6rem;
 `;
 
 export const ButtonText = styled.span`
-  ${({ theme }) => theme.font.heading[100]};
+  ${({ theme }) => theme.font.heading[50]};
   color: ${({ theme }) => theme.color.primary[600]};
+  margin-top: -0.4rem;
 `;
 
 const S = {
