@@ -4,6 +4,8 @@ import { useDropdown } from '@hooks/utils/useDropdown';
 import { useUserStore } from '@stores/useUserStore';
 import useDeleteSpace from '@hooks/space/useDeleteSpace';
 
+import { UserData } from '@customTypes/user';
+
 import UserProfile from '@components/_common/molecules/UserProfile';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import Tag from '@components/_common/atoms/Tag';
@@ -15,7 +17,7 @@ import S from './style';
 
 interface SpaceCardHeaderProps {
   id: number;
-  leader?: { id: number; nickname: string; profileImageUrl: string };
+  leader?: UserData;
   status: string;
 }
 
