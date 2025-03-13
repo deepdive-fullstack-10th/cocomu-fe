@@ -13,7 +13,7 @@ export default function StudyCreate() {
 
   const handleSubmit = (studyData: CreateStudyData) => {
     if (selectedStatus === ACCESS_STATUS[0].id) {
-      createPublicStudyMutate.mutate({ ...studyData, password: undefined });
+      createPublicStudyMutate.mutate(studyData);
     } else if (selectedStatus === ACCESS_STATUS[1].id) {
       createPrivateStudyMutate.mutate(studyData);
     }

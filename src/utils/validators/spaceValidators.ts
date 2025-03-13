@@ -1,7 +1,6 @@
 import ValidationError from '@utils/errors/ValidationError';
 
 const isEmptyString = (value: string) => !value;
-
 const isEmptyArray = (value: string[]) => value.length === 0;
 
 export const validateName = {
@@ -20,14 +19,18 @@ export const validateReferenceUrl = {
   },
 };
 
-export const validateTotalUserCount = (totalUserCount: string[]) => {
-  if (isEmptyArray(totalUserCount)) {
-    throw new ValidationError({ inputName: 'totalUserCount', message: '모집 인원을 입력해주세요.' });
-  }
+export const validateTotalUserCount = {
+  onBlur: (totalUserCount: string[]) => {
+    if (isEmptyArray(totalUserCount)) {
+      throw new ValidationError({ inputName: 'totalUserCount', message: '모집 인원을 입력해주세요.' });
+    }
+  },
 };
 
-export const validateLanguage = (language: string[]) => {
-  if (isEmptyArray(language)) {
-    throw new ValidationError({ inputName: 'language', message: '사용할 언어를 하나 이상 선택해야 합니다.' });
-  }
+export const validateLanguage = {
+  onBlur: (language: string[]) => {
+    if (isEmptyArray(language)) {
+      throw new ValidationError({ inputName: 'language', message: '사용할 언어를 하나 이상 선택해야 합니다.' });
+    }
+  },
 };

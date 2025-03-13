@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Dayjs } from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useToastStore } from '@stores/useToastStore';
 import { useForm } from '@hooks/utils/useForm';
 import useGetStudyDetail from '@hooks/study/useGetStudyDetail';
 
@@ -37,19 +36,25 @@ interface SpaceFormProps {
 }
 
 export default function SpaceForm({ studyId, initialValues, description, onSubmit }: SpaceFormProps) {
-  const { error } = useToastStore();
   const navigate = useNavigate();
   const { data, isLoading } = useGetStudyDetail(studyId);
 
   const [content, setContent] = useState(description || '');
   const [selectedTime, setSelectedTime] = useState<Dayjs>(null);
   const [localTestCases, setLocalTestCases] = useState([]);
-  const { formData, register, registerSelect, hasErrors } = useForm({
-    initialValues: initialValues ?? {
-      name: '',
-      workbookUrl: '',
-      totalUserCount: [],
-      languageId: [],
+
+  const { formData, register, registerSelect, handleSubmit } = useForm({
+    initialValues: {
+      name: { value: initialValues?.name || '', validate: { onBlur: validateName.onBlur } },
+      workbookUrl: { value: initialValues?.workbookUrl || '', validate: { onBlur: validateReferenceUrl.onBlur } },
+      totalUserCount: {
+        value: initialValues?.totalUserCount || [],
+        validate: { onBlur: validateTotalUserCount.onBlur },
+      },
+      languageId: {
+        value: initialValues?.languageId || [],
+        validate: { onBlur: validateLanguage.onBlur },
+      },
     },
   });
 
@@ -67,18 +72,13 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
     );
   };
 
-  const handleSubmit: React.FormEventHandler = (e) => {
-    e.preventDefault();
-    if (hasErrors) {
-      return error('스페이스 정보를 확인해주세요.');
-    }
-
+  const handleFormSubmit = async () => {
     const spaceFormData: SpaceFormData = {
       name: formData.name,
       timerTime: selectedTime.format('HH:mm'),
       workbookUrl: formData.workbookUrl,
-      totalUserCount: formData.totalUserCount,
-      languageId: formData.languageId,
+      totalUserCount: formData.totalUserCount as number[],
+      languageId: formData.languageId as number[],
       description: content,
     };
 
@@ -90,7 +90,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
   if (isLoading) return <Loading />;
 
   return (
-    <S.Container onSubmit={handleSubmit}>
+    <S.Container onSubmit={handleSubmit(handleFormSubmit)}>
       <S.Section>
         <StepHeader
           step={1}
@@ -101,7 +101,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
             label='스페이스 인원'
             description='2명 ~ 4명 이하'
             items={[...SPACE_MEMBER_OPTIONS]}
-            {...registerSelect('totalUserCount', { validate: validateTotalUserCount })}
+            {...registerSelect('totalUserCount')}
           />
           <TimeInputField
             label='스페이스 문제 풀이 제한시간'
@@ -112,11 +112,11 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
             label='스페이스 사용 언어'
             description='사용 언어'
             items={data.languages}
-            {...registerSelect('languageId', { validate: validateLanguage })}
+            {...registerSelect('languageId')}
           />
           <InputField
             label='문제 출처'
-            {...register('workbookUrl', { validate: { onBlur: validateReferenceUrl.onBlur }, placeholder: '링크' })}
+            {...register('workbookUrl')}
           />
         </S.InputWrapper>
       </S.Section>
@@ -128,7 +128,7 @@ export default function SpaceForm({ studyId, initialValues, description, onSubmi
         />
         <InputField
           label='문제 제목'
-          {...register('name', { validate: { onBlur: validateName.onBlur }, placeholder: '문제 제목을 입력해주세요' })}
+          {...register('name')}
         />
         <TextEditor
           label='문제 내용'
