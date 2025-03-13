@@ -3,7 +3,11 @@ import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axio
 import { HTTPError } from '@api/HTTPError';
 import { axiosInstance } from '@api/axiosInstance';
 
+import { PATH } from '@constants/path';
 import { ACCESS_TOKEN_KEY, ERROR_CODE, HTTP_STATUS_CODE } from '@constants/api';
+
+import { useModalStore } from '@stores/useModalStore';
+
 import authApi from './domain/auth';
 
 export interface ErrorResponseData {
@@ -44,9 +48,10 @@ export const handleAPIError = (error: AxiosError<ErrorResponseData>) => {
 
 export const handleResponse = async (response: AxiosResponse) => {
   const { status, data, config } = response;
+  const { open } = useModalStore.getState();
 
   if (status >= 400) {
-    if (status === HTTP_STATUS_CODE.BAD_REQUEST && data.code === ERROR_CODE.EXPIRED_TOKEN) {
+    if (status === HTTP_STATUS_CODE.UNAUTHORIZED && data.code === ERROR_CODE.EXPIRED_TOKEN) {
       try {
         const { accessToken } = await authApi.reIssue();
         config.headers.Authorization = `Bearer ${accessToken}`;
@@ -55,12 +60,14 @@ export const handleResponse = async (response: AxiosResponse) => {
         return axiosInstance(config);
       } catch (error) {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
+        window.location.href = PATH.ROOT;
+        open('login');
         throw new HTTPError(status, data?.message, data?.code);
       }
     }
 
     if (
-      status === HTTP_STATUS_CODE.BAD_REQUEST &&
+      status === HTTP_STATUS_CODE.UNAUTHORIZED &&
       (data.code === ERROR_CODE.INVALID_SIGNATURE ||
         data.code === ERROR_CODE.UNSUPPORTED_TOKEN ||
         data.code === ERROR_CODE.INVALID_TOKEN ||
@@ -68,6 +75,8 @@ export const handleResponse = async (response: AxiosResponse) => {
         data.code === ERROR_CODE.EXTRACTING_ERROR)
     ) {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
+      window.location.href = PATH.ROOT;
+      open('login');
       throw new HTTPError(status, data?.message, data?.code);
     }
 
