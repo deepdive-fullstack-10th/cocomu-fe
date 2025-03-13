@@ -1,5 +1,6 @@
 import { BsXLg } from 'react-icons/bs';
 import Icon from '@components/_common/atoms/Icon';
+import { GITHUB_IMAGE, GOOGLE_IMAGE, KAKAO_IMAGE, LOGO_IMAGE } from '@constants/common';
 import { LoginProps } from '@customTypes/modal';
 import { GITHUB_AUTH_API_URL, GOOGLE_AUTH_API_URL, KAKAO_AUTH_API_URL } from '@constants/api';
 import { useToastStore } from '@stores/useToastStore';
@@ -37,7 +38,7 @@ export default function Login({ onClose }: LoginProps) {
       </S.Header>
 
       <S.Body>
-        <S.Logo src='https://cdn.cocomu.co.kr/images/default/Logo.png' />
+        <S.Logo src={LOGO_IMAGE} />
         <S.WelcomeText>
           코코무에 오신 것을
           <br />
@@ -49,7 +50,7 @@ export default function Login({ onClose }: LoginProps) {
             buttonType='google'
             onClick={() => handleClick('google')}
           >
-            <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/google.png' />
+            <S.ButtonIcon src={GOOGLE_IMAGE} />
             <S.ButtonLabel>Google 로그인</S.ButtonLabel>
           </S.LoginButton>
 
@@ -57,7 +58,7 @@ export default function Login({ onClose }: LoginProps) {
             buttonType='github'
             onClick={() => handleClick('github')}
           >
-            <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/github.png' />
+            <S.ButtonIcon src={GITHUB_IMAGE} />
             <S.ButtonLabel>GitHub 로그인</S.ButtonLabel>
           </S.LoginButton>
 
@@ -65,7 +66,7 @@ export default function Login({ onClose }: LoginProps) {
             buttonType='kakao'
             onClick={() => handleClick('kakao')}
           >
-            <S.ButtonIcon src='https://cdn.cocomu.co.kr/images/default/kakaotalk.png' />
+            <S.ButtonIcon src={KAKAO_IMAGE} />
             <S.ButtonLabel>Kakao 로그인</S.ButtonLabel>
           </S.LoginButton>
         </S.ButtonWrapper>

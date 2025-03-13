@@ -1,6 +1,5 @@
-import MoveTopButton from '@components/_common/atoms/MoveTopButton';
 import FooterLabel from '@pages/MainLayout/Footer/FooterLabel';
-import { MENU_LIST } from '@constants/common';
+import { LOGO_IMAGE, MENU_LIST } from '@constants/common';
 import S from './style';
 
 export default function Footer() {
@@ -8,7 +7,7 @@ export default function Footer() {
     <S.Container>
       <S.InfoSection>
         <S.LogoImg
-          src='https://cdn.cocomu.co.kr/images/default/Logo.png'
+          src={LOGO_IMAGE}
           alt='Logo'
         />
         <S.LabelContainer>
