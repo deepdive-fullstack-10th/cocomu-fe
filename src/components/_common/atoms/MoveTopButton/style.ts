@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 export const ScrollButton = styled.button`
   position: fixed;
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   right: 5%;
   bottom: 5%;
 
@@ -25,7 +25,7 @@ export const IconContainer = styled.div`
 `;
 
 export const ButtonText = styled.span`
-  ${({ theme }) => theme.font.heading[200]};
+  ${({ theme }) => theme.font.heading[100]};
   color: ${({ theme }) => theme.color.primary[600]};
 `;
 
