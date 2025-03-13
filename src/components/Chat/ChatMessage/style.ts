@@ -28,13 +28,12 @@ const messageWrapStyles = ({ isMe }: ChatMessageStyleProps) => css`
 `;
 
 const messageBoxStyles = ({ isMe }: ChatMessageStyleProps) => css`
-  padding: 1rem 1.5rem;
-  background: ${isMe === true ? theme.color.secondary[900] : theme.color.gray[50]};
+  ${theme.font.common.small};
+  padding: 0.8rem 1.5rem;
+  background: ${isMe === true ? theme.color.secondary[900] : theme.color.gray[200]};
   border-radius: ${isMe === true ? '1.2rem 0 1.2rem 1.2rem' : '0 1.2rem 1.2rem 1.2rem'};
   position: relative;
-  color: ${isMe === true ? theme.color.gray[50] : theme.color.gray[900]};
-  font-size: 1rem;
-  line-height: 1.5;
+  color: ${isMe === true ? theme.color.gray[50] : theme.color.gray[950]};
 
   &::before {
     content: '';
@@ -55,7 +54,7 @@ export const MessageWrap = styled.div<ChatMessageStyleProps>(messageWrapStyles);
 export const MessageBox = styled.div<ChatMessageStyleProps>(messageBoxStyles);
 
 export const TimeText = styled.div`
-  ${theme.font.common.small};
+  ${theme.font.common.extraSmall};
   color: ${theme.color.gray[600]};
 `;
 
@@ -64,8 +63,8 @@ export const EmptySpace = styled.div`
 `;
 
 export const ProfileName = styled.div`
-  ${theme.font.common.defaultAccent};
-  color: ${theme.color.gray[700]};
+  ${theme.font.heading[100]};
+  color: ${theme.color.gray[900]};
 `;
 
 const S = {
