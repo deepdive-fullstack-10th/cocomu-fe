@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
 import { BsChevronDown } from 'react-icons/bs';
+
+import { useDropdown } from '@hooks/utils/useDropdown';
 
 import Icon from '@components/_common/atoms/Icon';
 import { FilterData } from '@customTypes/common';
@@ -24,53 +25,39 @@ export default function SelectDropdown({
   isMultiSelect = false,
   onSelect,
 }: SelectDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
 
   const selectedNames =
-    values
-      .map((id) => items.find((item) => item.id === id)?.name)
-      .filter(Boolean)
-      .join(', ') || description;
-
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
-
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    if (!containerRef.current?.contains(event.relatedTarget)) {
-      setIsOpen(false);
-    }
-  };
+    values.length > 0
+      ? values
+          .map((id) => items.find((item) => item.id === id)?.name)
+          .filter(Boolean)
+          .join(', ')
+      : description;
 
   const handleSelectItem = (id: number) => {
-    setIsOpen(false);
+    toggle();
 
     if (id === DEFAULT_OPTION.id) {
-      onSelect([]);
-      return;
+      return onSelect([]);
     }
 
     if (!isMultiSelect) {
-      onSelect(values.includes(id) ? [] : [id]);
-      return;
+      return onSelect(values.includes(id) ? [] : [id]);
     }
 
-    if (values.includes(id)) {
-      onSelect(values.filter((selectId) => selectId !== id));
-      return;
-    }
-
-    onSelect([...values, id]);
+    onSelect(values.includes(id) ? values.filter((selectedId) => selectedId !== id) : [...values, id]);
   };
 
   return (
     <S.Container
-      ref={containerRef}
+      ref={dropdownRef}
       onBlur={handleBlur}
       tabIndex={-1}
     >
       <S.Header
         isOpen={isOpen}
-        onClick={toggleDropdown}
+        onClick={toggle}
       >
         <S.SelectedText>{selectedNames}</S.SelectedText>
         <Icon

@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Icon from '@components/_common/atoms/Icon';
 import { BsChevronDown } from 'react-icons/bs';
 import { FilterData } from '@customTypes/common';
+import { useDropdown } from '@hooks/utils/useDropdown';
+
 import TagList from '../TagList';
 import DropdownList from '../DropdownList';
 import S from './style';
@@ -27,47 +29,33 @@ export default function InputDropdown({
   onSelect,
   onBlur,
 }: InputDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown(onBlur);
   const [search, setSearch] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropDown = () => setIsOpen((prev) => !prev);
-
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    if (!containerRef.current?.contains(event.relatedTarget)) {
-      setIsOpen(false);
-      onBlur();
-    }
-  };
-
-  const handleAddItem = (id: number) => {
-    setIsOpen(false);
-    setSearch('');
-
-    if (!isMultiSelect) {
-      onSelect([id]);
-      return;
-    }
-
-    if (!values.includes(id)) {
-      onSelect([...values, id]);
-    }
-  };
-
-  const handleRemoveTag = (id: number) => {
-    onSelect(values.filter((selectId) => selectId !== id));
-  };
-
+  const selectedItems = items.filter((item) => values.includes(item.id));
   const availableItems = items.filter(
     (item) => !values.includes(item.id) && item.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const selectedItems = items.filter((item) => values.includes(item.id));
+  const handleAddItem = (id: number) => {
+    toggle();
+    setSearch('');
+
+    if (!isMultiSelect) {
+      return onSelect([id]);
+    }
+
+    onSelect(values.includes(id) ? values.filter((selectedId) => selectedId !== id) : [...values, id]);
+  };
+
+  const handleRemoveTag = (id: number) => {
+    onSelect(values.filter((selectedId) => selectedId !== id));
+  };
 
   return (
     <S.Container>
       <S.DropdownContainer
-        ref={containerRef}
+        ref={dropdownRef}
         onBlur={handleBlur}
         tabIndex={-1}
       >
@@ -76,7 +64,7 @@ export default function InputDropdown({
         <S.InputContainer
           isOpen={isOpen}
           isError={!!error}
-          onClick={toggleDropDown}
+          onClick={toggle}
         >
           {isMultiSelect && selectedItems.length > 0 && (
             <TagList
