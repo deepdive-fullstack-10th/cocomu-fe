@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import useGetUserSpaceList from '@hooks/user/useGetUserSpaceList';
@@ -15,6 +16,8 @@ import S from './style';
 export default function MySpaceList() {
   const { userId } = useParams<{ userId: string }>();
 
+  const [filteredSpaces, setFilteredSpaces] = useState<SpaceData[]>([]);
+
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetUserSpaceList(userId);
 
   const { observerRef } = useScroll({
@@ -23,20 +26,30 @@ export default function MySpaceList() {
     fetchNext: fetchNextPage,
   });
 
+  useEffect(() => {
+    if (data) {
+      const newSpaces = data.pages.flatMap((page) => page.result) || [];
+      setFilteredSpaces(newSpaces);
+    }
+  }, [data]);
+
   if (isLoading) return <LoadingSpinner />;
+
+  const handleRemove = (id: number) => {
+    setFilteredSpaces((prev) => prev.filter((space) => space.id !== id));
+  };
 
   return (
     <S.Container>
-      {!data?.pages.some((page) => page.result.length > 0) && <EmptyResult />}
+      {filteredSpaces.length === 0 && <EmptyResult />}
       <S.SpaceList>
-        {data?.pages.flatMap((page) =>
-          page.result.map((space: SpaceData) => (
-            <SpaceCard
-              key={space.id}
-              {...space}
-            />
-          )),
-        )}
+        {filteredSpaces.map((space) => (
+          <SpaceCard
+            key={space.id}
+            {...space}
+            onRemove={handleRemove}
+          />
+        ))}
       </S.SpaceList>
 
       <InfiniteScrollSentinel

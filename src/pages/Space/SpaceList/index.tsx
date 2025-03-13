@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import useGetSpaceList from '@hooks/space/useGetSpaceList';
@@ -23,8 +23,10 @@ export default function SpaceList() {
     joinable: undefined,
     keyword: '',
   });
-  const [keyword, setKeyword] = useState('');
   const { studyId } = useParams<{ studyId: string }>();
+
+  const [keyword, setKeyword] = useState('');
+  const [filteredSpaces, setFilteredSpaces] = useState<SpaceData[]>([]);
 
   const getTransformedFilters = () => ({
     status: filters.status.length > 0 ? SPACE_STATUS_MAP_ID[filters.status[0]] : undefined,
@@ -44,7 +46,18 @@ export default function SpaceList() {
     fetchNext: fetchNextPage,
   });
 
+  useEffect(() => {
+    if (data) {
+      const newSpaces = data.pages.flatMap((page) => page.codingSpaces) || [];
+      setFilteredSpaces(newSpaces);
+    }
+  }, [data]);
+
   if (isLoading) return <LoadingSpinner />;
+
+  const handleRemove = (id: number) => {
+    setFilteredSpaces((prev) => prev.filter((space) => space.id !== id));
+  };
 
   return (
     <S.Container>
@@ -56,16 +69,15 @@ export default function SpaceList() {
         setKeyword={setKeyword}
       />
 
-      {!data?.pages.some((page) => page.codingSpaces.length > 0) && <EmptyResult />}
+      {filteredSpaces.length === 0 && <EmptyResult />}
       <S.SpaceListContainer>
-        {data?.pages.flatMap((page) =>
-          page.codingSpaces.map((space: SpaceData) => (
-            <SpaceCard
-              key={space.id}
-              {...space}
-            />
-          )),
-        )}
+        {filteredSpaces.map((space) => (
+          <SpaceCard
+            key={space.id}
+            {...space}
+            onRemove={handleRemove}
+          />
+        ))}
       </S.SpaceListContainer>
 
       <InfiniteScrollSentinel

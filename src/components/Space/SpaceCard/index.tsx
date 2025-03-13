@@ -13,6 +13,10 @@ import SpaceCardHeader from './SpaceCardHeader';
 
 import S from './style';
 
+interface SpaceCardProps extends SpaceData {
+  onRemove: (id: number) => void;
+}
+
 export default function SpaceCard({
   id,
   joinedMe,
@@ -22,7 +26,8 @@ export default function SpaceCard({
   createdAt,
   status,
   currentUsers,
-}: SpaceData) {
+  onRemove,
+}: SpaceCardProps) {
   const navigate = useNavigate();
   const { open } = useModalStore();
 
@@ -48,6 +53,7 @@ export default function SpaceCard({
         id={id}
         leader={leader}
         status={status}
+        onRemove={onRemove}
       />
 
       <S.Body>
