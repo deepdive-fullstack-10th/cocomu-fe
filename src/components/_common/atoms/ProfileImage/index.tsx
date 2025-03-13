@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { BsCamera } from 'react-icons/bs';
 import useUploadUserImage from '@hooks/user/useUploadUserImage';
+import { DEFAULT_PROFILE_IMAGE } from '@constants/common';
 import Icon from '../Icon';
 import S, { ProfileImageStyleProps } from './style';
 
@@ -11,7 +12,7 @@ export interface ProfileImageProps extends ProfileImageStyleProps {
 }
 
 export default function ProfileImage({
-  src = 'https://cdn.cocomu.co.kr/images/default/profile.png',
+  src = DEFAULT_PROFILE_IMAGE,
   size = 'md',
   upload = false,
   border = false,

@@ -12,7 +12,7 @@ import DropdownItem from '@components/_common/atoms/DropdownItem';
 import { UserData } from '@customTypes/user';
 
 import { ROUTES } from '@constants/path';
-import { NAVBAR_DROPDOWN_LABELS } from '@constants/common';
+import { LOGO_IMAGE, NAVBAR_DROPDOWN_LABELS } from '@constants/common';
 import { ACCESS_TOKEN_KEY } from '@constants/api';
 
 import { useModalStore } from '@stores/useModalStore';
@@ -60,7 +60,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   return (
     <S.Container>
       <S.LogoImage
-        src='https://cdn.cocomu.co.kr/images/default/Logo.png'
+        src={LOGO_IMAGE}
         alt='Logo'
         onClick={() => navigate(ROUTES.ROOT())}
       />

@@ -1,5 +1,6 @@
-import IconButton from '@components/_common/atoms/IconButton';
 import { useNavigate } from 'react-router-dom';
+import IconButton from '@components/_common/atoms/IconButton';
+import { ERROR_IMAGE } from '@constants/common';
 import { BsArrowLeft } from 'react-icons/bs';
 import S from './style';
 
@@ -13,7 +14,7 @@ export default function ErrorPage() {
   return (
     <S.ErrorContainer>
       <img
-        src='https://cdn.cocomu.co.kr/images/default/errorImg.png'
+        src={ERROR_IMAGE}
         alt='에러이미지'
       />
       <div>

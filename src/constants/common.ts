@@ -1,4 +1,16 @@
-export const STUDY_PAGE_SIZE = 12 as const;
+export const LOGO_IMAGE = 'https://cdn.cocomu.co.kr/images/default/Logo.png' as const;
+export const ERROR_IMAGE = 'https://cdn.cocomu.co.kr/images/default/errorImg.png' as const;
+export const LOADING_IMAGE = 'https://cdn.cocomu.co.kr/images/default/Loading.png' as const;
+
+export const GOOGLE_IMAGE = 'https://cdn.cocomu.co.kr/images/default/google.png' as const;
+export const GITHUB_IMAGE = 'https://cdn.cocomu.co.kr/images/default/github.png' as const;
+export const KAKAO_IMAGE = 'https://cdn.cocomu.co.kr/images/default/kakao.png' as const;
+
+export const DEFAULT_LANGUAGE_IMAGE = 'https://cdn.cocomu.co.kr/images/languages/java.png' as const;
+
+export const DEFAULT_PROFILE_IMAGE = 'https://cdn.cocomu.co.kr/images/default/profile.png' as const;
+
+export const MOCK_STUDY_PAGE_SIZE = 12 as const;
 
 export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
