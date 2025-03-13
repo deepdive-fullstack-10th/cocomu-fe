@@ -10,7 +10,7 @@ export const DEFAULT_LANGUAGE_IMAGE = 'https://cdn.cocomu.co.kr/images/languages
 
 export const DEFAULT_PROFILE_IMAGE = 'https://cdn.cocomu.co.kr/images/default/profile.png' as const;
 
-export const MOCK_STUDY_PAGE_SIZE = 12 as const;
+export const STUDY_PAGE_SIZE = 12 as const;
 
 export const STUDY_TABS = ['코딩 스페이스', '멤버 보기', '스터디 정보'] as const;
 
