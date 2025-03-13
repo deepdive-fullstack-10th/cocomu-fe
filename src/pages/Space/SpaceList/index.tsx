@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import useGetSpaceList from '@hooks/space/useGetSpaceList';
 import useScroll from '@hooks/utils/useScroll';
+
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
+import EmptyResult from '@components/_common/atoms/EmptyResult';
+import InfiniteScrollSentinel from '@components/_common/molecules/InfiniteScrollSentinel';
+
 import SpaceCard from '@components/Space/SpaceCard';
 import SpaceFilterTab from '@pages/Space/SpaceList/SpaceFilterTab';
+
 import { SPACE_STATUS_MAP_ID } from '@constants/common';
 import { SpaceData } from '@customTypes/space';
-import EmptyResult from '@components/_common/atoms/EmptyResult';
+
 import S from './style';
 
 export default function SpaceList() {
@@ -62,7 +68,11 @@ export default function SpaceList() {
         )}
       </S.SpaceListContainer>
 
-      {hasNextPage && <S.Sentinel ref={observerRef}>{isFetchingNextPage && <LoadingSpinner />}</S.Sentinel>}
+      <InfiniteScrollSentinel
+        observerRef={observerRef}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </S.Container>
   );
 }

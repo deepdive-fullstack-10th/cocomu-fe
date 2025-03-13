@@ -4,6 +4,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+
+  padding-bottom: 8rem;
 `;
 
 const SpaceList = styled.div`
@@ -18,19 +20,9 @@ const SpaceList = styled.div`
   }
 `;
 
-const Sentinel = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 2px;
-  padding-bottom: 4rem;
-`;
-
 const S = {
   Container,
   SpaceList,
-  Sentinel,
 };
 
 export default S;

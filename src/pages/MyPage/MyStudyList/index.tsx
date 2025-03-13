@@ -6,6 +6,7 @@ import useGetUserStudyList from '@hooks/user/useGetUserStudyList';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import EmptyResult from '@components/_common/atoms/EmptyResult';
 import StudyCard from '@components/Study/StudyCard';
+import InfiniteScrollSentinel from '@components/_common/molecules/InfiniteScrollSentinel';
 
 import { StudyData } from '@customTypes/study';
 
@@ -38,7 +39,11 @@ export default function MyStudyList() {
         )}
       </S.StudyList>
 
-      {hasNextPage && <S.Sentinel ref={observerRef}>{isFetchingNextPage && <LoadingSpinner />}</S.Sentinel>}
+      <InfiniteScrollSentinel
+        observerRef={observerRef}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </S.Container>
   );
 }

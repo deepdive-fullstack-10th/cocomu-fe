@@ -6,6 +6,7 @@ import useScroll from '@hooks/utils/useScroll';
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import EmptyResult from '@components/_common/atoms/EmptyResult';
 import SpaceCard from '@components/Space/SpaceCard';
+import InfiniteScrollSentinel from '@components/_common/molecules/InfiniteScrollSentinel';
 
 import { SpaceData } from '@customTypes/space';
 
@@ -38,7 +39,11 @@ export default function MySpaceList() {
         )}
       </S.SpaceList>
 
-      {hasNextPage && <S.Sentinel ref={observerRef}>{isFetchingNextPage && <LoadingSpinner />}</S.Sentinel>}
+      <InfiniteScrollSentinel
+        observerRef={observerRef}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </S.Container>
   );
 }

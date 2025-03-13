@@ -1,9 +1,15 @@
 import { useParams } from 'react-router-dom';
-import MemberCard from '@components/Space/MemberCard';
+
 import useGetMemberList from '@hooks/study/useGetMemberList';
 import useScroll from '@hooks/utils/useScroll';
+
 import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
+import InfiniteScrollSentinel from '@components/_common/molecules/InfiniteScrollSentinel';
+
+import MemberCard from '@components/Space/MemberCard';
+
 import { UserDetailData } from '@customTypes/user';
+
 import S from './style';
 
 export default function MemberList() {
@@ -30,7 +36,11 @@ export default function MemberList() {
         )),
       )}
 
-      {hasNextPage && <S.Sentinel ref={observerRef}>{isFetchingNextPage && <LoadingSpinner />}</S.Sentinel>}
+      <InfiniteScrollSentinel
+        observerRef={observerRef}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </S.Container>
   );
 }
