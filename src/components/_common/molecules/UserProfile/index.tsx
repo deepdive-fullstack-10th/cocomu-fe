@@ -20,11 +20,11 @@ export default function UserProfile({ user, size = 'md', upload, border }: UserP
     <S.UserProfileContainer onClick={handleUserClick}>
       <ProfileImage
         size={size}
-        src={user.profileImageUrl}
+        src={user?.profileImageUrl}
         upload={upload}
         border={border}
       />
-      <S.ProfileLabelName size={size}>{user.nickname}</S.ProfileLabelName>
+      <S.ProfileLabelName size={size}>{user?.nickname}</S.ProfileLabelName>
     </S.UserProfileContainer>
   );
 }
