@@ -19,7 +19,15 @@ export default function useYorkie(documentKey: string) {
         });
         console.log(2);
 
-        await client.activate();
+        try {
+          await client.activate();
+        } catch (activateError) {
+          console.error('Client activation full error:', activateError);
+          console.error('Error type:', typeof activateError);
+          console.error('Error string:', String(activateError));
+          console.error('Error details:', JSON.stringify(activateError, null, 2));
+          error('Yorkie 클라이언트 활성화 실패');
+        }
         console.log(3);
 
         clientRef.current = client;
