@@ -1,5 +1,6 @@
 import ProfileImage, { ProfileImageProps } from '@components/_common/atoms/ProfileImage';
 import { UserData } from '@customTypes/user';
+import { formatTime } from '@utils/formatTime';
 import S from './style';
 
 interface ChatMessageProps extends ProfileImageProps {
@@ -18,7 +19,7 @@ export default function ChatMessage({ user, time, message, isMe }: ChatMessagePr
           src={user.profileImageUrl}
         />
         <S.ProfileName>{user.nickname}</S.ProfileName>
-        <S.TimeText>{time}</S.TimeText>
+        <S.TimeText>{formatTime(time)}</S.TimeText>
       </S.ProfileWrap>
       <S.MessageWrap isMe={isMe}>
         <S.EmptySpace />
