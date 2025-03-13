@@ -24,6 +24,12 @@ const spaceApi = {
     return data.result;
   },
 
+  getFeedBackPage: async (codingSpaceId: string) => {
+    const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.FEEDBACK_PAGE(codingSpaceId));
+
+    return data.result;
+  },
+
   getFinishPage: async (codingSpaceId: string) => {
     const { data } = await axiosInstance.get(END_POINTS_V1.CODING_SPACE.FINISH_PAGE(codingSpaceId));
 
@@ -58,8 +64,12 @@ const spaceApi = {
     await axiosInstance.post(END_POINTS_V1.CODING_SPACE.START(codingSpaceId));
   },
 
-  running: async (codingSpaceId: string) => {
+  feedback: async (codingSpaceId: string) => {
     await axiosInstance.post(END_POINTS_V1.CODING_SPACE.FEEDBACK(codingSpaceId));
+  },
+
+  finish: async (codingSpaceId: string) => {
+    await axiosInstance.post(END_POINTS_V1.CODING_SPACE.FINISH(codingSpaceId));
   },
 
   updateTestCase: async (codingSpaceId: string, testCases: TestCaseIO) => {
@@ -84,6 +94,12 @@ const spaceApi = {
     const { data } = await axiosInstance.post(END_POINTS_V1.EXECUTOR.EXECUTION, excution);
 
     return data;
+  },
+
+  codesave: async (codingSpaceId: string, code: { code: string }) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.CODING_SPACE.SAVE(codingSpaceId), code);
+
+    return data.result;
   },
 };
 

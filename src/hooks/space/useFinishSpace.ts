@@ -5,20 +5,20 @@ import spaceApi from '@api/domain/space';
 import { WAITING_INFO } from '@constants/modal';
 import { useModalStore } from '@stores/useModalStore';
 
-export default function useFeedBackSpace(codingSpaceId: number) {
+export default function useFinishSpace(studyId: number, codingSpaceId: number) {
   const navigate = useNavigate();
   const { open } = useModalStore();
 
-  const feedBackSpaceMutate = useMutation({
-    mutationFn: spaceApi.feedback,
+  const finishSpaceMutate = useMutation({
+    mutationFn: spaceApi.finish,
     onSuccess: () => {
       open('waiting', {
-        label: WAITING_INFO.feedback.label,
-        description: WAITING_INFO.feedback.description,
-        navigate: navigate(WAITING_INFO.feedback.navigate(codingSpaceId)),
+        label: WAITING_INFO.finish.label,
+        description: WAITING_INFO.finish.description,
+        navigate: navigate(WAITING_INFO.finish.navigate(studyId, codingSpaceId)),
       });
     },
   });
 
-  return { feedBackSpaceMutate };
+  return { finishSpaceMutate };
 }
