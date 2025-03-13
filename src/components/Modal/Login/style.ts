@@ -71,7 +71,7 @@ const LoginButton = styled.button<{ buttonType: ButtonType }>`
 
   width: 34.4rem;
   border-radius: 3rem;
-  padding: 1.9rem 0;
+  padding: 1.5rem 0;
 
   cursor: pointer;
 `;
