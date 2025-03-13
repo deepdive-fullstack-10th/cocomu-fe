@@ -8,12 +8,14 @@ export interface UserRoleData extends UserData {
   role: string;
 }
 
-export interface UserDetailData extends UserData {
-  /* successCount: number;
-  failedCount: number; */
+export interface UserDetailData {
+  studyUserId: number;
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+  joinedSpaceCount: number;
   role: string;
   joinedDate: string;
-  joinedSpaceCount: number;
 }
 
 export interface EditUserData {

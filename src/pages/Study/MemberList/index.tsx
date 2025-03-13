@@ -28,9 +28,9 @@ export default function MemberList() {
   return (
     <S.Container>
       {data?.pages.flatMap((page) =>
-        page.map((user: UserDetailData) => (
+        page.result.map((user: UserDetailData) => (
           <MemberCard
-            key={user.id}
+            key={user.userId}
             {...user}
           />
         )),
