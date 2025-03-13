@@ -1,6 +1,7 @@
 import { useState, FormEventHandler, ChangeEvent, FocusEvent } from 'react';
 import { useError } from '@hooks/utils/useError';
 import ValidationError from '@utils/errors/ValidationError';
+import { useToastStore } from '@stores/useToastStore';
 
 interface Field<T> {
   value: T;
@@ -44,6 +45,7 @@ export function useForm<TFieldData>({ initialValues }: UseFormProps<TFieldData>)
   const handleSubmit =
     (callback: () => Promise<void>, excludeFields: (keyof TFieldData)[] = []): FormEventHandler<HTMLFormElement> =>
     async (e) => {
+      const { error } = useToastStore.getState();
       e.preventDefault();
       clearAllErrors();
 
@@ -64,6 +66,7 @@ export function useForm<TFieldData>({ initialValues }: UseFormProps<TFieldData>)
           if (err instanceof ValidationError) {
             setError(fieldName, err.message);
             isValid = false;
+            error(err.message);
           }
         }
       });
