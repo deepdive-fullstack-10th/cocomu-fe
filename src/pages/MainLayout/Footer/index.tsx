@@ -31,7 +31,7 @@ export default function Footer() {
             name='TEL'
             description='010-XXXX-XXXX'
           />
-          <FooterLabel name='© cocomu Corp.' />
+          <FooterLabel name='© 2025 deepdive-cocomu. MIT License.' />
         </S.LabelContainer>
       </S.InfoSection>
       <S.MenuSection>
