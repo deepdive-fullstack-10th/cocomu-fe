@@ -14,8 +14,8 @@ import { ActiveTab } from '@customTypes/space';
 import Loading from '@pages/Loading';
 import { STOMP_ENDPOINTS } from '@constants/api';
 import { useToastStore } from '@stores/useToastStore';
-import { ROUTES } from '@constants/path';
-
+import { useModalStore } from '@stores/useModalStore';
+import { WAITING_INFO } from '@constants/modal';
 import S from './style';
 
 interface OutletContextType {
@@ -28,6 +28,8 @@ export default function SpaceRunning() {
   const { client } = useOutletContext<OutletContextType>();
 
   const navigate = useNavigate();
+
+  const { open } = useModalStore();
   const { alert } = useToastStore();
 
   const [users, setUsers] = useState<ActiveTab[]>([]);
@@ -38,7 +40,7 @@ export default function SpaceRunning() {
 
   const { excutionMutate } = useExcution();
 
-  const { feedBackSpaceMutate } = useFeedBackSpace(Number(codingSpaceId));
+  const { feedBackSpaceMutate } = useFeedBackSpace();
 
   const { data, isLoading, refetch } = useGetStartingPage(codingSpaceId);
 
@@ -81,9 +83,11 @@ export default function SpaceRunning() {
     const object = JSON.parse(spaceMessage);
 
     if (object.type === 'STUDY_FEEDBACK') {
-      if (!data.hostMe) {
-        navigate(ROUTES.SPACE.FEEDBACK({ codingSpaceId: Number(codingSpaceId) }));
-      }
+      open('waiting', {
+        label: WAITING_INFO.feedback.label,
+        description: WAITING_INFO.feedback.description,
+        navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId))),
+      });
     }
 
     if (object.type === 'DELETE_TEST_CASE') {
