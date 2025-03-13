@@ -4,6 +4,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+
+  padding-bottom: 8rem;
 `;
 
 const SpaceListContainer = styled.div`
@@ -24,7 +26,6 @@ const Sentinel = styled.div`
   align-items: center;
 
   height: 2px;
-  padding-bottom: 4rem;
 `;
 
 const S = {
