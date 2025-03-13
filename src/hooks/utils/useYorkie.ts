@@ -14,8 +14,11 @@ export default function useYorkie(documentKey: string) {
       try {
         if (!documentKey) return;
         console.log(1);
-        const client = new yorkie.Client(YORKIE_URL, {
-          apiKey: YORKIE_API_KEY,
+        // const client = new yorkie.Client(YORKIE_URL, {
+        //   apiKey: YORKIE_API_KEY,
+        // });
+        const client = new yorkie.Client('https://api.yorkie.dev/', {
+          apiKey: 'AfSZXBRkoKWXdNpbzkZY5j',
         });
         console.log(2);
 
