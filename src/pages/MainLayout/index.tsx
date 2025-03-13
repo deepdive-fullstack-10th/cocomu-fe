@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import useGetMyInfo from '@hooks/user/useGetMyInfo';
@@ -17,11 +18,13 @@ export default function MainLayout() {
   const location = useLocation();
   const isMain = location.pathname === '/';
 
-  if (isLoading) return <Loading />;
+  useEffect(() => {
+    if (data?.id) {
+      setUserId(data.id);
+    }
+  }, [data?.id, setUserId]);
 
-  if (data?.id) {
-    setUserId(data.id);
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <S.MainContainer>

@@ -29,14 +29,14 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
   const { open } = useModalStore();
   const { checkAuth } = useCheckAuth();
 
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleDropdownToggle = () => setDropdownOpen((prev) => !prev);
+  const handleDropdownToggle = () => setIsDropdownOpen((prev) => !prev);
 
   const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
     if (!containerRef.current?.contains(event.relatedTarget)) {
-      setDropdownOpen(false);
+      setIsDropdownOpen(false);
     }
   };
 
@@ -44,8 +44,9 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
     checkAuth(() => navigate(ROUTES.STUDY.CREATE()));
   };
 
-  const handleItemSelect = (selectedItem: string) => {
-    setDropdownOpen(false);
+  const handleItemSelect = (event: React.MouseEvent, selectedItem: string) => {
+    event.stopPropagation();
+    setIsDropdownOpen(false);
 
     if (selectedItem === NAVBAR_DROPDOWN_LABELS[0].label) {
       navigate(ROUTES.MYPAGE.ROOT({ userId: user.id }));
@@ -99,7 +100,7 @@ export default function NavBar({ isLoggedIn, user }: NavbarProps) {
                     item={label}
                     size='lg'
                     color={color}
-                    onClick={() => handleItemSelect(label)}
+                    onClick={(e) => handleItemSelect(e, label)}
                   />
                 ))}
               </S.DropdownList>
