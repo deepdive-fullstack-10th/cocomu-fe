@@ -17,6 +17,7 @@ export interface CodeExecutorProps {
   code?: string;
   onCodeChange?: (newText: string) => void;
   disabled?: boolean;
+  finish?: boolean;
   activeUsers?: UserRoleData[];
   totalUserCount?: number;
   setInput?: React.Dispatch<React.SetStateAction<string>>;
@@ -35,6 +36,7 @@ export default function CodeExecutor({
   setInput,
   output,
   selectUser,
+  finish,
 }: CodeExecutorProps) {
   const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
@@ -59,20 +61,24 @@ export default function CodeExecutor({
             language={language.languageName}
             code={code}
             onChange={onCodeChange}
+            finish={finish}
           />
         </S.ActiveSection>
       )}
+      {!finish && (
+        <>
+          <ResizablePanel
+            direction='x'
+            onMouseDown={handleMouseDown}
+          />
 
-      <ResizablePanel
-        direction='x'
-        onMouseDown={handleMouseDown}
-      />
-
-      <ExecutionPanel
-        setInput={setInput}
-        output={output}
-        disabled={disabled}
-      />
+          <ExecutionPanel
+            setInput={setInput}
+            output={output}
+            disabled={disabled}
+          />
+        </>
+      )}
     </S.Container>
   );
 }

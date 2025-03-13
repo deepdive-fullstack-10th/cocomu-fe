@@ -46,55 +46,50 @@ export default function SpaceFeedBack() {
   const finish = useRef(false);
   const isSaving = useRef(false);
 
-  const { content, updateContent } = useYorkie(selectTab?.documentKey ?? '');
+  const { content, updateContent, getLatestContentByKey } = useYorkie(selectTab?.documentKey ?? '');
 
-  const saveCode = useCallback(() => {
-    if (!data || !data.activeTabs) return;
+  const saveCode = useCallback(async () => {
+    if (!data || !data.activeTabs || isSaving.current) return;
 
     const activeMyTabs = data.activeTabs.filter((tab) => tab.myTab === true);
     if (activeMyTabs.length === 0) return;
 
     const selectedTab = activeMyTabs[0];
     setSelectTab(selectedTab);
-  }, [data]);
 
-  const handleUpdatedContent = useCallback(
-    (updatedContent) => {
-      if (!codingSpaceId || !updatedContent || isSaving.current) return;
-
+    if (finish.current) {
       isSaving.current = true;
 
-      saveTabCodeMutate.mutate(
-        {
-          codingSpaceId,
-          code: { code: updatedContent },
-        },
-        {
-          onSuccess: () => {
-            finish.current = false;
-            isSaving.current = false;
-            open('waiting', {
-              label: WAITING_INFO.finish.label,
-              description: WAITING_INFO.finish.description,
-              navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId))),
-            });
-          },
-          onError: () => {
-            finish.current = false;
-            isSaving.current = false;
-          },
-        },
-      );
-    },
-    [codingSpaceId, saveTabCodeMutate, navigate, open],
-  );
+      try {
+        const latestContent = await getLatestContentByKey(selectedTab.documentKey);
 
-  useEffect(() => {
-    if (!selectTab) return;
-    if (finish.current) {
-      handleUpdatedContent(content);
+        saveTabCodeMutate.mutate(
+          {
+            codingSpaceId,
+            code: { code: latestContent },
+          },
+          {
+            onSuccess: () => {
+              finish.current = false;
+              isSaving.current = false;
+
+              open('waiting', {
+                label: WAITING_INFO.finish.label,
+                description: WAITING_INFO.finish.description,
+                navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId))),
+              });
+            },
+            onError: () => {
+              finish.current = false;
+              isSaving.current = false;
+            },
+          },
+        );
+      } catch (error) {
+        isSaving.current = false;
+      }
     }
-  }, [selectTab, content, handleUpdatedContent]);
+  }, [data, getLatestContentByKey, codingSpaceId, navigate, open, saveTabCodeMutate]);
 
   useEffect(() => {
     if (!data || !client || !client.connected || !selectTab) return;
@@ -122,7 +117,7 @@ export default function SpaceFeedBack() {
   useEffect(() => {
     if (!tabMessage) return;
     const object = JSON.parse(tabMessage);
-    console.log(object);
+
     if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
       setOutput(object.data.output);
     }
@@ -131,7 +126,6 @@ export default function SpaceFeedBack() {
   useEffect(() => {
     if (!spaceMessage) return;
     const object = JSON.parse(spaceMessage);
-    console.log(object);
 
     if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
       refetch();

@@ -83,6 +83,7 @@ export interface ActiveTab {
   profileImageUrl?: string;
   role?: 'HOST' | 'MEMBER';
   myTab?: boolean;
+  code?: string;
 }
 
 export interface Execution {

@@ -53,6 +53,19 @@ export default function useYorkie(documentKey: string) {
     };
   }, [documentKey, error]);
 
+  const getLatestContentByKey = async (key: string) => {
+    const tempClient = new yorkie.Client(YORKIE_URL, { apiKey: YORKIE_API_KEY });
+    await tempClient.activate();
+
+    const tempDoc = new yorkie.Document<{ content: yorkie.Text }>(key);
+    await tempClient.attach(tempDoc);
+
+    const latestContent = tempDoc.getRoot().content.toString();
+
+    await tempClient.deactivate();
+    return latestContent;
+  };
+
   const updateContent = (newText: string) => {
     if (!docRef.current) {
       error('문서가 아직 초기화되지 않았습니다.');
@@ -74,5 +87,5 @@ export default function useYorkie(documentKey: string) {
     }
   };
 
-  return { content, updateContent };
+  return { content, updateContent, getLatestContentByKey };
 }
