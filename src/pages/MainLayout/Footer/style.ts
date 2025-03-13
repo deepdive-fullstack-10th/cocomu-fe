@@ -42,12 +42,14 @@ const MenuSection = styled.div`
   gap: 4rem;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
 `;
 
 const MenuText = styled.div`
   ${({ theme }) => theme.font.heading[100]};
   color: ${({ theme }) => theme.color.gray[800]};
   cursor: pointer;
+  white-space: nowrap;
 `;
 
 const S = {
