@@ -37,9 +37,9 @@ export default function StudyEdit() {
 
   const handleSubmit = (studyData: CreateStudyData) => {
     if (selectedStatus === ACCESS_STATUS[0].id) {
-      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: true, password: undefined } });
+      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: true, status: undefined } });
     } else if (selectedStatus === ACCESS_STATUS[1].id) {
-      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: false } });
+      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: false, status: undefined } });
     }
   };
 

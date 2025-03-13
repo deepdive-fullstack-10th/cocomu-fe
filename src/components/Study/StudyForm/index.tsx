@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useToastStore } from '@stores/useToastStore';
 import { useForm } from '@hooks/utils/useForm';
 import useGetFilterOptions from '@hooks/study/useGetFilterOptions';
 
@@ -43,33 +42,35 @@ export default function StudyForm({
   setSelectedStatus,
   onSubmit,
 }: StudyFormProps) {
-  const { error } = useToastStore();
   const navigate = useNavigate();
   const { data, isLoading } = useGetFilterOptions();
 
   const [content, setContent] = useState(description || '');
-  const { formData, register, registerSelect, hasErrors } = useForm({
-    initialValues: initialValues || {
-      name: '',
-      password: '',
-      totalUserCount: '',
-      languages: [],
-      workbooks: [],
+
+  const { formData, register, registerSelect, handleSubmit } = useForm({
+    initialValues: {
+      name: { value: initialValues?.name || '', validate: { onBlur: validateName.onBlur } },
+      password: { value: initialValues?.password || '', validate: { onBlur: validatePassword.onBlur } },
+      totalUserCount: {
+        value: initialValues?.totalUserCount || '',
+        validate: { onBlur: validateTotalUserCount.onBlur },
+      },
+      languages: { value: initialValues?.languages || [], validate: { onBlur: validateLanguages.onBlur } },
+      workbooks: { value: initialValues?.workbooks || [], validate: { onBlur: validateJudges.onBlur } },
     },
   });
-
-  const handleSubmit: React.FormEventHandler = (e) => {
-    e.preventDefault();
-    if (hasErrors) {
-      return error('스터디 정보를 확인해주세요.');
-    }
-    onSubmit({ ...formData, description: content });
-  };
 
   if (isLoading) return <Loading />;
 
   return (
-    <S.Container onSubmit={handleSubmit}>
+    <S.Container
+      onSubmit={handleSubmit(
+        async () => {
+          onSubmit({ ...formData, description: content });
+        },
+        selectedStatus === ACCESS_STATUS[0].id ? ['password'] : [],
+      )}
+    >
       <S.Section>
         <StepHeader
           step={1}
@@ -86,28 +87,26 @@ export default function StudyForm({
             type='password'
             label='암호'
             disabled={selectedStatus === ACCESS_STATUS[0].id}
-            {...register('password', { validate: { onBlur: validatePassword.onBlur } })}
+            {...register('password')}
           />
           <InputField
             label='모집 인원'
-            {...register('totalUserCount', {
-              validate: { onBlur: validateTotalUserCount.onBlur },
-              placeholder: '2명 ~ 50명 이하',
-            })}
+            placeholder='2명 ~ 50명 이하'
+            {...register('totalUserCount')}
           />
           <InputDropdown
             label='스터디 사용 언어'
             description='사용 언어'
             items={data.languages}
             isMultiSelect
-            {...registerSelect('languages', { validate: validateLanguages })}
+            {...registerSelect('languages')}
           />
           <InputDropdown
             label='스터디 사용 플랫폼'
             description='백준, 프로그래머스 ...'
             items={data.workbooks}
             isMultiSelect
-            {...registerSelect('workbooks', { validate: validateJudges })}
+            {...registerSelect('workbooks')}
           />
         </S.InputWrapper>
       </S.Section>
@@ -119,10 +118,8 @@ export default function StudyForm({
         />
         <InputField
           label='스터디 이름'
-          {...register('name', {
-            validate: { onBlur: validateName.onBlur },
-            placeholder: '스터디 이름을 입력해주세요',
-          })}
+          placeholder='스터디 이름을 입력해주세요'
+          {...register('name')}
         />
         <TextEditor
           label='스터디 소개'

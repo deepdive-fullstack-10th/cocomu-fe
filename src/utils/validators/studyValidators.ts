@@ -53,14 +53,18 @@ export const validateTotalUserCount = {
   },
 };
 
-export const validateLanguages = (languages: number[]) => {
-  if (isEmptyArray(languages)) {
-    throw new ValidationError({ inputName: 'languages', message: '사용할 언어를 하나 이상 선택해야 합니다.' });
-  }
+export const validateLanguages = {
+  onBlur: (languages: number[]) => {
+    if (isEmptyArray(languages)) {
+      throw new ValidationError({ inputName: 'languages', message: '사용할 언어를 하나 이상 선택해야 합니다.' });
+    }
+  },
 };
 
-export const validateJudges = (workbooks: number[]) => {
-  if (isEmptyArray(workbooks)) {
-    throw new ValidationError({ inputName: 'workbooks', message: '사용할 플랫폼을 하나 이상 선택해야 합니다.' });
-  }
+export const validateJudges = {
+  onBlur: (workbooks: number[]) => {
+    if (isEmptyArray(workbooks)) {
+      throw new ValidationError({ inputName: 'workbooks', message: '사용할 플랫폼을 하나 이상 선택해야 합니다.' });
+    }
+  },
 };
