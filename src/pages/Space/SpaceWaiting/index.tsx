@@ -8,10 +8,10 @@ import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import SpaceNavbar from '@components/Space/SpaceNavbar';
 import { UserRoleData } from '@customTypes/user';
-import { ROUTES } from '@constants/path';
 import { useModalStore } from '@stores/useModalStore';
 import Loading from '@pages/Loading';
 import { STOMP_ENDPOINTS } from '@constants/api';
+import { WAITING_INFO } from '@constants/modal';
 
 import S from './style';
 
@@ -29,7 +29,7 @@ export default function SpaceWaiting() {
 
   const [users, setUsers] = useState<UserRoleData[]>([]);
 
-  const { startSpaceMutate } = useStartSpace(Number(codingSpaceId));
+  const { startSpaceMutate } = useStartSpace();
   const [message, setMessage] = useState<string | null>(null);
   const { data, isLoading } = useGetWaitingPage(codingSpaceId);
 
@@ -44,9 +44,11 @@ export default function SpaceWaiting() {
     if (message) {
       const object = JSON.parse(message);
       if (object.type === 'STUDY_START') {
-        if (!data.hostMe) {
-          navigate(ROUTES.SPACE.RUNNING({ codingSpaceId: Number(codingSpaceId) }));
-        }
+        open('waiting', {
+          label: WAITING_INFO.running.label,
+          description: WAITING_INFO.running.description,
+          navigate: navigate(WAITING_INFO.running.navigate(Number(codingSpaceId))),
+        });
       }
       setUsers((prev) => {
         if (object.type === 'USER_ENTER') {
