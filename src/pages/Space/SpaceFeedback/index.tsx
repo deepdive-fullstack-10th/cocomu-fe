@@ -13,7 +13,8 @@ import { ActiveTab } from '@customTypes/space';
 import Loading from '@pages/Loading';
 import { STOMP_ENDPOINTS } from '@constants/api';
 import { useToastStore } from '@stores/useToastStore';
-import { ROUTES } from '@constants/path';
+import { WAITING_INFO } from '@constants/modal';
+import { useModalStore } from '@stores/useModalStore';
 import useFinishSpace from '@hooks/space/useFinishSpace';
 import useSaveTabCode from '@hooks/space/useCodesave';
 
@@ -27,6 +28,7 @@ export default function SpaceFeedBack() {
   const { client } = useOutletContext<OutletContextType>();
   const navigate = useNavigate();
   const { alert } = useToastStore();
+  const { open } = useModalStore();
 
   const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
   const [users, setUsers] = useState<ActiveTab[]>([]);
@@ -35,68 +37,67 @@ export default function SpaceFeedBack() {
   const [selectTab, setSelectTab] = useState<ActiveTab | null>(null);
   const [tabMessage, setTabMessage] = useState<string | null>(null);
   const [spaceMessage, setSpaceMessage] = useState<string | null>(null);
-  const [finishClick, setFinishClick] = useState<boolean>(false);
 
   const { excutionMutate } = useExcution();
   const { data, isLoading, refetch } = useGetFeedbackPage(codingSpaceId);
-  const { finishSpaceMutate } = useFinishSpace(Number(studyId), Number(codingSpaceId));
+  const { finishSpaceMutate } = useFinishSpace();
   const { saveTabCodeMutate } = useSaveTabCode();
+
+  const finish = useRef(false);
+  const isSaving = useRef(false);
+
   const { content, updateContent } = useYorkie(selectTab?.documentKey ?? '');
 
-  const hasRequested = useRef(false);
-  const finishRef = useRef(false);
-
-  const handleFinish = useCallback(() => {
+  const saveCode = useCallback(() => {
     if (!data || !data.activeTabs) return;
 
     const activeMyTabs = data.activeTabs.filter((tab) => tab.myTab === true);
-
-    if (activeMyTabs.length === 0) {
-      return;
-    }
+    if (activeMyTabs.length === 0) return;
 
     const selectedTab = activeMyTabs[0];
     setSelectTab(selectedTab);
-    setFinishClick(true);
   }, [data]);
 
-  const additionalFunction = useCallback(
+  const handleUpdatedContent = useCallback(
     (updatedContent) => {
-      if (!finishClick || hasRequested.current) return;
+      if (!codingSpaceId || !updatedContent || isSaving.current) return;
 
-      hasRequested.current = true;
+      isSaving.current = true;
 
       saveTabCodeMutate.mutate(
         {
-          codingSpaceId: String(codingSpaceId),
+          codingSpaceId,
           code: { code: updatedContent },
         },
         {
           onSuccess: () => {
-            if (data?.hostMe) {
-              finishRef.current = true;
-            } else {
-              navigate(ROUTES.SPACE.FINISH({ studyId: Number(studyId), codingSpaceId: Number(codingSpaceId) }));
-            }
+            finish.current = false;
+            isSaving.current = false;
+            open('waiting', {
+              label: WAITING_INFO.finish.label,
+              description: WAITING_INFO.finish.description,
+              navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId))),
+            });
+          },
+          onError: () => {
+            finish.current = false;
+            isSaving.current = false;
           },
         },
       );
     },
-    [finishClick, saveTabCodeMutate, codingSpaceId, data?.hostMe, navigate, studyId],
+    [codingSpaceId, saveTabCodeMutate, navigate, open],
   );
 
   useEffect(() => {
-    if (!selectTab?.documentKey) return;
-    if (finishRef.current) {
-      finishRef.current = false;
-      finishSpaceMutate.mutate(codingSpaceId);
+    if (!selectTab) return;
+    if (finish.current) {
+      handleUpdatedContent(content);
     }
-    additionalFunction(content);
-  }, [selectTab, content, additionalFunction, codingSpaceId, finishSpaceMutate]);
+  }, [selectTab, content, handleUpdatedContent]);
 
   useEffect(() => {
     if (!data || !client || !client.connected || !selectTab) return;
-    console.log('📌 데이터 업데이트:', data);
 
     const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(selectTab.tabId), (msg) => {
       setTabMessage(msg.body);
@@ -121,7 +122,7 @@ export default function SpaceFeedBack() {
   useEffect(() => {
     if (!tabMessage) return;
     const object = JSON.parse(tabMessage);
-    console.log('📢 WebSocket Message:', object);
+    console.log(object);
     if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
       setOutput(object.data.output);
     }
@@ -130,16 +131,15 @@ export default function SpaceFeedBack() {
   useEffect(() => {
     if (!spaceMessage) return;
     const object = JSON.parse(spaceMessage);
-    console.log('📢 WebSocket Message:', object);
+    console.log(object);
 
     if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
       refetch();
     }
 
     if (object.type === 'STUDY_FINISH') {
-      if (!data?.hostMe) {
-        handleFinish();
-      }
+      finish.current = true;
+      saveCode();
     }
 
     if (object.type === 'DELETE_TEST_CASE') {
@@ -151,11 +151,7 @@ export default function SpaceFeedBack() {
       refetch();
       alert('테스트 케이스가 추가되었습니다.');
     }
-  }, [spaceMessage, codingSpaceId, data?.hostMe, studyId, navigate, alert, refetch]);
-
-  const selectUser = (tab: ActiveTab) => {
-    setSelectTab(tab);
-  };
+  }, [spaceMessage, codingSpaceId, data?.hostMe, studyId, navigate, alert, refetch, saveCode]);
 
   const handleCodeExecution = useCallback(() => {
     if (!data || !selectTab) return;
@@ -166,6 +162,10 @@ export default function SpaceFeedBack() {
       input,
     });
   }, [excutionMutate, data, selectTab, content, input]);
+
+  const handleFinish = () => {
+    finishSpaceMutate.mutate(codingSpaceId);
+  };
 
   if (isLoading || !data) return <Loading />;
 
@@ -191,7 +191,7 @@ export default function SpaceFeedBack() {
         code={content}
         disabled={false}
         output={output}
-        selectUser={selectUser}
+        selectUser={setSelectTab}
       />
 
       <SpaceFooter
