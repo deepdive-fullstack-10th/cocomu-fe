@@ -24,8 +24,8 @@ export default function Footer() {
         </S.LabelContainer>
       </S.InfoSection>
       <S.MenuSection>
-        {MENU_LIST.map((menuItem) => (
-          <S.MenuText>{menuItem}</S.MenuText>
+        {MENU_LIST.map((menuItem, index) => (
+          <S.MenuText key={`menu-${index + 1}`}>{menuItem}</S.MenuText>
         ))}
       </S.MenuSection>
     </S.Container>
