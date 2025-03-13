@@ -119,7 +119,7 @@ export const STEP_INFO = {
     label: '피드백',
     color: 'primary',
   },
-  FINISH: {
+  FINISHED: {
     label: '종료',
     color: 'triadic',
   },
