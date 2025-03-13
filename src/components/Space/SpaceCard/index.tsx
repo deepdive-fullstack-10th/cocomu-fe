@@ -28,7 +28,6 @@ export default function SpaceCard({
 }: SpaceData) {
   const navigate = useNavigate();
   const { open } = useModalStore();
-
   const { label, color } = STEP_INFO[status];
 
   const handleCardClick = () => {
