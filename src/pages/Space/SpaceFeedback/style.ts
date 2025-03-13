@@ -32,7 +32,13 @@ const MonacoContainer = styled.div`
   flex-grow: 1;
   overflow: auto;
 `;
+const ButtonWrapper = styled.div`
+  display: flex;
+  & > :first-of-type {
+    margin-right: 2rem;
+  }
+`;
 
-const S = { Container, CodingContainer, MonacoContainer };
+const S = { Container, CodingContainer, MonacoContainer, ButtonWrapper };
 
 export default S;

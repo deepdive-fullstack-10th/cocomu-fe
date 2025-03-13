@@ -12,6 +12,8 @@ const QUERY_KEYS = {
   SPACE_LIST: 'space_list',
   SPACE_WATING_PAGE: 'space_wating_page',
   SPACE_START_PAGE: 'space_start_page',
+  SPACE_FEEDBACK_PAGE: 'space_feedback_page',
+  SPACE_FINISH_PAGE: 'space_finish_page',
 } as const;
 
 export default QUERY_KEYS;

@@ -8,6 +8,5 @@ export default function useGetStartingPage(codingSpaceId: string | null) {
     queryKey: [QUERY_KEYS.SPACE_START_PAGE, codingSpaceId],
     queryFn: () => spaceApi.getStartingPage(codingSpaceId!),
     enabled: !!codingSpaceId,
-    retry: 4,
   });
 }

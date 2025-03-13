@@ -76,12 +76,12 @@ export interface CreateSpaceData extends CreateSpaceFormData {
 }
 
 export interface ActiveTab {
-  tabId?: number;
+  tabId?: string;
   documentKey?: string;
-  userId: number;
-  nickname: string;
-  profileImageUrl: string;
-  role: 'HOST' | 'MEMBER';
+  userId?: number;
+  nickname?: string;
+  profileImageUrl?: string;
+  role?: 'HOST' | 'MEMBER';
   myTab?: boolean;
 }
 
@@ -90,4 +90,9 @@ export interface Execution {
   language: string;
   code: string;
   input: string;
+}
+
+export interface SendCode {
+  codingSpaceId: string;
+  code: { code: string };
 }

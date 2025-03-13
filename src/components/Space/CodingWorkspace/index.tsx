@@ -23,6 +23,7 @@ export default function CodingWorkspace({
   totalUserCount,
   setInput,
   output,
+  selectUser,
 }: CodingWorkspaceProps) {
   const { value: width, containerRef, handleMouseDown } = useDraggable({ direction: 'x' });
 
@@ -49,6 +50,7 @@ export default function CodingWorkspace({
           totalUserCount={totalUserCount}
           setInput={setInput}
           output={output}
+          selectUser={selectUser}
         />
       </S.CodeSection>
     </S.Container>

@@ -21,6 +21,7 @@ export interface CodeExecutorProps {
   totalUserCount?: number;
   setInput?: React.Dispatch<React.SetStateAction<string>>;
   output?: string;
+  selectUser?: (tab: ActiveTab) => void;
 }
 
 export default function CodeExecutor({
@@ -33,6 +34,7 @@ export default function CodeExecutor({
   totalUserCount,
   setInput,
   output,
+  selectUser,
 }: CodeExecutorProps) {
   const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
@@ -48,7 +50,10 @@ export default function CodeExecutor({
         </S.DisabledSection>
       ) : (
         <S.ActiveSection height={height}>
-          <UserTabList tabs={activeTabs} />
+          <UserTabList
+            tabs={activeTabs}
+            selectUser={selectUser}
+          />
 
           <CodeEditor
             language={language.languageName}

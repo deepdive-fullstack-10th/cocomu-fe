@@ -4,67 +4,73 @@ import { useToastStore } from '@stores/useToastStore';
 import { YORKIE_URL, YORKIE_API_KEY } from '@constants/api';
 
 export default function useYorkie(documentKey: string) {
-  const [doc, setDoc] = useState<yorkie.Document<{ content: yorkie.Text }> | null>(null);
   const [content, setContent] = useState('');
   const clientRef = useRef<yorkie.Client | null>(null);
+  const docRef = useRef<yorkie.Document<{ content: yorkie.Text }> | null>(null);
   const { error } = useToastStore();
 
   useEffect(() => {
     async function initYorkie() {
       try {
-        if (!documentKey || documentKey.length < 4 || documentKey.length > 120) {
-          return;
-        }
+        if (!documentKey) return;
 
         const client = new yorkie.Client(YORKIE_URL, {
           apiKey: YORKIE_API_KEY,
-          reconnectStreamDelay: 2000,
-          syncLoopDuration: 3000,
         });
 
-        await client.activate();
+        await client.activate().catch((err) => {
+          error(`Yorkie 활성화 실패: ${err.message}`);
+        });
+
         clientRef.current = client;
 
-        const newDoc = new yorkie.Document<{ content: yorkie.Text }>(documentKey);
-        await client.attach(newDoc);
+        const doc = new yorkie.Document<{ content: yorkie.Text }>(documentKey);
 
-        newDoc.update((root) => {
-          if (!root.content) {
-            // eslint-disable-next-line no-param-reassign
-            root.content = new yorkie.Text();
-          }
+        await client.attach(doc).catch((err) => {
+          error(`문서 첨부 실패: ${err.message}`);
         });
 
-        setDoc(newDoc);
+        docRef.current = doc;
 
-        newDoc.subscribe(() => {
-          setContent(newDoc.getRoot().content.toString());
+        setContent(doc.getRoot().content?.toString() || '');
+
+        doc.subscribe(() => {
+          setContent(doc.getRoot().content.toString());
         });
 
-        client.sync();
+        await client.sync().catch((err) => {
+          error(`Yorkie 동기화 실패: ${err.message}`);
+        });
       } catch (err) {
-        error(`Yorkie 연결 실패:${err}`);
+        error(`Yorkie 연결 실패: ${err}`);
       }
     }
 
     initYorkie();
 
     return () => {
-      clientRef.current?.deactivate();
+      clientRef.current?.deactivate().catch(() => {});
     };
   }, [documentKey, error]);
 
   const updateContent = (newText: string) => {
-    if (doc) {
-      try {
-        doc.update((root) => {
-          const textContent = root.content as yorkie.Text;
-          textContent.edit(0, textContent.length, newText);
-        });
-        clientRef.current?.sync();
-      } catch (err) {
-        error(`Yorkie 업데이트 실패:${err}`);
-      }
+    if (!docRef.current) {
+      error('문서가 아직 초기화되지 않았습니다.');
+      return;
+    }
+
+    try {
+      docRef.current.update((root) => {
+        if (!root.content) {
+          // eslint-disable-next-line no-param-reassign
+          root.content = new yorkie.Text();
+        }
+        root.content.edit(0, root.content.length, newText);
+      });
+
+      clientRef.current?.sync().catch(() => {});
+    } catch (err) {
+      error(`Yorkie 업데이트 실패: ${err}`);
     }
   };
 
