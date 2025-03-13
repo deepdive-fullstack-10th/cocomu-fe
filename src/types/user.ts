@@ -23,3 +23,7 @@ export interface EditUserData {
   nickname: string;
   profileImageUrl: string;
 }
+
+export interface UploadProfileData {
+  image: string;
+}
