@@ -6,14 +6,14 @@ import { ROUTES } from '@constants/path';
 import S from './style';
 
 export default function MemberCard({
-  id,
+  userId,
   nickname,
   profileImageUrl,
   role,
   joinedSpaceCount,
   joinedDate,
 }: UserDetailData) {
-  const user = { id, nickname, profileImageUrl };
+  const user = { id: userId, nickname, profileImageUrl };
   const navigate = useNavigate();
 
   const handleUserClick = () => {

@@ -9,12 +9,19 @@ interface useGetMemberListProps {
 export default function useGetMemberList({ studyId }: useGetMemberListProps) {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.MEMBER_LIST, studyId],
-    queryFn: ({ pageParam = null }) => studyApi.getMember(studyId, pageParam),
-    initialPageParam: null,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.length) return null;
-      return lastPage[lastPage.length - 1].nickname;
+    queryFn: async ({ pageParam = { lastNickname: null, lastIndex: null } }) => {
+      const result = await studyApi.getMemberList(studyId, pageParam);
+      return {
+        result,
+        lastNickname: result.length > 0 ? result[result.length - 1].nickname : null,
+        lastIndex: result.length > 0 ? result[result.length - 1].studyUserId : null,
+      };
     },
+    initialPageParam: { lastNickname: null, lastIndex: null },
+    getNextPageParam: (lastPage) =>
+      lastPage.lastNickname && lastPage.lastIndex
+        ? { lastNickname: lastPage.lastNickname, lastIndex: lastPage.lastIndex }
+        : null,
     staleTime: 1000 * 60 * 3,
   });
 }
