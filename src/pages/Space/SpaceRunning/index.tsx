@@ -99,7 +99,7 @@ export default function SpaceRunning() {
       refetch();
       alert('테스트 케이스가 추가되었습니다.');
     }
-  }, [spaceMessage, codingSpaceId, data?.hostMe, navigate, alert, refetch]);
+  }, [spaceMessage, codingSpaceId, data?.hostMe, navigate, alert, refetch, open]);
 
   const handleStart = useCallback(() => {
     feedBackSpaceMutate.mutate(codingSpaceId);

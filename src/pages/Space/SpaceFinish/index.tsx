@@ -29,7 +29,6 @@ export default function SpaceFinish() {
 
   useEffect(() => {
     if (!data?.allFinishedTabs) return;
-
     setUsers(data.allFinishedTabs);
     setSelectTab(data.allFinishedTabs.length > 0 ? data.allFinishedTabs[0] : null);
   }, [data]);
@@ -41,6 +40,7 @@ export default function SpaceFinish() {
       <SpaceNavbar
         name={data.name}
         onClick={handleStart}
+        studyId={data?.studyId}
       />
 
       <CodingWorkspace

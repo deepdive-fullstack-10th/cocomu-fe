@@ -49,45 +49,47 @@ export default function SpaceFeedBack() {
   const { content, updateContent, getLatestContentByKey } = useYorkie(selectTab?.documentKey ?? '');
 
   const saveCode = useCallback(async () => {
-    if (!data || !data.activeTabs || isSaving.current) return;
+    if (!data || !data.activeTabs || isSaving.current || !finish.current) return;
 
-    const activeMyTabs = data.activeTabs.filter((tab) => tab.myTab === true);
-    if (activeMyTabs.length === 0) return;
+    isSaving.current = true;
 
-    const selectedTab = activeMyTabs[0];
-    setSelectTab(selectedTab);
-
-    if (finish.current) {
-      isSaving.current = true;
-
-      try {
-        const latestContent = await getLatestContentByKey(selectedTab.documentKey);
-
-        saveTabCodeMutate.mutate(
-          {
-            codingSpaceId,
-            code: { code: latestContent },
-          },
-          {
-            onSuccess: () => {
-              finish.current = false;
-              isSaving.current = false;
-
-              open('waiting', {
-                label: WAITING_INFO.finish.label,
-                description: WAITING_INFO.finish.description,
-                navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId))),
-              });
-            },
-            onError: () => {
-              finish.current = false;
-              isSaving.current = false;
-            },
-          },
-        );
-      } catch (error) {
+    try {
+      const activeMyTabs = data.activeTabs.filter((tab) => tab.myTab === true);
+      if (activeMyTabs.length === 0) {
         isSaving.current = false;
+        return;
       }
+
+      const selectedTab = activeMyTabs[0];
+      setSelectTab(selectedTab);
+
+      const latestContent = await getLatestContentByKey(selectedTab.documentKey);
+
+      saveTabCodeMutate.mutate(
+        {
+          codingSpaceId,
+          code: { code: latestContent },
+        },
+        {
+          onSuccess: () => {
+            finish.current = false;
+            isSaving.current = false;
+
+            open('waiting', {
+              label: WAITING_INFO.finish.label,
+              description: WAITING_INFO.finish.description,
+              navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId))),
+            });
+          },
+          onError: () => {
+            finish.current = false;
+            isSaving.current = false;
+          },
+        },
+      );
+    } catch (error) {
+      finish.current = false;
+      isSaving.current = false;
     }
   }, [data, getLatestContentByKey, codingSpaceId, navigate, open, saveTabCodeMutate]);
 
@@ -122,16 +124,16 @@ export default function SpaceFeedBack() {
       setOutput(object.data.output);
     }
   }, [tabMessage]);
-
   useEffect(() => {
-    if (!spaceMessage) return;
+    if (!spaceMessage || finish.current) return;
+
     const object = JSON.parse(spaceMessage);
 
     if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
       refetch();
     }
 
-    if (object.type === 'STUDY_FINISH') {
+    if (object.type === 'STUDY_FINISH' && !isSaving.current) {
       finish.current = true;
       saveCode();
     }
@@ -166,7 +168,6 @@ export default function SpaceFeedBack() {
   return (
     <S.Container>
       <SpaceNavbar
-        studyId={Number(studyId)}
         name={data?.name}
         startTime={data?.startTime}
         isLeader={data?.hostMe}
