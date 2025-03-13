@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BsCamera } from 'react-icons/bs';
 import useUploadUserImage from '@hooks/user/useUploadUserImage';
 import Icon from '../Icon';
@@ -20,6 +20,10 @@ export default function ProfileImage({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { uploadUserImageMutate, isLoading } = useUploadUserImage();
   const [imageSrc, setImageSrc] = useState(src);
+
+  useEffect(() => {
+    setImageSrc(src);
+  }, [src]);
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
