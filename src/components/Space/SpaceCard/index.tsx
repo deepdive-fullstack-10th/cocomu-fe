@@ -25,7 +25,7 @@ export default function SpaceCard({
   totalUserCount,
   createdAt,
   status,
-  activeUsers,
+  currentUsers,
   onRemove,
 }: SpaceCardProps) {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function SpaceCard({
     });
   };
 
-  const leader = activeUsers?.find((user) => user.role === 'HOST');
+  const leader = currentUsers.find((user) => user.role === 'HOST');
 
   return (
     <S.CardContainer onClick={handleCardClick}>
@@ -67,7 +67,7 @@ export default function SpaceCard({
           <S.Text>{`최대 인원 : ${totalUserCount}명`}</S.Text>
           <S.Date>{`생성 일자 : ${formatDate(createdAt)}`}</S.Date>
           <AvatarGroup
-            users={activeUsers}
+            users={currentUsers}
             size='sm'
           />
         </S.Info>

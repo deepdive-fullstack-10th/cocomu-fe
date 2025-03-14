@@ -25,14 +25,19 @@ export interface StudyFormData extends Record<string, string | number[]> {
   workbooks: number[];
 }
 
-export interface CreateStudyData extends StudyFormData {
+export interface CreateStudyData {
+  name: string;
+  password: string;
+  totalUserCount: number;
+  languages: number[];
+  workbooks: number[];
   description: string;
 }
 
-export interface EditStudyData extends Record<string, string | number[] | boolean> {
+export interface EditStudyData {
   name: string;
   password: string;
-  totalUserCount: string;
+  totalUserCount: number;
   languages: number[];
   workbooks: number[];
   description: string;
