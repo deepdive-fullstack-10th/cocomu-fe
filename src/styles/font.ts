@@ -27,7 +27,7 @@ const typography = {
       font-family: 'Pretendard';
       font-weight: 700;
       font-size: 2.8rem;
-      line-height: 2.4rem;
+      line-height: 3.4rem;
       letter-spacing: 0;
     `,
     500: css`

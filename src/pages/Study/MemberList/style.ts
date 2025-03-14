@@ -4,7 +4,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 0 2rem 2rem 2rem;
+  padding-bottom: 2rem;
 `;
 
 const Sentinel = styled.div`
