@@ -15,7 +15,7 @@ import SpaceNavbar from '@components/Space/SpaceNavbar';
 import Loading from '@pages/Loading';
 
 import { STOMP_ENDPOINTS } from '@constants/api';
-import { ActiveTab } from '@customTypes/space';
+import { ActiveTab, CodeSubmit } from '@customTypes/space';
 
 import { WAITING_INFO } from '@constants/modal';
 import { useToastStore } from '@stores/useToastStore';
@@ -29,94 +29,69 @@ interface OutletContextType {
 
 export default function SpaceRunning() {
   const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
-
   const { client } = useOutletContext<OutletContextType>();
-
   const navigate = useNavigate();
-
   const { open } = useModalStore();
   const { alert } = useToastStore();
 
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>();
-  const [tabMessage, setTabMessage] = useState<string | null>(null);
-  const [spaceMessage, setSpaceMessage] = useState<string | null>(null);
-  const [subMissionMessage, setSubmissionMessage] = useState<string | null>(null);
+  const [isSubmission, setIsSubmission] = useState<boolean>(false);
+  const [codeSubmit, setCodeSubmit] = useState<CodeSubmit[]>([]);
 
   const { excutionMutate } = useExcution();
   const { feedBackSpaceMutate } = useFeedBackSpace();
   const { subMissionMutate } = useSubmission();
 
   const { data, isLoading, refetch } = useGetStartingPage(codingSpaceId);
-
   const { content, updateContent } = useYorkie(data?.documentKey);
 
   useEffect(() => {
     if (!data || !client || !client.connected) return;
 
-    const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(data.tabId), (msg) => {
-      setTabMessage(msg.body);
-    });
+    if (data?.activeUsers) {
+      const activeUser = data.activeUsers.find((user) => user.myTab === true);
+      setUsers(activeUser ? [activeUser] : []);
+    }
 
-    const spaceSubscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
-      setSpaceMessage(msg.body);
-    });
+    const handleMessage = (msg) => {
+      const object = JSON.parse(msg.body);
 
-    const submissionSubscription = client.subscribe(STOMP_ENDPOINTS.SUBMISSION_SUBSCRIBE(data.tabId), (msg) => {
-      setSubmissionMessage(msg.body);
-    });
+      if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
+        setOutput(object.data.output);
+      }
+
+      if (object.type === 'STUDY_FEEDBACK') {
+        open('waiting', {
+          label: WAITING_INFO.feedback.label,
+          description: WAITING_INFO.feedback.description,
+          navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId)), { replace: true }),
+        });
+      }
+
+      if (['DELETE_TEST_CASE', 'ADD_TEST_CASE'].includes(object.type)) {
+        refetch();
+        alert(
+          object.type === 'DELETE_TEST_CASE' ? '테스트 케이스가 삭제되었습니다.' : '테스트 케이스가 추가되었습니다.',
+        );
+      }
+
+      if (['CORRECT', 'WRONG'].includes(object.type)) {
+        setCodeSubmit((prev) => [...prev, object]);
+      }
+    };
+
+    const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(data.tabId), handleMessage);
+    const spaceSubscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), handleMessage);
+    const submissionSubscription = client.subscribe(STOMP_ENDPOINTS.SUBMISSION_SUBSCRIBE(data.tabId), handleMessage);
 
     return () => {
       tabSubscription.unsubscribe();
       spaceSubscription.unsubscribe();
       submissionSubscription.unsubscribe();
     };
-  }, [data, client, codingSpaceId]);
-
-  useEffect(() => {
-    if (!data?.activeUsers) return;
-    const activeUser = data.activeUsers.find((user) => user.myTab === true);
-    setUsers(activeUser ? [activeUser] : []);
   }, [data]);
-
-  useEffect(() => {
-    if (!tabMessage) return;
-    const object = JSON.parse(tabMessage);
-
-    if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
-      setOutput(object.data.output);
-    }
-  }, [tabMessage]);
-
-  useEffect(() => {
-    if (!spaceMessage) return;
-    const object = JSON.parse(spaceMessage);
-
-    if (object.type === 'STUDY_FEEDBACK') {
-      open('waiting', {
-        label: WAITING_INFO.feedback.label,
-        description: WAITING_INFO.feedback.description,
-        navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId)), { replace: true }),
-      });
-    }
-
-    if (object.type === 'DELETE_TEST_CASE') {
-      refetch();
-      alert('테스트 케이스가 삭제되었습니다.');
-    }
-
-    if (object.type === 'ADD_TEST_CASE') {
-      refetch();
-      alert('테스트 케이스가 추가되었습니다.');
-    }
-  }, [spaceMessage, codingSpaceId, data?.hostMe, navigate, alert, refetch, open]);
-
-  useEffect(() => {
-    if (!subMissionMessage) return;
-    const object = JSON.parse(subMissionMessage);
-    console.log(object);
-  }, [subMissionMessage]);
 
   const handleStart = useCallback(() => {
     feedBackSpaceMutate.mutate(codingSpaceId);
@@ -133,12 +108,19 @@ export default function SpaceRunning() {
   }, [excutionMutate, data, content, input]);
 
   const handleSubmit = () => {
-    subMissionMutate.mutate({
-      condingSpaceId: codingSpaceId,
-      codingSpaceTabId: data.tabId,
-      language: data.language?.languageName,
-      code: content,
-    });
+    subMissionMutate.mutate(
+      {
+        codingSpaceId: Number(codingSpaceId),
+        codingSpaceTabId: Number(data.tabId),
+        language: data.language?.languageName,
+        code: content,
+      },
+      {
+        onSuccess: () => {
+          setIsSubmission(true);
+        },
+      },
+    );
   };
 
   if (isLoading || !data) return <Loading />;
@@ -166,6 +148,9 @@ export default function SpaceRunning() {
         code={content}
         disabled={false}
         output={output}
+        isSubmission={isSubmission}
+        codeSubmit={codeSubmit}
+        testCaseLegnth={data.testCases.length}
       />
 
       <SpaceFooter
@@ -174,21 +159,25 @@ export default function SpaceRunning() {
         isEditable
       >
         <S.ButtonWrapper>
-          <Button
-            size='md'
-            color='analogous'
-            onClick={handleCodeExecution}
-          >
-            코드 실행
-          </Button>
+          {!isSubmission && (
+            <>
+              <Button
+                size='md'
+                color='analogous'
+                onClick={handleCodeExecution}
+              >
+                코드 실행
+              </Button>
 
-          <Button
-            size='md'
-            color='primary'
-            onClick={handleSubmit}
-          >
-            제출하기
-          </Button>
+              <Button
+                size='md'
+                color='primary'
+                onClick={handleSubmit}
+              >
+                제출하기
+              </Button>
+            </>
+          )}
         </S.ButtonWrapper>
       </SpaceFooter>
     </S.Container>

@@ -85,13 +85,30 @@ export interface Execution {
 }
 
 export interface Submission {
-  codingSpaceTabId: string;
+  codingSpaceId: number;
+  codingSpaceTabId: number;
   language: string;
   code: string;
-  condingSpaceId: string;
 }
 
 export interface SendCode {
   codingSpaceId: string;
   code: { code: string };
+}
+
+export interface ExcutionMessage {
+  executionTime: string;
+  memoryUsageKB: string;
+  output: string;
+  tabId: number;
+}
+
+export interface CodeSubmitData {
+  executionMessage: ExcutionMessage;
+  testCaseId: number;
+}
+
+export interface CodeSubmit {
+  type: string;
+  data: CodeSubmitData;
 }

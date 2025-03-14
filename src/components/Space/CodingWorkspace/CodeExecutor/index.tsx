@@ -1,6 +1,6 @@
 import { useDraggable } from '@hooks/utils/useDraggable';
 
-import { ActiveTab } from '@customTypes/space';
+import { ActiveTab, CodeSubmit } from '@customTypes/space';
 import { UserRoleData } from '@customTypes/user';
 
 import AvatarGroup from '@components/_common/molecules/AvatarGroup';
@@ -8,6 +8,7 @@ import UserTabList from './UserTabList';
 import CodeEditor from './CodeEditor';
 import ResizablePanel from '../ResizablePanel';
 import ExecutionPanel from './ExecutionPanel';
+import SubmissionPanel from './SubmissionPanel';
 
 import S from './style';
 
@@ -23,6 +24,9 @@ export interface CodeExecutorProps {
   setInput?: React.Dispatch<React.SetStateAction<string>>;
   output?: string;
   selectUser?: (tab: ActiveTab) => void;
+  isSubmission?: boolean;
+  codeSubmit?: CodeSubmit[];
+  testCaseLegnth?: number;
 }
 
 export default function CodeExecutor({
@@ -37,6 +41,9 @@ export default function CodeExecutor({
   output,
   selectUser,
   finish,
+  isSubmission,
+  codeSubmit,
+  testCaseLegnth,
 }: CodeExecutorProps) {
   const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
@@ -71,12 +78,18 @@ export default function CodeExecutor({
             direction='x'
             onMouseDown={handleMouseDown}
           />
-
-          <ExecutionPanel
-            setInput={setInput}
-            output={output}
-            disabled={disabled}
-          />
+          {isSubmission ? (
+            <SubmissionPanel
+              codeSubmit={codeSubmit}
+              testCaseLegnth={testCaseLegnth}
+            />
+          ) : (
+            <ExecutionPanel
+              setInput={setInput}
+              output={output}
+              disabled={disabled}
+            />
+          )}
         </>
       )}
     </S.Container>
