@@ -6,11 +6,19 @@ const FilterTabContainer = styled.div`
   align-items: center;
 
   position: relative;
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
 `;
 
 const DropdownWrapper = styled.div`
   display: flex;
   gap: 2rem;
+
+  max-width: 100%;
 `;
 
 const S = {
