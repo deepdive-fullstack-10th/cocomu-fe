@@ -63,7 +63,7 @@ export default function SpaceCard({
       <S.Body>
         <S.Text>{name}</S.Text>
         <S.Info>
-          <ImageTag imageUrl={language.imageUrl} />
+          <ImageTag imageUrl={language.languageImageUrl} />
           <S.Text>{`최대 인원 : ${totalUserCount}명`}</S.Text>
           <S.Date>{`생성 일자 : ${formatDate(createdAt)}`}</S.Date>
           <AvatarGroup

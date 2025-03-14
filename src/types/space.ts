@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
 import { UserRoleData } from './user';
-import { FilterData } from './common';
 
 export type SpaceStatusData = 'WAITING' | 'RUNNING' | 'FEEDBACK' | 'FINISH';
 export type TestCaseType = 'BASE' | 'CUSTOM';
@@ -13,11 +12,17 @@ export interface SpaceListData {
   lastId?: number;
 }
 
+export interface SpaceLanguageData {
+  languageId: number;
+  languageName: string;
+  languageImageUrl: string;
+}
+
 export interface SpaceData {
   id: number;
   joinedMe: boolean;
   name: string;
-  language: FilterData;
+  language: SpaceLanguageData;
   currentUserCount: number;
   totalUserCount: number;
   createdAt: string;
