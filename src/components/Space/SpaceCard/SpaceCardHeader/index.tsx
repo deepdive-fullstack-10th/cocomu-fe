@@ -54,11 +54,14 @@ export default function SpaceCardHeader({ id, leader, status, onRemove }: SpaceC
           <S.DropdownContainer
             ref={dropdownRef}
             onBlur={handleBlur}
+            tabIndex={0}
           >
-            <BsThreeDotsVertical
-              onClick={handleToggleClick}
-              size={15}
-            />
+            <S.IconContainer>
+              <BsThreeDotsVertical
+                onClick={handleToggleClick}
+                size={15}
+              />
+            </S.IconContainer>
 
             {isOpen && (
               <S.DropdownList>
