@@ -11,10 +11,7 @@ export default function Icon({ children, size = 'sm', color = '950', onClick }: 
     <S.Icon
       size={size}
       color={color}
-      onClick={(event) => {
-        event.stopPropagation();
-        onClick();
-      }}
+      onClick={onClick}
     >
       {children}
     </S.Icon>

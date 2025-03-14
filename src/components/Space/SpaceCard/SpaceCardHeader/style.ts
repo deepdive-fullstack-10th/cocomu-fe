@@ -19,6 +19,8 @@ const DropdownContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  color: ${({ theme }) => theme.color.gray[950]};
+  width: 1.8rem;
 `;
 
 const DropdownList = styled.div`
