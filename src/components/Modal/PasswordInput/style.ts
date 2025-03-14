@@ -6,8 +6,8 @@ const Container = styled.div`
   align-items: center;
   gap: 3.3rem;
 
-  padding: 6.6rem 6.75rem 5.4rem 6.75rem;
-  width: 52rem;
+  padding: 6.6rem 6.4rem 5.4rem 6.4rem;
+  width: 49rem;
 `;
 
 const Description = styled.h2`
