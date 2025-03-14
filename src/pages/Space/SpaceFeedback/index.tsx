@@ -44,7 +44,7 @@ export default function SpaceFeedBack() {
   const finish = useRef(false);
   const isSaving = useRef(false);
 
-  const { content, updateContent, getLatestContentByKey } = useYorkie(selectTab?.documentKey ?? '');
+  const { content, handleLocalChange, getLatestContentByKey } = useYorkie(selectTab?.documentKey ?? '');
 
   const saveCode = async () => {
     if (!data || !data.activeTabs || isSaving.current || !finish.current) return;
@@ -175,7 +175,7 @@ export default function SpaceFeedBack() {
         workbookUrl={data?.workbookUrl}
         language={data?.language}
         activeTabs={users}
-        onCodeChange={updateContent}
+        onCodeChange={handleLocalChange}
         setInput={setInput}
         code={content}
         disabled={false}
