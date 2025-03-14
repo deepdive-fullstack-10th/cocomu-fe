@@ -9,7 +9,6 @@ import { UserData } from '@customTypes/user';
 import UserProfile from '@components/_common/molecules/UserProfile';
 import DropdownItem from '@components/_common/atoms/DropdownItem';
 import Tag from '@components/_common/atoms/Tag';
-import Icon from '@components/_common/atoms/Icon';
 
 import { SPACE_EDIT_DROPDOWN_LABELS, STEP_INFO } from '@constants/common';
 
@@ -28,6 +27,11 @@ export default function SpaceCardHeader({ id, leader, status, onRemove }: SpaceC
   const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
 
   const { label: statusLabel, color: statusColor } = STEP_INFO[status];
+
+  const handleToggleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    toggle();
+  };
 
   const handleRemove = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -51,13 +55,10 @@ export default function SpaceCardHeader({ id, leader, status, onRemove }: SpaceC
             ref={dropdownRef}
             onBlur={handleBlur}
           >
-            <Icon
-              size='md'
-              color='950'
-              onClick={toggle}
-            >
-              <BsThreeDotsVertical />
-            </Icon>
+            <BsThreeDotsVertical
+              onClick={handleToggleClick}
+              size={15}
+            />
 
             {isOpen && (
               <S.DropdownList>
