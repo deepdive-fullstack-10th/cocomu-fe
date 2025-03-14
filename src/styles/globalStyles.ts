@@ -136,6 +136,11 @@ const globalStyles = () => css`
     width: 100%;
     height: 100%;
     font-size: 62.5%;
+
+    @media (max-width: 767px) {
+      font-size: 45%;
+    }
+
     font-family:
       'Pretendard Variable',
       'Pretendard',
