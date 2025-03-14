@@ -2,7 +2,7 @@ export const BASE_URL = import.meta.env.VITE_API_URL;
 const API_V1 = import.meta.env.VITE_API_V1;
 
 export const YORKIE_URL = import.meta.env.VITE_YORKIE_URL;
-export const YORKIE_API_KEY = import.meta.env.VITE_YORJIE_API_KEY;
+export const YORKIE_API_KEY = import.meta.env.VITE_YORKIE_API_KEY;
 
 const BASE_PATH_V1 = {
   STUDY: `${API_V1}/studies`,
@@ -69,7 +69,7 @@ export const END_POINTS_V1 = {
   },
 
   AUTH: {
-    OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login`,
+    OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login-dev`,
     REFRESH_TOKEN: `${BASE_PATH_V1.AUTH}/re-issue`,
   },
 } as const;

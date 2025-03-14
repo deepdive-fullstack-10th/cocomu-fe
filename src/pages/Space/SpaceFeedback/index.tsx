@@ -30,7 +30,7 @@ export default function SpaceFeedBack() {
   const { alert } = useToastStore();
   const { open } = useModalStore();
 
-  const { studyId, codingSpaceId } = useParams<{ studyId: string; codingSpaceId: string }>();
+  const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>();
@@ -119,16 +119,17 @@ export default function SpaceFeedBack() {
   useEffect(() => {
     if (!tabMessage) return;
     const object = JSON.parse(tabMessage);
-
+    console.log(object);
     if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
       setOutput(object.data.output);
     }
   }, [tabMessage]);
+
   useEffect(() => {
-    if (!spaceMessage || finish.current) return;
+    if (!spaceMessage) return;
 
     const object = JSON.parse(spaceMessage);
-
+    console.log(object);
     if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
       refetch();
     }
@@ -147,7 +148,7 @@ export default function SpaceFeedBack() {
       refetch();
       alert('테스트 케이스가 추가되었습니다.');
     }
-  }, [spaceMessage, codingSpaceId, data?.hostMe, studyId, navigate, alert, refetch, saveCode]);
+  }, [spaceMessage]);
 
   const handleCodeExecution = useCallback(() => {
     if (!data || !selectTab) return;
