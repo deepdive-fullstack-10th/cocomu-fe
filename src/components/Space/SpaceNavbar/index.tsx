@@ -19,6 +19,7 @@ interface SpaceNavbarProps {
   onClick?: () => void;
   onTimeout?: () => void;
   hostMe?: boolean;
+  exitPage?: boolean;
 }
 
 export default function SpaceNavbar({
@@ -31,18 +32,19 @@ export default function SpaceNavbar({
   startTime,
   onTimeout,
   hostMe,
+  exitPage,
 }: SpaceNavbarProps) {
   const navigate = useNavigate();
 
   return (
     <S.Container>
       <S.LeftSection>
-        {studyId && (
+        {exitPage && (
           <IconButton
             content='나가기'
             align='center'
             color='none'
-            onClick={() => navigate(ROUTES.STUDY.DETAIL({ studyId }))}
+            onClick={() => (studyId ? navigate(ROUTES.STUDY.DETAIL({ studyId })) : navigate(-1))}
           >
             <BsArrowLeft />
           </IconButton>

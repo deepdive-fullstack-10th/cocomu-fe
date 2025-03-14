@@ -83,6 +83,7 @@ export default function SpaceWaiting() {
         isLeader={data.hostMe}
         buttonLabel='문제 풀이 시작'
         onClick={handleStart}
+        exitPage
       />
 
       <CodingWorkspace
