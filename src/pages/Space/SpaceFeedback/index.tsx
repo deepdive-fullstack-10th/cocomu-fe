@@ -78,7 +78,7 @@ export default function SpaceFeedBack() {
             open('waiting', {
               label: WAITING_INFO.finish.label,
               description: WAITING_INFO.finish.description,
-              navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId))),
+              navigate: navigate(WAITING_INFO.finish.navigate(Number(codingSpaceId)), { replace: true }),
             });
           },
           onError: () => {

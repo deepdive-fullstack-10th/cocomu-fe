@@ -47,7 +47,7 @@ export default function SpaceWaiting() {
         open('waiting', {
           label: WAITING_INFO.running.label,
           description: WAITING_INFO.running.description,
-          navigate: navigate(WAITING_INFO.running.navigate(Number(codingSpaceId))),
+          navigate: navigate(WAITING_INFO.running.navigate(Number(codingSpaceId)), { replace: true }),
         });
       }
       setUsers((prev) => {
