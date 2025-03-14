@@ -142,7 +142,7 @@ export default function StudyForm({
           color='primary'
           type='submit'
         >
-          생성하기
+          {initialValues ? '수정하기' : '생성하기'}
         </Button>
       </S.ButtonWrapper>
     </S.Container>

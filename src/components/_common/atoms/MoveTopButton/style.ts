@@ -36,6 +36,10 @@ export const ButtonText = styled.span`
   ${({ theme }) => theme.font.heading[50]};
   color: ${({ theme }) => theme.color.primary[600]};
   margin-top: -0.4rem;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const S = {
