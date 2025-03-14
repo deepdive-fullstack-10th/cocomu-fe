@@ -30,7 +30,7 @@ export default function MemberCard({
         size='md'
       />
       <S.Info>
-        <S.Text role={role}>{role}</S.Text>
+        <S.Role role={role}>{role}</S.Role>
         <S.Text>{`참여한 스페이스 수 : ${joinedSpaceCount}`}</S.Text>
         <S.Text>{`가입일 : ${formatDate(joinedDate)}`}</S.Text>
       </S.Info>
