@@ -36,6 +36,10 @@ const AvatarGroupContainer = styled.div<{ size?: AvatarGroupSize }>`
   display: flex;
   align-items: center;
   width: ${({ size }) => (size === 'sm' ? '12rem' : 'auto')};
+
+  @media (max-width: 980px) {
+    display: none;
+  }
 `;
 
 const ProfileWrapper = styled.div<{ index: number; size: AvatarGroupSize }>`
