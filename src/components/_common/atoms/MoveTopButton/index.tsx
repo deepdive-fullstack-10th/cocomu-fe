@@ -13,7 +13,7 @@ export default function MoveTopButton() {
     <S.ScrollButton onClick={scrollToTop}>
       <S.IconContainer>
         <BsFillCaretUpFill
-          size={30}
+          size={25}
           color='slateBlue'
         />
       </S.IconContainer>

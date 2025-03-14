@@ -18,11 +18,11 @@ const Section = styled.div`
 
 const InputWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   row-gap: 5.3rem;
   column-gap: 4.8rem;
 
-  @media (max-width: 767px) {
+  @media (max-width: 980px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;
