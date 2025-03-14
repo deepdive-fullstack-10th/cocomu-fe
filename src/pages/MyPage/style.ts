@@ -14,6 +14,12 @@ const Header = styled.div`
   align-items: center;
 
   margin-bottom: 1.2rem;
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
 `;
 
 const UserWrapper = styled.div`
