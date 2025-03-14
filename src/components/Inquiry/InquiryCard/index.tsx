@@ -9,12 +9,16 @@ interface InquiryCardProps {
   index: number;
 }
 
+function formatId(id: number): string {
+  return id.toString().padStart(8, '0');
+}
+
 export default function InquiryCard({ id, title, createdAt, status, index }: InquiryCardProps) {
   return (
     <S.CardContainer isEven={index % 2 === 1}>
       <S.Title>{title}</S.Title>
       <S.InfoWrapper>
-        <S.Number>{id}</S.Number>
+        <S.Number>{formatId(id)}</S.Number>
         <S.Date>{formatDate(createdAt)}</S.Date>
         <S.Status status={status}>{status}</S.Status>
       </S.InfoWrapper>
