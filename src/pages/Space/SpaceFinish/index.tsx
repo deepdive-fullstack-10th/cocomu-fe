@@ -41,6 +41,7 @@ export default function SpaceFinish() {
         name={data.name}
         onClick={handleStart}
         studyId={data?.studyId}
+        exitPage
       />
 
       <CodingWorkspace
