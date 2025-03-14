@@ -21,6 +21,10 @@ const InputWrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   row-gap: 5.3rem;
   column-gap: 4.8rem;
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 `;
 
 const ButtonWrapper = styled.div`
