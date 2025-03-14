@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ACCESS_STATUS } from '@constants/common';
-import { StudyFormData } from '@customTypes/study';
+import { CreateStudyData, StudyFormData } from '@customTypes/study';
 
 import useCreateStudy from '@hooks/study/useCreateStudy';
 
@@ -12,9 +12,12 @@ export default function StudyCreate() {
   const { createPublicStudyMutate, createPrivateStudyMutate } = useCreateStudy();
 
   const handleSubmit = (formData: StudyFormData, content: string) => {
-    const studyData = {
-      ...formData,
+    const studyData: CreateStudyData = {
+      name: formData.name,
+      password: formData.password,
       totalUserCount: Number(formData.totalUserCount),
+      languages: formData.languages,
+      workbooks: formData.workbooks,
       description: content,
     };
 
