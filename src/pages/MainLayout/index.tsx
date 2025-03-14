@@ -27,15 +27,17 @@ export default function MainLayout() {
   if (isLoading) return <Loading />;
 
   return (
-    <S.MainContainer>
-      <NavBar
-        isLoggedIn={isLoggedIn}
-        user={data}
-      />
-      <S.Container>
-        <Outlet />
-      </S.Container>
+    <>
+      <S.MainContainer>
+        <NavBar
+          isLoggedIn={isLoggedIn}
+          user={data}
+        />
+        <S.Container>
+          <Outlet />
+        </S.Container>
+      </S.MainContainer>
       {isMain && <Footer />}
-    </S.MainContainer>
+    </>
   );
 }
