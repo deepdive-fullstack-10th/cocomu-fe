@@ -6,16 +6,21 @@ import { Client } from '@stomp/stompjs';
 import useGetStartingPage from '@hooks/space/useGetStartingPage';
 import useFeedBackSpace from '@hooks/space/useRunningSpace';
 import useExcution from '@hooks/space/useExcution';
+import useSubmission from '@hooks/space/useSubmission';
+
 import Button from '@components/_common/atoms/Button';
 import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import SpaceNavbar from '@components/Space/SpaceNavbar';
-import { ActiveTab } from '@customTypes/space';
 import Loading from '@pages/Loading';
+
 import { STOMP_ENDPOINTS } from '@constants/api';
+import { ActiveTab } from '@customTypes/space';
+
+import { WAITING_INFO } from '@constants/modal';
 import { useToastStore } from '@stores/useToastStore';
 import { useModalStore } from '@stores/useModalStore';
-import { WAITING_INFO } from '@constants/modal';
+
 import S from './style';
 
 interface OutletContextType {
@@ -37,10 +42,11 @@ export default function SpaceRunning() {
   const [output, setOutput] = useState<string>();
   const [tabMessage, setTabMessage] = useState<string | null>(null);
   const [spaceMessage, setSpaceMessage] = useState<string | null>(null);
+  const [subMissionMessage, setSubmissionMessage] = useState<string | null>(null);
 
   const { excutionMutate } = useExcution();
-
   const { feedBackSpaceMutate } = useFeedBackSpace();
+  const { subMissionMutate } = useSubmission();
 
   const { data, isLoading, refetch } = useGetStartingPage(codingSpaceId);
 
@@ -57,9 +63,14 @@ export default function SpaceRunning() {
       setSpaceMessage(msg.body);
     });
 
+    const submissionSubscription = client.subscribe(STOMP_ENDPOINTS.SUBMISSION_SUBSCRIBE(data.tabId), (msg) => {
+      setSubmissionMessage(msg.body);
+    });
+
     return () => {
       tabSubscription.unsubscribe();
       spaceSubscription.unsubscribe();
+      submissionSubscription.unsubscribe();
     };
   }, [data, client, codingSpaceId]);
 
@@ -101,6 +112,12 @@ export default function SpaceRunning() {
     }
   }, [spaceMessage, codingSpaceId, data?.hostMe, navigate, alert, refetch, open]);
 
+  useEffect(() => {
+    if (!subMissionMessage) return;
+    const object = JSON.parse(subMissionMessage);
+    console.log(object);
+  }, [subMissionMessage]);
+
   const handleStart = useCallback(() => {
     feedBackSpaceMutate.mutate(codingSpaceId);
   }, [feedBackSpaceMutate, codingSpaceId]);
@@ -116,7 +133,12 @@ export default function SpaceRunning() {
   }, [excutionMutate, data, content, input]);
 
   const handleSubmit = () => {
-    // 코드제출
+    subMissionMutate.mutate({
+      condingSpaceId: codingSpaceId,
+      codingSpaceTabId: data.tabId,
+      language: data.language?.languageName,
+      code: content,
+    });
   };
 
   if (isLoading || !data) return <Loading />;
