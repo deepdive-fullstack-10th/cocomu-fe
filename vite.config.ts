@@ -30,6 +30,8 @@ export default defineConfig({
     terserOptions: {
       compress: {
         evaluate: false,
+        drop_console: true,
+        drop_debugger: true,
       },
     },
   },
