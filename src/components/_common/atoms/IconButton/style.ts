@@ -48,6 +48,7 @@ const IconButtonContainer = styled.div<IconButtonStyleProps>`
   border-radius: 3.2rem;
   gap: 1.2rem;
 
+  white-space: nowrap;
   cursor: pointer;
 `;
 
