@@ -32,7 +32,7 @@ interface StudyFormProps {
   description?: string;
   selectedStatus: (typeof ACCESS_STATUS)[number]['id'];
   setSelectedStatus: Dispatch<SetStateAction<(typeof ACCESS_STATUS)[number]['id']>>;
-  onSubmit: (data: StudyFormData) => void;
+  onSubmit: (formData: StudyFormData, description: string) => void;
 }
 
 export default function StudyForm({
@@ -66,7 +66,7 @@ export default function StudyForm({
     <S.Container
       onSubmit={handleSubmit(
         async () => {
-          onSubmit({ ...formData, description: content });
+          onSubmit(formData, content);
         },
         selectedStatus === ACCESS_STATUS[0].id ? ['password'] : [],
       )}

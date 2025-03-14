@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { UserRoleData } from './user';
 
 export type SpaceStatusData = 'WAITING' | 'RUNNING' | 'FEEDBACK' | 'FINISH';
@@ -26,13 +25,14 @@ export interface SpaceData {
   totalUserCount: number;
   createdAt: string;
   status: string;
-  activeUsers: UserRoleData[];
+  currentUsers: UserRoleData[];
 }
 
 export interface SpaceFormData extends Record<string, string | number[]> {
-  totalUserCount: number[];
-  timerTime: string;
   name: string;
+  timerTime: string;
+  workbookUrl: string;
+  totalUserCount: number[];
   languageId: number[];
   description: string;
 }
@@ -53,29 +53,6 @@ export interface TestCaseData {
   output?: string;
   testCaseId?: number | string;
   type?: TestCaseType;
-}
-
-export interface Tab {
-  id: string;
-  code: string;
-}
-
-export interface SpaceOutletProps {
-  status?: string;
-  language?: string;
-  totalUserCount?: number;
-  setTabInfo?: Dispatch<SetStateAction<{ code: string; id: string }>>;
-  setInputData?: Dispatch<SetStateAction<string>>;
-  setCompleteTabs?: Dispatch<SetStateAction<Tab[]>>;
-}
-
-export interface CreateSpaceFormData {
-  name: string;
-  timerTime: number;
-  workbookUrl: string;
-  totalUserCount: number;
-  languageId: number;
-  description: string;
 }
 
 export interface CreateSpaceData {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { ACCESS_STATUS, ACCESS_STATUS_MAP_REVERSE } from '@constants/common';
-import { CreateStudyData, StudyFormData } from '@customTypes/study';
+import { StudyFormData } from '@customTypes/study';
 
 import useEditStudy from '@hooks/study/useEditStudy';
 import useGetStudyInfo from '@hooks/study/useGetStudyInfo';
@@ -35,11 +35,17 @@ export default function StudyEdit() {
     }
   }, [data]);
 
-  const handleSubmit = (studyData: CreateStudyData) => {
+  const handleSubmit = (formData: StudyFormData, content: string) => {
+    const studyData = {
+      ...formData,
+      totalUserCount: Number(formData.totalUserCount),
+      description: content,
+    };
+
     if (selectedStatus === ACCESS_STATUS[0].id) {
-      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: true, status: undefined } });
+      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: true } });
     } else if (selectedStatus === ACCESS_STATUS[1].id) {
-      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: false, status: undefined } });
+      editStudyMutate.mutate({ studyId, editStudyData: { ...studyData, publicStudy: false } });
     }
   };
 
