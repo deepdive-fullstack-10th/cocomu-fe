@@ -65,7 +65,7 @@ export default function SpaceCard({
         <S.Info>
           <ImageTag imageUrl={language.imageUrl} />
           <S.Text>{`최대 인원 : ${totalUserCount}명`}</S.Text>
-          <S.Text>{`생성 일자 : ${formatDate(createdAt)}`}</S.Text>
+          <S.Date>{`생성 일자 : ${formatDate(createdAt)}`}</S.Date>
           <AvatarGroup
             users={currentUsers}
             size='sm'

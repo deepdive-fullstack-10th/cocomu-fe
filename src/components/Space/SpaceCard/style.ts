@@ -30,16 +30,29 @@ const Text = styled.div`
   white-space: nowrap;
 `;
 
+const Date = styled.div`
+  ${({ theme }) => theme.font.heading[100]};
+  color: ${({ theme }) => theme.color.gray[900]};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: 980px) {
+    display: none;
+  }
+`;
+
 const Info = styled.div`
   display: flex;
   align-items: center;
-  gap: 6.4rem;
+  gap: 4rem;
 `;
 
 const S = {
   CardContainer,
   Body,
   Text,
+  Date,
   Info,
 };
 
