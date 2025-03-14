@@ -2,23 +2,23 @@ import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100vw;
-  background-color: ${({ theme }) => theme.color.gray[300]};
-
-  margin-left: calc(-50vw + 50%);
-  margin-right: 0;
-
   align-items: center;
   justify-content: center;
+
+  width: 100%;
+  background-color: ${({ theme }) => theme.color.gray[300]};
+
   padding: 5rem 0;
 `;
 
 const InfoSection = styled.div`
   display: flex;
   flex-direction: row;
-  width: 30%;
-  gap: 4rem;
+  gap: 3.5rem;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const LogoImg = styled.img`
@@ -37,7 +37,6 @@ const LabelContainer = styled.div`
 const MenuSection = styled.div`
   display: flex;
   flex-direction: row;
-  width: 30%;
 
   gap: 4rem;
   justify-content: center;
@@ -46,7 +45,7 @@ const MenuSection = styled.div`
 `;
 
 const MenuText = styled.div`
-  ${({ theme }) => theme.font.heading[100]};
+  ${({ theme }) => theme.font.common.default};
   color: ${({ theme }) => theme.color.gray[800]};
   cursor: pointer;
   white-space: nowrap;
