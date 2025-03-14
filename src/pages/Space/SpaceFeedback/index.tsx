@@ -119,7 +119,7 @@ export default function SpaceFeedBack() {
   useEffect(() => {
     if (!tabMessage) return;
     const object = JSON.parse(tabMessage);
-    console.log(object);
+
     if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
       setOutput(object.data.output);
     }
@@ -129,7 +129,7 @@ export default function SpaceFeedBack() {
     if (!spaceMessage) return;
 
     const object = JSON.parse(spaceMessage);
-    console.log(object);
+
     if (['USER_ENTER', 'USER_LEAVE'].includes(object.type)) {
       refetch();
     }
