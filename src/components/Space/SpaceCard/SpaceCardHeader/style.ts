@@ -23,6 +23,12 @@ const DropdownContainer = styled.div`
   width: 1.8rem;
 `;
 
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const DropdownList = styled.div`
   position: absolute;
   top: 120%;
@@ -40,6 +46,7 @@ const S = {
   Header,
   RightSection,
   DropdownContainer,
+  IconContainer,
   DropdownList,
 };
 
