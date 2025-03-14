@@ -4,12 +4,16 @@ import { Client } from '@stomp/stompjs';
 
 import useGetWaitingPage from '@hooks/space/useGetWaitingPage';
 import useStartSpace from '@hooks/space/useStartSpace';
+
 import CodingWorkspace from '@components/Space/CodingWorkspace';
 import SpaceFooter from '@components/Space/SpaceFooter';
 import SpaceNavbar from '@components/Space/SpaceNavbar';
-import { UserRoleData } from '@customTypes/user';
-import { useModalStore } from '@stores/useModalStore';
 import Loading from '@pages/Loading';
+
+import { useModalStore } from '@stores/useModalStore';
+
+import { UserRoleData } from '@customTypes/user';
+
 import { STOMP_ENDPOINTS } from '@constants/api';
 import { WAITING_INFO } from '@constants/modal';
 

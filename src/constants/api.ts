@@ -57,6 +57,7 @@ export const END_POINTS_V1 = {
   EXECUTOR: {
     EXECUTION: `${BASE_PATH_V1.EXECUTOR}/execution`,
     RESULT: `${BASE_PATH_V1.EXECUTOR}/result`,
+    SUBMISSION: `${BASE_PATH_V1.EXECUTOR}/submission`,
   },
 
   USER: {
@@ -69,7 +70,7 @@ export const END_POINTS_V1 = {
   },
 
   AUTH: {
-    OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login`,
+    OAUTH_LOGIN: `${BASE_PATH_V1.AUTH}/oauth-login-dev`,
     REFRESH_TOKEN: `${BASE_PATH_V1.AUTH}/re-issue`,
   },
 } as const;
@@ -78,6 +79,7 @@ export const STOMP_ENDPOINTS = {
   CONNECT: `${BASE_URL}/stomp`,
   SPACE_SUBSCRIBE: (codingSpaceId: string) => `/sub/v1/coding-spaces/${codingSpaceId}`,
   TAB_SUBSCRIBE: (codingSpaceTabId: string) => `/sub/executor/${codingSpaceTabId}`,
+  SUBMISSION_SUBSCRIBE: (codingSpaceTabId: string) => `/sub/executor/${codingSpaceTabId}/submission`,
 } as const;
 
 export const HTTP_STATUS_CODE = {

@@ -1,7 +1,7 @@
 import { axiosInstance } from '@api/axiosInstance';
 import { END_POINTS_V1 } from '@constants/api';
 
-import { CreateSpaceData, SpaceListData, TestCaseIO, Execution } from '@customTypes/space';
+import { CreateSpaceData, SpaceListData, TestCaseIO, Execution, Submission } from '@customTypes/space';
 
 const spaceApi = {
   getList: async (studyId: string, params: SpaceListData) => {
@@ -94,6 +94,12 @@ const spaceApi = {
     const { data } = await axiosInstance.post(END_POINTS_V1.EXECUTOR.EXECUTION, excution);
 
     return data;
+  },
+
+  submission: async (submission: Submission) => {
+    const { data } = await axiosInstance.post(END_POINTS_V1.EXECUTOR.SUBMISSION, submission);
+
+    return { data };
   },
 
   codesave: async (codingSpaceId: string, code: { code: string }) => {

@@ -84,6 +84,13 @@ export interface Execution {
   input: string;
 }
 
+export interface Submission {
+  codingSpaceTabId: string;
+  language: string;
+  code: string;
+  condingSpaceId: string;
+}
+
 export interface SendCode {
   codingSpaceId: string;
   code: { code: string };
