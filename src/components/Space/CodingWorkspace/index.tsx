@@ -25,6 +25,9 @@ export default function CodingWorkspace({
   output,
   selectUser,
   finish,
+  isSubmission,
+  codeSubmit,
+  testCaseLegnth,
 }: CodingWorkspaceProps) {
   const { value: width, containerRef, handleMouseDown } = useDraggable({ direction: 'x' });
 
@@ -53,6 +56,9 @@ export default function CodingWorkspace({
           output={output}
           selectUser={selectUser}
           finish={finish}
+          isSubmission={isSubmission}
+          codeSubmit={codeSubmit}
+          testCaseLegnth={testCaseLegnth}
         />
       </S.CodeSection>
     </S.Container>

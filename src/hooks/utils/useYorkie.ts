@@ -20,18 +20,21 @@ export default function useYorkie(documentKey: string) {
 
         try {
           await client.activate();
+          clientRef.current = client;
         } catch (activateError) {
           error('Yorkie 클라이언트 활성화 실패');
-          return;
+          return; // 실패 시 중단
         }
-
-        clientRef.current = client;
 
         const doc = new yorkie.Document<{ content: yorkie.Text }>(documentKey);
 
-        await client.attach(doc);
-
-        docRef.current = doc;
+        try {
+          await client.attach(doc);
+          docRef.current = doc;
+        } catch (attachError) {
+          error('Yorkie 문서 첨부 실패');
+          return;
+        }
 
         setContent(doc.getRoot().content?.toString() || '');
 
@@ -39,7 +42,9 @@ export default function useYorkie(documentKey: string) {
           setContent(doc.getRoot().content.toString());
         });
 
-        await client.sync();
+        if (client.isActive()) {
+          await client.sync();
+        }
       } catch (err) {
         error('Yorkie 연결 실패');
       }
@@ -48,21 +53,31 @@ export default function useYorkie(documentKey: string) {
     initYorkie();
 
     return () => {
-      clientRef.current?.deactivate().catch(() => {});
+      if (clientRef.current?.isActive()) {
+        clientRef.current?.deactivate().catch(() => {});
+      }
     };
   }, [documentKey, error]);
 
   const getLatestContentByKey = async (key: string) => {
-    const tempClient = new yorkie.Client(YORKIE_URL, { apiKey: YORKIE_API_KEY });
-    await tempClient.activate();
+    try {
+      const tempClient = new yorkie.Client(YORKIE_URL, { apiKey: YORKIE_API_KEY });
+      await tempClient.activate();
 
-    const tempDoc = new yorkie.Document<{ content: yorkie.Text }>(key);
-    await tempClient.attach(tempDoc);
+      const tempDoc = new yorkie.Document<{ content: yorkie.Text }>(key);
+      await tempClient.attach(tempDoc);
 
-    const latestContent = tempDoc.getRoot().content.toString();
+      const latestContent = tempDoc.getRoot().content.toString();
 
-    await tempClient.deactivate();
-    return latestContent;
+      if (tempClient.isActive()) {
+        await tempClient.deactivate();
+      }
+
+      return latestContent;
+    } catch (err) {
+      error('Yorkie 최신 코드 가져오기 실패');
+      return '';
+    }
   };
 
   const updateContent = (newText: string) => {
@@ -80,7 +95,9 @@ export default function useYorkie(documentKey: string) {
         root.content.edit(0, root.content.length, newText);
       });
 
-      clientRef.current?.sync().catch(() => {});
+      if (clientRef.current?.isActive()) {
+        clientRef.current.sync().catch(() => {});
+      }
     } catch (err) {
       error('Yorkie 업데이트 실패');
     }

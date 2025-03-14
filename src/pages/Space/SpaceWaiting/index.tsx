@@ -25,53 +25,48 @@ interface OutletContextType {
 
 export default function SpaceWaiting() {
   const { codingSpaceId } = useParams<{ codingSpaceId: string }>();
-
   const { client } = useOutletContext<OutletContextType>();
-
   const navigate = useNavigate();
   const { open } = useModalStore();
 
   const [users, setUsers] = useState<UserRoleData[]>([]);
-
   const { startSpaceMutate } = useStartSpace();
-  const [message, setMessage] = useState<string | null>(null);
   const { data, isLoading } = useGetWaitingPage(codingSpaceId);
 
   useEffect(() => {
-    const subscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
-      setMessage(msg.body);
-    });
+    if (!client || !client.connected || !codingSpaceId) return;
 
     if (data?.activeUsers) {
       setUsers(data.activeUsers);
     }
-    if (message) {
-      const object = JSON.parse(message);
+
+    const subscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
+      const object = JSON.parse(msg.body);
+
       if (object.type === 'STUDY_START') {
         open('waiting', {
           label: WAITING_INFO.running.label,
           description: WAITING_INFO.running.description,
           navigate: navigate(WAITING_INFO.running.navigate(Number(codingSpaceId)), { replace: true }),
         });
+        return;
       }
+
       setUsers((prev) => {
         if (object.type === 'USER_ENTER') {
-          if (prev.some((user) => user.id === object.data.id)) {
-            return prev;
-          }
-          return [...prev, object.data];
+          return prev.some((user) => user.id === object.data.id) ? prev : [...prev, object.data];
         }
         if (object.type === 'USER_LEAVE') {
           return prev.filter((user) => user.id !== object.data.id);
         }
         return prev;
       });
-    }
+    });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [data, message, navigate, codingSpaceId, open, client]);
+  }, [data]);
 
   const handleStart = () => {
     startSpaceMutate.mutate(codingSpaceId);
