@@ -45,7 +45,7 @@ export default function SpaceRunning() {
   const { subMissionMutate } = useSubmission();
 
   const { data, isLoading, refetch } = useGetStartingPage(codingSpaceId);
-  const { content, updateContent } = useYorkie(data?.documentKey);
+  const { content, handleLocalChange } = useYorkie(data?.documentKey);
 
   useEffect(() => {
     if (!data || !client || !client.connected) return;
@@ -143,7 +143,7 @@ export default function SpaceRunning() {
         workbookUrl={data?.workbookUrl}
         language={data?.language}
         activeTabs={users}
-        onCodeChange={updateContent}
+        onCodeChange={handleLocalChange}
         setInput={setInput}
         code={content}
         disabled={false}
