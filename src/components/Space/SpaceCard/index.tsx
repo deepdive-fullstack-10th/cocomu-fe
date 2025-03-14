@@ -49,7 +49,7 @@ export default function SpaceCard({
     });
   };
 
-  const leader = activeUsers.find((user) => user.role === 'HOST');
+  const leader = activeUsers?.find((user) => user.role === 'HOST');
 
   return (
     <S.CardContainer onClick={handleCardClick}>
