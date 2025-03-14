@@ -23,17 +23,15 @@ export interface SpaceData {
   joinedMe: boolean;
   name: string;
   language: SpaceLanguageData;
-  currentUserCount: number;
   totalUserCount: number;
   createdAt: string;
   status: string;
-  currentUsers: UserRoleData[];
+  activeUsers: UserRoleData[];
 }
 
 export interface SpaceFormData extends Record<string, string | number[]> {
   totalUserCount: number[];
   timerTime: string;
-  workbookUrl: string;
   name: string;
   languageId: number[];
   description: string;
@@ -44,11 +42,16 @@ export interface TestCaseIO {
   output?: string;
 }
 
-export interface SubmitTestCase extends TestCaseIO {
+export interface SubmitTestCase {
+  input?: string;
+  output?: string;
   testCaseId?: number | string;
 }
 
-export interface TestCaseData extends SubmitTestCase {
+export interface TestCaseData {
+  input?: string;
+  output?: string;
+  testCaseId?: number | string;
   type?: TestCaseType;
 }
 
@@ -75,8 +78,14 @@ export interface CreateSpaceFormData {
   description: string;
 }
 
-export interface CreateSpaceData extends CreateSpaceFormData {
+export interface CreateSpaceData {
   studyId: number;
+  name: string;
+  timerTime: number;
+  workbookUrl: string;
+  totalUserCount: number;
+  languageId: number;
+  description: string;
   testcases: TestCaseIO[];
 }
 
