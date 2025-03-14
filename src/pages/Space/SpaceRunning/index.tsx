@@ -86,7 +86,7 @@ export default function SpaceRunning() {
       open('waiting', {
         label: WAITING_INFO.feedback.label,
         description: WAITING_INFO.feedback.description,
-        navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId))),
+        navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId)), { replace: true }),
       });
     }
 
