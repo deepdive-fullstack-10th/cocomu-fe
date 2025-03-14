@@ -29,7 +29,7 @@ const Info = styled.div`
   gap: 9rem;
 `;
 
-const Text = styled.span`
+const Role = styled.span`
   ${({ theme }) => theme.font.heading[100]};
   color: ${(props) => (props.role === 'LEADER' ? props.theme.color.primary[900] : props.theme.color.gray[900])};
   display: flex;
@@ -39,9 +39,23 @@ const Text = styled.span`
   white-space: nowrap;
 `;
 
+const Text = styled.span`
+  ${({ theme }) => theme.font.heading[100]};
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+  white-space: nowrap;
+
+  @media (max-width: 980px) {
+    display: none;
+  }
+`;
+
 const S = {
   CardContainer,
   Info,
+  Role,
   Text,
 };
 
