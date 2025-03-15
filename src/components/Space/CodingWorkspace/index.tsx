@@ -28,6 +28,8 @@ export default function CodingWorkspace({
   isSubmission,
   codeSubmit,
   testCaseLegnth,
+  isExcution,
+  setIsExcution,
 }: CodingWorkspaceProps) {
   const { value: width, containerRef, handleMouseDown } = useDraggable({ direction: 'x' });
 
@@ -59,6 +61,8 @@ export default function CodingWorkspace({
           isSubmission={isSubmission}
           codeSubmit={codeSubmit}
           testCaseLegnth={testCaseLegnth}
+          isExcution={isExcution}
+          setIsExcution={setIsExcution}
         />
       </S.CodeSection>
     </S.Container>

@@ -48,7 +48,7 @@ export default function useYorkie(documentKey: string) {
     return () => {
       clientRef.current?.deactivate().catch(() => {});
     };
-  }, [documentKey, error]);
+  }, [documentKey, error, setContent]);
 
   const updateContent = (newText: string) => {
     if (!docRef.current) {
@@ -72,13 +72,18 @@ export default function useYorkie(documentKey: string) {
     }
   };
 
-  const handleLocalChange = (newText: string) => {
+  const handleLocalChange = async (newText: string) => {
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
 
-    typingTimeoutRef.current = setTimeout(() => {
+    typingTimeoutRef.current = setTimeout(async () => {
       updateContent(newText);
+
+      // Yorkie 문서의 최신 데이터를 즉시 가져와서 content 상태 업데이트
+      const latestContent = docRef.current?.getRoot().content?.toString() || '';
+
+      setContent(latestContent);
     }, 200);
   };
 

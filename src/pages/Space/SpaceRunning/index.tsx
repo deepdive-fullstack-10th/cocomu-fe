@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import useYorkie from '@hooks/utils/useYorkie';
 import { Client } from '@stomp/stompjs';
@@ -39,6 +39,7 @@ export default function SpaceRunning() {
   const [output, setOutput] = useState<string>();
   const [isSubmission, setIsSubmission] = useState<boolean>(false);
   const [codeSubmit, setCodeSubmit] = useState<CodeSubmit[]>([]);
+  const [isExcution, setIsExcution] = useState<boolean>(false);
 
   const { excutionMutate } = useExcution();
   const { feedBackSpaceMutate } = useFeedBackSpace();
@@ -91,21 +92,23 @@ export default function SpaceRunning() {
       spaceSubscription.unsubscribe();
       submissionSubscription.unsubscribe();
     };
-  }, [data, client]);
+  }, [data]);
 
-  const handleStart = useCallback(() => {
+  const handleStart = () => {
     feedBackSpaceMutate.mutate(codingSpaceId);
-  }, [feedBackSpaceMutate, codingSpaceId]);
+  };
 
-  const handleCodeExecution = useCallback(() => {
+  const handleCodeExecution = () => {
     if (!data) return;
+
     excutionMutate.mutate({
       codingSpaceTabId: data.tabId,
       language: data.language?.languageName,
       code: content,
       input,
     });
-  }, [excutionMutate, data, content, input]);
+    setIsExcution(true);
+  };
 
   const handleSubmit = () => {
     subMissionMutate.mutate(
@@ -151,6 +154,8 @@ export default function SpaceRunning() {
         isSubmission={isSubmission}
         codeSubmit={codeSubmit}
         testCaseLegnth={data.testCases.length}
+        isExcution={isExcution}
+        setIsExcution={setIsExcution}
       />
 
       <SpaceFooter

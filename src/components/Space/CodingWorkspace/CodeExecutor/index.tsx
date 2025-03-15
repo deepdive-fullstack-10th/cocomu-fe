@@ -27,6 +27,8 @@ export interface CodeExecutorProps {
   isSubmission?: boolean;
   codeSubmit?: CodeSubmit[];
   testCaseLegnth?: number;
+  isExcution?: boolean;
+  setIsExcution?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function CodeExecutor({
@@ -44,6 +46,8 @@ export default function CodeExecutor({
   isSubmission,
   codeSubmit,
   testCaseLegnth,
+  isExcution,
+  setIsExcution,
 }: CodeExecutorProps) {
   const { value: height, containerRef, handleMouseDown } = useDraggable({ direction: 'y', initialValue: 70 });
 
@@ -88,6 +92,8 @@ export default function CodeExecutor({
               setInput={setInput}
               output={output}
               disabled={disabled}
+              isExcution={isExcution}
+              setIsExcution={setIsExcution}
             />
           )}
         </>
