@@ -28,7 +28,7 @@ const Header = styled.div`
   ${({ theme }) => theme.font.common.default};
 `;
 
-const HederResultLeft = styled.div`
+const HeaderResultLeft = styled.div`
   display: flex;
 
   margin-left: 2rem;
@@ -38,7 +38,7 @@ const HederResultLeft = styled.div`
   }
 `;
 
-const HederResultRight = styled.div<{ status: boolean }>`
+const HeaderResultRight = styled.div<{ status: boolean }>`
   margin-right: 2rem;
   color: ${({ status, theme }) => (status ? theme.color.analogous[700] : theme.color.triadic[700])};
 `;
@@ -46,8 +46,8 @@ const HederResultRight = styled.div<{ status: boolean }>`
 const S = {
   Container,
   Header,
-  HederResultLeft,
-  HederResultRight,
+  HeaderResultLeft,
+  HeaderResultRight,
 };
 
 export default S;

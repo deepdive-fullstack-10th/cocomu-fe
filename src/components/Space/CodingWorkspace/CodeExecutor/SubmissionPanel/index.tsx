@@ -16,13 +16,13 @@ export default function SubmissionPanel({ codeSubmit, testCaseLegnth }: Submissi
   return (
     <S.Container>
       <S.Header>
-        <S.HederResultLeft>
+        <S.HeaderResultLeft>
           <div>제출 결과</div>
           <div>{`${codeSubmit.length}/${testCaseLegnth}`}</div>
-        </S.HederResultLeft>
-        <S.HederResultRight status={codeSubmit[codeSubmit.length - 1].type === 'CORRECT'}>
+        </S.HeaderResultLeft>
+        <S.HeaderResultRight status={codeSubmit[codeSubmit.length - 1].type === 'CORRECT'}>
           {codeSubmit[codeSubmit.length - 1].type === 'CORRECT' ? '성공' : '실패'}
-        </S.HederResultRight>
+        </S.HeaderResultRight>
       </S.Header>
       {codeSubmit.map((item, index) => (
         <SubmissionItem

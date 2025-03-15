@@ -13,17 +13,17 @@ export default function SubmissionItem({ item, index }: ItemProps) {
 
   return (
     <S.Container>
-      <S.CotainerLeft>
+      <S.ContainerLeft>
         <S.ItemTitle>{`테스트 케이스 ${index + 1}`}</S.ItemTitle>
         <S.ItemInfo>
           <div>{`${item?.data?.executionMessage?.executionTime}ms`}</div>
           <div>{`${item?.data?.executionMessage?.memoryUsageKB}KB`}</div>
         </S.ItemInfo>
-      </S.CotainerLeft>
-      <S.CotainerRight>
+      </S.ContainerLeft>
+      <S.ContainerRight>
         <div>{`${item.type}`}</div>
         <S.Dot status={item.type === 'CORRECT'} />
-      </S.CotainerRight>
+      </S.ContainerRight>
     </S.Container>
   );
 }
