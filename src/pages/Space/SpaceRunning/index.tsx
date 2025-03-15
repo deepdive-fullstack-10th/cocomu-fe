@@ -61,6 +61,7 @@ export default function SpaceRunning() {
 
       if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
         setOutput(object.data.output);
+        setIsExcution(true);
       }
 
       if (object.type === 'STUDY_FEEDBACK') {
@@ -107,7 +108,6 @@ export default function SpaceRunning() {
       code: content,
       input,
     });
-    setIsExcution(true);
   };
 
   const handleSubmit = () => {

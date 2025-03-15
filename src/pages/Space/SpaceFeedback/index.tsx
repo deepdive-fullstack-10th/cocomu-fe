@@ -36,6 +36,7 @@ export default function SpaceFeedBack() {
   const [output, setOutput] = useState<string>();
   const [selectTab, setSelectTab] = useState<ActiveTab | null>(null);
   const [finished, setFinished] = useState<boolean>(false);
+  const [isExcution, setIsExcution] = useState<boolean>(false);
 
   const { excutionMutate } = useExcution();
   const { data, isLoading, refetch } = useGetFeedbackPage(codingSpaceId);
@@ -108,6 +109,7 @@ export default function SpaceFeedBack() {
 
         if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR', 'COMPILE_ERROR'].includes(object.type)) {
           setOutput(object.data.output);
+          setIsExcution(true);
         }
       } catch (err) {
         error('탭 구독 실패');
@@ -186,6 +188,8 @@ export default function SpaceFeedBack() {
         output={output}
         selectUser={setSelectTab}
         finish={finished}
+        isExcution={isExcution}
+        setIsExcution={setIsExcution}
       />
 
       <SpaceFooter
