@@ -7,7 +7,6 @@ export default function useYorkie(documentKey: string) {
   const [content, setContent] = useState('');
 
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const clientRef = useRef<yorkie.Client | null>(null);
   const docRef = useRef<yorkie.Document<{ content: yorkie.Text }> | null>(null);
   const { error } = useToastStore();
@@ -19,6 +18,7 @@ export default function useYorkie(documentKey: string) {
 
         const client = new yorkie.Client(YORKIE_URL, {
           apiKey: YORKIE_API_KEY,
+          syncLoopDuration: 0,
         });
 
         await client.activate();
@@ -34,7 +34,7 @@ export default function useYorkie(documentKey: string) {
 
         doc.subscribe((event) => {
           if (event.type === 'remote-change') {
-            const updatedContent = doc.getRoot().content.toString();
+            const updatedContent = doc.getRoot().content?.toString() || '';
             setContent(updatedContent);
           }
         });
@@ -62,7 +62,7 @@ export default function useYorkie(documentKey: string) {
           Object.assign(root, { content: new yorkie.Text() });
         }
 
-        const oldText = root.content.toString();
+        const oldText = root.content?.toString() || '';
         if (newText !== oldText) {
           root.content.edit(0, oldText.length, newText);
         }
@@ -92,7 +92,7 @@ export default function useYorkie(documentKey: string) {
 
       await tempClient.sync();
 
-      return tempDoc.getRoot().content.toString();
+      return tempDoc.getRoot().content?.toString() || '';
     } catch (err) {
       error(`문서(${key})의 최신 내용을 가져오는 데 실패했습니다.`);
       return '';

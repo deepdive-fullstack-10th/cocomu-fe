@@ -57,7 +57,7 @@ export default function SpaceRunning() {
 
     const handleMessage = (msg) => {
       const object = JSON.parse(msg.body);
-      console.log(object);
+
       if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
         setOutput(object.data.output);
       }
@@ -91,7 +91,7 @@ export default function SpaceRunning() {
       spaceSubscription.unsubscribe();
       submissionSubscription.unsubscribe();
     };
-  }, [data]);
+  }, [data, client]);
 
   const handleStart = useCallback(() => {
     feedBackSpaceMutate.mutate(codingSpaceId);

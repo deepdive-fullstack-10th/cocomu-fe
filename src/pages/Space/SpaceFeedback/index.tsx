@@ -35,6 +35,7 @@ export default function SpaceFeedBack() {
   const [input, setInput] = useState<string>('');
   const [output, setOutput] = useState<string>();
   const [selectTab, setSelectTab] = useState<ActiveTab | null>(null);
+  const [finished, setFinished] = useState<boolean>(false);
 
   const { excutionMutate } = useExcution();
   const { data, isLoading, refetch } = useGetFeedbackPage(codingSpaceId);
@@ -130,7 +131,9 @@ export default function SpaceFeedBack() {
 
         if (object.type === 'STUDY_FINISH' && !isSaving.current) {
           finish.current = true;
-          saveCode();
+          setTimeout(() => {
+            saveCode();
+          }, 200);
         }
       } catch (err) {
         error('스페이스 구독 실패');
@@ -154,6 +157,7 @@ export default function SpaceFeedBack() {
   };
 
   const handleFinish = () => {
+    setFinished(true);
     finishSpaceMutate.mutate(codingSpaceId);
   };
 
@@ -181,6 +185,7 @@ export default function SpaceFeedBack() {
         disabled={false}
         output={output}
         selectUser={setSelectTab}
+        finish={finished}
       />
 
       <SpaceFooter
