@@ -6,7 +6,7 @@ export default function useDeleteStudy({ navigate }: { navigate?: () => void }) 
   const queryClient = useQueryClient();
 
   const deleteStudyMutate = useMutation({
-    mutationFn: studyApi.delete,
+    mutationFn: (studyId: string) => studyApi.delete(studyId), // 변경된 post 요청 사용
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.STUDY_LIST] });
       navigate?.();

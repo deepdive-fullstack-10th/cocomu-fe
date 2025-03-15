@@ -200,7 +200,7 @@ export const studyHandlers = [
     });
   }),
 
-  http.delete(`${BASE_URL}${END_POINTS_V1.STUDY.DELETE(':studyId')}`, async ({ params }) => {
+  http.post(`${BASE_URL}${END_POINTS_V1.STUDY.DELETE(':studyId')}`, async ({ params }) => {
     const { studyId } = params;
 
     if (!studyId) {
