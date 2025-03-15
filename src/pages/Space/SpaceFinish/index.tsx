@@ -18,8 +18,17 @@ export default function SpaceFinish() {
 
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [selectTab, setSelectTab] = useState<ActiveTab | null>(null);
+  const [triggerApiCall, setTriggerApiCall] = useState(false);
 
-  const { data, isLoading } = useGetFinishPage(codingSpaceId);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTriggerApiCall(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const { data, isLoading } = useGetFinishPage(triggerApiCall ? codingSpaceId : null);
 
   const handleStart = () => {
     if (data?.studyId) {

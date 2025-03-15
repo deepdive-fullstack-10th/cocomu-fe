@@ -141,7 +141,7 @@ export const studyHandlers = [
 
     if (
       !studyId ||
-      !body.status ||
+      // !body.status ||
       !body.name ||
       !body.totalUserCount ||
       !body.languages ||
