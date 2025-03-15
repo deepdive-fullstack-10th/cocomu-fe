@@ -80,7 +80,6 @@ export default function useYorkie(documentKey: string) {
     typingTimeoutRef.current = setTimeout(async () => {
       updateContent(newText);
 
-      // Yorkie 문서의 최신 데이터를 즉시 가져와서 content 상태 업데이트
       const latestContent = docRef.current?.getRoot().content?.toString() || '';
 
       setContent(latestContent);
