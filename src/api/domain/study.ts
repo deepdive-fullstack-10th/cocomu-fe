@@ -78,7 +78,7 @@ const studyApi = {
   },
 
   delete: async (studyId: string) => {
-    await axiosInstance.delete(END_POINTS_V1.STUDY.DELETE(studyId));
+    await axiosInstance.post(END_POINTS_V1.STUDY.DELETE(studyId));
   },
 };
 
