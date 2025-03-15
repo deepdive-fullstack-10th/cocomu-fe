@@ -57,7 +57,7 @@ export default function SpaceRunning() {
 
     const handleMessage = (msg) => {
       const object = JSON.parse(msg.body);
-
+      console.log(object);
       if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
         setOutput(object.data.output);
       }
@@ -77,7 +77,7 @@ export default function SpaceRunning() {
         );
       }
 
-      if (['CORRECT', 'WRONG'].includes(object.type)) {
+      if (['CORRECT', 'WRONG', 'RUNTIME_ERROR'].includes(object.type)) {
         setCodeSubmit((prev) => [...prev, object]);
       }
     };

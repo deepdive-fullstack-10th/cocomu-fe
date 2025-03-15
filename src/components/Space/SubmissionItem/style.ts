@@ -11,7 +11,7 @@ const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.color.gray[600]};
 `;
 
-const CotainerLeft = styled.div`
+const ContainerLeft = styled.div`
   display: flex;
   align-items: center;
 
@@ -29,7 +29,7 @@ const ItemInfo = styled.div`
   ${({ theme }) => theme.font.common.small};
 `;
 
-const CotainerRight = styled.div`
+const ContainerRight = styled.div`
   display: flex;
   align-items: center;
 
@@ -50,10 +50,10 @@ const Dot = styled.span<{ status: boolean }>`
 
 const S = {
   Container,
-  CotainerLeft,
+  ContainerLeft,
   ItemTitle,
   ItemInfo,
-  CotainerRight,
+  ContainerRight,
   Dot,
 };
 
