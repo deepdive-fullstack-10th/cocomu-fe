@@ -105,8 +105,8 @@ export default function SpaceFeedBack() {
     const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(selectTab.tabId), (msg) => {
       try {
         const object = JSON.parse(msg.body);
-
-        if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR'].includes(object.type)) {
+        console.log(object);
+        if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR', 'COMPILE_ERROR'].includes(object.type)) {
           setOutput(object.data.output);
         }
       } catch (err) {
@@ -117,6 +117,7 @@ export default function SpaceFeedBack() {
     const spaceSubscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
       try {
         const object = JSON.parse(msg.body);
+        console.log(object);
 
         if (['DELETE_TEST_CASE', 'ADD_TEST_CASE'].includes(object.type)) {
           if (object.type === 'DELETE_TEST_CASE') {
