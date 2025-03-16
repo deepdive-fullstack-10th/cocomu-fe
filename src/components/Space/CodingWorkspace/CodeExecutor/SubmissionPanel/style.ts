@@ -43,11 +43,19 @@ const HeaderResultRight = styled.div<{ status: boolean }>`
   color: ${({ status, theme }) => (status ? theme.color.analogous[700] : theme.color.triadic[700])};
 `;
 
+const LoadingContainer = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 const S = {
   Container,
   Header,
   HeaderResultLeft,
   HeaderResultRight,
+  LoadingContainer,
 };
 
 export default S;
