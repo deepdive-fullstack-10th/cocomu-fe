@@ -32,7 +32,7 @@ export default function SpaceRunning() {
   const { client } = useOutletContext<OutletContextType>();
   const navigate = useNavigate();
   const { open } = useModalStore();
-  const { alert } = useToastStore();
+  const { alert, error } = useToastStore();
 
   const [users, setUsers] = useState<ActiveTab[]>([]);
   const [input, setInput] = useState<string>('');
@@ -56,56 +56,82 @@ export default function SpaceRunning() {
       setUsers(activeUser ? [activeUser] : []);
     }
 
-    const handleMessage = (msg) => {
-      const object = JSON.parse(msg.body);
-
-      if (
-        [
-          'SUCCESS',
-          'UNKNOWN_ERROR',
-          'RUNTIME_ERROR',
-          'COMPILE_ERROR',
-          'UNSUPPORTED_LANGUAGE',
-          'TIMEOUT_ERROR',
-        ].includes(object.type)
-      ) {
-        setOutput(object.data.output);
-        setIsExcution(true);
+    const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(data.tabId), (msg) => {
+      try {
+        const object = JSON.parse(msg.body);
+        if (
+          [
+            'SUCCESS',
+            'UNKNOWN_ERROR',
+            'RUNTIME_ERROR',
+            'COMPILE_ERROR',
+            'UNSUPPORTED_LANGUAGE',
+            'TIMEOUT_ERROR',
+          ].includes(object.type)
+        ) {
+          setOutput(object.data.output);
+          setIsExcution(true);
+        }
+      } catch (err) {
+        error('탭 구독 실패');
       }
+    });
+    const spaceSubscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), (msg) => {
+      try {
+        const object = JSON.parse(msg.body);
+        if (['DELETE_TEST_CASE', 'ADD_TEST_CASE'].includes(object.type)) {
+          if (object.type === 'DELETE_TEST_CASE') {
+            refetch();
+            alert('테스트 케이스가 삭제되었습니다.');
+          }
+          if (object.type === 'ADD_TEST_CASE') {
+            refetch();
+            alert('테스트 케이스가 추가되었습니다.');
+          }
+        }
 
-      if (object.type === 'STUDY_FEEDBACK') {
-        open('waiting', {
-          label: WAITING_INFO.feedback.label,
-          description: WAITING_INFO.feedback.description,
-          navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId)), { replace: true }),
-        });
+        if (object.type === 'STUDY_FEEDBACK') {
+          open('waiting', {
+            label: WAITING_INFO.feedback.label,
+            description: WAITING_INFO.feedback.description,
+            navigate: navigate(WAITING_INFO.feedback.navigate(Number(codingSpaceId)), { replace: true }),
+          });
+        }
+      } catch (err) {
+        error('스페이스 구독 실패');
       }
+    });
 
-      if (['DELETE_TEST_CASE', 'ADD_TEST_CASE'].includes(object.type)) {
-        refetch();
-        alert(
-          object.type === 'DELETE_TEST_CASE' ? '테스트 케이스가 삭제되었습니다.' : '테스트 케이스가 추가되었습니다.',
-        );
+    const submissionSubscription = client.subscribe(STOMP_ENDPOINTS.SUBMISSION_SUBSCRIBE(data.tabId), (msg) => {
+      try {
+        const object = JSON.parse(msg.body);
+
+        if (
+          [
+            'CORRECT',
+            'WRONG',
+            'UNKNOWN_ERROR',
+            'RUNTIME_ERROR',
+            'COMPILE_ERROR',
+            'UNSUPPORTED_LANGUAGE',
+            'TIMEOUT_ERROR',
+          ].includes(object.type)
+        ) {
+          setCodeSubmit((prev) => {
+            const targetId = object.data.testCaseId;
+
+            const isAlreadyExists = prev.some((item) => item.data.testCaseId === targetId);
+            if (isAlreadyExists) return prev;
+
+            const updatedArray = [...prev, object].sort((a, b) => a.data.testCaseId - b.data.testCaseId);
+
+            return updatedArray;
+          });
+        }
+      } catch (err) {
+        error('제출 탭 구독 실패');
       }
-
-      if (
-        [
-          'CORRECT',
-          'WRONG',
-          'UNKNOWN_ERROR',
-          'RUNTIME_ERROR',
-          'COMPILE_ERROR',
-          'UNSUPPORTED_LANGUAGE',
-          'TIMEOUT_ERROR',
-        ].includes(object.type)
-      ) {
-        setCodeSubmit((prev) => [...prev, object]);
-      }
-    };
-
-    const tabSubscription = client.subscribe(STOMP_ENDPOINTS.TAB_SUBSCRIBE(data.tabId), handleMessage);
-    const spaceSubscription = client.subscribe(STOMP_ENDPOINTS.SPACE_SUBSCRIBE(codingSpaceId), handleMessage);
-    const submissionSubscription = client.subscribe(STOMP_ENDPOINTS.SUBMISSION_SUBSCRIBE(data.tabId), handleMessage);
+    });
 
     return () => {
       tabSubscription.unsubscribe();
@@ -121,15 +147,24 @@ export default function SpaceRunning() {
   const handleCodeExecution = () => {
     if (!data) return;
 
-    excutionMutate.mutate({
-      codingSpaceTabId: data.tabId,
-      language: data.language?.languageName,
-      code: content,
-      input,
-    });
+    excutionMutate.mutate(
+      {
+        codingSpaceTabId: data.tabId,
+        language: data.language?.languageName,
+        code: content,
+        input,
+      },
+      {
+        onSuccess: () => {
+          setIsSubmission(false);
+          setCodeSubmit([]);
+        },
+      },
+    );
   };
 
   const handleSubmit = () => {
+    setCodeSubmit([]);
     subMissionMutate.mutate(
       {
         codingSpaceId: Number(codingSpaceId),
@@ -183,25 +218,21 @@ export default function SpaceRunning() {
         isEditable
       >
         <S.ButtonWrapper>
-          {!isSubmission && (
-            <>
-              <Button
-                size='md'
-                color='analogous'
-                onClick={handleCodeExecution}
-              >
-                코드 실행
-              </Button>
+          <Button
+            size='md'
+            color='analogous'
+            onClick={handleCodeExecution}
+          >
+            코드 실행
+          </Button>
 
-              <Button
-                size='md'
-                color='primary'
-                onClick={handleSubmit}
-              >
-                제출하기
-              </Button>
-            </>
-          )}
+          <Button
+            size='md'
+            color='primary'
+            onClick={handleSubmit}
+          >
+            제출하기
+          </Button>
         </S.ButtonWrapper>
       </SpaceFooter>
     </S.Container>

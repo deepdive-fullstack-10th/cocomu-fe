@@ -1,5 +1,5 @@
 import SubmissionItem from '@components/Space/SubmissionItem';
-
+import LoadingSpinner from '@components/_common/atoms/LoadingSpinner';
 import { CodeSubmit } from '@customTypes/space';
 import S from './style';
 
@@ -10,7 +10,11 @@ interface SubmissionPanelProps {
 
 export default function SubmissionPanel({ codeSubmit, testCaseLegnth }: SubmissionPanelProps) {
   if (!codeSubmit || codeSubmit.length === 0) {
-    return <div>로딩중</div>;
+    return (
+      <S.LoadingContainer>
+        <LoadingSpinner />
+      </S.LoadingContainer>
+    );
   }
 
   return (
