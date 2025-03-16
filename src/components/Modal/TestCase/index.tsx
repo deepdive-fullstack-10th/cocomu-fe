@@ -24,10 +24,11 @@ export default function TestCase({ codingSpaceId, isEditable, testCases, onClose
 
   const handleRemoveTestCase = (id: string) => {
     const testCaseToRemove = localTestCases.find((testCase) => testCase.testCaseId === id);
+    const findString = /[a-zA-Z]/.test(String(testCaseToRemove.testCaseId));
 
     setLocalTestCases((prevList) => prevList.filter((testCase) => testCase.testCaseId !== id));
 
-    if (testCaseToRemove && testCaseToRemove.input.trim() && testCaseToRemove.output.trim()) {
+    if (testCaseToRemove && !findString && testCaseToRemove.input.trim() && testCaseToRemove.output.trim()) {
       deleteTestCaseMutate.mutate({ codingSpaceId, testCasesId: id });
     }
 

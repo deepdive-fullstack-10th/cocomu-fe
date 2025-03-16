@@ -107,7 +107,16 @@ export default function SpaceFeedBack() {
       try {
         const object = JSON.parse(msg.body);
 
-        if (['SUCCESS', 'RUNNING', 'TIMEOUT_ERROR', 'COMPILE_ERROR'].includes(object.type)) {
+        if (
+          [
+            'SUCCESS',
+            'UNKNOWN_ERROR',
+            'RUNTIME_ERROR',
+            'COMPILE_ERROR',
+            'UNSUPPORTED_LANGUAGE',
+            'TIMEOUT_ERROR',
+          ].includes(object.type)
+        ) {
           setOutput(object.data.output);
           setIsExcution(true);
         }

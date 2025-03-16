@@ -10,13 +10,15 @@ const TestCaseItem = styled.div`
   width: 100%;
 `;
 
-const Input = styled.input<{ remove?: boolean }>`
+const Input = styled.textarea<{ remove?: boolean }>`
   ${({ theme }) => theme.font.common.default};
   color: ${({ theme }) => theme.color.gray[900]};
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   border-radius: 0.8rem;
 
   width: 80%;
+  height: 4rem;
+  resize: none;
   padding: 0.6rem ${({ remove }) => (remove ? '4rem' : '2.4rem')};
   outline: none;
 
@@ -25,13 +27,15 @@ const Input = styled.input<{ remove?: boolean }>`
   }
 `;
 
-const Output = styled.input`
+const Output = styled.textarea`
   ${({ theme }) => theme.font.common.default};
   color: ${({ theme }) => theme.color.gray[900]};
   border: 1px solid ${({ theme }) => theme.color.gray[600]};
   border-radius: 0.8rem;
 
   width: 50%;
+  height: 4rem;
+  resize: none;
   padding: 0.6rem 2.4rem;
   outline: none;
 
