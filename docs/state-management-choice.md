@@ -1,6 +1,5 @@
 # 왜 우리는 TanStack Query와 Zustand를 선택했을까?
 
-<hr style="height:3px; background-color:#3D444D; " />
 
 ## Redux Toolkit의 문제점
 
