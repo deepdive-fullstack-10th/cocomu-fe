@@ -1,6 +1,5 @@
 # COCOMU 프론트 팀 기술 문서
 
-<hr style="height:3px; background-color:#3D444D; " />
 
 ## ✍️ 코코무 개발 이야기
 
